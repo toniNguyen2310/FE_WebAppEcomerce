@@ -1,28 +1,36 @@
 import React, { useState, useRef } from "react";
-import "./register.scss";
+import { useNavigate } from "react-router-dom";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import { NavLink } from "react-router-dom";
+import { callRegister } from "../../services.js/api";
+import { toast } from "react-toastify";
+import "./register.scss";
+import "react-toastify/dist/ReactToastify.css";
+
 function RegisterPage(props) {
+  const navigate = useNavigate();
   const refInput = useRef(null);
-  const [isShowPass, setIsShowPass] = useState(false);
   const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
+  const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
-  const handleRegister = (e) => {
-    e.preventDefault();
-    console.log({
-      name: name,
-      email: email,
-      password: password,
-      phone: phone,
-    });
-    //reset input after submit
+  const [isShowPass, setIsShowPass] = useState(false);
 
+  //HANDLE REGISTER
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    const res = await callRegister(email, username, password, phone);
+    if (res?.data?._id) {
+      toast.success("Đăng ký thành công");
+      console.log("Đăng ký thành công");
+      navigate("/login");
+    } else {
+      toast.error("Đăng ký thất bại");
+    }
     refInput.current.focus();
     setIsShowPass(false);
     setEmail("");
-    setName("");
+    setUserName("");
     setPassword("");
     setPhone("");
   };
@@ -57,8 +65,8 @@ function RegisterPage(props) {
               type="text"
               id="name"
               placeholder="Họ và tên"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={username}
+              onChange={(e) => setUserName(e.target.value)}
             />
           </div>
 

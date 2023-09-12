@@ -2,8 +2,36 @@ import React, { useState } from "react";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import { NavLink } from "react-router-dom";
 import "./login.scss";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
+import { callLogin } from "../../services.js/api";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { doLoginAction } from "../../redux/account/accountSlice";
+
 function LoginPage(props) {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [isShowPass, setIsShowPass] = useState(false);
+
+  const dispatch = useDispatch();
+
+  //HANDLE LOGIN
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    const res = await callLogin(email, password);
+    if (res?.data?.userWP._id) {
+      localStorage.setItem("access_token", res.data.accessToken);
+      dispatch(doLoginAction(res.data.userWP));
+      toast.success("Đăng nhập thành công");
+      console.log("Đăng nhập thành công >>> ", res.data);
+      navigate("/");
+    } else {
+      toast.error(res.data);
+    }
+  };
+
   return (
     <div className="login-page">
       <div className="login-page-form">
@@ -20,6 +48,8 @@ function LoginPage(props) {
               type="text"
               id="email"
               placeholder="Vui lòng nhập email của bạn"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div className="login-page-form-container-input input-password">
@@ -28,6 +58,8 @@ function LoginPage(props) {
               id="passwordLogin"
               type={isShowPass ? "text" : "password"}
               placeholder="Vui lòng nhập mật khẩu"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
             {isShowPass ? (
               <AiFillEye onClick={() => setIsShowPass(!isShowPass)} />
@@ -40,7 +72,11 @@ function LoginPage(props) {
           <a href="" className="login-page-form-footer-misspass">
             Quên mật khẩu
           </a>
-          <a href="" className="login-page-form-footer-btn">
+          <a
+            href=""
+            className="login-page-form-footer-btn"
+            onClick={handleLogin}
+          >
             Đăng nhập
           </a>
           <p>

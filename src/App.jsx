@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Button, message, Space } from "antd";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import ContentPage from "./pages/content";
@@ -12,38 +13,42 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../src/styles/reset.scss";
 import { callFetchAccount } from "./services.js/api";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { doGetAccountAction } from "./redux/account/accountSlice";
+import NotFound from "./Components/NotFound";
+import AdminPage from "./pages/admin";
+import Loading from "./Components/Loading";
+import ProtectedRoute from "./Components/ProtectedRoute";
+import LayoutAdmin from "./pages/admin/LayoutAdmin";
 
+//LAYOUT MAIN
 const Layout = () => {
   return (
     <div>
       <Header />
       <Outlet />
       <Footer />
-      <ToastContainer position="top-center" autoClose={2000} theme="colored" />
+      <ToastContainer
+        position="top-center"
+        autoClose={2000}
+        hideProgressBar={true}
+        theme="light"
+      />
     </div>
   );
 };
 
 export default function App() {
   const dispatch = useDispatch();
-  const getAccount = async () => {
-    const res = await callFetchAccount();
-    console.log("res>>> ", res);
-    if (res && res.data) {
-      dispatch(doGetAccountAction(res.data));
-    }
-  };
-  useEffect(() => {
-    getAccount();
-  }, []);
+  const isLoading = useSelector((state) => state.account.isLoading);
+  const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
+  console.log("isAuthenticated - App>> ", isAuthenticated);
 
   const router = createBrowserRouter([
     {
       path: "/",
       element: <Layout />,
-      errorElement: <div>404 NOT FOUND!!!</div>,
+      errorElement: <NotFound />,
       children: [
         { index: true, element: <HomePage /> },
         {
@@ -64,10 +69,64 @@ export default function App() {
         },
       ],
     },
+    {
+      path: "/admin",
+      element: <LayoutAdmin />,
+      errorElement: <NotFound />,
+      children: [
+        {
+          index: true,
+          element: (
+            <ProtectedRoute>
+              <AdminPage />
+            </ProtectedRoute>
+          ),
+        },
+        // {
+        //   path: "user",
+        //   element: <ContentPage />,
+        // },
+      ],
+    },
   ]);
+  useEffect(() => {
+    const getAccount = async () => {
+      if (
+        window.location.pathname === "/login" ||
+        window.location.pathname === "/register"
+      ) {
+        return;
+      }
+
+      const res = await callFetchAccount();
+      console.log("res>>> ", res);
+      if (res && res.data) {
+        dispatch(doGetAccountAction(res.data));
+      }
+    };
+    getAccount();
+  }, []);
   return (
     <>
-      <RouterProvider router={router} />
+      {isLoading === false ||
+      window.location.pathname === "/login" ||
+      window.location.pathname === "/register" ||
+      window.location.pathname === "/" ? (
+        <>
+          {console.log("run")}
+          <RouterProvider router={router} />
+        </>
+      ) : (
+        //  window.location.pathname.startsWith("/admin")
+        //BUG => Khi không đăng nhập và muốn truy cập vào trang ADMIN sẽ bị chuyển về trang login để đăng nhập
+        // Cần tìm cách chuyển ..... chưa nghĩ ra nên để tạm laptopPage
+
+        // <LaptopPage />
+        <>
+          {console.log("Run Loading")}
+          <Loading />
+        </>
+      )}
     </>
   );
 }

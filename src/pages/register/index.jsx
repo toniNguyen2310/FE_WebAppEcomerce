@@ -6,6 +6,7 @@ import { callRegister } from "../../services.js/api";
 import { toast } from "react-toastify";
 import "./register.scss";
 import "react-toastify/dist/ReactToastify.css";
+import { Button, Divider, notification, Space } from "antd";
 
 function RegisterPage(props) {
   const navigate = useNavigate();
@@ -15,17 +16,84 @@ function RegisterPage(props) {
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
   const [isShowPass, setIsShowPass] = useState(false);
+  const [api, contextHolder] = notification.useNotification();
+  const topRight = "topRight";
+  //Enter để nộp
+  const handleKeyPress = (e) => {
+    let key = e.keyCode || e.which;
+    if (key === 13) {
+      handleRegister(e);
+    }
+  };
+
+  //Validate email
+  const validateEmail = (value) => {
+    const regexEmail =
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    let isValid = regexEmail.test(value);
+    return isValid;
+  };
+  // //Validate Password
+  const validatePassword = (value) => {
+    const regexPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+    let isValid = regexPassword.test(value);
+    return isValid;
+  };
+  //Validate phone
+  const validatePhone = (value) => {
+    const regexPhone = /[0-9]{10}\b/g;
+    let isValid = regexPhone.test(value);
+    return isValid;
+  };
 
   //HANDLE REGISTER
   const handleRegister = async (e) => {
     e.preventDefault();
-    const res = await callRegister(email, username, password, phone);
+    if (!email || !username || !password) {
+      api.info({
+        message: `Vui lòng nhập thông tin `,
+        // description:
+        //   "This is the content of the notification. This is the content of the notification. This is the content of the notification.",
+        topRight,
+      });
+      // openNotification("topRight");
+      return;
+    }
+    if (!validateEmail(email)) {
+      api.info({
+        message: `Vui lòng nhập lại Email `,
+        description:
+          "Định dạng email bao gồm hai phần chính là trước và sau @, ví dụ như abc@gmail.com ",
+        topRight,
+      });
+      return;
+    }
+    if (!validatePassword(password)) {
+      api.info({
+        message: `Vui lòng nhập lại mật khẩu `,
+        description:
+          "Mật khẩu cần tối thiểu 8 ký tự bao gồm chữ viết thường, viết hoa, số và ký tự đặc biệt",
+        topRight,
+      });
+      return;
+    }
+    if (!validatePhone(phone)) {
+      api.info({
+        message: `Vui lòng nhập lại số điện thoại`,
+
+        topRight,
+      });
+      return;
+    }
+
+    const res = await callRegister(email, username.trim(), password, phone);
     if (res?.data?._id) {
       toast.success("Đăng ký thành công");
       console.log("Đăng ký thành công");
       navigate("/login");
     } else {
-      toast.error("Đăng ký thất bại");
+      toast.error("Email đã tồn tại");
+      return;
     }
     refInput.current.focus();
     setIsShowPass(false);
@@ -34,8 +102,10 @@ function RegisterPage(props) {
     setPassword("");
     setPhone("");
   };
+
   return (
     <div className="register-page">
+      {contextHolder}
       <div className="register-page-form">
         <div className="register-page-form-lorup">
           <NavLink to={`/login`}>Đăng nhập</NavLink> &nbsp; &Iota; &nbsp;{" "}
@@ -54,6 +124,7 @@ function RegisterPage(props) {
               placeholder="Vui lòng nhập email của bạn"
               ref={refInput}
               value={email}
+              onKeyUp={(e) => handleKeyPress(e)}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
@@ -66,6 +137,7 @@ function RegisterPage(props) {
               id="name"
               placeholder="Họ và tên"
               value={username}
+              onKeyUp={(e) => handleKeyPress(e)}
               onChange={(e) => setUserName(e.target.value)}
             />
           </div>
@@ -78,6 +150,7 @@ function RegisterPage(props) {
               type={isShowPass ? "text" : "password"}
               placeholder="Vui lòng nhập mật khẩu"
               value={password}
+              onKeyUp={(e) => handleKeyPress(e)}
               onChange={(e) => setPassword(e.target.value)}
             />
             {isShowPass ? (
@@ -105,6 +178,7 @@ function RegisterPage(props) {
               id="phone"
               placeholder="Số điện thoại ...."
               value={phone}
+              onKeyUp={(e) => handleKeyPress(e)}
               onChange={(e) => setPhone(e.target.value)}
             />
           </div>

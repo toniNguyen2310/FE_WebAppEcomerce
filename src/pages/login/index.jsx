@@ -8,28 +8,42 @@ import { callLogin } from "../../services.js/api";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { doLoginAction } from "../../redux/account/accountSlice";
-
+import { Button, message, Space } from "antd";
 function LoginPage(props) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isShowPass, setIsShowPass] = useState(false);
-
   const dispatch = useDispatch();
 
+  //Enter để nộp
+  const handleKeyPress = (e) => {
+    let key = e.keyCode || e.which;
+    if (key === 13) {
+      handleLogin(e);
+    }
+  };
   //HANDLE LOGIN
   const handleLogin = async (e) => {
     e.preventDefault();
+    //VALIDATE VALUE
+    if (!email || !password) {
+      toast.warning("Vui lòng nhập thông tin");
+      return;
+    }
     const res = await callLogin(email, password);
-    if (res?.data?.userWP._id) {
+    if (res?.data?.userWP) {
       localStorage.setItem("access_token", res.data.accessToken);
       dispatch(doLoginAction(res.data.userWP));
-      toast.success("Đăng nhập thành công");
-      console.log("Đăng nhập thành công >>> ", res.data);
+      toast.success("Đăng nhập thành công", { toastId: "success1" });
       navigate("/");
     } else {
       toast.error(res.data);
+      return;
     }
+    setEmail("");
+    setPassword("");
+    setIsShowPass("");
   };
 
   return (
@@ -49,6 +63,7 @@ function LoginPage(props) {
               id="email"
               placeholder="Vui lòng nhập email của bạn"
               value={email}
+              onKeyUp={(e) => handleKeyPress(e)}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
@@ -58,6 +73,7 @@ function LoginPage(props) {
               id="passwordLogin"
               type={isShowPass ? "text" : "password"}
               placeholder="Vui lòng nhập mật khẩu"
+              onKeyUp={(e) => handleKeyPress(e)}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />

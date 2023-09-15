@@ -11,9 +11,12 @@ import { PiSpeakerSimpleHighBold } from "react-icons/pi";
 import { GrLocation } from "react-icons/gr";
 import { TfiMenuAlt } from "react-icons/tfi";
 import { FiPhoneCall } from "react-icons/fi";
-
 import "./header.scss";
+import { useSelector } from "react-redux";
+import DropdownComponent from "../Dropdown";
 function Header(props) {
+  const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
+
   return (
     <header className="header-container">
       <div className="header__top">
@@ -69,17 +72,27 @@ function Header(props) {
               <PiSpeakerSimpleHighBold />
               &nbsp; Tin tức
             </a>
+
             <span className="header__top__right-title margin-left__40px">
               <FaUserCircle />
-              <NavLink
-                to={`/register`}
-                className="header__top__right-title-user"
-              >
-                &nbsp; Đăng ký&nbsp;/&nbsp;
-              </NavLink>
-              <NavLink to={`/login`} className="header__top__right-title-user">
-                Đăng nhập
-              </NavLink>
+              {isAuthenticated ? (
+                <DropdownComponent />
+              ) : (
+                <>
+                  <NavLink
+                    to={`/register`}
+                    className="header__top__right-title-user"
+                  >
+                    &nbsp; Đăng ký&nbsp;/&nbsp;
+                  </NavLink>
+                  <NavLink
+                    to={`/login`}
+                    className="header__top__right-title-user"
+                  >
+                    Đăng nhập
+                  </NavLink>
+                </>
+              )}
             </span>
           </div>
         </div>

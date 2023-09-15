@@ -2,12 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isAuthenticated: false,
+  isLoading: true,
   user: {
     id: "",
     email: "",
     username: "",
     phone: "",
-    admin: false,
+    isAdmin: false,
   },
 };
 
@@ -18,11 +19,26 @@ export const accountSlice = createSlice({
   reducers: {
     doLoginAction: (state, action) => {
       state.isAuthenticated = true;
+      state.isLoading = false;
       state.user = action.payload;
     },
+
     doGetAccountAction: (state, action) => {
       state.isAuthenticated = true;
-      state.user = action.payload;
+      state.isLoading = false;
+      state.user = action.payload.user;
+    },
+
+    doLogoutAction: (state, action) => {
+      localStorage.removeItem("access_token");
+      state.isAuthenticated = false;
+      state.user = {
+        id: "",
+        email: "",
+        username: "",
+        phone: "",
+        isAdmin: false,
+      };
     },
   },
 
@@ -31,6 +47,7 @@ export const accountSlice = createSlice({
   extraReducers: (builder) => {},
 });
 
-export const { doLoginAction, doGetAccountAction } = accountSlice.actions;
+export const { doLoginAction, doGetAccountAction, doLogoutAction } =
+  accountSlice.actions;
 
 export default accountSlice.reducer;

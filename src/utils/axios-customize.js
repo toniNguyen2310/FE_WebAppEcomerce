@@ -13,6 +13,13 @@ instance.defaults.headers.common = {
   Authorization: `Bearer ${localStorage.getItem("access_token")}`,
 };
 
+//Xử lý refresh Token
+const handleRefreshToken = async () => {
+  const res = await instance.post("/v1/api/auth/refresh");
+  if (res && res.data) return res.data.accessToken;
+  else null;
+};
+
 // Add a request interceptor
 instance.interceptors.request.use(
   function (config) {
@@ -25,6 +32,9 @@ instance.interceptors.request.use(
   }
 );
 
+//Biến gán để tránh retry vô hạn
+const NO_RETRY_HEADER = "x-no-retry";
+
 // Add a response interceptor
 instance.interceptors.response.use(
   function (response) {
@@ -32,9 +42,35 @@ instance.interceptors.response.use(
     // Do something with response data
     return response && response.data ? response.data : response;
   },
-  function (error) {
-    // Any status codes that falls outside the range of 2xx cause this function to trigger
-    // Do something with response error
+  async function (error) {
+    if (
+      error.config &&
+      error.response &&
+      +error.response.status === 401 &&
+      //Điều kiện tránh retry vô hạn
+      !error.config.headers[NO_RETRY_HEADER]
+    ) {
+      const accessToken = await handleRefreshToken();
+      //Xử lý tránh retry vô hạn
+      error.config.headers[NO_RETRY_HEADER] = "true";
+
+      if (accessToken) {
+        console.log("accessToken>>>", accessToken);
+        error.config.headers["Authorization"] = `Bearer ${accessToken}`;
+        localStorage.setItem("access_token", accessToken);
+        console.log("error.config>> ", error.config);
+        return instance.request(error.config);
+      }
+    }
+    // if (
+    //   error.config &&
+    //   error.response &&
+    //   +error.response.status === 400 &&
+    //   //Điều kiện tránh retry vô hạn
+    //   !error.config.headers[NO_RETRY_HEADER]
+    // ) {
+    //   window.location.href = "/login";
+    // }
 
     return error?.response?.data ?? Promise.reject(error);
   }

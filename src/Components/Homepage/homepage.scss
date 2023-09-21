@@ -1,13 +1,13 @@
-.cover {
+.homepage {
   margin: 0 auto;
   width: 1200px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   padding: 0 6px;
   background-color: #ffffff;
   margin-top: 170px;
-  border-radius: 10px;
-  height: 100vh;
+  border-radius: 20px;
+  // height: 100vh;
   justify-content: center;
 }

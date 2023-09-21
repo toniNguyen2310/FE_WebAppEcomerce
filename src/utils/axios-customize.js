@@ -62,15 +62,15 @@ instance.interceptors.response.use(
         return instance.request(error.config);
       }
     }
-    // if (
-    //   error.config &&
-    //   error.response &&
-    //   +error.response.status === 400 &&
-    //   //Điều kiện tránh retry vô hạn
-    //   !error.config.headers[NO_RETRY_HEADER]
-    // ) {
-    //   window.location.href = "/login";
-    // }
+    if (
+      error.config &&
+      error.response &&
+      +error.response.status === 400 &&
+      error.config.url === "/v1/api/auth/refresh"
+    ) {
+      localStorage.removeItem("access_token");
+      window.location.href = "/login";
+    }
 
     return error?.response?.data ?? Promise.reject(error);
   }

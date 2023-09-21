@@ -6,7 +6,7 @@ import { callRegister } from "../../services.js/api";
 import { toast } from "react-toastify";
 import "./register.scss";
 import "react-toastify/dist/ReactToastify.css";
-import { Button, Divider, notification, Space } from "antd";
+import { notification } from "antd";
 
 function RegisterPage(props) {
   const navigate = useNavigate();
@@ -86,7 +86,12 @@ function RegisterPage(props) {
       return;
     }
 
-    const res = await callRegister(email, username.trim(), password, phone);
+    const res = await callRegister(
+      email.toLowerCase(),
+      username.trim(),
+      password,
+      phone
+    );
     if (res?.data?._id) {
       toast.success("Đăng ký thành công");
       console.log("Đăng ký thành công");

@@ -8,14 +8,15 @@ import { callLogin } from "../../services.js/api";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { doLoginAction } from "../../redux/account/accountSlice";
-import { Button, message, Space } from "antd";
+import { notification } from "antd";
 function LoginPage(props) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isShowPass, setIsShowPass] = useState(false);
   const dispatch = useDispatch();
-
+  const [api, contextHolder] = notification.useNotification();
+  const topRight = "topRight";
   //Enter để nộp
   const handleKeyPress = (e) => {
     let key = e.keyCode || e.which;
@@ -28,7 +29,12 @@ function LoginPage(props) {
     e.preventDefault();
     //VALIDATE VALUE
     if (!email || !password) {
-      toast.warning("Vui lòng nhập thông tin");
+      api.info({
+        message: `Vui lòng nhập thông tin `,
+        // description:
+        //   "This is the content of the notification. This is the content of the notification. This is the content of the notification.",
+        topRight,
+      });
       return;
     }
     const res = await callLogin(email, password);
@@ -38,7 +44,11 @@ function LoginPage(props) {
       toast.success("Đăng nhập thành công", { toastId: "success1" });
       navigate("/");
     } else {
-      toast.error(res.data);
+      api.info({
+        message: res.data,
+        // description: res.data,
+        topRight,
+      });
       return;
     }
     setEmail("");
@@ -48,6 +58,7 @@ function LoginPage(props) {
 
   return (
     <div className="login-page">
+      {contextHolder}
       <div className="login-page-form">
         <div className="login-page-form-lorup">
           <NavLink to={`/login`}>Đăng nhập</NavLink> &nbsp; &Iota; &nbsp;{" "}

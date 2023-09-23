@@ -57,13 +57,13 @@ export const dataBrand = [
   "CIDOO",
   "FUHLEN",
   "CÔNG THÁI HỌC",
-  "LẮC-ĐẦU",
+  "LẮC ĐẦU",
 ];
 
 function ManagerProducts(props) {
   const [listProduct, setListProduct] = useState([]);
   const [pageSize, setPageSize] = useState(5);
-  const [total, setTotal] = useState(29);
+  const [total, setTotal] = useState(0);
   const [current, setCurrent] = useState(1);
   const [product, setProduct] = useState();
   const [openModalCreate, setOpenModalCreate] = useState(false);
@@ -161,7 +161,8 @@ function ManagerProducts(props) {
       ),
     },
   ];
-  //OPE EDIT
+
+  //OPEN   EDIT
   const openModalEdit = (id) => {
     handleGetProductById(id);
     setIsEdit(true);
@@ -182,6 +183,7 @@ function ManagerProducts(props) {
       setCurrent(pagination.current);
     }
     if (pagination && pagination.pageSize != pageSize) {
+      console.log("onchange2");
       setPageSize(pagination.pageSize);
       setCurrent(1);
     }
@@ -203,6 +205,10 @@ function ManagerProducts(props) {
     if (res && res.data) {
       toast.success("Xóa thành công");
       fetchProduct();
+      if ((total - 1) % 5 === 0) {
+        setCurrent(current - 1);
+        console.log("done");
+      }
     } else {
       toast.error("Xóa thất bại");
     }

@@ -6,14 +6,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { doLogoutAction } from "../../redux/account/accountSlice";
 import { toast } from "react-toastify";
 import { callLogout } from "../../services.js/api";
+import { NavLink } from "react-router-dom";
 const { useToken } = theme;
 const items = [
   {
     key: "1",
-    label: <a target="_blank">Thông tin tài khoản</a>,
+    label: <NavLink to={`/`}>Trang chủ</NavLink>,
   },
   {
     key: "2",
+    label: <a target="_blank">Thông tin tài khoản</a>,
+  },
+  {
+    key: "3",
     label: <a target="_blank">Danh sách đơn hàng</a>,
     disabled: true,
   },

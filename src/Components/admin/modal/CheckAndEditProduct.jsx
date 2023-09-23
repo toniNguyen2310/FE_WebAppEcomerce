@@ -72,7 +72,6 @@ function CheckAndEditProduct(props) {
     };
     const res = await putProduct(data);
     if (res && res.data) {
-      console.log("res>>> ", res.data);
       toast.success("Cập nhật sản phẩm thành công");
       fetchProduct();
     } else {

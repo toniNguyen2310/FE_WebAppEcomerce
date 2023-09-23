@@ -22,7 +22,6 @@ function CreateProduct(props) {
   const [img3, setImg3] = useState("");
 
   const handleCreateProduct = async (values) => {
-    console.log("Success:", values);
     const data = {
       name: values.name.trim().toUpperCase(),
       description: values.description.trim(),

@@ -24,6 +24,8 @@ function CheckAndEditProduct(props) {
     fetchProduct,
   } = props;
 
+  cốnle.log(">>>test");
+
   const [form] = Form.useForm();
   const [img1, setImg1] = useState("");
   const [img2, setImg2] = useState("");

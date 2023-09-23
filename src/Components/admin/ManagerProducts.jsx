@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Space, Table, Input, Button, Popconfirm } from "antd";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 import {
   EyeOutlined,
   EditOutlined,
@@ -15,7 +16,7 @@ import {
 } from "../../services.js/api";
 import SelectCategory from "../SelectCategoryAndBrand";
 import CreateProduct from "./modal/CreateProduct";
-// import CheckAndEditProduct from "./modal/checkAndEditProduct";
+import CheckAndEditProduct from "./modal/checkAndEditProduct";
 
 const columsSearch = [
   {
@@ -222,14 +223,14 @@ function ManagerProducts(props) {
         setOpenModalCreate={setOpenModalCreate}
         fetchProduct={fetchProduct}
       />
-      {/* <CheckAndEditProduct
+      <CheckAndEditProduct
         isEdit={isEdit}
         setIsEdit={setIsEdit}
         product={product}
         openModalDeleteAndEdit={openModalDeleteAndEdit}
         setOpenModalDeleteAndEdit={setOpenModalDeleteAndEdit}
         fetchProduct={fetchProduct}
-      /> */}
+      />
       <Table
         columns={columsSearch}
         dataSource={listInputSearch}

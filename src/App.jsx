@@ -16,12 +16,13 @@ import { callFetchAccount } from "./services.js/api";
 import { useDispatch, useSelector } from "react-redux";
 import { doGetAccountAction } from "./redux/account/accountSlice";
 import NotFound from "./Components/NotFound";
-import AdminPage from "./Components/admin";
 import Loading from "./Components/Loading";
-import ProtectedRoute from "./Components/ProtectedRoute";
-import LayoutAdmin from "./Components/admin/LayoutAdmin";
-import ManagerProducts from "./Components/admin/ManagerProducts";
-import CreateProduct from "./Components/admin/modal/CreateProduct";
+
+// import AdminPage from "./Components/admin";
+// import ProtectedRoute from "./Components/ProtectedRoute";
+// import LayoutAdmin from "./Components/admin/LayoutAdmin";
+// import ManagerProducts from "./Components/admin/ManagerProducts";
+// import CreateProduct from "./Components/admin/modal/CreateProduct";
 
 //LAYOUT MAIN
 const Layout = () => {

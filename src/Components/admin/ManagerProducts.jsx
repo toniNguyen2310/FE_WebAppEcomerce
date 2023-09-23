@@ -15,7 +15,7 @@ import {
 } from "../../services.js/api";
 import SelectCategory from "../SelectCategoryAndBrand";
 import CreateProduct from "./modal/CreateProduct";
-import CheckAndEditProduct from "./modal/checkAndEditProduct";
+// import CheckAndEditProduct from "./modal/checkAndEditProduct";
 
 const columsSearch = [
   {
@@ -222,14 +222,14 @@ function ManagerProducts(props) {
         setOpenModalCreate={setOpenModalCreate}
         fetchProduct={fetchProduct}
       />
-      <CheckAndEditProduct
+      {/* <CheckAndEditProduct
         isEdit={isEdit}
         setIsEdit={setIsEdit}
         product={product}
         openModalDeleteAndEdit={openModalDeleteAndEdit}
         setOpenModalDeleteAndEdit={setOpenModalDeleteAndEdit}
         fetchProduct={fetchProduct}
-      />
+      /> */}
       <Table
         columns={columsSearch}
         dataSource={listInputSearch}

@@ -3,7 +3,7 @@ import "./homepage.scss";
 
 import HomeSales from "../HomeSales";
 import HomeBanner from "../HomeBanner";
-import HomeTrending from "../HomeTrending";
+// import HomeTrending from "../HomeTrending";
 import HomeProduct from "../HomeProduct";
 import HomeSearchMore from "../HomeSearchMore";
 function HomePage(props) {
@@ -11,7 +11,7 @@ function HomePage(props) {
     <div className="homepage">
       <HomeBanner />
       <HomeSales />
-      <HomeTrending />
+      {/* <HomeTrending /> */}
       <HomeProduct />
       <HomeSearchMore />
     </div>

@@ -23,7 +23,7 @@ function CheckAndEditProduct(props) {
     product,
     fetchProduct,
   } = props;
-  console.log(isEdit);
+
   const [form] = Form.useForm();
   const [img1, setImg1] = useState("");
   const [img2, setImg2] = useState("");

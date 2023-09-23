@@ -1,5 +1,31 @@
 import axios from "axios";
 const baseURL = import.meta.env.VITE_BACKEND_URL;
+const baseURLDeployed = import.meta.env.VITE_BACKEND_URL_DEPLOYED;
+
+// const checkLocalHost = async () => {
+//   try {
+//     const resUrl = await fetch(baseURL);
+//     console.log(">>checl url", resUrl);
+
+//     if (resUrl) {
+//       return baseURL;
+//     }
+//   } catch (error) {
+//     const resUrlDeploy = await fetch(baseURLDeployed);
+//     console.log(">>checl url", resUrlDeploy);
+
+//     if (resUrlDeploy) {
+//       return baseURLDeployed;
+//     }
+//   }
+// };
+
+// checkLocalHost();
+
+// console.log(
+//   ">>>final url:",
+//   checkLocalHost().then((res) => res.json())
+// );
 
 const instance = axios.create({
   baseURL: baseURL,

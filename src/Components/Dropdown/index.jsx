@@ -72,7 +72,11 @@ const DropdownComponent = () => {
               padding: 8,
             }}
           >
-            <Button type="primary" onClick={() => handleLogout()}>
+            <Button
+              type="primary"
+              style={{ background: "#29a07e", borderColor: "#29a07e" }}
+              onClick={() => handleLogout()}
+            >
               Đăng Xuất
             </Button>
           </Space>

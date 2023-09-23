@@ -55,12 +55,6 @@ const LayoutAdmin = () => {
         />
       </Sider>
       <Layout>
-        {/* <Header
-          style={{
-            padding: 0,
-            background: colorBgContainer,
-          }}
-        /> */}
         <Header
           style={{
             position: "sticky",

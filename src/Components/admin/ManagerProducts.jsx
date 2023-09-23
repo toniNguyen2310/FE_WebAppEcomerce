@@ -2,16 +2,20 @@ import React, { useEffect, useState } from "react";
 import { Space, Table, Input, Button, Popconfirm } from "antd";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 import {
   EyeOutlined,
   EditOutlined,
   DeleteOutlined,
   PlusOutlined,
 } from "@ant-design/icons";
-import { callDeleteProduct, getProducts } from "../../services.js/api";
+import {
+  callDeleteProduct,
+  getProductById,
+  getProducts,
+} from "../../services.js/api";
 import SelectCategory from "../SelectCategoryAndBrand";
 import CreateProduct from "./modal/CreateProduct";
+import CheckAndEditProduct from "./modal/checkAndEditProduct";
 
 const columsSearch = [
   {
@@ -42,7 +46,7 @@ export const dataCategory = [
   { value: "mô-hình", label: "MÔ HÌNH" },
   { value: "tay-cầm-gaming", label: "TAY CẦM GAMING" },
   { value: "loa-máy-tính", label: "LOA MÁY TÍNH" },
-  { value: "phụ-kiện-máy-tính", label: "PHỤ KIỆN MÁY TÍNH" },
+  { value: "phụ-kiện-trang-trí", label: "PHỤ KIỆN TRANG TRÍ" },
 ];
 
 export const dataBrand = [
@@ -51,7 +55,7 @@ export const dataBrand = [
   "DAREU",
   "CIDOO",
   "FUHLEN",
-  "ESONNE",
+  "CÔNG THÁI HỌC",
   "LẮC-ĐẦU",
 ];
 
@@ -60,25 +64,17 @@ function ManagerProducts(props) {
   const [pageSize, setPageSize] = useState(5);
   const [total, setTotal] = useState(29);
   const [current, setCurrent] = useState(1);
+  const [product, setProduct] = useState();
+  const [openModalCreate, setOpenModalCreate] = useState(false);
+  const [openModalDeleteAndEdit, setOpenModalDeleteAndEdit] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
 
   //Search // filter // patination
   const [searchCategory, setSearchCategory] = useState("");
   const [searchBrand, setSearchBrand] = useState("");
   const [searchName, setSearchName] = useState("");
 
-  //DATA CREATE PRODUCTS
-  const [open, setOpen] = useState(false);
-  const [dataNewProduct, SetDataNewPRoduct] = useState({});
-
-  //CREATE PRODUCT
-  const showModalCreateProducts = () => {
-    setOpen(true);
-  };
-  const onCloseModalCreateProduct = () => {
-    setOpen(false);
-  };
-
-  //list search antd
+  //list search antd category/brand/name
   let listInputSearch = [
     {
       Category: (
@@ -99,6 +95,7 @@ function ManagerProducts(props) {
       ),
     },
   ];
+
   //colums table
   const columns = [
     {
@@ -143,17 +140,16 @@ function ManagerProducts(props) {
       render: (_, record) => (
         <Space size="middle">
           <a>
-            <EyeOutlined onClick={showModalCreateProducts} />
+            <EyeOutlined onClick={() => handleGetProductById(record._id)} />
           </a>
           <a>
-            <EditOutlined />
+            <EditOutlined onClick={() => openModalEdit(record._id)} />
           </a>
           <a>
             <Popconfirm
               title="Xác nhận xóa"
               description="Bạn vẫn muốn xóa SP chứ?"
               onConfirm={() => deleteProduct(record._id)}
-              // onCancel={cancel}
               okText="Yes"
               cancelText="No"
             >
@@ -164,8 +160,22 @@ function ManagerProducts(props) {
       ),
     },
   ];
+  //OPE EDIT
+  const openModalEdit = (id) => {
+    handleGetProductById(id);
+    setIsEdit(true);
+  };
 
-  //Onchange pagination
+  //HANDLE GET PRODUCT BY ID
+  const handleGetProductById = async (id) => {
+    const res = await getProductById(id);
+    if (res && res.data) {
+      setProduct(res.data);
+    }
+    setOpenModalDeleteAndEdit(true);
+  };
+
+  //Onchange pagination of table products
   const handleOnChangeTable = (pagination) => {
     if (pagination && pagination.current !== current) {
       setCurrent(pagination.current);
@@ -197,18 +207,6 @@ function ManagerProducts(props) {
     }
   };
 
-  // HANDLE CREATE PRODUCT
-  // const createApiProduct = async (product) => {
-  //   const res = await callCreateProduct(product);
-  //   if (res && res.data) {
-  //     toast.success("Tạo sản phẩm thành công");
-  //     fetchProduct();
-  //   } else {
-  //     toast.error("Tạo sản phẩm thất bại");
-  //     return;
-  //   }
-  // };
-
   useEffect(() => {
     fetchProduct();
   }, [current, pageSize, searchCategory, searchBrand, searchName]);
@@ -220,9 +218,16 @@ function ManagerProducts(props) {
       }}
     >
       <CreateProduct
-        open={open}
-        onClose={onCloseModalCreateProduct}
-        setOpen={setOpen}
+        openModalCreate={openModalCreate}
+        setOpenModalCreate={setOpenModalCreate}
+        fetchProduct={fetchProduct}
+      />
+      <CheckAndEditProduct
+        isEdit={isEdit}
+        setIsEdit={setIsEdit}
+        product={product}
+        openModalDeleteAndEdit={openModalDeleteAndEdit}
+        setOpenModalDeleteAndEdit={setOpenModalDeleteAndEdit}
         fetchProduct={fetchProduct}
       />
       <Table
@@ -243,7 +248,7 @@ function ManagerProducts(props) {
           <h1>Table products</h1>
           <Button
             type="primary"
-            onClick={showModalCreateProducts}
+            onClick={() => setOpenModalCreate(true)}
             icon={<PlusOutlined />}
           >
             Tạo mới

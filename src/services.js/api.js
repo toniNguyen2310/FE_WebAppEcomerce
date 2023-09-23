@@ -27,10 +27,18 @@ export const getProducts = (query) => {
   return axios.get(`/v1/api/product?${query}`);
 };
 
+export const getProductById = (id) => {
+  return axios.get(`/v1/api/product/${id}`);
+};
+
 export const callDeleteProduct = (id) => {
   return axios.delete(`/v1/api/product/${id}`);
 };
 
 export const callCreateProduct = (product) => {
   return axios.post(`/v1/api/product`, product);
+};
+
+export const putProduct = (data) => {
+  return axios.put(`/v1/api/product/${data._id}`, data);
 };

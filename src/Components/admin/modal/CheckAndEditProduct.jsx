@@ -11,19 +11,51 @@ import {
   Select,
 } from "antd";
 import { dataBrand, dataCategory } from "../ManagerProducts";
-import { callCreateProduct } from "../../../services.js/api";
 import { toast } from "react-toastify";
+import { putProduct } from "../../../services.js/api";
 
-function CreateProduct(props) {
-  const { setOpenModalCreate, openModalCreate, fetchProduct } = props;
+function CheckAndEditProduct(props) {
+  const {
+    isEdit,
+    setIsEdit,
+    setOpenModalDeleteAndEdit,
+    openModalDeleteAndEdit,
+    product,
+    fetchProduct,
+  } = props;
   const [form] = Form.useForm();
   const [img1, setImg1] = useState("");
   const [img2, setImg2] = useState("");
   const [img3, setImg3] = useState("");
 
-  const handleCreateProduct = async (values) => {
-    console.log("Success:", values);
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
+
+  const fillData = () => {
+    if (!product) {
+      return;
+    }
+    form.setFieldsValue({
+      name: product.name,
+      category: product.category,
+      brand: product.brand,
+      price: product.price,
+      discount: product.discount,
+      inventory: product.inventory,
+      description: product.description,
+      image1: product.images[0],
+      image2: product.images[1],
+      image3: product.images[2],
+    });
+    setImg1(product?.images[0]);
+    setImg2(product?.images[1]);
+    setImg3(product?.images[2]);
+  };
+
+  const handleUpdateProduct = async (values) => {
     const data = {
+      _id: product._id,
       name: values.name.trim().toUpperCase(),
       description: values.description.trim(),
       price: values.price.trim(),
@@ -37,49 +69,62 @@ function CreateProduct(props) {
         values.image3.trim(),
       ],
     };
-    const res = await callCreateProduct(data);
+    const res = await putProduct(data);
     if (res && res.data) {
-      toast.success("Tạo sản phẩm thành công");
+      console.log("res>>> ", res.data);
+      toast.success("Cập nhật sản phẩm thành công");
       fetchProduct();
     } else {
       toast.error("Có lỗi xảy ra, hãy thử lại");
       return;
     }
+
     form.resetFields();
     setImg1("");
     setImg2("");
     setImg3("");
-    setOpenModalCreate(false);
+    setOpenModalDeleteAndEdit(false);
   };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+  const closeModal = () => {
+    setOpenModalDeleteAndEdit(false);
+    setIsEdit(false);
   };
 
+  useEffect(() => {
+    fillData();
+  }, [product]);
   return (
     <>
       <Drawer
-        title="Tạo sản phẩm mới"
-        width={720}
-        onClose={() => setOpenModalCreate(false)}
-        open={openModalCreate}
+        getContainer={false}
+        title={isEdit ? "CẬP NHẬT SẢN PHẨM" : "XEM CHI TIẾT SẢN PHẨM"}
+        width={900}
+        onClose={closeModal}
+        open={openModalDeleteAndEdit}
         bodyStyle={{
           paddingBottom: 80,
         }}
         extra={
           <Space>
-            <Button onClick={() => setOpenModalCreate(false)}>Cancel</Button>
-            <Button form="myForm" key="submit" htmlType="submit" type="primary">
-              Submit
+            <Button onClick={closeModal}>HỦY</Button>
+            <Button
+              style={{ display: isEdit ? "block" : "none" }}
+              form="myFormEdit"
+              key="submit"
+              htmlType="submit"
+              type="primary"
+            >
+              CẬP NHẬT
             </Button>
           </Space>
         }
       >
         <Form
           form={form}
-          id="myForm"
+          id="myFormEdit"
           layout="vertical"
-          onFinish={handleCreateProduct}
+          onFinish={handleUpdateProduct}
           onFinishFailed={onFinishFailed}
         >
           <Row gutter={16}>
@@ -94,7 +139,10 @@ function CreateProduct(props) {
                   },
                 ]}
               >
-                <Input placeholder="Please enter user name" />
+                <Input
+                  disabled={isEdit ? false : true}
+                  placeholder="Please enter user name"
+                />
               </Form.Item>
             </Col>
             <Col span={8}>
@@ -109,10 +157,11 @@ function CreateProduct(props) {
                 ]}
               >
                 <Select
+                  disabled={isEdit ? false : true}
                   name="category"
                   initialvalues="Category"
                   style={{
-                    width: 200,
+                    width: 250,
                   }}
                   // onChange={(value) => setCategory(value)}
                   options={dataCategory.map((category) => {
@@ -136,11 +185,12 @@ function CreateProduct(props) {
                 ]}
               >
                 <Select
+                  disabled={isEdit ? false : true}
                   name="brand"
                   initialvalues="Brand"
                   // defaultValue="All"
                   style={{
-                    width: 200,
+                    width: 250,
                   }}
                   // onChange={(value) => setBrand(value)}
                   options={dataBrand.map((brand) => {
@@ -165,7 +215,11 @@ function CreateProduct(props) {
                   },
                 ]}
               >
-                <Input type="number" placeholder="Please enter price" />
+                <Input
+                  disabled={isEdit ? false : true}
+                  type="number"
+                  placeholder="Please enter price"
+                />
               </Form.Item>
             </Col>
             <Col span={8}>
@@ -179,7 +233,11 @@ function CreateProduct(props) {
                   },
                 ]}
               >
-                <Input type="number" placeholder="Please enter discount" />
+                <Input
+                  disabled={isEdit ? false : true}
+                  type="number"
+                  placeholder="Please enter discount"
+                />
               </Form.Item>
             </Col>
             <Col span={8}>
@@ -193,7 +251,11 @@ function CreateProduct(props) {
                   },
                 ]}
               >
-                <Input type="number" placeholder="Please enter inventory" />
+                <Input
+                  disabled={isEdit ? false : true}
+                  type="number"
+                  placeholder="Please enter inventory"
+                />
               </Form.Item>
             </Col>
           </Row>
@@ -210,6 +272,7 @@ function CreateProduct(props) {
                 ]}
               >
                 <Input.TextArea
+                  disabled={isEdit ? false : true}
                   rows={4}
                   placeholder="please enter description"
                 />
@@ -229,6 +292,7 @@ function CreateProduct(props) {
                 ]}
               >
                 <Input
+                  disabled={isEdit ? false : true}
                   onChange={(e) => setImg1(e.target.value)}
                   placeholder="Please enter url image"
                 />
@@ -246,6 +310,7 @@ function CreateProduct(props) {
                 ]}
               >
                 <Input
+                  disabled={isEdit ? false : true}
                   onChange={(e) => setImg2(e.target.value)}
                   placeholder="Please enter url image"
                 />
@@ -263,6 +328,7 @@ function CreateProduct(props) {
                 ]}
               >
                 <Input
+                  disabled={isEdit ? false : true}
                   onChange={(e) => setImg3(e.target.value)}
                   placeholder="Please enter url image"
                 />
@@ -286,4 +352,4 @@ function CreateProduct(props) {
   );
 }
 
-export default CreateProduct;
+export default CheckAndEditProduct;

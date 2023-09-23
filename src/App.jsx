@@ -72,29 +72,29 @@ export default function App() {
         },
       ],
     },
-    // {
-    //   path: "/admin",
-    //   element: <LayoutAdmin />,
-    //   errorElement: <NotFound />,
-    //   children: [
-    //     {
-    //       index: true,
-    //       element: (
-    //         <ProtectedRoute>
-    //           <AdminPage />
-    //         </ProtectedRoute>
-    //       ),
-    //     },
-    //     {
-    //       path: "/admin/prducts",
-    //       element: <ManagerProducts />,
-    //     },
-    //     {
-    //       path: "/admin/create",
-    //       element: <CreateProduct />,
-    //     },
-    //   ],
-    // },
+    {
+      path: "/admin",
+      element: <LayoutAdmin />,
+      errorElement: <NotFound />,
+      children: [
+        {
+          index: true,
+          element: (
+            <ProtectedRoute>
+              <AdminPage />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "/admin/prducts",
+          element: <ManagerProducts />,
+        },
+        {
+          path: "/admin/create",
+          element: <CreateProduct />,
+        },
+      ],
+    },
   ]);
   useEffect(() => {
     const getAccount = async () => {

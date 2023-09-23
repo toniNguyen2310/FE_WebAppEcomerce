@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { Button, message, Space } from "antd";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import ContentPage from "./pages/content";
@@ -18,11 +17,12 @@ import { doGetAccountAction } from "./redux/account/accountSlice";
 import NotFound from "./Components/NotFound";
 import Loading from "./Components/Loading";
 
-import AdminPage from "./Components/admin";
+import AdminPage from "./Components/AdminControl/AdminPage";
 import ProtectedRoute from "./Components/ProtectedRoute";
-import LayoutAdmin from "./Components/admin/LayoutAdmin";
+import LayoutAdmin from "./Components/AdminControl/LayoutAdmin";
 // import ManagerProducts from "./Components/admin/ManagerProducts";
-import CreateProduct from "./Components/admin/modal/CreateProduct";
+import CreateProduct from "./Components/AdminControl/CreateProduct";
+import ManagerProducts from "./Components/AdminControl/ManagerProducts";
 
 //LAYOUT MAIN
 const Layout = () => {

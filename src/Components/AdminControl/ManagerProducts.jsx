@@ -15,8 +15,8 @@ import {
   getProducts,
 } from "../../services.js/api";
 import SelectCategory from "../SelectCategoryAndBrand";
-import CreateProduct from "./modal/CreateProduct";
-import CheckAndEditProduct from "./modal/checkAndEditProduct";
+import CreateProduct from "./CreateProduct";
+import CheckAndEditProduct from "./CheckAndEditProduct";
 
 const columsSearch = [
   {

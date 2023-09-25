@@ -31,8 +31,6 @@ function LoginPage(props) {
     if (!email || !password) {
       api.info({
         message: `Vui lòng nhập thông tin `,
-        // description:
-        //   "This is the content of the notification. This is the content of the notification. This is the content of the notification.",
         topRight,
       });
       return;
@@ -40,9 +38,11 @@ function LoginPage(props) {
     const res = await callLogin(email, password);
     if (res?.data?.userWP) {
       localStorage.setItem("access_token", res.data.accessToken);
+      localStorage.setItem("refresh_token", res.data.refreshToken);
       dispatch(doLoginAction(res.data.userWP));
       toast.success("Đăng nhập thành công", { toastId: "success1" });
       navigate("/");
+      console.log("res.data of Login >>> ", res.data);
     } else {
       api.info({
         message: res.data,

@@ -16,13 +16,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { doGetAccountAction } from "./redux/account/accountSlice";
 import NotFound from "./Components/NotFound";
 import Loading from "./Components/Loading";
-
 import AdminPage from "./Components/AdminControl/AdminPage";
 import ProtectedRoute from "./Components/ProtectedRoute";
 import LayoutAdmin from "./Components/AdminControl/LayoutAdmin";
 // import ManagerProducts from "./Components/admin/ManagerProducts";
 import CreateProduct from "./Components/AdminControl/CreateProduct";
 import ManagerProducts from "./Components/AdminControl/ManagerProducts";
+
+export const u = 12;
+console.log("exporting u really screws up HMR :(", u);
 
 //LAYOUT MAIN
 const Layout = () => {

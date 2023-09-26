@@ -47,7 +47,7 @@ const handleRefreshToken = async () => {
   if (res && res.data) {
     console.log("handleRefreshToken> res.data>>> ", res.data);
     return res.data;
-  } else null;
+  } else return;
 };
 
 // Add a request interceptor

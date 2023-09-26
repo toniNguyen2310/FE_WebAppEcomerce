@@ -30,7 +30,7 @@ const baseURLDeployed = import.meta.env.VITE_BACKEND_URL_DEPLOYED;
 const instance = axios.create({
   baseURL: baseURL,
   // headers: { Authorization: `Bearer ${cookie_value}` },
-  withCredentials: true,
+  // withCredentials: true,
   // headers: { Authorization: `Bearer ${localStorage.getItem("access_token")}` },
 });
 

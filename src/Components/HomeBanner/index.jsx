@@ -1,74 +1,130 @@
-import React from "react";
+import React, { useRef } from "react";
+import { Carousel } from "antd";
 import { LuKeyboard } from "react-icons/lu";
+import useDraggableScroll from "use-draggable-scroll";
 import "./homepage.scss";
 function HomeBanner(props) {
+  const ref = useRef(null);
+  const { onMouseDown } = useDraggableScroll(ref);
+
   return (
-    <div className="homepage-banner">
-      <div className="homepage-menu">
-        <div className="homepage-menu-item">
-          <div className="homepage-menu-item-name">
+    <div className="home-banner-group">
+      <div className="home-menu">
+        <div className="home-menu-item">
+          <a href="">
             <LuKeyboard /> &nbsp; LÓT CHUỘT
-          </div>
-          <div className="homepage-menu-item-detail">aaa</div>
+          </a>
         </div>
-        <div className="homepage-menu-item">
-          <div className="homepage-menu-item-name">
+        <div className="home-menu-item">
+          <a href="">
             <LuKeyboard /> &nbsp; LÓT CHUỘT
-          </div>
-          <div className="homepage-menu-item-detail">aaa</div>
+          </a>
         </div>
-        <div className="homepage-menu-item">
-          <div className="homepage-menu-item-name">
+        <div className="home-menu-item">
+          <a href="">
             <LuKeyboard /> &nbsp; LÓT CHUỘT
-          </div>
-          <div className="homepage-menu-item-detail">aaa</div>
+          </a>
         </div>
-        <div className="homepage-menu-item">
-          <div className="homepage-menu-item-name">
+        <div className="home-menu-item">
+          <a href="">
             <LuKeyboard /> &nbsp; LÓT CHUỘT
-          </div>
-          <div className="homepage-menu-item-detail">aaa</div>
+          </a>
         </div>
-        <div className="homepage-menu-item">
-          <div className="homepage-menu-item-name">
+        <div className="home-menu-item">
+          <a href="">
             <LuKeyboard /> &nbsp; LÓT CHUỘT
-          </div>
-          <div className="homepage-menu-item-detail">aaa</div>
+          </a>
         </div>
-        <div className="homepage-menu-item">
-          <div className="homepage-menu-item-name">
+        <div className="home-menu-item">
+          <a href="">
             <LuKeyboard /> &nbsp; LÓT CHUỘT
-          </div>
-          <div className="homepage-menu-item-detail">aaa</div>
+          </a>
         </div>
-        <div className="homepage-menu-item">
-          <div className="homepage-menu-item-name">
+        <div className="home-menu-item">
+          <a href="">
             <LuKeyboard /> &nbsp; LÓT CHUỘT
-          </div>
-          <div className="homepage-menu-item-detail">aaa</div>
+          </a>
         </div>
-        <div className="homepage-menu-item">
-          <div className="homepage-menu-item-name">
+        <div className="home-menu-item">
+          <a href="">
             <LuKeyboard /> &nbsp; LÓT CHUỘT
-          </div>
-          <div className="homepage-menu-item-detail">aaa</div>
+          </a>
         </div>
-        <div className="homepage-menu-item">
-          <div className="homepage-menu-item-name">
+        <div className="home-menu-item">
+          <a href="">
             <LuKeyboard /> &nbsp; LÓT CHUỘT
-          </div>
-          <div className="homepage-menu-item-detail">aaa</div>
+          </a>
         </div>
-        <div className="homepage-menu-item">
-          <div className="homepage-menu-item-name">
+        <div className="home-menu-item">
+          <a href="">
             <LuKeyboard /> &nbsp; LÓT CHUỘT
-          </div>
-          <div className="homepage-menu-item-detail">aaa</div>
+          </a>
         </div>
       </div>
-
-      <div className="homepage-banner-center"></div>
-      <div className="homepage-banner-right"></div>
+      <div className="home-center">
+        <Carousel swipeToSlide draggable autoplay>
+          <div>
+            <a href="">
+              <img
+                src="https://lacdau.com/media/banner/04_Jul4b2820f0c4fe29e2d289589b90e47f4c.png"
+                alt=""
+              />
+            </a>
+          </div>
+          <div>
+            <a href="">
+              <img
+                src="	https://lacdau.com/media/banner/09_Jul9860edbd0f637428e39fde95121313ed.png"
+                alt=""
+              />
+            </a>
+          </div>
+          {/* <div>
+            <a href="">
+              <img
+                src="https://lacdau.com/media/banner/04_Jula2b2fecb48c5967badfe4d137f8508ec.png"
+                alt=""
+              />
+            </a>
+          </div>
+          <div>
+            <a href="">
+              <img
+                src="https://lacdau.com/media/banner/04_Jul476c025120f6806e9d46a90f17cebbdf.png"
+                alt=""
+              />
+            </a>
+          </div>
+          <div>
+            <a href="">
+              <img
+                src="https://lacdau.com/media/banner/04_Jul6bacdcd6a63d8b6a4e46c8337fc12342.png"
+                alt=""
+              />
+            </a>
+          </div> */}
+        </Carousel>
+      </div>
+      <div className="home-right">
+        <a href="" className="animation-small">
+          <img
+            src="https://lacdau.com/media/banner/04_Jul7f64f21fb6ba6d30b7932b6ad017b870.png"
+            alt=""
+          />
+        </a>
+        <a href="" className="animation-small">
+          <img
+            src="https://lacdau.com/media/banner/04_Julbc98282e1bb9acf041f8c94b05ccdfcb.png"
+            alt=""
+          />
+        </a>
+        <a href="" className="animation-small">
+          <img
+            src="https://lacdau.com/media/banner/04_Jul58a3f59ace6732aceb452a6e387c0c20.png"
+            alt=""
+          />
+        </a>
+      </div>
     </div>
   );
 }

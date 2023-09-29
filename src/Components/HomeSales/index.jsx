@@ -103,6 +103,7 @@ function HomeSales(props) {
           // autoplaySpeed={5000}
           slidesPerRow={1}
           slidesToShow={5}
+          slidesToScroll={1}
           dots={false}
           infinite={false}
         >

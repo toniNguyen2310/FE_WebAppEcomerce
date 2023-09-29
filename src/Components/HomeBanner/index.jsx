@@ -1,63 +1,65 @@
 import React, { useRef } from "react";
 import { Carousel } from "antd";
-import { LuKeyboard } from "react-icons/lu";
-import useDraggableScroll from "use-draggable-scroll";
+import { LuKeyboard, LuLampDesk } from "react-icons/lu";
+import { SlEarphones } from "react-icons/sl";
+import { BsSpeaker, BsMouse2 } from "react-icons/bs";
+import { PiOfficeChair } from "react-icons/pi";
+import { MdDesk } from "react-icons/md";
+import { BiCubeAlt, BiJoystick, BiBandAid } from "react-icons/bi";
+
 import "./homepage.scss";
 function HomeBanner(props) {
-  const ref = useRef(null);
-  const { onMouseDown } = useDraggableScroll(ref);
-
   return (
     <div className="home-banner-group">
       <div className="home-menu">
         <div className="home-menu-item">
           <a href="">
-            <LuKeyboard /> &nbsp; LÓT CHUỘT
+            <BiBandAid /> &nbsp; LÓT CHUỘT
           </a>
         </div>
         <div className="home-menu-item">
           <a href="">
-            <LuKeyboard /> &nbsp; LÓT CHUỘT
+            <BsMouse2 /> &nbsp; CHUỘT GAMING
           </a>
         </div>
         <div className="home-menu-item">
           <a href="">
-            <LuKeyboard /> &nbsp; LÓT CHUỘT
+            <LuKeyboard /> &nbsp; BÀN PHÍM GAMING
           </a>
         </div>
         <div className="home-menu-item">
           <a href="">
-            <LuKeyboard /> &nbsp; LÓT CHUỘT
+            <SlEarphones /> &nbsp; TAI NGHE GAMING
           </a>
         </div>
         <div className="home-menu-item">
           <a href="">
-            <LuKeyboard /> &nbsp; LÓT CHUỘT
+            <BiJoystick /> &nbsp; TAY CẦM GAMING
           </a>
         </div>
         <div className="home-menu-item">
           <a href="">
-            <LuKeyboard /> &nbsp; LÓT CHUỘT
+            <BsSpeaker /> &nbsp; LOA
           </a>
         </div>
         <div className="home-menu-item">
           <a href="">
-            <LuKeyboard /> &nbsp; LÓT CHUỘT
+            <BiCubeAlt /> &nbsp; MÔ HÌNH
           </a>
         </div>
         <div className="home-menu-item">
           <a href="">
-            <LuKeyboard /> &nbsp; LÓT CHUỘT
+            <LuLampDesk /> &nbsp; PHỤ KIỆN
           </a>
         </div>
         <div className="home-menu-item">
           <a href="">
-            <LuKeyboard /> &nbsp; LÓT CHUỘT
+            <PiOfficeChair /> &nbsp; GHẾ GAMING
           </a>
         </div>
         <div className="home-menu-item">
           <a href="">
-            <LuKeyboard /> &nbsp; LÓT CHUỘT
+            <MdDesk /> &nbsp; BÀN GAMING
           </a>
         </div>
       </div>

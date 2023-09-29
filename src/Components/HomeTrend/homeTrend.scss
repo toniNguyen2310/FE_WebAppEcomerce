@@ -1,21 +1,8 @@
 .home-trend-group {
-  //   background-color: red;
   max-width: 100%;
   height: auto;
-  //   height: 300px;
-
   margin-bottom: 20px;
-  //   flex-wrap: wrap;
-  //   box-sizing: border-box;
-  //   background-color: #ededed;
-  background: -webkit-gradient(
-    linear,
-    right top,
-    left top,
-    color-stop(2.54%, #ffc34e),
-    color-stop(86.96%, #ff8b49)
-  );
-  background: linear-gradient(270deg, #ffc34e 2.54%, #ff8b49 86.96%);
+  background-image: url(https://lacdau.com/static/assets/default/images/home-bg-collection.png);
   border-radius: 20px;
   padding: 15px 12px 0;
   .home-trend-title {

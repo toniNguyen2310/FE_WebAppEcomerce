@@ -7,12 +7,12 @@
   align-items: center;
   justify-content: center;
   &-cover {
-    padding: 10px;
-    margin: 0 auto;
-    width: 1220px;
+    padding: 20px auto;
+    margin: 0 auto 20px;
+    min-width: 1220px;
     display: flex;
     flex-direction: row;
-    // align-items: center;
+    margin-top: 20px;
     justify-content: space-between;
     .box-footer {
       // background-color: red;
@@ -35,6 +35,12 @@
         }
       }
     }
+    .box-footer:first-child {
+      margin-left: 10px;
+    }
+    .box-footer:last-child {
+      margin-right: 10px;
+    }
   }
   &-copyright {
     background-color: #29a07e;
@@ -45,5 +51,16 @@
     color: #ffffff;
     font-weight: 600;
     font-size: 14px;
+    a {
+      // text-decoration: none;
+      color: #ffffff;
+    }
+    a:hover {
+      color: #333;
+    }
   }
+}
+
+.footer::after ::before {
+  box-sizing: border-box;
 }

@@ -14,6 +14,8 @@ import { FiPhoneCall } from "react-icons/fi";
 import "./header.scss";
 import { useSelector } from "react-redux";
 import DropdownComponent from "../Dropdown";
+import { BiLogoGmail, BiSolidPhoneCall } from "react-icons/bi";
+import { MdLocationOn } from "react-icons/md";
 function Header(props) {
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
 
@@ -25,6 +27,24 @@ function Header(props) {
             <div className="header__top__left-item">
               <GrLocation />
               &nbsp;Địa chỉ liên hệ
+              <div className="header__top__left-item-hover">
+                <p>
+                  <a
+                    href="https://www.google.com/maps/place/15+P.Y%C3%AAn+L%C3%A3ng,+Trung+Li%E1%BB%87t,+%C4%90%E1%BB%91ng+%C4%90a,+H%C3%A0+N%E1%BB%99i/@21.0132533,105.8163974,17z/data=!4m6!3m5!1s0x3135ab7d33b90bd5:0x9d9d6f5da32dda1e!8m2!3d21.0132533!4d105.8185914!16s%2Fg%2F11c5jk0mbd?hl=vi-VN&entry=ttu"
+                    target="_blank"
+                  >
+                    <MdLocationOn />
+                    15 P.Yên Lãng,Trung Liệt, Đống Đa
+                  </a>
+                </p>
+                <p>
+                  <BiLogoGmail /> lacdaushop@gmail.com
+                </p>
+                <p>
+                  <BiSolidPhoneCall />
+                  0349.xxx.461
+                </p>
+              </div>
             </div>
             <a
               href="https://shopee.vn/shop/35610180?utm_campaign=-&utm_content=----&utm_medium=affiliates&utm_source=an_17015640017"
@@ -68,7 +88,11 @@ function Header(props) {
             </a>
           </div>
           <div className="header__top__right">
-            <a href="" className="header__top__right-title">
+            <a
+              href="https://lacdau.com/tin-tuc"
+              target="_blank"
+              className="header__top__right-title"
+            >
               <PiSpeakerSimpleHighBold />
               &nbsp; Tin tức
             </a>
@@ -130,7 +154,7 @@ function Header(props) {
               <div className="header__main__cover__right-hotline-detail">
                 <span>Hotline</span>
                 <span className="main-color  font-weight-600">
-                  0349.296.461
+                  0349.xxx.461
                 </span>
               </div>
             </div>

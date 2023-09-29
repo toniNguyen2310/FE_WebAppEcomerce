@@ -4,7 +4,7 @@
   top: 0;
   padding: auto;
   width: 100%;
-  z-index: 999;
+  z-index: 10;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
   .header__top {
     background-color: #29a07e;
@@ -40,9 +40,42 @@
           color: #333;
           margin-right: 20px;
           border-radius: 50px;
-
+          position: relative;
+          cursor: pointer;
           svg {
             font-size: 20px;
+          }
+          &-hover {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 365px;
+            height: auto;
+            // height: 400px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            z-index: 20;
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
+            p {
+              font-size: 15px;
+              display: flex;
+              align-items: center;
+              a {
+                text-decoration: none;
+                color: #333;
+              }
+              svg {
+                margin-left: 20px;
+                margin-right: 20px;
+                color: #29a07e;
+              }
+            }
+          }
+        }
+        &-item:hover {
+          .header__top__left-item-hover {
+            display: block;
           }
         }
 

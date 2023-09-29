@@ -50,7 +50,9 @@ function Footer(props) {
         </div>
       </div>
       <div className="footer-copyright">
-        <p>Copyright © 2023 lacdau.com</p>
+        <p>
+          Copyright © 2023 <a href="https://lacdau.com/">lacdau.com</a>
+        </p>
       </div>
     </div>
   );

@@ -138,7 +138,7 @@
             &-price {
               display: flex;
               flex-direction: column;
-              color: #29a07e;
+              color: #d0021b;
               font-weight: 700;
               p {
                 font-size: 18px;
@@ -179,7 +179,7 @@
               }
             }
             &-cart:hover {
-              background-color: #29a07e;
+              background-color: #d0021b;
             }
           }
         }
@@ -227,13 +227,19 @@
       color: #000;
       transition: all 0.5s;
       font-size: 15px;
+      border: 2px solid #d0021b;
       svg {
         margin-left: 10px;
         color: rgba(0, 0, 0, 0.25);
       }
     }
     a:hover {
-      background-color: #ebebeb;
+      background-color: #d0021b;
+      border-color: #ffffff;
+      color: #ffffff;
+      svg {
+        color: #ffffff;
+      }
     }
   }
   .ant-carousel .slick-prev {

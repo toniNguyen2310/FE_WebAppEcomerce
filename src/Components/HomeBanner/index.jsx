@@ -59,7 +59,7 @@ function HomeBanner(props) {
         </div>
       </div> */}
       <MenuCategory
-        position={"static"}
+        position={"relative"}
         background={"white"}
         display={"block"}
         zindex={4}

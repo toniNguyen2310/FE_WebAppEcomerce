@@ -23,51 +23,61 @@ function MenuCategory(props) {
         <a href="">
           <BiBandAid /> &nbsp; LÓT CHUỘT
         </a>
+        <div className="submenu"></div>
       </div>
       <div className="header-menu-item">
         <a href="">
           <BsMouse2 /> &nbsp; CHUỘT GAMING
         </a>
+        <div className="submenu"></div>
       </div>
       <div className="header-menu-item">
         <a href="">
           <LuKeyboard /> &nbsp; BÀN PHÍM GAMING
         </a>
+        <div className="submenu"></div>
       </div>
       <div className="header-menu-item">
         <a href="">
           <SlEarphones /> &nbsp; TAI NGHE GAMING
         </a>
+        <div className="submenu"></div>
       </div>
       <div className="header-menu-item">
         <a href="">
           <BiJoystick /> &nbsp; TAY CẦM GAMING
         </a>
+        <div className="submenu"></div>
       </div>
       <div className="header-menu-item">
         <a href="">
           <BsSpeaker /> &nbsp; LOA
         </a>
+        <div className="submenu"></div>
       </div>
       <div className="header-menu-item">
         <a href="">
           <BiCubeAlt /> &nbsp; MÔ HÌNH
         </a>
+        <div className="submenu"></div>
       </div>
       <div className="header-menu-item">
         <a href="">
           <LuLampDesk /> &nbsp; PHỤ KIỆN
         </a>
+        <div className="submenu"></div>
       </div>
       <div className="header-menu-item">
         <a href="">
           <PiOfficeChair /> &nbsp; GHẾ GAMING
         </a>
+        <div className="submenu"></div>
       </div>
       <div className="header-menu-item">
         <a href="">
           <MdDesk /> &nbsp; BÀN GAMING
         </a>
+        <div className="submenu"></div>
       </div>
     </div>
   );

@@ -1,17 +1,12 @@
 import React, { useRef } from "react";
 import { Carousel } from "antd";
-import { LuKeyboard, LuLampDesk } from "react-icons/lu";
-import { SlEarphones } from "react-icons/sl";
-import { BsSpeaker, BsMouse2 } from "react-icons/bs";
-import { PiOfficeChair } from "react-icons/pi";
-import { MdDesk } from "react-icons/md";
-import { BiCubeAlt, BiJoystick, BiBandAid } from "react-icons/bi";
 
 import "./homepage.scss";
+import MenuCategory from "../Menu";
 function HomeBanner(props) {
   return (
     <div className="home-banner-group">
-      <div className="home-menu">
+      {/* <div className="home-menu">
         <div className="home-menu-item">
           <a href="">
             <BiBandAid /> &nbsp; LÓT CHUỘT
@@ -62,7 +57,17 @@ function HomeBanner(props) {
             <MdDesk /> &nbsp; BÀN GAMING
           </a>
         </div>
-      </div>
+      </div> */}
+      <MenuCategory
+        position={"static"}
+        background={"white"}
+        display={"block"}
+      />
+
+      {/* <div className="modal-menu">
+        <MenuCategory position={"absolute"} background={"red"} />
+      </div> */}
+
       <div className="home-center">
         <Carousel swipeToSlide draggable autoplay>
           <div>

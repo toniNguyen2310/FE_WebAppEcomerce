@@ -5,6 +5,7 @@ import HomeBanner from "../HomeBanner";
 import HomeProduct from "../HomeProduct";
 import HomeSearchMore from "../HomeSearchMore";
 import HomeTrend from "../HomeTrend/HomeTrend";
+import MenuCategory from "../Menu";
 function HomePage(props) {
   return (
     <div className="homepage">

@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { Switch } from "antd";
 import {
   AiFillFacebook,
   AiFillYoutube,
@@ -16,12 +17,36 @@ import { useSelector } from "react-redux";
 import DropdownComponent from "../Dropdown";
 import { BiLogoGmail, BiSolidPhoneCall } from "react-icons/bi";
 import { MdLocationOn } from "react-icons/md";
+import MenuCategory from "../Menu";
 function Header(props) {
+  const [offset, setOffset] = useState(0);
+  const [isScroll, setIsScroll] = useState(false);
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
+  const [isDisplayMenu, setIsDisplayMenu] = useState(false);
+
+  //SCROLL
+  useEffect(() => {
+    const onScroll = () => setOffset(window.pageYOffset);
+    if (window.pageYOffset > 550) {
+      setIsScroll(true);
+    } else if (window.pageYOffset < 550) {
+      setIsScroll(false);
+    }
+    // clean up code
+    window.removeEventListener("scroll", onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [offset]);
 
   return (
-    <header className="header-container">
-      <div className="header__top">
+    <header
+      className="header-container"
+      style={isScroll ? { position: "fixed" } : { position: "static" }}
+    >
+      <div
+        className="header__top"
+        style={isScroll ? { display: "none" } : { display: "block" }}
+      >
         <div className="header__cover">
           <div className="header__top__left">
             <div className="header__top__left-item">
@@ -121,9 +146,15 @@ function Header(props) {
           </div>
         </div>
       </div>
-      <div className="header__main">
+      <div
+        className="header__main"
+        style={isScroll ? { height: "70px" } : { height: "120px" }}
+      >
         <nav className="header__main__cover">
-          <div className="header__main__cover__left">
+          <div
+            className="header__main__cover__left"
+            style={isScroll ? { width: "50%" } : { width: "80%" }}
+          >
             <NavLink
               to={`/`}
               className="header__main__cover__left-logo margin-left__30px"
@@ -135,9 +166,69 @@ function Header(props) {
               />
             </NavLink>
             <div className="header__main__cover__left-menu margin-left__30px">
-              <p className="header__main__cover__left-menu-title">
+              <p
+                className="header__main__cover__left-menu-title"
+                onClick={() => setIsDisplayMenu(!isDisplayMenu)}
+              >
                 <TfiMenuAlt /> &nbsp; DANH MỤC
               </p>
+              {/* <div className="header-menu">
+                <div className="header-menu-item">
+                  <a href="">
+                    <BiBandAid /> &nbsp; LÓT CHUỘT
+                  </a>
+                </div>
+                <div className="header-menu-item">
+                  <a href="">
+                    <BsMouse2 /> &nbsp; CHUỘT GAMING
+                  </a>
+                </div>
+                <div className="header-menu-item">
+                  <a href="">
+                    <LuKeyboard /> &nbsp; BÀN PHÍM GAMING
+                  </a>
+                </div>
+                <div className="header-menu-item">
+                  <a href="">
+                    <SlEarphones /> &nbsp; TAI NGHE GAMING
+                  </a>
+                </div>
+                <div className="header-menu-item">
+                  <a href="">
+                    <BiJoystick /> &nbsp; TAY CẦM GAMING
+                  </a>
+                </div>
+                <div className="header-menu-item">
+                  <a href="">
+                    <BsSpeaker /> &nbsp; LOA
+                  </a>
+                </div>
+                <div className="header-menu-item">
+                  <a href="">
+                    <BiCubeAlt /> &nbsp; MÔ HÌNH
+                  </a>
+                </div>
+                <div className="header-menu-item">
+                  <a href="">
+                    <LuLampDesk /> &nbsp; PHỤ KIỆN
+                  </a>
+                </div>
+                <div className="header-menu-item">
+                  <a href="">
+                    <PiOfficeChair /> &nbsp; GHẾ GAMING
+                  </a>
+                </div>
+                <div className="header-menu-item">
+                  <a href="">
+                    <MdDesk /> &nbsp; BÀN GAMING
+                  </a>
+                </div>
+              </div> */}
+              <MenuCategory
+                display={isDisplayMenu ? "block" : "none"}
+                position={"absolute"}
+                background={"#ffffff"}
+              />
             </div>
             <div className="header__main__cover__left-search margin-left__10px">
               <button>

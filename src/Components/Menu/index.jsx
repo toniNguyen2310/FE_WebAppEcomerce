@@ -8,11 +8,16 @@ import { BiCubeAlt, BiJoystick, BiBandAid } from "react-icons/bi";
 import "./menu.scss";
 
 function MenuCategory(props) {
-  const { position, background, display } = props;
+  const { position, background, display, zindex } = props;
   return (
     <div
       className="header-menu"
-      style={{ position: position, background: background, display: display }}
+      style={{
+        position: position,
+        background: background,
+        display: display,
+        zIndex: zindex,
+      }}
     >
       <div className="header-menu-item">
         <a href="">

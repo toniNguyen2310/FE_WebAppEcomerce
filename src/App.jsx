@@ -22,6 +22,7 @@ import LayoutAdmin from "./Components/AdminControl/LayoutAdmin";
 // import ManagerProducts from "./Components/admin/ManagerProducts";
 import CreateProduct from "./Components/AdminControl/CreateProduct";
 import ManagerProducts from "./Components/AdminControl/ManagerProducts";
+import ScrollToTop from "./Components/ScrollToTop";
 
 export const u = 12;
 console.log("exporting u really screws up HMR :(", u);
@@ -52,7 +53,12 @@ export default function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Layout />,
+      element: (
+        <>
+          <ScrollToTop />
+          <Layout />
+        </>
+      ),
       errorElement: <NotFound />,
       children: [
         { index: true, element: <HomePage /> },

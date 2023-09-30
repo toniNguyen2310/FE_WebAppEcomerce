@@ -62,6 +62,7 @@ function HomeBanner(props) {
         position={"static"}
         background={"white"}
         display={"block"}
+        zindex={4}
       />
 
       {/* <div className="modal-menu">

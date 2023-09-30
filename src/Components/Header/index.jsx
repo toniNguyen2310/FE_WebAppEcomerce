@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { Switch } from "antd";
 import {
   AiFillFacebook,
   AiFillYoutube,
@@ -13,23 +12,31 @@ import { GrLocation } from "react-icons/gr";
 import { TfiMenuAlt } from "react-icons/tfi";
 import { FiPhoneCall } from "react-icons/fi";
 import "./header.scss";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import DropdownComponent from "../Dropdown";
 import { BiLogoGmail, BiSolidPhoneCall } from "react-icons/bi";
 import { MdLocationOn } from "react-icons/md";
 import MenuCategory from "../Menu";
+import { displayMenu, notDisplayMenu } from "../../redux/menu/menuSlice,";
 function Header(props) {
+  const dispatch = useDispatch();
   const [offset, setOffset] = useState(0);
   const [isScroll, setIsScroll] = useState(false);
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
-  const [isDisplayMenu, setIsDisplayMenu] = useState(false);
+  // const [isDisplayMenu, setIsDisplayMenu] = useState(false);
+  const isDisplayMenu = useSelector((state) => state.menu.isDisplayMenu);
+
+  useEffect(() => {
+    console.log("isDisplayMenu>>> ", isDisplayMenu);
+  }, []);
 
   //SCROLL
   useEffect(() => {
     const onScroll = () => setOffset(window.pageYOffset);
-    if (window.pageYOffset > 550) {
+    // console.log(window.pageYOffset);
+    if (window.pageYOffset > 380) {
       setIsScroll(true);
-    } else if (window.pageYOffset < 550) {
+    } else if (window.pageYOffset < 380) {
       setIsScroll(false);
     }
     // clean up code
@@ -38,14 +45,19 @@ function Header(props) {
     return () => window.removeEventListener("scroll", onScroll);
   }, [offset]);
 
-  // window.onclick = (e) => {
-  //   console.log(e.target);
-  // };
+  const openMenu = () => {
+    dispatch(displayMenu());
+  };
+  const closeMenu = () => {
+    dispatch(notDisplayMenu());
+  };
 
   return (
     <>
       <header
         className="header-container"
+        id="header-check"
+        onClick={() => (isDisplayMenu ? closeMenu() : null)}
         style={isScroll ? { position: "fixed" } : { position: "sticky" }}
       >
         <div
@@ -173,66 +185,16 @@ function Header(props) {
               <div className="header__main__cover__left-menu margin-left__30px">
                 <p
                   className="header__main__cover__left-menu-title"
-                  onClick={() => setIsDisplayMenu(!isDisplayMenu)}
+                  // onClick={() => setIsDisplayMenu(!isDisplayMenu)}
+                  onClick={() => (isDisplayMenu ? closeMenu() : openMenu())}
                 >
                   <TfiMenuAlt /> &nbsp; DANH MỤC
                 </p>
-                {/* <div className="header-menu">
-                <div className="header-menu-item">
-                  <a href="">
-                    <BiBandAid /> &nbsp; LÓT CHUỘT
-                  </a>
-                </div>
-                <div className="header-menu-item">
-                  <a href="">
-                    <BsMouse2 /> &nbsp; CHUỘT GAMING
-                  </a>
-                </div>
-                <div className="header-menu-item">
-                  <a href="">
-                    <LuKeyboard /> &nbsp; BÀN PHÍM GAMING
-                  </a>
-                </div>
-                <div className="header-menu-item">
-                  <a href="">
-                    <SlEarphones /> &nbsp; TAI NGHE GAMING
-                  </a>
-                </div>
-                <div className="header-menu-item">
-                  <a href="">
-                    <BiJoystick /> &nbsp; TAY CẦM GAMING
-                  </a>
-                </div>
-                <div className="header-menu-item">
-                  <a href="">
-                    <BsSpeaker /> &nbsp; LOA
-                  </a>
-                </div>
-                <div className="header-menu-item">
-                  <a href="">
-                    <BiCubeAlt /> &nbsp; MÔ HÌNH
-                  </a>
-                </div>
-                <div className="header-menu-item">
-                  <a href="">
-                    <LuLampDesk /> &nbsp; PHỤ KIỆN
-                  </a>
-                </div>
-                <div className="header-menu-item">
-                  <a href="">
-                    <PiOfficeChair /> &nbsp; GHẾ GAMING
-                  </a>
-                </div>
-                <div className="header-menu-item">
-                  <a href="">
-                    <MdDesk /> &nbsp; BÀN GAMING
-                  </a>
-                </div>
-              </div> */}
                 <MenuCategory
                   display={isDisplayMenu ? "block" : "none"}
                   position={"absolute"}
                   background={"#ffffff"}
+                  zindex={12}
                 />
               </div>
               <div className="header__main__cover__left-search margin-left__10px">
@@ -270,7 +232,7 @@ function Header(props) {
       </header>
       <div
         style={isDisplayMenu ? { display: "block" } : { display: "none" }}
-        onClick={() => setIsDisplayMenu(false)}
+        onClick={() => closeMenu()}
         className="modal"
       ></div>
     </>

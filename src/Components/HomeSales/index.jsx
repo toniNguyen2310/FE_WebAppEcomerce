@@ -4,7 +4,44 @@ import { BsArrowRightCircle } from "react-icons/bs";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { IoIosFlash } from "react-icons/io";
 import "./homeSales.scss";
+
 function HomeSales(props) {
+  const responsiveCarousel = [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        infinite: false,
+        dots: false,
+      },
+    },
+    {
+      breakpoint: 768,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        infinite: false,
+        dots: false,
+      },
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        arrows: false,
+      },
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        arrows: false,
+      },
+    },
+  ];
   function NextArrow(props) {
     const { className, style, onClick } = props;
     return <div className={className} style={{ ...style }} onClick={onClick} />;
@@ -73,7 +110,7 @@ function HomeSales(props) {
           <IoIosFlash /> FLASHSALE
         </h2>
         <div className="box-countdown">
-          <p> Ưu đãi kết thúc sau:</p>
+          <p className="text-countdow"> Ưu đãi kết thúc sau:</p>
           <div className="box-time">
             <p className="time">0</p>
             <p className="text">Ngày</p>
@@ -101,11 +138,13 @@ function HomeSales(props) {
           draggable
           // autoplay
           // autoplaySpeed={5000}
+          emulateTouch={true}
           slidesPerRow={1}
           slidesToShow={5}
           slidesToScroll={1}
           dots={false}
           infinite={false}
+          responsive={responsiveCarousel}
         >
           <div className="item-cover">
             <div className="item">

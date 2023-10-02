@@ -62,7 +62,7 @@ function Header(props) {
       >
         <div
           className="header__top"
-          style={isScroll ? { display: "none" } : { display: "block" }}
+          style={isScroll ? { display: "none" } : null}
         >
           <div className="header__cover">
             <div className="header__top__left">
@@ -140,11 +140,13 @@ function Header(props) {
               </a>
 
               <span className="header__top__right-title margin-left__40px">
-                <FaUserCircle />
+                <NavLink className="avatar" to={`/register`}>
+                  <FaUserCircle />
+                </NavLink>
                 {isAuthenticated ? (
                   <DropdownComponent />
                 ) : (
-                  <>
+                  <div className="loginester">
                     <NavLink
                       to={`/register`}
                       className="header__top__right-title-user"
@@ -157,7 +159,7 @@ function Header(props) {
                     >
                       Đăng nhập
                     </NavLink>
-                  </>
+                  </div>
                 )}
               </span>
             </div>
@@ -165,20 +167,22 @@ function Header(props) {
         </div>
         <div
           className="header__main"
-          style={isScroll ? { height: "70px" } : { height: "120px" }}
+          style={isScroll ? { height: "70px" } : null}
         >
           <nav className="header__main__cover">
             <div
               className="header__main__cover__left"
-              style={isScroll ? { width: "50%" } : { width: "80%" }}
+              style={isScroll ? { width: "50%" } : null}
             >
               <NavLink
                 to={`/`}
+                onClick={() => window.scrollTo(0, 0)}
                 className="header__main__cover__left-logo margin-left__30px"
               >
                 <img
                   className="header__main__cover__left-logo-img"
                   src="https://lacdau.com/static/assets/default/images/logo.png"
+                  // src="https://e7.pngegg.com/pngimages/775/938/png-clipart-body-jewellery-font-baymax-baymax-body-jewellery.png"
                   alt=""
                 />
               </NavLink>
@@ -209,9 +213,9 @@ function Header(props) {
                 <div className="header__main__cover__right-hotline-icon margin-left__30px ">
                   <FiPhoneCall className="skew-y-shake" />
                 </div>
-                <div className="header__main__cover__right-hotline-detail">
-                  <span>Hotline</span>
-                  <span className="main-color  font-weight-600">
+                <div className="header__main__cover__right-hotline-detail ">
+                  <span className="numberPhone-text">Hotline</span>
+                  <span className="main-color numberPhone  font-weight-600">
                     0349.xxx.461
                   </span>
                 </div>

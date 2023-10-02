@@ -5,7 +5,7 @@
   left: 0;
   width: 205px;
   height: 450px;
-  background: red;
+  // background: red;
   border-radius: 20px;
   // margin-top: 11px;
   margin-right: 15px;
@@ -67,4 +67,14 @@
 }
 .header-menu::before ::after {
   box-sizing: border-box;
+}
+
+@media only screen and (max-width: 1024px) {
+  .header-menu {
+    &-item {
+      .submenu {
+        width: 785px;
+      }
+    }
+  }
 }

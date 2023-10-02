@@ -1,29 +1,51 @@
 .footer {
-  width: 100%;
+  display: none;
+  // width: 100%;
+  // margin: 0 auto;
   height: auto;
+  padding: auto;
   background-color: #ffffff;
   display: flex;
+  // flex-wrap: wrap;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
+  // box-sizing: border-box;
+  // overflow: hidden;
+  margin: 0 auto;
   &-cover {
-    padding: 20px auto;
-    margin: 0 auto 20px;
-    min-width: 1220px;
+    margin: 0 auto;
     display: flex;
-    flex-direction: row;
+    // align-items: center;
+    padding: 20px auto;
+    width: 1220px;
     margin-top: 20px;
-    justify-content: space-between;
+    flex-direction: row;
+    justify-content: flex-start;
+    // background-color: red;
+    box-sizing: border-box;
+    overflow: hidden;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+
     .box-footer {
+      display: flex;
+      flex-direction: column;
+      margin-right: 100px;
       // background-color: red;
-      // border: 1px solid #333;
-      max-width: 25%;
+      // margin-left: 160px;
+      // align-items: center;
+      // min-width: 20%;
+
+      // width: 280px;
+
       .box-footer-title {
         font-weight: 600;
         font-size: 14px;
         line-height: 18px;
         margin-bottom: 17px;
+        box-sizing: border-box;
       }
       div {
         p {
@@ -36,12 +58,20 @@
         }
       }
     }
+    .box-footer::after ::before {
+      box-sizing: border-box;
+    }
     .box-footer:first-child {
-      margin-left: 10px;
+      min-width: 10%;
+      margin-left: 15px;
     }
-    .box-footer:last-child {
-      margin-right: 10px;
-    }
+    // .box-footer:last-child {
+    //   margin-right: 10px;
+    // }
+  }
+
+  &-cover::after ::before {
+    box-sizing: border-box;
   }
   &-copyright {
     background-color: #29a07e;
@@ -64,4 +94,20 @@
 
 .footer::after ::before {
   box-sizing: border-box;
+}
+
+@media only screen and (max-width: 1166px) {
+  .footer {
+    &-cover {
+      // display: flex;
+      // justify-content: flex-start;
+      .box-footer {
+      }
+    }
+  }
+}
+@media only screen and (max-width: 1024px) {
+  .footer {
+    display: none;
+  }
 }

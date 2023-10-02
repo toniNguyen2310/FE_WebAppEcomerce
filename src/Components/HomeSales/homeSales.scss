@@ -70,7 +70,7 @@
   .box-sale-list {
     max-width: 100%;
     // background-color: red;
-    padding: 10px 10px;
+    padding: 10px;
     .slick-slide {
       background-color: #d0021b;
     }
@@ -315,4 +315,46 @@
 
 .home-sale::after ::before {
   box-sizing: border-box;
+}
+
+@media only screen and (max-width: 600px) {
+  .home-sale {
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: 0 !important;
+    .box-sale-title {
+      padding: 10px !important;
+      .title-sale {
+        font-size: 16px;
+        svg {
+          font-size: 35px;
+        }
+      }
+      .box-countdown {
+        .text-countdow {
+          display: none;
+        }
+        .box-time {
+          margin-right: 5px;
+        }
+      }
+    }
+    .box-sale-list {
+      padding: 5px !important;
+      .item-cover {
+        .item {
+          margin-right: 6px !important;
+          padding: 10px;
+        }
+      }
+      .item-cover:last-child {
+        margin-left: 3px !important;
+      }
+    }
+
+    .box-sale-button {
+      // padding: 5px !important;
+      margin-bottom: 0px !important;
+    }
+  }
 }

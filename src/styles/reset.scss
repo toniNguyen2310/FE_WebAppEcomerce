@@ -6,8 +6,15 @@ body {
   background-color: #ededed;
   word-break: break-word;
   position: relative;
+  scroll-behavior: smooth;
 }
 .ant-space {
   margin-left: 10px;
   cursor: pointer;
+}
+
+@media screen and (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }

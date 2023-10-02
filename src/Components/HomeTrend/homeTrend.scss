@@ -86,3 +86,26 @@
 .home-trend-group::after ::before {
   box-sizing: border-box;
 }
+
+//responsive
+@media only screen and (max-width: 600px) {
+  .home-trend-group {
+    border-radius: 0 !important;
+    background-position: center top;
+    margin-bottom: 10px;
+    padding: 10px;
+    .home-trend-title {
+      line-height: 20px !important;
+      font-size: 22px;
+      margin-bottom: 10px !important;
+    }
+
+    .home-trend-category {
+      &-item {
+        margin: 0 !important;
+        width: 100% !important;
+        margin-bottom: 10px !important;
+      }
+    }
+  }
+}

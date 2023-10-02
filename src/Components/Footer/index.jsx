@@ -37,10 +37,10 @@ function Footer(props) {
           <div>
             <p>
               <MdLocationOn />
-              Đình Thôn, Nam Từ Liêm, Hà Nội
+              Nam Từ Liêm, Hà Nội
             </p>
             <p>
-              <BiLogoGmail /> lacdaushop@gmail.com
+              <BiLogoGmail /> lacdau@gmail.com
             </p>
             <p>
               <BiSolidPhoneCall />

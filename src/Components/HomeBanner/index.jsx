@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { Carousel } from "antd";
 
-import "./homepage.scss";
+import "./homeBanner.scss";
 import MenuCategory from "../Menu";
 function HomeBanner(props) {
   return (

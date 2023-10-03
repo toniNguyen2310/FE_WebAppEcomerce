@@ -6,58 +6,6 @@ import MenuCategory from "../Menu";
 function HomeBanner(props) {
   return (
     <div className="home-banner-group">
-      {/* <div className="home-menu">
-        <div className="home-menu-item">
-          <a href="">
-            <BiBandAid /> &nbsp; LÓT CHUỘT
-          </a>
-        </div>
-        <div className="home-menu-item">
-          <a href="">
-            <BsMouse2 /> &nbsp; CHUỘT GAMING
-          </a>
-        </div>
-        <div className="home-menu-item">
-          <a href="">
-            <LuKeyboard /> &nbsp; BÀN PHÍM GAMING
-          </a>
-        </div>
-        <div className="home-menu-item">
-          <a href="">
-            <SlEarphones /> &nbsp; TAI NGHE GAMING
-          </a>
-        </div>
-        <div className="home-menu-item">
-          <a href="">
-            <BiJoystick /> &nbsp; TAY CẦM GAMING
-          </a>
-        </div>
-        <div className="home-menu-item">
-          <a href="">
-            <BsSpeaker /> &nbsp; LOA
-          </a>
-        </div>
-        <div className="home-menu-item">
-          <a href="">
-            <BiCubeAlt /> &nbsp; MÔ HÌNH
-          </a>
-        </div>
-        <div className="home-menu-item">
-          <a href="">
-            <LuLampDesk /> &nbsp; PHỤ KIỆN
-          </a>
-        </div>
-        <div className="home-menu-item">
-          <a href="">
-            <PiOfficeChair /> &nbsp; GHẾ GAMING
-          </a>
-        </div>
-        <div className="home-menu-item">
-          <a href="">
-            <MdDesk /> &nbsp; BÀN GAMING
-          </a>
-        </div>
-      </div> */}
       <MenuCategory
         position={"relative"}
         background={"white"}

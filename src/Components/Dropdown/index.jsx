@@ -8,27 +8,36 @@ import { toast } from "react-toastify";
 import { callLogout } from "../../services.js/api";
 import { NavLink } from "react-router-dom";
 const { useToken } = theme;
-const items = [
-  {
-    key: "1",
-    label: <NavLink to={`/`}>Trang chủ</NavLink>,
-  },
-  {
-    key: "2",
-    label: <a target="_blank">Thông tin tài khoản</a>,
-  },
-  {
-    key: "3",
-    label: <a target="_blank">Danh sách đơn hàng</a>,
-    disabled: true,
-  },
-];
+
 const DropdownComponent = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.account.user);
+  const isAdmin = useSelector((state) => state.account.user.isAdmin);
+
   const nameAccount = user?.username;
 
+  const items = [
+    {
+      key: "1",
+      label: <NavLink to={`/`}>Trang chủ</NavLink>,
+    },
+    {
+      key: "2",
+      label: <a target="_blank">Thông tin tài khoản</a>,
+    },
+    {
+      key: "3",
+      label: <a target="_blank">Danh sách đơn hàng</a>,
+      disabled: true,
+    },
+    isAdmin
+      ? {
+          key: "4",
+          label: <NavLink to={`/admin`}>Quản trị</NavLink>,
+        }
+      : null,
+  ];
   //BUG đăng xuất với ADMIN => khi đăng xuất chuyển về trang Login chứ ko phải trang hompage
 
   //HANDLE LOGOUT

@@ -23,6 +23,8 @@ import LayoutAdmin from "./Components/AdminControl/LayoutAdmin";
 import CreateProduct from "./Components/AdminControl/CreateProduct";
 import ManagerProducts from "./Components/AdminControl/ManagerProducts";
 import ScrollToTop from "./Components/ScrollToTop";
+import DetailProduct from "./Components/DetailProduct";
+import Cart from "./Components/Cart/Cart";
 
 export const u = 12;
 console.log("exporting u really screws up HMR :(", u);
@@ -62,6 +64,14 @@ export default function App() {
       errorElement: <NotFound />,
       children: [
         { index: true, element: <HomePage /> },
+        {
+          path: "product",
+          element: <DetailProduct />,
+        },
+        {
+          path: "cart",
+          element: <Cart />,
+        },
         {
           path: "content",
           element: <ContentPage />,
@@ -126,7 +136,9 @@ export default function App() {
       {isLoading === false ||
       window.location.pathname === "/login" ||
       window.location.pathname === "/register" ||
-      window.location.pathname === "/" ? (
+      window.location.pathname === "/" ||
+      window.location.pathname === "/cart" ||
+      window.location.pathname === "/detailProduct" ? (
         <>
           {console.log("run")}
           <RouterProvider router={router} />

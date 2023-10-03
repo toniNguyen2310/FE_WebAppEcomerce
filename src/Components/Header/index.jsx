@@ -34,9 +34,9 @@ function Header(props) {
   useEffect(() => {
     const onScroll = () => setOffset(window.pageYOffset);
     // console.log(window.pageYOffset);
-    if (window.pageYOffset > 380) {
+    if (window.pageYOffset > 550) {
       setIsScroll(true);
-    } else if (window.pageYOffset < 380) {
+    } else if (window.pageYOffset < 550) {
       setIsScroll(false);
     }
     // clean up code
@@ -58,7 +58,7 @@ function Header(props) {
         className="header-container"
         id="header-check"
         onClick={() => (isDisplayMenu ? closeMenu() : null)}
-        style={isScroll ? { position: "fixed" } : { position: "sticky" }}
+        style={isScroll ? { position: "fixed" } : { position: "static" }}
       >
         <div
           className="header__top"
@@ -221,13 +221,13 @@ function Header(props) {
                 </div>
               </div>
               <div className="header__main-cart">
-                <a href="" className="header__main-cart-icon">
+                <NavLink to={`/cart`} className="header__main-cart-icon">
                   <AiOutlineShoppingCart />
                   <span className="header__main-cart-icon-amount">20</span>
-                </a>
-                <a href="" className="header__main-cart-title">
+                </NavLink>
+                <NavLink to={`/cart`} className="header__main-cart-title">
                   Giỏ hàng
-                </a>
+                </NavLink>
                 <div className="header__main-cart-detail">aa</div>
               </div>
             </div>

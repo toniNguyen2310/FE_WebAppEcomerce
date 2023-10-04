@@ -42,3 +42,11 @@ export const callCreateProduct = (product) => {
 export const putProduct = (data) => {
   return axios.put(`/v1/api/product/${data._id}`, data);
 };
+
+export const getProductByCategorySlice = (category) => {
+  return axios.get(`/v1/api/product/category-slice/${category}`);
+};
+
+export const getProductByDiscountSlice = () => {
+  return axios.get(`/v1/api/category/discount`);
+};

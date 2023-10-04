@@ -34,7 +34,7 @@ function Header(props) {
   useEffect(() => {
     const onScroll = () => setOffset(window.pageYOffset);
     // console.log(window.pageYOffset);
-    if (window.pageYOffset > 550) {
+    if (window.pageYOffset > 500) {
       setIsScroll(true);
     } else if (window.pageYOffset < 550) {
       setIsScroll(false);
@@ -58,11 +58,11 @@ function Header(props) {
         className="header-container"
         id="header-check"
         onClick={() => (isDisplayMenu ? closeMenu() : null)}
-        style={isScroll ? { position: "fixed" } : { position: "static" }}
+        style={isScroll ? { position: "fixed" } : { position: "relative" }}
       >
         <div
           className="header__top"
-          style={isScroll ? { display: "none" } : null}
+          style={isScroll ? { display: "none" } : { display: "block" }}
         >
           <div className="header__cover">
             <div className="header__top__left">

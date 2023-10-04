@@ -38,16 +38,16 @@ const columsSearch = [
 
 export const dataCategory = [
   { value: "All", label: "All" },
-  { value: "bàn-phím-gaming", label: "BÀN PHÍM GAMING" },
-  { value: "chuột-gaming", label: "CHUỘT GAMING" },
   { value: "lót-chuột", label: "LÓT CHUỘT" },
+  { value: "chuột-gaming", label: "CHUỘT GAMING" },
+  { value: "bàn-phím-gaming", label: "BÀN PHÍM GAMING" },
+  { value: "tai-nghe", label: "TAI NGHE" },
+  { value: "tay-cầm-gaming", label: "TAY CẦM GAMING" },
+  { value: "loa", label: "LOA" },
+  { value: "mô-hình", label: "MÔ HÌNH" },
+  { value: "phụ-kiện", label: "PHỤ KIỆN" },
   { value: "ghế-gaming", label: "GHẾ GAMING" },
   { value: "bàn-gaming", label: "BÀN GAMING" },
-  { value: "tai-nghe", label: "TAI NGHE" },
-  { value: "mô-hình", label: "MÔ HÌNH" },
-  { value: "tay-cầm-gaming", label: "TAY CẦM GAMING" },
-  { value: "loa-máy-tính", label: "LOA MÁY TÍNH" },
-  { value: "phụ-kiện-trang-trí", label: "PHỤ KIỆN TRANG TRÍ" },
 ];
 
 export const dataBrand = [
@@ -55,9 +55,10 @@ export const dataBrand = [
   "BOSHAN",
   "DAREU",
   "CIDOO",
-  "FUHLEN",
+  "AKKO",
   "CÔNG THÁI HỌC",
   "LẮC ĐẦU",
+  "E-DRA",
 ];
 
 function ManagerProducts(props) {
@@ -120,6 +121,11 @@ function ManagerProducts(props) {
       key: "discount",
     },
     {
+      title: "Giá KM",
+      dataIndex: "priceAfter",
+      key: "priceAfter",
+    },
+    {
       title: "Brand",
       dataIndex: "brand",
       key: "brand",
@@ -171,6 +177,7 @@ function ManagerProducts(props) {
   //HANDLE GET PRODUCT BY ID
   const handleGetProductById = async (id) => {
     const res = await getProductById(id);
+    console.log(id);
     if (res && res.data) {
       setProduct(res.data);
     }

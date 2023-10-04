@@ -1,11 +1,14 @@
 .header-container {
   // position: fixed;
-  position: sticky;
+  position: relative;
   // overflow: hidden;
   top: 0;
-  padding: auto;
+  left: 0;
+  right: 0;
+  // padding: auto;
   width: 100%;
-  z-index: 12;
+  z-index: 100;
+  transition: 0.3s all;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
   margin-bottom: 10px;
 
@@ -13,7 +16,7 @@
     background-color: #29a07e;
     // display: flex;
     // display: none;
-    align-items: center;
+    // align-items: center;
     height: 35px;
     font-size: 13px;
     font-weight: 500;
@@ -165,7 +168,7 @@
     font-family: "Mulish", sans-serif;
     // background-color: #29a07e;
     background-color: white;
-    word-break: break-word;
+    // word-break: break-word;
 
     .header__main__cover {
       margin: 0 auto;

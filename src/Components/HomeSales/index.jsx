@@ -5,10 +5,12 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { IoIosFlash } from "react-icons/io";
 import "./homeSales.scss";
 import { getProductByDiscountSlice } from "../../services.js/api";
+import { useNavigate } from "react-router-dom";
+import { convertSlug } from "../Homepage";
 
 function HomeSales(props) {
   const [listProductSales, setListProductSales] = useState([]);
-
+  const navigate = useNavigate();
   const responsiveCarousel = [
     {
       breakpoint: 1024,
@@ -108,9 +110,18 @@ function HomeSales(props) {
     };
   }, [timeFlashSale]);
 
+  //Handle rederect product
+  const handleRederectDetailProduct = (product) => {
+    // console.log("product>> ", product);
+    const slug = convertSlug(product.name);
+    // console.log("slug>> ", slug);
+    navigate(`/product/${slug}?id=${product._id}`);
+  };
+
   useEffect(() => {
     handleGetDataSale();
     countTimeFlashSale();
+
     window.scrollTo(0, 0);
   }, []);
 
@@ -165,9 +176,13 @@ function HomeSales(props) {
                     <img src={e.images[0]} alt="" />
                   </a>
                   <div className="item-infor">
-                    <a href="" className="item-infor-name">
+                    <p
+                      href=""
+                      className="item-infor-name"
+                      onClick={() => handleRederectDetailProduct(e)}
+                    >
                       {e.name}
-                    </a>
+                    </p>
                     <div className="item-infor-container">
                       <div className="item-infor-container-price">
                         <p className="old-price">

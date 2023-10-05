@@ -5,6 +5,8 @@ import { BsArrowRightShort } from "react-icons/bs";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { getProductByCategorySlice } from "../../services.js/api";
 import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { convertSlug } from "../Homepage";
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -20,6 +22,7 @@ function HomeProduct(props) {
   const { categoryValue, categoryLabel } = props;
   const [listBrand, setListBrand] = useState();
   const [listProduct, setListProduct] = useState([]);
+  const navigate = useNavigate();
   const responsiveCarousel = [
     {
       breakpoint: 1024,
@@ -54,6 +57,14 @@ function HomeProduct(props) {
       },
     },
   ];
+
+  //handle rederect product
+  const handleRederectDetailProduct = (product) => {
+    // console.log("product>> ", product);
+    const slug = convertSlug(product.name);
+    // console.log("slug>> ", slug);
+    navigate(`/product/${slug}?id=${product._id}`);
+  };
 
   //gt list products
   const handleGetProductSlice = async () => {
@@ -121,14 +132,17 @@ function HomeProduct(props) {
             return (
               <div key={e._id} className="item-cover">
                 <div className="item">
-                  <a href="" className="item-img">
+                  <a className="item-img">
                     <img src={e.images[0]} alt="" />
                   </a>
                   {e.discount === "0" ? (
                     <div className="item-infor">
-                      <a href="" className="item-infor-name">
+                      <p
+                        className="item-infor-name"
+                        onClick={() => handleRederectDetailProduct(e)}
+                      >
                         {e.name}
-                      </a>
+                      </p>
                       <div className="item-infor-container">
                         <div className="item-infor-container-price">
                           <p className="main-price">
@@ -148,9 +162,12 @@ function HomeProduct(props) {
                     </div>
                   ) : (
                     <div className="item-infor">
-                      <a href="" className="item-infor-name">
+                      <p
+                        onClick={() => handleRederectDetailProduct(e)}
+                        className="item-infor-name"
+                      >
                         {e.name}
-                      </a>
+                      </p>
                       <div className="item-infor-container">
                         <div className="item-infor-container-price">
                           <p className="old-price">

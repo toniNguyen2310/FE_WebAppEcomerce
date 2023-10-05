@@ -66,7 +66,7 @@ export default function App() {
       children: [
         { index: true, element: <HomePage /> },
         {
-          path: "product",
+          path: "/product/:slug",
           element: <DetailProduct />,
         },
         {
@@ -144,7 +144,7 @@ export default function App() {
       window.location.pathname === "/" ||
       window.location.pathname === "/category" ||
       window.location.pathname === "/cart" ||
-      window.location.pathname === "/detailProduct" ? (
+      window.location.pathname === "/product/:slug" ? (
         <>
           {console.log("run")}
           <RouterProvider router={router} />

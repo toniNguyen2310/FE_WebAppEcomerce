@@ -1,22 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Carousel } from "antd";
 import "./detailProduct.scss";
+import { useLocation } from "react-router-dom";
+import { getProductById } from "../../services.js/api";
 function DetailProduct(props) {
-  const images = [
-    "https://lacdau.com/media/product/250-3441-akko-asa-shine-through-keycap-set-black-05--1-.jpg",
-    "https://lacdau.com/media/product/250-3441-aa.jpg",
-    "https://lacdau.com/media/product/250-3441-akko-asa-shine-through-keycap-set-black-05--1-.jpg",
-  ];
+  const [dataProduct, setDataProduct] = useState([]);
+  let location = useLocation();
+  let params = new URLSearchParams(location.search);
+  const id = params?.get("id");
+  const fetchDataPRoduct = async (id) => {
+    const res = await getProductById(id);
+    if (res && res.data) {
+      setDataProduct(res.data);
+    }
+  };
+
   const settings = {
-    // customPaging: function (i) {
-    //   return (
-    //     <a>
-    //       {/* <img src={`${baseUrl}/abstract0${i + 1}.jpg`} /> */}
-    //       <img src="https://lacdau.com/media/product/250-3441-aa.jpg" />
-    //     </a>
-    //   );
-    // },
-    // dotsClass: "slick-dots slick-thumb",
     dots: true,
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -24,21 +23,36 @@ function DetailProduct(props) {
     draggable: true,
     infinite: true,
   };
+
+  useEffect(() => {
+    fetchDataPRoduct(id);
+  }, [id]);
+
   return (
     <div className="page-cover">
       <div className="product">
         <nav className="product-header">
-          Trang chủ /Chuột Gaming/ Tên Product
+          TRANG CHỦ / {dataProduct?.category?.replace("-", " ").toUpperCase()} /{" "}
+          {dataProduct.name}
         </nav>
         <div className="product-detail">
           <div className="product-detail-img">
             <Carousel {...settings}>
-              <div className="carousel-image">
+              {dataProduct?.images?.map((e) => {
+                return (
+                  <div key={e} className="carousel-image">
+                    <a href="">
+                      <img src={e} alt="" />
+                    </a>
+                  </div>
+                );
+              })}
+              {/* <div className="carousel-image">
                 <a href="">
                   <img src={images[0]} alt="" />
                 </a>
-              </div>
-              <div className="carousel-image">
+              </div> */}
+              {/* <div className="carousel-image">
                 <a href="">
                   <img src={images[1]} alt="" />
                 </a>
@@ -47,51 +61,63 @@ function DetailProduct(props) {
                 <a href="">
                   <img src={images[2]} alt="" />
                 </a>
-              </div>
+              </div> */}
             </Carousel>
           </div>
           <div className="product-detail-info">
             <div className="product-detail-info-text">
-              <p className="product-name">BỘ KEYCAP AKKO SHINE THROUGH BLACK</p>
+              <p className="product-name">{dataProduct.name}</p>
               <div className="product-description">
                 <p className="product-description-title">Thông số sản phẩm</p>
                 <p className="product-description-feature">
-                  AKKO ASA Shine-Through Keycap set – Black cung cấp trải nghiệm
-                  cao cấp hơn cho người dùng yêu thích LED RGB, đặc biệt là
-                  trong không gian tối.
+                  {dataProduct.description}
                 </p>
               </div>
             </div>
             <div className="product-detail-info-price">
               {/* Sản phẩm có discount */}
-              <div className="price">
-                <div className="price-detail">
-                  <p className="price-detail-title ">Giá bán</p>
-                  <p className="price-detail-number price-intial">
-                    890.000<u>đ</u>
-                  </p>
+              {dataProduct?.discount === "0" ? (
+                <div className="price">
+                  <div className="price-detail ">
+                    <p className="price-detail-title title-discount">
+                      Giá khuyến mại
+                    </p>
+                    <p className="price-detail-number price-discount">
+                      {new Intl.NumberFormat("vi-VN", {
+                        style: "currency",
+                        currency: "VND",
+                      }).format(dataProduct?.priceAfter)}
+                    </p>
+                  </div>
                 </div>
-                <div className="price-detail">
-                  <p className="price-detail-title title-discount">
-                    Giá khuyến mại
-                  </p>
-                  <p className="price-detail-number price-discount">
-                    445.000<u>đ</u> &nbsp; <small>(Tiết kiệm: 50%)</small>
-                  </p>
+              ) : (
+                <div className="price">
+                  <div className="price-detail">
+                    <p className="price-detail-title ">Giá bán</p>
+                    <p className="price-detail-number price-intial">
+                      {new Intl.NumberFormat("vi-VN", {
+                        style: "currency",
+                        currency: "VND",
+                      }).format(dataProduct?.price)}
+                    </p>
+                  </div>
+                  <div className="price-detail">
+                    <p className="price-detail-title title-discount">
+                      Giá khuyến mại
+                    </p>
+                    <p className="price-detail-number price-discount">
+                      {new Intl.NumberFormat("vi-VN", {
+                        style: "currency",
+                        currency: "VND",
+                      }).format(dataProduct?.priceAfter)}
+                      &nbsp;
+                      <small>(Tiết kiệm: {dataProduct?.discount}%)</small>
+                    </p>
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* Sản phẩm không có discount */}
-              {/* <div className="price">
-                <div className="price-detail ">
-                  <p className="price-detail-title title-discount">
-                    Giá khuyến mại
-                  </p>
-                  <p className="price-detail-number price-discount">
-                    445.000<u>đ</u>
-                  </p>
-                </div>
-              </div> */}
             </div>
             <div className="btn-buy">
               <a href="">Mua ngay</a>

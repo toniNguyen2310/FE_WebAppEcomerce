@@ -1,9 +1,8 @@
-import React, { useState } from "react";
-import ReactPaginate from "react-paginate";
-import { AiOutlineShoppingCart } from "react-icons/ai";
+/* eslint-disable react/prop-types */
 import { Pagination } from "antd";
-import { convertSlug } from "../Homepage";
+import { AiOutlineShoppingCart } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
+import { convertSlug } from "../Homepage";
 
 function CategoryProduct(props) {
   const navigate = useNavigate();
@@ -41,7 +40,7 @@ function CategoryProduct(props) {
           </a>
         </div>
         <div className="category-product-container-list">
-          {listData?.map((e, index) => {
+          {listData?.map((e) => {
             return (
               <div className="item-cover" key={e._id}>
                 <div className="item">

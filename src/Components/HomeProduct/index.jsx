@@ -146,7 +146,7 @@ function HomeProduct(props) {
               <div key={e._id} className="item-cover">
                 <div className="item">
                   <a className="item-img">
-                    <img src={e.images[0]} alt="" />
+                    <img loading="lazy" src={e.images[0]} alt="" />
                   </a>
                   {e.discount === "0" ? (
                     <div className="item-infor">
@@ -211,7 +211,7 @@ function HomeProduct(props) {
           {/* <div className="item-cover">
             <div className="item">
               <a href="" className="item-img">
-                <img
+                <img loading="lazy"
                   src="https://lacdau.com/media/product/250-745-592b78f027525d0a9ba8cdd4ef56efbc.jpg"
                   alt=""
                 />

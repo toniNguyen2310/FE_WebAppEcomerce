@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import ContentPage from "./pages/content";
@@ -26,7 +26,7 @@ import ScrollToTop from "./Components/ScrollToTop";
 import DetailProduct from "./Components/DetailProduct";
 import Cart from "./Components/Cart/Cart";
 import Category from "./Components/Category/Category";
-
+import "./App.scss";
 export const u = 12;
 console.log("exporting u really screws up HMR :(", u);
 

@@ -52,24 +52,24 @@ function DetailProduct(props) {
                 return (
                   <div key={e} className="carousel-image">
                     <a href="">
-                      <img src={e} alt="" />
+                      <img loading="lazy" src={e} alt="" />
                     </a>
                   </div>
                 );
               })}
               {/* <div className="carousel-image">
                 <a href="">
-                  <img src={images[0]} alt="" />
+                  <img loading="lazy" src={images[0]} alt="" />
                 </a>
               </div> */}
               {/* <div className="carousel-image">
                 <a href="">
-                  <img src={images[1]} alt="" />
+                  <img loading="lazy" src={images[1]} alt="" />
                 </a>
               </div>
               <div className="carousel-image">
                 <a href="">
-                  <img src={images[2]} alt="" />
+                  <img loading="lazy" src={images[2]} alt="" />
                 </a>
               </div> */}
             </Carousel>

@@ -3,7 +3,10 @@ import { BsFillTrash3Fill } from "react-icons/bs";
 function ProductCart(props) {
   return (
     <div className="cart-detail">
-      <img src="https://lacdau.com/media/product/250-1389-cee443f13b710b757de6b494265fc813.jpg" />
+      <img
+        loading="lazy"
+        src="https://lacdau.com/media/product/250-1389-cee443f13b710b757de6b494265fc813.jpg"
+      />
       <p className="cart-detail-name">BỘ KEYCAP AKKO 9009 PBT SUBLIMATION</p>
       {/* Trường hợp có giảm giá */}
       <div className="cart-detail-price">

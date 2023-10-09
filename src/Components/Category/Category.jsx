@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import CategoryFilter from "./CategoryFilter";
 import "./category.scss";
@@ -25,6 +26,7 @@ function Category(props) {
     setCategoryValue("");
     setBrandValue("");
     setBrandLabel("");
+    setListBrand([]);
   };
 
   const fetchProductFilter = async () => {

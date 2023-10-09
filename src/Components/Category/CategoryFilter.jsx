@@ -24,7 +24,7 @@ function CategoryFilter(props) {
     if (e.target.checked) {
       console.log("chon");
       navigate(`?brand=${e.target.value}`);
-      !isSelected && setIsSelected(e.target.value);
+      // !isSelected && setIsSelected(e.target.value);
       return;
     }
     if (e.target.checked === false) {
@@ -32,7 +32,7 @@ function CategoryFilter(props) {
       navigate(``);
       setBrandValue("");
       // fetchProductFilter();
-      setIsSelected(null);
+      // setIsSelected(null);
       return;
     }
   };
@@ -182,11 +182,11 @@ function CategoryFilter(props) {
           {listBrand?.map((e) => {
             return (
               <Checkbox
-                // defaultChecked={}
+                checked={e.value == brandValue ? true : false}
                 value={e.value}
                 onChange={onChangeBrand}
                 key={e.label}
-                disabled={isSelected ? isSelected !== e.value : false}
+                // disabled={isSelected ? isSelected !== e.value : false}
               >
                 {e.label}
               </Checkbox>

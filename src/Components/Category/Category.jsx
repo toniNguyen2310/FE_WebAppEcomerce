@@ -5,6 +5,7 @@ import CategoryProduct from "./CategoryProduct";
 import { useLocation } from "react-router-dom";
 import { dataBrand, dataCategory } from "../AdminControl/ManagerProducts";
 import { getProducts } from "../../services.js/api";
+import { useDebounce } from "../../utils/hook";
 function Category(props) {
   const [categoryName, setCategoryName] = useState("");
   const [categoryValue, setCategoryValue] = useState("");
@@ -103,6 +104,14 @@ function Category(props) {
 
   let location = useLocation();
   // let params = new URLSearchParams(location.pathname);
+
+  const debounceLocation = useDebounce(location, 100);
+  const debounceCurrentPage = useDebounce(currentPage, 300);
+  const debounceCategoryValueAndBrandValue = useDebounce(
+    JSON.stringify(categoryValue) + JSON.stringify(brandValue),
+    300
+  );
+
   useEffect(() => {
     console.log("category>> ", location?.pathname.split("/")[2]);
     console.log(
@@ -129,17 +138,17 @@ function Category(props) {
       setCategoryValue(foundCategory?.value);
       return;
     }
-  }, [location]);
+  }, [debounceLocation]);
 
   useEffect(() => {
     console.log("categoryValue>>> ", categoryValue);
     fetchProductFilter();
-  }, [currentPage]);
+  }, [debounceCurrentPage]);
 
   useEffect(() => {
     setCurrentPage(1);
     fetchProductFilter();
-  }, [categoryValue, brandValue]);
+  }, [debounceCategoryValueAndBrandValue]);
   return (
     <div className="page-category">
       <div className="category">

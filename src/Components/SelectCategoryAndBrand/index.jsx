@@ -23,7 +23,7 @@ function SelectCategory(props) {
                 return { value: category.value, label: category.label };
               })
             : dataBrand.map((dataBrand) => {
-                return { value: dataBrand, label: dataBrand };
+                return { value: dataBrand.value, label: dataBrand.label };
               })
         }
       />

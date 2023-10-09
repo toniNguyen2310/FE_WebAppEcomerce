@@ -7,6 +7,7 @@ import { getProductByCategorySlice } from "../../services.js/api";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { convertSlug } from "../Homepage";
+import { dataBrand } from "../AdminControl/ManagerProducts";
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -63,8 +64,14 @@ function HomeProduct(props) {
     // console.log("product>> ", product);
     const slug = convertSlug(product.name);
     // console.log("slug>> ", slug);
-    navigate(`/product/${slug}?id=${product._id}`);
+    navigate(`/${slug}?id=${product._id}`);
   };
+
+  //handle rederect categiry
+  // const handleRederectCategory = (category) => {
+  //   console.log("category>>> ", category);
+  //   // navigate(`/category/${category}`)
+  // };
 
   //gt list products
   const handleGetProductSlice = async () => {
@@ -77,8 +84,14 @@ function HomeProduct(props) {
       });
 
       setListBrand(
-        brands?.filter((item, index) => {
-          return brands.indexOf(item) === index;
+        dataBrand.filter((e) => {
+          return (
+            brands
+              ?.filter((item, index) => {
+                return brands.indexOf(item) === index;
+              })
+              .indexOf(e.value) > -1
+          );
         })
       );
     }
@@ -94,8 +107,8 @@ function HomeProduct(props) {
         <div className="box-title-group-search">
           {listBrand?.map((e) => {
             return (
-              <a href="" key={e}>
-                <h3>{e}</h3>
+              <a href="" key={e.value}>
+                <h3>{e.label}</h3>
               </a>
             );
           })}
@@ -106,7 +119,7 @@ function HomeProduct(props) {
           <a href="">
             <h3>LÓT CHUỘT CỠ 60X40</h3>
           </a> */}
-          <NavLink to={`/category`} className="btn-view-more">
+          <NavLink to={`/category/${categoryValue}`} className="btn-view-more">
             <h3>
               XEM THÊM <BsArrowRightShort />
             </h3>

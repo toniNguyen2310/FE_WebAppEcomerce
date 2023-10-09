@@ -144,8 +144,8 @@ function CreateProduct(props) {
                   // onChange={(value) => setBrand(value)}
                   options={dataBrand.map((brand) => {
                     return {
-                      value: brand,
-                      label: brand,
+                      value: brand.value,
+                      label: brand.value,
                     };
                   })}
                 />

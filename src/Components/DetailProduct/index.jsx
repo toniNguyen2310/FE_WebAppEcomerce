@@ -3,11 +3,15 @@ import { Carousel } from "antd";
 import "./detailProduct.scss";
 import { useLocation } from "react-router-dom";
 import { getProductById } from "../../services.js/api";
+import { dataCategory } from "../AdminControl/ManagerProducts";
 function DetailProduct(props) {
   const [dataProduct, setDataProduct] = useState([]);
+  const [categoryName, setCategoryName] = useState("");
   let location = useLocation();
   let params = new URLSearchParams(location.search);
+  console.log("params>>> ", location);
   const id = params?.get("id");
+
   const fetchDataPRoduct = async (id) => {
     const res = await getProductById(id);
     if (res && res.data) {
@@ -28,12 +32,18 @@ function DetailProduct(props) {
     fetchDataPRoduct(id);
   }, [id]);
 
+  useEffect(() => {
+    console.log(dataProduct?.category);
+    const found = dataCategory.find((e) => e.value === dataProduct?.category);
+    setCategoryName(found?.label);
+    // console.log("found.label>>> ", found.label);
+  }, [dataProduct]);
+
   return (
     <div className="page-cover">
       <div className="product">
         <nav className="product-header">
-          TRANG CHỦ / {dataProduct?.category?.replace("-", " ").toUpperCase()} /{" "}
-          {dataProduct.name}
+          TRANG CHỦ / {categoryName} / {dataProduct.name}
         </nav>
         <div className="product-detail">
           <div className="product-detail-img">

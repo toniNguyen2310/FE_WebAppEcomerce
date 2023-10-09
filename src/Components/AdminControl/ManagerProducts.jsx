@@ -38,27 +38,27 @@ const columsSearch = [
 
 export const dataCategory = [
   { value: "All", label: "All" },
-  { value: "lót-chuột", label: "LÓT CHUỘT" },
-  { value: "chuột-gaming", label: "CHUỘT GAMING" },
-  { value: "bàn-phím-gaming", label: "BÀN PHÍM GAMING" },
+  { value: "lot-chuot", label: "LÓT CHUỘT" },
+  { value: "chuot-gaming", label: "CHUỘT GAMING" },
+  { value: "ban-phim-gaming", label: "BÀN PHÍM GAMING" },
   { value: "tai-nghe", label: "TAI NGHE" },
-  { value: "tay-cầm-gaming", label: "TAY CẦM GAMING" },
+  { value: "tay-cam-gaming", label: "TAY CẦM GAMING" },
   { value: "loa", label: "LOA" },
-  { value: "mô-hình", label: "MÔ HÌNH" },
-  { value: "phụ-kiện", label: "PHỤ KIỆN" },
-  { value: "ghế-gaming", label: "GHẾ GAMING" },
-  { value: "bàn-gaming", label: "BÀN GAMING" },
+  { value: "mo-hinh", label: "MÔ HÌNH" },
+  { value: "phu-kien", label: "PHỤ KIỆN" },
+  { value: "ghe-gaming", label: "GHẾ GAMING" },
+  { value: "ban-gaming", label: "BÀN GAMING" },
 ];
 
 export const dataBrand = [
-  "All",
-  "BOSHAN",
-  "DAREU",
-  "CIDOO",
-  "AKKO",
-  "CÔNG THÁI HỌC",
-  "LẮC ĐẦU",
-  "E-DRA",
+  { value: "All", label: "All" },
+  { value: "boshan", label: "BOSHAN" },
+  { value: "dareu", label: "DAREU" },
+  { value: "cidoo", label: "CIDOO" },
+  { value: "akko", label: "AKKO" },
+  { value: "cong-thai-hoc", label: "CÔNG THÁI HỌC" },
+  { value: "lac-dau", label: "LẮC ĐẦU" },
+  { value: "e-dra", label: "E-DRA" },
 ];
 
 function ManagerProducts(props) {
@@ -186,6 +186,7 @@ function ManagerProducts(props) {
 
   //Onchange pagination of table products
   const handleOnChangeTable = (pagination) => {
+    console.log("pagination>>> ", pagination);
     if (pagination && pagination.current !== current) {
       setCurrent(pagination.current);
     }
@@ -259,7 +260,8 @@ function ManagerProducts(props) {
             alignItems: "center",
           }}
         >
-          <h1>Table products</h1>
+          <h1>Table products ({total} SP)</h1>
+
           <Button
             type="primary"
             onClick={() => setOpenModalCreate(true)}

@@ -147,8 +147,15 @@
             justify-content: center;
 
             svg {
-              font-size: 23px;
+              // font-size: 20px;
               color: #ffffff;
+            }
+            .ant-space-item {
+              span {
+                svg {
+                  font-size: 18px;
+                }
+              }
             }
           }
           .loginester {

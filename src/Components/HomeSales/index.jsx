@@ -115,7 +115,7 @@ function HomeSales(props) {
     // console.log("product>> ", product);
     const slug = convertSlug(product.name);
     // console.log("slug>> ", slug);
-    navigate(`/product/${slug}?id=${product._id}`);
+    navigate(`/${slug}?id=${product._id}`);
   };
 
   useEffect(() => {

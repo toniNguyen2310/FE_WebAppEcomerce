@@ -40,7 +40,7 @@ const Layout = () => {
       <ToastContainer
         position="top-center"
         autoClose={2000}
-        hideProgressBar={true}
+        hideProgressBar={false}
         theme="light"
       />
     </div>
@@ -66,7 +66,7 @@ export default function App() {
       children: [
         { index: true, element: <HomePage /> },
         {
-          path: "/product/:slug",
+          path: "/:slug",
           element: <DetailProduct />,
         },
         {
@@ -74,7 +74,7 @@ export default function App() {
           element: <Cart />,
         },
         {
-          path: "category",
+          path: "/category/:slug",
           element: <Category />,
         },
         {
@@ -144,7 +144,7 @@ export default function App() {
       window.location.pathname === "/" ||
       window.location.pathname === "/category" ||
       window.location.pathname === "/cart" ||
-      window.location.pathname === "/product/:slug" ? (
+      window.location.pathname === "/:slug" ? (
         <>
           {console.log("run")}
           <RouterProvider router={router} />

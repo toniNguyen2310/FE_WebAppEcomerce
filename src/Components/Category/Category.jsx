@@ -24,6 +24,7 @@ function Category(props) {
     setCategoryValue("");
     setBrandValue("");
     setBrandLabel("");
+    setListBrand([]);
   };
 
   const fetchProductFilter = async () => {
@@ -139,7 +140,16 @@ function Category(props) {
   useEffect(() => {
     setCurrentPage(1);
     fetchProductFilter();
-  }, [categoryValue, brandValue]);
+  }, [brandValue]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+    setBrandValue("");
+    setBrandLabel("");
+    setListBrand([]);
+    fetchProductFilter();
+  }, [categoryValue]);
+
   return (
     <div className="page-category">
       <div className="category">

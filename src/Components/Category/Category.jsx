@@ -14,6 +14,7 @@ function Category(props) {
   const [brandLabel, setBrandLabel] = useState("");
   const [listData, setListData] = useState([]);
   const [listBrand, setListBrand] = useState([]);
+  const [notChoosen, setNotChoosen] = useState(false);
   //PAGINATION
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(16);
@@ -39,25 +40,25 @@ function Category(props) {
       const query = `current=${currentPage}&pageSize=${pageSize}&category=${categoryValue}&brand=${brandValue}`;
       const res = await getProducts(query);
       if (res && res.data) {
+        console.log("BOTH");
         console.log("res>>> ", res);
         setListData(res.data.products);
         setTotal(res.data.count);
-
-        //BRAND
-        // res.data.products.map((e) => {
-        //   brands.push(e.brand);
-        // });
-        // setListBrand(
-        //   dataBrand.filter((e) => {
-        //     return (
-        //       brands
-        //         ?.filter((item, index) => {
-        //           return brands.indexOf(item) === index;
-        //         })
-        //         .indexOf(e.value) > -1
-        //     );
-        //   })
-        // );
+        //LIST BRAND
+        res.data.products.map((e) => {
+          brands.push(e.brand);
+        });
+        setListBrand(
+          dataBrand.filter((e) => {
+            return (
+              brands
+                ?.filter((item, index) => {
+                  return brands.indexOf(item) === index;
+                })
+                .indexOf(e.value) > -1
+            );
+          })
+        );
       }
       return;
     }
@@ -71,7 +72,8 @@ function Category(props) {
         setListData(res.data.products);
         setTotal(res.data.count);
         if (currentPage === 1) {
-          console.log("page1");
+          console.log("ONLY");
+          //LIST BRAND
           res.data.products.map((e) => {
             brands.push(e.brand);
           });
@@ -126,16 +128,28 @@ function Category(props) {
     const foundBrand = dataBrand.find(
       (e) => e.value === new URLSearchParams(location.search).get("brand")
     );
+
     if (foundCategory && foundBrand) {
       setCategoryName(foundCategory?.label);
       setCategoryValue(foundCategory?.value);
       setBrandValue(foundBrand.value);
       setBrandLabel(foundBrand.label);
       console.log("foundBrand>>> ", foundBrand);
+
       return;
     }
-    if (foundCategory) {
-      console.log("category");
+    if (foundCategory && notChoosen) {
+      console.log("category1");
+      setCategoryName(foundCategory?.label);
+      setCategoryValue(foundCategory?.value);
+
+      return;
+    }
+    if (foundCategory && !notChoosen) {
+      setBrandValue("");
+      setBrandLabel("");
+      setListBrand([]);
+      console.log("category1");
       setCategoryName(foundCategory?.label);
       setCategoryValue(foundCategory?.value);
       return;
@@ -143,11 +157,15 @@ function Category(props) {
   }, [debounceLocation]);
 
   useEffect(() => {
-    console.log("categoryValue>>> ", categoryValue);
+    console.log("currentChange>>>1111111111 ");
     fetchProductFilter();
   }, [debounceCurrentPage]);
 
   useEffect(() => {
+    console.log(
+      "debounceCategoryValueAndBrandValue> ",
+      debounceCategoryValueAndBrandValue
+    );
     setCurrentPage(1);
     fetchProductFilter();
   }, [debounceCategoryValueAndBrandValue]);
@@ -166,6 +184,7 @@ function Category(props) {
             brandValue={brandValue}
             setCurrentPage={setCurrentPage}
             handleRefreshFilter={handleRefreshFilter}
+            setNotChoosen={setNotChoosen}
           />
           <CategoryProduct
             total={total}
@@ -174,6 +193,7 @@ function Category(props) {
             categoryName={categoryName}
             listData={listData}
             handleOnchangeProductsFilter={handleOnchangeProductsFilter}
+            brandLabel={brandLabel}
           />
         </div>
       </div>

@@ -13,9 +13,8 @@ function CategoryFilter(props) {
     brandValue,
     setCurrentPage,
     handleRefreshFilter,
+    setNotChoosen,
   } = props;
-  const [isSelected, setIsSelected] = useState();
-  const [checkCategory, setCheckCategory] = useState(false);
   const navigate = useNavigate();
 
   //Onchange Brand
@@ -24,11 +23,15 @@ function CategoryFilter(props) {
     if (e.target.checked) {
       console.log("chon");
       navigate(`?brand=${e.target.value}`);
+      setNotChoosen(false);
+
       // !isSelected && setIsSelected(e.target.value);
       return;
     }
     if (e.target.checked === false) {
       console.log("ko chon");
+
+      setNotChoosen(true);
       navigate(``);
       setBrandValue("");
       // fetchProductFilter();

@@ -47,10 +47,6 @@ function CategoryFilter(props) {
     // console.log("categoryValue>>> ", categoryValue, categoryName);
   }, [categoryValue]);
 
-  useEffect(() => {
-    console.log("filter vrand>>> ", brandValue);
-  }, [brandValue]);
-
   return (
     <div className="category-filter">
       <div className="category-filter-box">

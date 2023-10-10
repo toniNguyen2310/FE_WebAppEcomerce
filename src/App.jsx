@@ -27,8 +27,6 @@ import DetailProduct from "./Components/DetailProduct";
 import Cart from "./Components/Cart/Cart";
 import Category from "./Components/Category/Category";
 import "./App.scss";
-export const u = 12;
-console.log("exporting u really screws up HMR :(", u);
 
 //LAYOUT MAIN
 const Layout = () => {
@@ -51,7 +49,7 @@ export default function App() {
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.account.isLoading);
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
-  console.log("isAuthenticated - App>> ", isAuthenticated);
+  // console.log("isAuthenticated - App>> ", isAuthenticated);
 
   const router = createBrowserRouter([
     {
@@ -146,7 +144,7 @@ export default function App() {
       window.location.pathname === "/cart" ||
       window.location.pathname === "/:slug" ? (
         <>
-          {console.log("run")}
+          {/* {console.log("run")} */}
           <RouterProvider router={router} />
         </>
       ) : (

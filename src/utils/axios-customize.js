@@ -42,10 +42,10 @@ instance.defaults.headers.common = {
 //Xử lý refresh Token
 const handleRefreshToken = async () => {
   const refreshLocal = localStorage.getItem("refresh_token");
-  console.log("refreshLocal>> ", refreshLocal);
+  // console.log("refreshLocal>> ", refreshLocal);
   const res = await instance.post("/v1/api/auth/refresh", { refreshLocal });
   if (res && res.data) {
-    console.log("handleRefreshToken> res.data>>> ", res.data);
+    // console.log("handleRefreshToken> res.data>>> ", res.data);
     return res.data;
   } else return;
 };
@@ -119,7 +119,7 @@ instance.interceptors.response.use(
       error.config.headers[NO_RETRY_HEADER] = "true";
 
       if (data && data.accessToken && data.refreshToken) {
-        console.log("data.accessToken && data.refreshToken");
+        // console.log("data.accessToken && data.refreshToken");
         error.config.headers["Authorization"] = `Bearer ${data.accessToken}`;
         localStorage.setItem("access_token", data.accessToken);
         localStorage.setItem("refresh_token", data.refreshToken);

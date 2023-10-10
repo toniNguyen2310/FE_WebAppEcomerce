@@ -1,13 +1,18 @@
 import React from "react";
 import "./homeTrend.scss";
 import { BiRightArrowAlt } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
 
 function HomeTrend(props) {
+  const navigate = useNavigate();
   return (
     <div className="home-trend-group">
       <h2 className="home-trend-title">XU HƯỚNG MUA SẮM</h2>
       <div className="home-trend-category">
-        <a href="" className="home-trend-category-item">
+        <a
+          onClick={() => navigate("/category/ban-phim-gaming")}
+          className="home-trend-category-item"
+        >
           <img
             loading="lazy"
             src="https://lacdau.com/media/lib/26-07-2022/1.png"
@@ -19,7 +24,10 @@ function HomeTrend(props) {
             <BiRightArrowAlt />
           </p>
         </a>
-        <a href="" className="home-trend-category-item">
+        <a
+          onClick={() => navigate("/category/chuot-gaming")}
+          className="home-trend-category-item"
+        >
           <img
             loading="lazy"
             src="https://lacdau.com/media/lib/06-07-2022/group75.png"
@@ -31,7 +39,10 @@ function HomeTrend(props) {
             <BiRightArrowAlt />
           </p>
         </a>
-        <a href="" className="home-trend-category-item">
+        <a
+          onClick={() => navigate("/category/tai-nghe-gaming")}
+          className="home-trend-category-item"
+        >
           <img
             loading="lazy"
             src="https://lacdau.com/media/lib/26-07-2022/2.png"
@@ -43,14 +54,17 @@ function HomeTrend(props) {
             <BiRightArrowAlt />
           </p>
         </a>
-        <a href="" className="home-trend-category-item">
+        <a
+          onClick={() => navigate("/category/loa")}
+          className="home-trend-category-item"
+        >
           <img
             loading="lazy"
             src="https://lacdau.com/media/lib/26-07-2022/3.png"
             alt=""
           />
           <p className="home-trend-category-item-text">
-            <span>Loa gaming</span>
+            <span>Loa </span>
             <span>Giảm đến 40%</span>
             <BiRightArrowAlt />
           </p>

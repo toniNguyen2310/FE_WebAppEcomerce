@@ -418,7 +418,7 @@ function HomeSales(props) {
         </Carousel>
       </div>
       <div className="box-sale-button">
-        <div>
+        <div className="button">
           Xem tất cả <BsArrowRightCircle />
         </div>
       </div>

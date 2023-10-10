@@ -3,7 +3,9 @@ import { Carousel } from "antd";
 
 import "./homeBanner.scss";
 import MenuCategory from "../Menu";
+import { useNavigate } from "react-router-dom";
 function HomeBanner(props) {
+  const navigate = useNavigate();
   return (
     <div className="home-banner-group">
       <MenuCategory
@@ -18,9 +20,9 @@ function HomeBanner(props) {
       </div> */}
 
       <div className="home-center">
-        <Carousel swipeToSlide draggable autoplay>
-          <div>
-            <a href="">
+        <Carousel swipeToSlide draggable autoplay accessibility={true}>
+          <div onClick={() => navigate("/category/lot-chuot")}>
+            <a>
               <img
                 loading="lazy"
                 src="https://lacdau.com/media/banner/04_Jul4b2820f0c4fe29e2d289589b90e47f4c.png"
@@ -28,8 +30,8 @@ function HomeBanner(props) {
               />
             </a>
           </div>
-          <div>
-            <a href="">
+          <div onClick={() => navigate("/category/chuot-gaming")}>
+            <a>
               <img
                 loading="lazy"
                 src="	https://lacdau.com/media/banner/09_Jul9860edbd0f637428e39fde95121313ed.png"
@@ -64,21 +66,30 @@ function HomeBanner(props) {
         </Carousel>
       </div>
       <div className="home-right">
-        <a href="" className="animation-small">
+        <a
+          onClick={() => navigate("/category/mo-hinh")}
+          className="animation-small"
+        >
           <img
             loading="lazy"
             src="https://lacdau.com/media/banner/04_Jul7f64f21fb6ba6d30b7932b6ad017b870.png"
             alt=""
           />
         </a>
-        <a href="" className="animation-small">
+        <a
+          onClick={() => navigate("/category/ban-phim-gaming")}
+          className="animation-small"
+        >
           <img
             loading="lazy"
             src="https://lacdau.com/media/banner/04_Julbc98282e1bb9acf041f8c94b05ccdfcb.png"
             alt=""
           />
         </a>
-        <a href="" className="animation-small">
+        <a
+          onClick={() => navigate("/category/ghe-gaming")}
+          className="animation-small"
+        >
           <img
             loading="lazy"
             src="https://lacdau.com/media/banner/04_Jul58a3f59ace6732aceb452a6e387c0c20.png"

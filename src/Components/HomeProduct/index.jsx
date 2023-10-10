@@ -107,7 +107,12 @@ function HomeProduct(props) {
         <div className="box-title-group-search">
           {listBrand?.map((e) => {
             return (
-              <a href="" key={e.value}>
+              <a
+                onClick={() =>
+                  navigate(`/category/${categoryValue}?brand=${e.value}`)
+                }
+                key={e.value}
+              >
                 <h3>{e.label}</h3>
               </a>
             );

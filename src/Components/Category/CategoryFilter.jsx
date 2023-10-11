@@ -12,8 +12,9 @@ function CategoryFilter(props) {
     setBrandLabel,
     brandValue,
     setCurrentPage,
-    handleRefreshFilter,
     setNotChoosen,
+    priceFilter,
+    setPriceFilter,
   } = props;
   const navigate = useNavigate();
 
@@ -42,8 +43,21 @@ function CategoryFilter(props) {
 
   //onclick category
   const changeCategory = (categoryName) => {
-    handleRefreshFilter();
     navigate(`/category/${categoryName}`);
+  };
+
+  //Onchange Filter Price
+  const onchangeFilterPrice = (e) => {
+    console.log("change price>>> ", e);
+    if (e.target.checked) {
+      setPriceFilter(e.target.value);
+      navigate(`?filter=${e.target.value}`);
+      setNotChoosen(false);
+    } else {
+      setNotChoosen(true);
+      navigate(``);
+      setPriceFilter("");
+    }
   };
 
   useEffect(() => {
@@ -196,9 +210,27 @@ function CategoryFilter(props) {
       <div className="category-filter-box">
         <h3>KHOẢNG GIÁ</h3>
         <div className="filter checkbox">
-          <Checkbox>Dưới 100 ngàn</Checkbox>
-          <Checkbox>100 ngàn - 200 ngàn</Checkbox>
-          <Checkbox>200 ngàn - 500 ngàn</Checkbox>
+          <Checkbox
+            checked={priceFilter === "op1" ? true : false}
+            value={"op1"}
+            onChange={onchangeFilterPrice}
+          >
+            Dưới 100 ngàn
+          </Checkbox>
+          <Checkbox
+            value={"op12"}
+            checked={priceFilter === "op12" ? true : false}
+            onChange={onchangeFilterPrice}
+          >
+            100 ngàn - 200 ngàn
+          </Checkbox>
+          <Checkbox
+            value={"op25"}
+            checked={priceFilter === "op25" ? true : false}
+            onChange={onchangeFilterPrice}
+          >
+            200 ngàn - 500 ngàn
+          </Checkbox>
         </div>
       </div>
     </div>

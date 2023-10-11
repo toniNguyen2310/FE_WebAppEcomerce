@@ -15,6 +15,14 @@ function Category(props) {
   const [listData, setListData] = useState([]);
   const [listBrand, setListBrand] = useState([]);
   const [notChoosen, setNotChoosen] = useState(false);
+  const [priceFilter, setPriceFilter] = useState("");
+  //Filter Value
+  const [filterValue, setFilterValue] = useState({
+    category: "",
+    brand: "",
+    price: "",
+    sort: "",
+  });
   //PAGINATION
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(16);
@@ -130,6 +138,7 @@ function Category(props) {
     );
 
     if (foundCategory && foundBrand) {
+      console.log("categoryBr");
       setCategoryName(foundCategory?.label);
       setCategoryValue(foundCategory?.value);
       setBrandValue(foundBrand.value);
@@ -139,7 +148,7 @@ function Category(props) {
       return;
     }
     if (foundCategory && notChoosen) {
-      console.log("category1");
+      console.log("category ");
       setCategoryName(foundCategory?.label);
       setCategoryValue(foundCategory?.value);
 
@@ -149,7 +158,7 @@ function Category(props) {
       setBrandValue("");
       setBrandLabel("");
       setListBrand([]);
-      console.log("category1");
+      console.log("category!");
       setCategoryName(foundCategory?.label);
       setCategoryValue(foundCategory?.value);
       return;
@@ -185,6 +194,8 @@ function Category(props) {
             setCurrentPage={setCurrentPage}
             handleRefreshFilter={handleRefreshFilter}
             setNotChoosen={setNotChoosen}
+            setPriceFilter={setPriceFilter}
+            priceFilter={priceFilter}
           />
           <CategoryProduct
             total={total}

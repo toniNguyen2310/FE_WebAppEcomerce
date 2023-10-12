@@ -20,14 +20,14 @@ function CardProduct(props) {
             </p>
             <div className="item-infor-container">
               <div className="item-infor-container-price">
+                <p className="old-price" style={{ color: "#ffffff" }}>
+                  &nbsp;
+                </p>
                 <p className="main-price">
                   {new Intl.NumberFormat("vi-VN", {
                     style: "currency",
                     currency: "VND",
                   }).format(product.priceAfter)}
-                </p>
-                <p className="old-price" style={{ color: "#ffffff" }}>
-                  &nbsp;
                 </p>
               </div>
               <div className="item-infor-container-cart">

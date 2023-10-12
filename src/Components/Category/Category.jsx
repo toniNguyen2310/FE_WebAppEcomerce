@@ -3,104 +3,74 @@ import React, { useEffect, useState } from "react";
 import CategoryFilter from "./CategoryFilter";
 import "./category.scss";
 import CategoryProduct from "./CategoryProduct";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { dataBrand, dataCategory } from "../AdminControl/ManagerProducts";
 import { getProducts } from "../../services.js/api";
 import { useDebounce } from "../../utils/hook";
 function Category(props) {
-  const [categoryName, setCategoryName] = useState("");
-  const [categoryValue, setCategoryValue] = useState("");
-  const [brandValue, setBrandValue] = useState("");
-  const [brandLabel, setBrandLabel] = useState("");
+  const navigate = useNavigate();
   const [listData, setListData] = useState([]);
-  const [listBrand, setListBrand] = useState([]);
-  const [notChoosen, setNotChoosen] = useState(false);
-  const [priceFilter, setPriceFilter] = useState("");
-  //Filter Value
+  const [locationSearch, setLocationSearch] = useState("");
+  const [params, setParams] = useState({ brand: "", price: "", sort: "" });
+  //FILTER SORT
+  const [checkSort, setCheckSort] = useState("");
+  //PAGINATION
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(16);
+  const [total, setTotal] = useState(0);
+
+  //NEW-START
   const [filterValue, setFilterValue] = useState({
     category: "",
     brand: "",
     price: "",
     sort: "",
   });
-  //PAGINATION
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(16);
-  const [total, setTotal] = useState(0);
 
-  const handleRefreshFilter = () => {
-    setCurrentPage(1);
-    setTotal(0);
-    setCategoryName("");
-    setCategoryValue("");
-    setBrandValue("");
-    setBrandLabel("");
-    setListBrand([]);
-  };
+  //Deboune
+  let location = useLocation();
+  const debounceLocation = useDebounce(location, 300);
+  const debounceCurrentPage = useDebounce(currentPage, 300);
+  const debounceFilterValue = useDebounce(filterValue, 200);
 
-  const fetchProductFilter = async () => {
-    let brands = [];
-    if (!categoryValue) {
+  //FETCH PRODUCT
+  const fetchProduct = async () => {
+    if (!filterValue.category) {
       return;
     }
-
-    if (categoryValue && brandValue) {
-      const query = `current=${currentPage}&pageSize=${pageSize}&category=${categoryValue}&brand=${brandValue}`;
+    if (filterValue) {
+      const query = `current=${currentPage}&pageSize=${pageSize}&category=${filterValue.category}&brand=${filterValue.brand}&priceAfter=${filterValue.sort}&filterPrice=${filterValue.price}`;
+      console.log("query>> ", query);
       const res = await getProducts(query);
       if (res && res.data) {
-        console.log("BOTH");
-        console.log("res>>> ", res);
+        console.log("NEW res>> ", res);
         setListData(res.data.products);
         setTotal(res.data.count);
-        //LIST BRAND
-        res.data.products.map((e) => {
-          brands.push(e.brand);
-        });
-        setListBrand(
-          dataBrand.filter((e) => {
-            return (
-              brands
-                ?.filter((item, index) => {
-                  return brands.indexOf(item) === index;
-                })
-                .indexOf(e.value) > -1
-            );
-          })
-        );
-      }
-      return;
-    }
-
-    if (categoryValue) {
-      setBrandValue("");
-      const query = `current=${currentPage}&pageSize=${pageSize}&category=${categoryValue}`;
-      const res = await getProducts(query);
-      if (res && res.data) {
-        console.log("res>>> ", res);
-        setListData(res.data.products);
-        setTotal(res.data.count);
-        if (currentPage === 1) {
-          console.log("ONLY");
-          //LIST BRAND
-          res.data.products.map((e) => {
-            brands.push(e.brand);
-          });
-          setListBrand(
-            dataBrand.filter((e) => {
-              return (
-                brands
-                  ?.filter((item, index) => {
-                    return brands.indexOf(item) === index;
-                  })
-                  .indexOf(e.value) > -1
-              );
-            })
-          );
-        }
-        return;
       }
     }
   };
+
+  const navigateParams = () => {
+    let arrayParams = [
+      params.brand ? params.brand : null,
+      params.price ? params.price : null,
+      params.sort ? params.sort : null,
+    ];
+    arrayParams = arrayParams.filter((e) => e != null);
+    // if (!params.brand && !params.price && !params.sort) {
+    //   console.log("params rong");
+    //   return;
+    // }
+    if (arrayParams.length === 0) {
+      console.log("KO CO PARAMS");
+      navigate("");
+    } else {
+      console.log("PARAMS>>> ", `?${arrayParams.join("&")}`);
+      navigate(`?${arrayParams.join("&")}`);
+    }
+  };
+
+  //NEW-END
 
   const handleOnchangeProductsFilter = (pagination) => {
     console.log("pagination>>> ", pagination);
@@ -114,97 +84,112 @@ function Category(props) {
     // }
   };
 
-  let location = useLocation();
-  // let params = new URLSearchParams(location.pathname);
-
-  const debounceLocation = useDebounce(location, 100);
-  const debounceCurrentPage = useDebounce(currentPage, 300);
-  const debounceCategoryValueAndBrandValue = useDebounce(
-    JSON.stringify(categoryValue) + JSON.stringify(brandValue),
-    300
-  );
-
+  //LOCATION
   useEffect(() => {
-    console.log("category>> ", location?.pathname.split("/")[2]);
+    console.log("location>> ", location.search);
+    //CATEGORY
+    const categoryLocation = location?.pathname.split("/")[2];
+
+    //BRAND
+    const brandLocation = new URLSearchParams(location.search).get("brand")
+      ? new URLSearchParams(location.search).get("brand")
+      : "";
+
+    //FILTER OPTION PRICE
+    const priceLocation = new URLSearchParams(location.search).get("price")
+      ? new URLSearchParams(location.search).get("price")
+      : "";
+
+    //SORT PRICE
+    const sortLocation = new URLSearchParams(location.search).get("sort")
+      ? new URLSearchParams(location.search).get("sort")
+      : "";
+
+    //HANDLE
     console.log(
-      "params>>> ",
-      new URLSearchParams(location.search).get("brand")
+      "data location>>> ",
+      categoryLocation,
+      brandLocation,
+      priceLocation,
+      sortLocation
     );
-    const foundCategory = dataCategory.find(
-      (e) => e.value === location?.pathname.split("/")[2]
-    );
-    const foundBrand = dataBrand.find(
-      (e) => e.value === new URLSearchParams(location.search).get("brand")
-    );
-
-    if (foundCategory && foundBrand) {
-      console.log("categoryBr");
-      setCategoryName(foundCategory?.label);
-      setCategoryValue(foundCategory?.value);
-      setBrandValue(foundBrand.value);
-      setBrandLabel(foundBrand.label);
-      console.log("foundBrand>>> ", foundBrand);
-
-      return;
-    }
-    if (foundCategory && notChoosen) {
-      console.log("category ");
-      setCategoryName(foundCategory?.label);
-      setCategoryValue(foundCategory?.value);
-
-      return;
-    }
-    if (foundCategory && !notChoosen) {
-      setBrandValue("");
-      setBrandLabel("");
-      setListBrand([]);
-      console.log("category!");
-      setCategoryName(foundCategory?.label);
-      setCategoryValue(foundCategory?.value);
-      return;
+    setLocationSearch(location.search);
+    if (
+      params.brand.includes(brandLocation) &&
+      params.price.includes(priceLocation) &&
+      params.sort.includes(sortLocation)
+    ) {
+      setFilterValue({
+        category: categoryLocation,
+        brand: brandLocation,
+        price: priceLocation,
+        sort:
+          sortLocation === "increase"
+            ? "1"
+            : sortLocation === "decrease"
+            ? "-1"
+            : sortLocation,
+      });
+      console.log("OK");
+    } else {
+      console.log("NOT OK");
+      setFilterValue({
+        category: categoryLocation,
+        brand: "",
+        price: "",
+        sort: "",
+      });
     }
   }, [debounceLocation]);
 
+  //CURRENT PAGINATION
   useEffect(() => {
-    console.log("currentChange>>>1111111111 ");
-    fetchProductFilter();
+    fetchProduct();
   }, [debounceCurrentPage]);
 
+  //VALUE FILTER
   useEffect(() => {
-    console.log(
-      "debounceCategoryValueAndBrandValue> ",
-      debounceCategoryValueAndBrandValue
-    );
+    console.log("filterValue>> ", filterValue);
     setCurrentPage(1);
-    fetchProductFilter();
-  }, [debounceCategoryValueAndBrandValue]);
+    fetchProduct();
+  }, [debounceFilterValue]);
+
+  //PARAMS
+  useEffect(() => {
+    console.log("params Effect >>> ", params);
+    // if (!params.brand && !params.price && !params.sort) {
+    //   console.log("params rong");
+    //   return;
+    // }
+    navigateParams();
+  }, [params]);
   return (
     <div className="page-category">
       <div className="category">
-        <nav className="category-header">TRANG CHỦ / {categoryName}</nav>
+        <nav className="category-header">
+          TRANG CHỦ / {filterValue.category}
+        </nav>
         <div className="category-container">
           <CategoryFilter
-            listBrand={listBrand}
-            categoryValue={categoryValue}
-            categoryName={categoryName}
-            fetchProductFilter={fetchProductFilter}
-            setBrandValue={setBrandValue}
-            setBrandLabel={setBrandLabel}
-            brandValue={brandValue}
-            setCurrentPage={setCurrentPage}
-            handleRefreshFilter={handleRefreshFilter}
-            setNotChoosen={setNotChoosen}
-            setPriceFilter={setPriceFilter}
-            priceFilter={priceFilter}
+            setCheckSort={setCheckSort}
+            params={params}
+            setParams={setParams}
+            locationSearch={locationSearch}
+            filterValue={filterValue}
+            listData={listData}
+            currentPage={currentPage}
           />
           <CategoryProduct
-            total={total}
-            pageSize={pageSize}
-            currentPage={currentPage}
-            categoryName={categoryName}
+            setCheckSort={setCheckSort}
+            checkSort={checkSort}
+            params={params}
+            setParams={setParams}
             listData={listData}
+            currentPage={currentPage}
+            pageSize={pageSize}
+            total={total}
             handleOnchangeProductsFilter={handleOnchangeProductsFilter}
-            brandLabel={brandLabel}
+            filterValue={filterValue}
           />
         </div>
       </div>

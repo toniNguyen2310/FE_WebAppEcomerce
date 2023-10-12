@@ -4,112 +4,140 @@ import { dataBrand, dataCategory } from "../AdminControl/ManagerProducts";
 import { useNavigate } from "react-router-dom";
 function CategoryFilter(props) {
   const {
-    listBrand,
-    categoryValue,
-    categoryName,
-    fetchProductFilter,
-    setBrandValue,
-    setBrandLabel,
-    brandValue,
-    setCurrentPage,
-    setNotChoosen,
-    priceFilter,
-    setPriceFilter,
+    filterValue,
+    listData,
+    currentPage,
+    locationSearch,
+    setCheckSort,
+    setParams,
+    params,
   } = props;
+  const [listBrand, setListBrand] = useState([]);
+  const [checkBrand, setCheckBrand] = useState("");
+  const [checkFilterPrice, setCheckFilterPrice] = useState("");
   const navigate = useNavigate();
 
-  //Onchange Brand
+  //Filter Category
+  const onchangeCategory = (category) => {
+    setCheckBrand("");
+    setCheckSort("");
+    setCheckFilterPrice("");
+    setParams({ brand: "", price: "", sort: "" });
+    navigate(`/category/${category}`);
+  };
+
+  //Filter Brand
   const onChangeBrand = (e) => {
+    let paramsBrand = `brand=${e.target.value}`;
     console.log(`checked `, e);
     if (e.target.checked) {
+      setParams({ ...params, brand: paramsBrand });
       console.log("chon");
-      navigate(`?brand=${e.target.value}`);
-      setNotChoosen(false);
-
-      // !isSelected && setIsSelected(e.target.value);
+      setCheckBrand(e.target.value);
+      // navigate(`?${paramsBrand}`);
       return;
     }
     if (e.target.checked === false) {
       console.log("ko chon");
-
-      setNotChoosen(true);
-      navigate(``);
-      setBrandValue("");
-      // fetchProductFilter();
-      // setIsSelected(null);
+      setCheckBrand("");
+      setParams({ ...params, brand: "" });
+      // navigate(``);
       return;
     }
   };
 
-  //onclick category
-  const changeCategory = (categoryName) => {
-    navigate(`/category/${categoryName}`);
+  //List brand
+  const renderListBrand = () => {
+    if (
+      currentPage === 1 &&
+      !filterValue.brand &&
+      !filterValue.price &&
+      !filterValue.sort
+    ) {
+      console.log("TAO BRAND");
+      let brands = [];
+      listData?.map((e) => {
+        brands.push(e.brand);
+      });
+      setListBrand(
+        dataBrand.filter((e) => {
+          return (
+            brands
+              ?.filter((item, index) => {
+                return brands.indexOf(item) === index;
+              })
+              .indexOf(e.value) > -1
+          );
+        })
+      );
+      return;
+    }
   };
 
-  //Onchange Filter Price
+  //Filter Option Price
   const onchangeFilterPrice = (e) => {
     console.log("change price>>> ", e);
+    let paramsPrice = `price=${e.target.value}`;
     if (e.target.checked) {
-      setPriceFilter(e.target.value);
-      navigate(`?filter=${e.target.value}`);
-      setNotChoosen(false);
+      setCheckFilterPrice(e.target.value);
+      setParams({ ...params, price: paramsPrice });
+      // locationSearch?.includes("?")
+      //   ? console.log("co ?")
+      //   : console.log("ko co ?");
+      // locationSearch?.includes("?")
+      //   ? navigate(`${locationSearch}&price=${e.target.value}`)
+      //   : navigate(`?price=${e.target.value}`);
     } else {
-      setNotChoosen(true);
-      navigate(``);
-      setPriceFilter("");
+      setCheckFilterPrice("");
+      setParams({ ...params, price: "" });
     }
   };
 
   useEffect(() => {
-    // console.log("categoryValue>>> ", categoryValue, categoryName);
-  }, [categoryValue]);
+    renderListBrand();
+  }, [listData]);
 
   return (
     <div className="category-filter">
       <div className="category-filter-box">
         <h3>DANH MỤC SẢN PHẨM</h3>
-        {/* <div className="filter checkbox">
-          {dataCategory.map((e) => {
+        <div className="filter checkbox">
+          {dataCategory?.slice(1).map((e) => {
             return (
-              <Checkbox
-                checked={categoryValue === e.value ? true : false}
-                // defaultChecked={categoryValue === e.value ? true : false}
-                disabled={isSelected ? isSelected !== e.value : false}
-                value={e.value}
-                onChange={onChangeCategory}
-                key={e.value}
+              <div
+                className={`box-category ${
+                  filterValue?.category === e.value ? "active" : null
+                }`}
+                onClick={() => onchangeCategory(e.value)}
               >
-                {e.label}
-              </Checkbox>
+                <span>{e.label}</span>
+              </div>
             );
           })}
-        </div> */}
-        <div className="filter checkbox">
-          <div
+
+          {/* <div
             className={`box-category ${
-              categoryName === "LÓT CHUỘT" ? "active" : null
+              filterValue?.category === "lot-chuot" ? "active" : null
             }`}
             onClick={() => {
-              changeCategory("lot-chuot");
-              // navigate("/category/lot-chuot");
+              navigate("/category/lot-chuot");
             }}
           >
             <span>LÓT CHUỘT</span>
           </div>
           <div
             className={`box-category ${
-              categoryName === "CHUỘT GAMING" ? "active" : null
+              filterValue?.category === "chuot-gaming" ? "active" : null
             }`}
             onClick={() => {
-              changeCategory("chuot-gaming");
-              // navigate("/category/chuot-gaming");
+              navigate("/category/chuot-gaming");
             }}
           >
             <span>CHUỘT GAMING</span>
           </div>
           <div
             className={`box-category ${
-              categoryName === "BÀN PHÍM GAMING" ? "active" : null
+              filterValue?.category === "ban-phim-gaming" ? "active" : null
             }`}
             onClick={() => {
               navigate("/category/ban-phim-gaming");
@@ -119,7 +147,7 @@ function CategoryFilter(props) {
           </div>
           <div
             className={`box-category ${
-              categoryName === "TAI NGHE" ? "active" : null
+              filterValue?.category === "tai-nghe" ? "active" : null
             }`}
             onClick={() => {
               navigate("/category/tai-nghe");
@@ -129,7 +157,7 @@ function CategoryFilter(props) {
           </div>
           <div
             className={`box-category ${
-              categoryName === "TAY CẦM GAMING" ? "active" : null
+              filterValue?.category === "tay-cam-gaming" ? "active" : null
             }`}
             onClick={() => {
               navigate("/category/tay-cam-gaming");
@@ -139,7 +167,7 @@ function CategoryFilter(props) {
           </div>
           <div
             className={`box-category ${
-              categoryName === "LOA" ? "active" : null
+              filterValue?.category === "loa" ? "active" : null
             }`}
             onClick={() => {
               navigate("/category/loa");
@@ -149,7 +177,7 @@ function CategoryFilter(props) {
           </div>
           <div
             className={`box-category ${
-              categoryName === "MÔ HÌNH" ? "active" : null
+              filterValue?.category === "mo-hinh" ? "active" : null
             }`}
             onClick={() => {
               navigate("/category/mo-hinh");
@@ -159,7 +187,7 @@ function CategoryFilter(props) {
           </div>
           <div
             className={`box-category ${
-              categoryName === "PHỤ KIỆN" ? "active" : null
+              filterValue?.category === "phu-kien" ? "active" : null
             }`}
             onClick={() => {
               navigate("/category/phu-kien");
@@ -169,7 +197,7 @@ function CategoryFilter(props) {
           </div>
           <div
             className={`box-category ${
-              categoryName === "GHẾ GAMING" ? "active" : null
+              filterValue?.category === "ghe-gaming" ? "active" : null
             }`}
             onClick={() => {
               navigate("/category/ghe-gaming");
@@ -179,14 +207,14 @@ function CategoryFilter(props) {
           </div>
           <div
             className={`box-category ${
-              categoryName === "BÀN GAMING" ? "active" : null
+              filterValue?.category === "ban-gaming" ? "active" : null
             }`}
             onClick={() => {
               navigate("/category/ban-gaming");
             }}
           >
             <span>BÀN GAMING</span>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="category-filter-box">
@@ -195,11 +223,10 @@ function CategoryFilter(props) {
           {listBrand?.map((e) => {
             return (
               <Checkbox
-                checked={e.value == brandValue ? true : false}
+                checked={e.value === checkBrand ? true : false}
                 value={e.value}
                 onChange={onChangeBrand}
                 key={e.label}
-                // disabled={isSelected ? isSelected !== e.value : false}
               >
                 {e.label}
               </Checkbox>
@@ -211,25 +238,32 @@ function CategoryFilter(props) {
         <h3>KHOẢNG GIÁ</h3>
         <div className="filter checkbox">
           <Checkbox
-            checked={priceFilter === "op1" ? true : false}
-            value={"op1"}
+            checked={checkFilterPrice === "op01" ? true : false}
+            value={"op01"}
             onChange={onchangeFilterPrice}
           >
             Dưới 100 ngàn
           </Checkbox>
           <Checkbox
             value={"op12"}
-            checked={priceFilter === "op12" ? true : false}
+            checked={checkFilterPrice === "op12" ? true : false}
             onChange={onchangeFilterPrice}
           >
             100 ngàn - 200 ngàn
           </Checkbox>
           <Checkbox
             value={"op25"}
-            checked={priceFilter === "op25" ? true : false}
+            checked={checkFilterPrice === "op25" ? true : false}
             onChange={onchangeFilterPrice}
           >
             200 ngàn - 500 ngàn
+          </Checkbox>
+          <Checkbox
+            value={"op50"}
+            checked={checkFilterPrice === "op50" ? true : false}
+            onChange={onchangeFilterPrice}
+          >
+            Trên 500 ngàn
           </Checkbox>
         </div>
       </div>

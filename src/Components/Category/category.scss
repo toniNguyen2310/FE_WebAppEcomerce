@@ -87,9 +87,22 @@
             // background-color: red;
             display: flex;
             flex-direction: row;
-            justify-content: flex-end;
+            justify-content: space-between;
+            align-items: center;
             padding-bottom: 10px;
             border-bottom: 1px solid #ededed;
+            cursor: pointer;
+            .infor-filter {
+              margin-left: 10px;
+              display: flex;
+              flex-direction: row;
+              p {
+                margin-right: 10px;
+                border: 1px solid #333;
+                border-radius: 10px;
+                padding: 10px;
+              }
+            }
             .filter-sort {
               text-decoration: none;
               padding: 10px 20px;
@@ -101,6 +114,10 @@
             }
 
             .filter-sort:hover {
+              background-color: #29a07e;
+              color: white;
+            }
+            .active-sort {
               background-color: #29a07e;
               color: white;
             }

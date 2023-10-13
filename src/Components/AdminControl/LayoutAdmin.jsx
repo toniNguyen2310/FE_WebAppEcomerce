@@ -15,7 +15,7 @@ const items = [
     icon: <ShopOutlined />,
   },
   {
-    label: <NavLink to={`/admin/prducts`}>MANAGER PRODUCTS</NavLink>,
+    label: <NavLink to={`/admin/products`}>MANAGER PRODUCTS</NavLink>,
     key: "products",
     icon: <ShopOutlined />,
   },

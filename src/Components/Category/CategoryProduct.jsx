@@ -26,7 +26,7 @@ function CategoryProduct(props) {
     // console.log("product>> ", product);
     const slug = convertSlug(product.name);
     // console.log("slug>> ", slug);
-    navigate(`/${slug}?id=${product._id}`);
+    navigate(`/product/${slug}?id=${product._id}`);
   };
 
   //HANDLE SORT PRODUCT

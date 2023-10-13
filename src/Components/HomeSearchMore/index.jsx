@@ -10,7 +10,12 @@ function HomeSearchMore(props) {
       </div>
       <div className="home-category">
         <div className="home-category-list">
-          <div className="home-category-list-item">
+          <div
+            className="home-category-list-item"
+            onClick={() => {
+              navigate("/category/lot-chuot");
+            }}
+          >
             <div className="home-category-list-item-img">
               <a href="">
                 <img
@@ -24,7 +29,12 @@ function HomeSearchMore(props) {
               <a href="">Lót chuột</a>
             </div>
           </div>
-          <div className="home-category-list-item">
+          <div
+            className="home-category-list-item"
+            onClick={() => {
+              navigate("/category/chuot-gaming");
+            }}
+          >
             <div className="home-category-list-item-img">
               <a href="">
                 <img
@@ -38,7 +48,12 @@ function HomeSearchMore(props) {
               <a href="">Chuột gaming</a>
             </div>
           </div>
-          <div className="home-category-list-item">
+          <div
+            className="home-category-list-item"
+            onClick={() => {
+              navigate("/category/ban-phim-gaming");
+            }}
+          >
             <div className="home-category-list-item-img">
               <a href="">
                 <img
@@ -52,7 +67,12 @@ function HomeSearchMore(props) {
               <a href="">Bàn phím</a>
             </div>
           </div>
-          <div className="home-category-list-item">
+          <div
+            className="home-category-list-item"
+            onClick={() => {
+              navigate("/category/tai-nghe");
+            }}
+          >
             <div className="home-category-list-item-img">
               <a href="">
                 <img
@@ -66,7 +86,12 @@ function HomeSearchMore(props) {
               <a href="">Tai nghe</a>
             </div>
           </div>
-          <div className="home-category-list-item">
+          <div
+            className="home-category-list-item"
+            onClick={() => {
+              navigate("/category/tay-cam-gaming");
+            }}
+          >
             <div className="home-category-list-item-img">
               <a href="">
                 <img
@@ -80,7 +105,12 @@ function HomeSearchMore(props) {
               <a href="">Tay cầm</a>
             </div>
           </div>
-          <div className="home-category-list-item">
+          <div
+            className="home-category-list-item"
+            onClick={() => {
+              navigate("/category/loa");
+            }}
+          >
             <div className="home-category-list-item-img">
               <a href="">
                 <img
@@ -94,7 +124,12 @@ function HomeSearchMore(props) {
               <a href="">Loa</a>
             </div>
           </div>
-          <div className="home-category-list-item">
+          <div
+            className="home-category-list-item"
+            onClick={() => {
+              navigate("/category/mo-hinh");
+            }}
+          >
             <div className="home-category-list-item-img">
               <a href="">
                 <img
@@ -108,7 +143,12 @@ function HomeSearchMore(props) {
               <a href="">Mô hình</a>
             </div>
           </div>
-          <div className="home-category-list-item">
+          <div
+            className="home-category-list-item"
+            onClick={() => {
+              navigate("/category/phu-kien");
+            }}
+          >
             <div className="home-category-list-item-img">
               <a href="">
                 <img
@@ -122,7 +162,12 @@ function HomeSearchMore(props) {
               <a href="">Phụ kiện</a>
             </div>
           </div>
-          <div className="home-category-list-item">
+          <div
+            className="home-category-list-item"
+            onClick={() => {
+              navigate("/category/ghe-gaming");
+            }}
+          >
             <div className="home-category-list-item-img">
               <a href="">
                 <img
@@ -136,7 +181,12 @@ function HomeSearchMore(props) {
               <a href="">Ghế gaming</a>
             </div>
           </div>
-          <div className="home-category-list-item">
+          <div
+            className="home-category-list-item"
+            onClick={() => {
+              navigate("/category/ban-gaming");
+            }}
+          >
             <div className="home-category-list-item-img">
               <a href="">
                 <img

@@ -59,6 +59,16 @@ export const dataBrand = [
   { value: "cong-thai-hoc", label: "CÔNG THÁI HỌC" },
   { value: "lac-dau", label: "LẮC ĐẦU" },
   { value: "e-dra", label: "E-DRA" },
+  { value: "led", label: "LED" },
+  { value: "logitech", label: "LOGITECH" },
+  { value: "havit", label: "HAVIT" },
+  { value: "playstation", label: "PLAYSTATION" },
+  { value: "sada", label: "SADA" },
+  { value: "marvel", label: "MARVEL" },
+  { value: "tranformer", label: "TRANFORMER" },
+  { value: "khac", label: "KHÁC" },
+  { value: "warrior", label: "WARRIOR" },
+  { value: "viking", label: "VIKING" },
 ];
 
 function ManagerProducts(props) {

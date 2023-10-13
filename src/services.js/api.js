@@ -50,3 +50,8 @@ export const getProductByCategorySlice = (category) => {
 export const getProductByDiscountSlice = () => {
   return axios.get(`/v1/api/category/discount`);
 };
+
+//CATEGORY
+export const getListBrandByCategory = (data) => {
+  return axios.get(`/v1/api/category?value=${data}`);
+};

@@ -13,7 +13,11 @@ import "react-toastify/dist/ReactToastify.css";
 import "../src/styles/reset.scss";
 import { callFetchAccount } from "./services.js/api";
 import { useDispatch, useSelector } from "react-redux";
-import { doGetAccountAction } from "./redux/account/accountSlice";
+import {
+  doGetAccountAction,
+  doGetAccountPending,
+  doGetAccountError,
+} from "./redux/account/accountSlice";
 import NotFound from "./Components/NotFound";
 import Loading from "./Components/Loading";
 import AdminPage from "./Components/AdminControl/AdminPage";
@@ -64,7 +68,7 @@ export default function App() {
       children: [
         { index: true, element: <HomePage /> },
         {
-          path: "/:slug",
+          path: "/product/:slug",
           element: <DetailProduct />,
         },
         {
@@ -107,12 +111,12 @@ export default function App() {
           ),
         },
         {
-          path: "/admin/prducts",
-          element: <ManagerProducts />,
-        },
-        {
-          path: "/admin/create",
-          element: <CreateProduct />,
+          path: "/admin/products",
+          element: (
+            <ProtectedRoute>
+              <ManagerProducts />
+            </ProtectedRoute>
+          ),
         },
       ],
     },
@@ -128,8 +132,14 @@ export default function App() {
 
       const res = await callFetchAccount();
       console.log("res>>> ", res);
+      dispatch(doGetAccountPending());
+      console.log("loading1>>> ", isLoading);
       if (res && res.data) {
         dispatch(doGetAccountAction(res.data));
+        console.log("loading2>>> ", isLoading);
+      } else {
+        console.log("KO AUTHEN");
+        dispatch(doGetAccountError());
       }
     };
     getAccount();
@@ -138,13 +148,12 @@ export default function App() {
     <>
       {isLoading === false ||
       window.location.pathname === "/login" ||
-      window.location.pathname === "/register" ||
-      window.location.pathname === "/" ||
-      window.location.pathname === "/category" ||
-      window.location.pathname === "/cart" ||
-      window.location.pathname === "/:slug" ? (
+      window.location.pathname === "/register" ? (
+        // window.location.pathname === "/" ||
+        // window.location.pathname === "/category" ||
+        // window.location.pathname === "/cart"
+        // window.location.pathname === "/:slug"
         <>
-          {/* {console.log("run")} */}
           <RouterProvider router={router} />
         </>
       ) : (
@@ -154,7 +163,7 @@ export default function App() {
 
         // <LaptopPage />
         <>
-          {console.log("Run Loading")}
+          {console.log("RUN")}
           <Loading />
         </>
       )}

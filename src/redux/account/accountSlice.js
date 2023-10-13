@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isAuthenticated: false,
-  isLoading: true,
+  isLoading: false,
   user: {
     id: "",
     email: "",
@@ -23,6 +23,16 @@ export const accountSlice = createSlice({
       state.user = action.payload;
     },
 
+    doGetAccountPending: (state, action) => {
+      state.isLoading = true;
+    },
+
+    doGetAccountError: (state, action) => {
+      state.isLoading = false;
+      state.isAuthenticated = false;
+      state.user = action.payload;
+    },
+
     doGetAccountAction: (state, action) => {
       state.isAuthenticated = true;
       state.isLoading = false;
@@ -33,6 +43,7 @@ export const accountSlice = createSlice({
       localStorage.removeItem("access_token");
       localStorage.removeItem("refresh_token");
       state.isAuthenticated = false;
+      state.isLoading = false;
       state.user = {
         id: "",
         email: "",
@@ -41,6 +52,8 @@ export const accountSlice = createSlice({
         isAdmin: false,
       };
     },
+
+    //NEW
   },
 
   // The `extraReducers` field lets the slice handle actions defined elsewhere,
@@ -48,7 +61,12 @@ export const accountSlice = createSlice({
   extraReducers: (builder) => {},
 });
 
-export const { doLoginAction, doGetAccountAction, doLogoutAction } =
-  accountSlice.actions;
+export const {
+  doLoginAction,
+  doGetAccountAction,
+  doLogoutAction,
+  doGetAccountPending,
+  doGetAccountError,
+} = accountSlice.actions;
 
 export default accountSlice.reducer;

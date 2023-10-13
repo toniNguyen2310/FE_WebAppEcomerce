@@ -19,11 +19,12 @@ function RoleBaseRoute(props) {
 
 function ProtectedRoute(props) {
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
-  console.log("isAuthenticated - PTR>>> ", isAuthenticated);
+  const isAdmin = useSelector((state) => state.account.user.isAdmin);
+  console.log("isAuthenticated - PTR>>> ", isAuthenticated, isAdmin);
   return (
     <div>
       <>
-        {isAuthenticated ? (
+        {isAuthenticated && isAdmin ? (
           <>
             <RoleBaseRoute>{props.children}</RoleBaseRoute>
           </>

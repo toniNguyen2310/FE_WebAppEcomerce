@@ -11,7 +11,6 @@ function DetailProduct(props) {
   let params = new URLSearchParams(location.search);
   console.log("params>>> ", location);
   const id = params?.get("id");
-
   const fetchDataPRoduct = async (id) => {
     const res = await getProductById(id);
     if (res && res.data) {

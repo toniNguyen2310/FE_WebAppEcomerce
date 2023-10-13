@@ -5,11 +5,12 @@ import "./category.scss";
 import CategoryProduct from "./CategoryProduct";
 import { useLocation, useNavigate } from "react-router-dom";
 import { dataBrand, dataCategory } from "../AdminControl/ManagerProducts";
-import { getProducts } from "../../services.js/api";
+import { getListBrandByCategory, getProducts } from "../../services.js/api";
 import { useDebounce } from "../../utils/hook";
 function Category(props) {
   const navigate = useNavigate();
   const [listData, setListData] = useState([]);
+  const [listBrand, setListBrand] = useState([]);
   const [locationSearch, setLocationSearch] = useState("");
   const [params, setParams] = useState({ brand: "", price: "", sort: "" });
   //FILTER SORT
@@ -29,9 +30,9 @@ function Category(props) {
 
   //Deboune
   let location = useLocation();
-  const debounceLocation = useDebounce(location, 300);
+  const debounceLocation = useDebounce(location, 100);
   const debounceCurrentPage = useDebounce(currentPage, 300);
-  const debounceFilterValue = useDebounce(filterValue, 200);
+  const debounceFilterValue = useDebounce(filterValue, 300);
 
   //FETCH PRODUCT
   const fetchProduct = async () => {
@@ -41,6 +42,8 @@ function Category(props) {
     if (filterValue) {
       const query = `current=${currentPage}&pageSize=${pageSize}&category=${filterValue.category}&brand=${filterValue.brand}&priceAfter=${filterValue.sort}&filterPrice=${filterValue.price}`;
       console.log("query>> ", query);
+      console.log("TESST DAYYYYY", filterValue.category, params);
+      //FETCT PRODUCT
       const res = await getProducts(query);
       if (res && res.data) {
         console.log("NEW res>> ", res);
@@ -70,6 +73,29 @@ function Category(props) {
     }
   };
 
+  //HANDLE LISTBRAND
+  const renderListBrand = async (category) => {
+    if (currentPage === 1) {
+      const resBrand = await getListBrandByCategory(category);
+      console.log("resBrand>> ", resBrand.data);
+      if (resBrand && resBrand.data) {
+        console.log("TAO BRAND");
+        setListBrand(
+          dataBrand.filter((e) => {
+            return (
+              resBrand.data.brand
+                .filter((item, index) => {
+                  return resBrand.data.brand.indexOf(item) === index;
+                })
+                .indexOf(e.value) > -1
+            );
+          })
+        );
+        return;
+      }
+    }
+  };
+
   //NEW-END
 
   const handleOnchangeProductsFilter = (pagination) => {
@@ -86,7 +112,7 @@ function Category(props) {
 
   //LOCATION
   useEffect(() => {
-    console.log("location>> ", location.search);
+    console.log("LOCATION>> ", location);
     //CATEGORY
     const categoryLocation = location?.pathname.split("/")[2];
 
@@ -113,12 +139,15 @@ function Category(props) {
       priceLocation,
       sortLocation
     );
-    setLocationSearch(location.search);
+
     if (
       params.brand.includes(brandLocation) &&
       params.price.includes(priceLocation) &&
       params.sort.includes(sortLocation)
     ) {
+      if (categoryLocation != filterValue.category) {
+        renderListBrand(categoryLocation);
+      }
       setFilterValue({
         category: categoryLocation,
         brand: brandLocation,
@@ -130,15 +159,20 @@ function Category(props) {
             ? "-1"
             : sortLocation,
       });
-      console.log("OK");
     } else {
-      console.log("NOT OK");
+      setParams({
+        ...params,
+        brand: brandLocation ? `brand=${brandLocation}` : "",
+        price: priceLocation ? `price=${priceLocation}` : "",
+      });
       setFilterValue({
         category: categoryLocation,
-        brand: "",
-        price: "",
+        brand: brandLocation ? brandLocation : "",
+        price: priceLocation ? priceLocation : "",
         sort: "",
       });
+      renderListBrand(categoryLocation);
+      return;
     }
   }, [debounceLocation]);
 
@@ -174,10 +208,10 @@ function Category(props) {
             setCheckSort={setCheckSort}
             params={params}
             setParams={setParams}
-            locationSearch={locationSearch}
             filterValue={filterValue}
             listData={listData}
             currentPage={currentPage}
+            listBrand={listBrand}
           />
           <CategoryProduct
             setCheckSort={setCheckSort}

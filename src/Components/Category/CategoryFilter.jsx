@@ -1,29 +1,36 @@
 import React, { useEffect, useState } from "react";
 import { Checkbox } from "antd";
+CategoryFilter;
 import { dataBrand, dataCategory } from "../AdminControl/ManagerProducts";
 import { useNavigate } from "react-router-dom";
+import { getListBrandByCategory } from "../../services.js/api";
 function CategoryFilter(props) {
   const {
     filterValue,
     listData,
     currentPage,
-    locationSearch,
+    listBrand,
     setCheckSort,
     setParams,
     params,
   } = props;
-  const [listBrand, setListBrand] = useState([]);
+
   const [checkBrand, setCheckBrand] = useState("");
   const [checkFilterPrice, setCheckFilterPrice] = useState("");
   const navigate = useNavigate();
 
   //Filter Category
   const onchangeCategory = (category) => {
+    if (category === filterValue.category) {
+      return;
+    }
+    console.log("TESTDAY", category, filterValue.category);
     setCheckBrand("");
     setCheckSort("");
     setCheckFilterPrice("");
     setParams({ brand: "", price: "", sort: "" });
     navigate(`/category/${category}`);
+    // renderListBrand(category);
   };
 
   //Filter Brand
@@ -47,32 +54,6 @@ function CategoryFilter(props) {
   };
 
   //List brand
-  const renderListBrand = () => {
-    if (
-      currentPage === 1 &&
-      !filterValue.brand &&
-      !filterValue.price &&
-      !filterValue.sort
-    ) {
-      console.log("TAO BRAND");
-      let brands = [];
-      listData?.map((e) => {
-        brands.push(e.brand);
-      });
-      setListBrand(
-        dataBrand.filter((e) => {
-          return (
-            brands
-              ?.filter((item, index) => {
-                return brands.indexOf(item) === index;
-              })
-              .indexOf(e.value) > -1
-          );
-        })
-      );
-      return;
-    }
-  };
 
   //Filter Option Price
   const onchangeFilterPrice = (e) => {
@@ -81,12 +62,6 @@ function CategoryFilter(props) {
     if (e.target.checked) {
       setCheckFilterPrice(e.target.value);
       setParams({ ...params, price: paramsPrice });
-      // locationSearch?.includes("?")
-      //   ? console.log("co ?")
-      //   : console.log("ko co ?");
-      // locationSearch?.includes("?")
-      //   ? navigate(`${locationSearch}&price=${e.target.value}`)
-      //   : navigate(`?price=${e.target.value}`);
     } else {
       setCheckFilterPrice("");
       setParams({ ...params, price: "" });
@@ -94,8 +69,12 @@ function CategoryFilter(props) {
   };
 
   useEffect(() => {
-    renderListBrand();
-  }, [listData]);
+    console.log("LIST>>> ", listBrand);
+  }, [listBrand]);
+
+  useEffect(() => {
+    console.log("filterValueFILTER>>> ", filterValue);
+  }, [filterValue]);
 
   return (
     <div className="category-filter">
@@ -105,6 +84,7 @@ function CategoryFilter(props) {
           {dataCategory?.slice(1).map((e) => {
             return (
               <div
+                key={e.value}
                 className={`box-category ${
                   filterValue?.category === e.value ? "active" : null
                 }`}
@@ -114,107 +94,6 @@ function CategoryFilter(props) {
               </div>
             );
           })}
-
-          {/* <div
-            className={`box-category ${
-              filterValue?.category === "lot-chuot" ? "active" : null
-            }`}
-            onClick={() => {
-              navigate("/category/lot-chuot");
-            }}
-          >
-            <span>LÓT CHUỘT</span>
-          </div>
-          <div
-            className={`box-category ${
-              filterValue?.category === "chuot-gaming" ? "active" : null
-            }`}
-            onClick={() => {
-              navigate("/category/chuot-gaming");
-            }}
-          >
-            <span>CHUỘT GAMING</span>
-          </div>
-          <div
-            className={`box-category ${
-              filterValue?.category === "ban-phim-gaming" ? "active" : null
-            }`}
-            onClick={() => {
-              navigate("/category/ban-phim-gaming");
-            }}
-          >
-            <span>BÀN PHÍM GAMING</span>
-          </div>
-          <div
-            className={`box-category ${
-              filterValue?.category === "tai-nghe" ? "active" : null
-            }`}
-            onClick={() => {
-              navigate("/category/tai-nghe");
-            }}
-          >
-            <span>TAI NGHE</span>
-          </div>
-          <div
-            className={`box-category ${
-              filterValue?.category === "tay-cam-gaming" ? "active" : null
-            }`}
-            onClick={() => {
-              navigate("/category/tay-cam-gaming");
-            }}
-          >
-            <span>TAY CẦM GAMING</span>
-          </div>
-          <div
-            className={`box-category ${
-              filterValue?.category === "loa" ? "active" : null
-            }`}
-            onClick={() => {
-              navigate("/category/loa");
-            }}
-          >
-            <span>LOA</span>
-          </div>
-          <div
-            className={`box-category ${
-              filterValue?.category === "mo-hinh" ? "active" : null
-            }`}
-            onClick={() => {
-              navigate("/category/mo-hinh");
-            }}
-          >
-            <span>MÔ HÌNH</span>
-          </div>
-          <div
-            className={`box-category ${
-              filterValue?.category === "phu-kien" ? "active" : null
-            }`}
-            onClick={() => {
-              navigate("/category/phu-kien");
-            }}
-          >
-            <span>PHỤ KIỆN</span>
-          </div>
-          <div
-            className={`box-category ${
-              filterValue?.category === "ghe-gaming" ? "active" : null
-            }`}
-            onClick={() => {
-              navigate("/category/ghe-gaming");
-            }}
-          >
-            <span>GHẾ GAMING</span>
-          </div>
-          <div
-            className={`box-category ${
-              filterValue?.category === "ban-gaming" ? "active" : null
-            }`}
-            onClick={() => {
-              navigate("/category/ban-gaming");
-            }}
-          >
-            <span>BÀN GAMING</span>
-          </div> */}
         </div>
       </div>
       <div className="category-filter-box">
@@ -223,7 +102,7 @@ function CategoryFilter(props) {
           {listBrand?.map((e) => {
             return (
               <Checkbox
-                checked={e.value === checkBrand ? true : false}
+                checked={e.value === filterValue.brand ? true : false}
                 value={e.value}
                 onChange={onChangeBrand}
                 key={e.label}
@@ -238,7 +117,8 @@ function CategoryFilter(props) {
         <h3>KHOẢNG GIÁ</h3>
         <div className="filter checkbox">
           <Checkbox
-            checked={checkFilterPrice === "op01" ? true : false}
+            checked={filterValue.price === "op01" ? true : false}
+            // checked={checkFilterPrice === "op01" ? true : false}
             value={"op01"}
             onChange={onchangeFilterPrice}
           >
@@ -246,21 +126,22 @@ function CategoryFilter(props) {
           </Checkbox>
           <Checkbox
             value={"op12"}
-            checked={checkFilterPrice === "op12" ? true : false}
+            checked={filterValue.price === "op12" ? true : false}
+            // checked={checkFilterPrice === "op12" ? true : false}
             onChange={onchangeFilterPrice}
           >
             100 ngàn - 200 ngàn
           </Checkbox>
           <Checkbox
             value={"op25"}
-            checked={checkFilterPrice === "op25" ? true : false}
+            checked={filterValue.price === "op25" ? true : false}
             onChange={onchangeFilterPrice}
           >
             200 ngàn - 500 ngàn
           </Checkbox>
           <Checkbox
             value={"op50"}
-            checked={checkFilterPrice === "op50" ? true : false}
+            checked={filterValue.price === "op50" ? true : false}
             onChange={onchangeFilterPrice}
           >
             Trên 500 ngàn

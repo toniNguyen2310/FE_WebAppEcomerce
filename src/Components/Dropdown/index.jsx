@@ -3,7 +3,10 @@ import { DownOutlined } from "@ant-design/icons";
 import { Dropdown, Space, Divider, Button, theme } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { doLogoutAction } from "../../redux/account/accountSlice";
+import {
+  doLogoutAction,
+  doGetAccountPending,
+} from "../../redux/account/accountSlice";
 import { toast } from "react-toastify";
 import { callLogout } from "../../services.js/api";
 import { NavLink } from "react-router-dom";
@@ -12,6 +15,7 @@ const { useToken } = theme;
 const DropdownComponent = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const isLoading = useSelector((state) => state.account.isLoading);
   const user = useSelector((state) => state.account.user);
   const isAdmin = useSelector((state) => state.account.user.isAdmin);
 
@@ -43,6 +47,8 @@ const DropdownComponent = () => {
   //HANDLE LOGOUT
   const handleLogout = async () => {
     const res = await callLogout();
+    dispatch(doGetAccountPending());
+    console.log("Loading>>> ", isLoading);
     if (res && res.data) {
       console.log("res logout>>> ", res);
       dispatch(doLogoutAction());
@@ -94,8 +100,8 @@ const DropdownComponent = () => {
     >
       <a onClick={(e) => e.preventDefault()}>
         <Space>
-          Hi, {nameAccount}
-          <DownOutlined />
+          Xin chào, {nameAccount}
+          {/* <DownOutlined /> */}
         </Space>
       </a>
     </Dropdown>

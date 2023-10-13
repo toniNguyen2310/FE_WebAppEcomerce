@@ -64,7 +64,7 @@ function HomeProduct(props) {
     // console.log("product>> ", product);
     const slug = convertSlug(product.name);
     // console.log("slug>> ", slug);
-    navigate(`/${slug}?id=${product._id}`);
+    navigate(`/product/${slug}?id=${product._id}`);
   };
 
   //handle rederect categiry
@@ -79,10 +79,11 @@ function HomeProduct(props) {
     const res = await getProductByCategorySlice(categoryValue);
     if (res && res.data) {
       setListProduct(res.data);
+
+      //LIST BRAND
       res.data.map((e, index) => {
         brands.push(e.brand);
       });
-
       setListBrand(
         dataBrand.filter((e) => {
           return (

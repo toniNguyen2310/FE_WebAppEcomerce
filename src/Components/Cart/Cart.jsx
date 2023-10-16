@@ -68,8 +68,9 @@ function Cart(props) {
         <div style={{ height: "500px" }}>
           <Loading />
         </div>
-      ) : listCart.length === 0 &&
-        JSON.parse(localStorage.getItem("listCart")).length === 0 ? (
+      ) : (listCart.length === 0 &&
+          JSON.parse(localStorage.getItem("listCart"))?.length === 0) ||
+        !localStorage.getItem("listCart") ? (
         <>
           <div>KO CO SAN PHAM TRONG GIO HANG</div>
         </>

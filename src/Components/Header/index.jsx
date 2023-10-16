@@ -5,16 +5,26 @@ import { displayMenu, notDisplayMenu } from "../../redux/menu/menuSlice,";
 import HeaderExport from "./HeaderExport";
 import "./header.scss";
 import { useDebounce } from "../../utils/hook";
+import { useLocation } from "react-router-dom";
+import { fetchCartByUseAPI } from "../../services.js/api";
+import {
+  displayCart,
+  doFetchListCartError,
+  doFetchListCartPending,
+} from "../../redux/cart/cartSlice";
 function Header(props) {
   const dispatch = useDispatch();
+  const [checkLocation, setCheckLocation] = useState("");
   const [offset, setOffset] = useState(0);
   const [isScroll, setIsScroll] = useState(false);
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
   // const [isDisplayMenu, setIsDisplayMenu] = useState(false);
   const isDisplayMenu = useSelector((state) => state.menu.isDisplayMenu);
-
+  const user = useSelector((state) => state.account.user);
+  const [cartLocalStorage, setCartLocalStorage] = useState(
+    localStorage.getItem("listCart")
+  );
   const debounceOffset = useDebounce(offset, 10);
-  //cía nào mà setState nhiều quá mà cần bắt sự kiện ở useEffect thì dùng useDebounce để giảm lag
 
   //SCROLL
   useEffect(() => {
@@ -37,6 +47,39 @@ function Header(props) {
   const closeMenu = () => {
     dispatch(notDisplayMenu());
   };
+
+  //LOCATION
+  const location = useLocation();
+  const debounceLocation = useDebounce(location, 100);
+
+  //FETCH DATA CART WHEN CHANGE LOCATION
+  const fetchListCart = async () => {
+    if (user && user._id) {
+      console.log("user>> ", user);
+      //RENDER LIST CART BY API
+      const res = await fetchCartByUseAPI(user._id);
+      dispatch(doFetchListCartPending());
+      // return;
+      if (res && res.data) {
+        console.log("CART>> ", res.data);
+        dispatch(displayCart(res.data.listCart));
+        localStorage.setItem("listCart", JSON.stringify(res.data.listCart));
+      } else {
+        dispatch(doFetchListCartError());
+      }
+    } else {
+      console.log("KO CO USER");
+      //XU LY CART BANG LOCAL STORAGE ( NO API)
+    }
+  };
+
+  useEffect(() => {
+    console.log("location>> HOME", location.pathname);
+    console.log("checkLocation>> ", checkLocation);
+
+    fetchListCart();
+    setCheckLocation(location.pathname);
+  }, [debounceLocation, user]);
 
   return (
     <>

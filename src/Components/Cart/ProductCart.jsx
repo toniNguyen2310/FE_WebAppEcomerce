@@ -1,42 +1,83 @@
 import React from "react";
 import { BsFillTrash3Fill } from "react-icons/bs";
+import { useDispatch } from "react-redux";
+import {
+  increaseQuantity,
+  decreaseQuantity,
+  deleteProduct,
+} from "../../redux/cart/cartSlice";
 function ProductCart(props) {
+  const { cart } = props;
+  const dispatch = useDispatch();
+
+  //INCREASE QUANTITY
+  const handleIncrease = (id) => {
+    console.log("id product>>> ", id);
+    dispatch(increaseQuantity(id));
+  };
+
+  //DECREASE QUANTITY
+  const handledecrease = (id) => {
+    dispatch(decreaseQuantity(id));
+  };
+
   return (
     <div className="cart-detail">
-      <img
-        loading="lazy"
-        src="https://lacdau.com/media/product/250-1389-cee443f13b710b757de6b494265fc813.jpg"
-      />
-      <p className="cart-detail-name">BỘ KEYCAP AKKO 9009 PBT SUBLIMATION</p>
-      {/* Trường hợp có giảm giá */}
-      <div className="cart-detail-price">
-        <p className="price-after">
-          380.000<u>đ</u>
-        </p>
-        <p className="price-defaul">
-          450.000<u>đ</u>
-        </p>
-      </div>
+      <img loading="lazy" src={cart.productId.images[0]} />
+      <p className="cart-detail-name">{cart.productId.name}</p>
+      {cart.productId.discount !== "0" ? (
+        <div className="cart-detail-price">
+          <p className="price-after">
+            {new Intl.NumberFormat("vi-VN", {
+              style: "currency",
+              currency: "VND",
+            }).format(cart.productId.priceAfter)}
+          </p>
+          <p className="price-defaul">
+            {new Intl.NumberFormat("vi-VN", {
+              style: "currency",
+              currency: "VND",
+            }).format(cart.productId.price)}
+          </p>
+        </div>
+      ) : (
+        <div className="cart-detail-price">
+          <p className="price-after">
+            {new Intl.NumberFormat("vi-VN", {
+              style: "currency",
+              currency: "VND",
+            }).format(cart.productId.priceAfter)}
+          </p>
+        </div>
+      )}
 
-      {/* Trưởng hợp không có giảm giá (discount) */}
-      {/* <div className="cart-detail-price">
-        <p className="price-after">
-          380.000 <u>đ</u>
-        </p>
-      </div> */}
       <div className="cart-detail-count">
-        <div className="decrease-count count-box">-</div>
-        <div className="count count-box">5</div>
-        <div className="increase-count count-box">+</div>
+        <div
+          className="decrease-count count-box"
+          onClick={() => handledecrease(cart.productId._id)}
+        >
+          -
+        </div>
+        <div className="count count-box">{cart.quantity}</div>
+        <div
+          className="increase-count count-box"
+          onClick={() => handleIncrease(cart.productId._id)}
+        >
+          +
+        </div>
       </div>
       <div className="cart-detail-total">
-        1.170.000 <u>đ</u>
-        {/* {new Intl.NumberFormat("vi-VN", {
+        {new Intl.NumberFormat("vi-VN", {
           style: "currency",
           currency: "VND",
-        }).format(1170000)} */}
+        }).format(
+          parseInt(cart.productId.priceAfter) * parseInt(cart.quantity)
+        )}
       </div>
-      <p className="cart-detail-delete">
+      <p
+        className="cart-detail-delete"
+        onClick={() => dispatch(deleteProduct(cart.productId._id))}
+      >
         <BsFillTrash3Fill />
       </p>
     </div>

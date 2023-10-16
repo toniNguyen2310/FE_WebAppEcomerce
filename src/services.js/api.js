@@ -55,3 +55,18 @@ export const getProductByDiscountSlice = () => {
 export const getListBrandByCategory = (data) => {
   return axios.get(`/v1/api/category?value=${data}`);
 };
+
+//CART
+export const handleAddToCartAPI = (data) => {
+  return axios.post(`/v1/api/cart/increase?productId=${data.idProduct}`, {
+    userId: data.idUser,
+  });
+};
+
+export const fetchCartByUseAPI = (data) => {
+  return axios.get(`/v1/api/cart?userId=${data}`);
+};
+
+export const handleSaveCart = (data) => {
+  return axios.post(`/v1/api/cart/edit/${data.id}`, { listCart: data.cart });
+};

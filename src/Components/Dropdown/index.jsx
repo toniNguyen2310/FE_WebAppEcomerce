@@ -10,6 +10,7 @@ import {
 import { toast } from "react-toastify";
 import { callLogout } from "../../services.js/api";
 import { NavLink } from "react-router-dom";
+import { doLogoutCart } from "../../redux/cart/cartSlice";
 const { useToken } = theme;
 
 const DropdownComponent = () => {
@@ -52,6 +53,8 @@ const DropdownComponent = () => {
     if (res && res.data) {
       console.log("res logout>>> ", res);
       dispatch(doLogoutAction());
+      dispatch(doLogoutCart());
+      localStorage.removeItem("listCart");
       toast.success("Đăng Xuất thành công");
       navigate("/");
     }

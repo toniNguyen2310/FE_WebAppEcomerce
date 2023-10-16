@@ -1,9 +1,40 @@
 /* eslint-disable react/prop-types */
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import "./CardProduct.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCartByUseAPI, handleAddToCartAPI } from "../../services.js/api";
+import { displayCart } from "../../redux/cart/cartSlice";
 
 function CardProduct(props) {
   const { handleRederectDetailProduct, product } = props;
+  const dispatch = useDispatch();
+  const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
+  const user = useSelector((state) => state.account.user);
+
+  const handleAddToCart = async (product) => {
+    if (isAuthenticated) {
+      const data = { idUser: user._id, idProduct: product._id };
+      console.log(">>", data);
+      const res = await handleAddToCartAPI(data);
+      if (res && res.data) {
+        console.log("data>> ", res);
+        // localStorage.setItem("listCart", JSON.stringify(res.data.listCart));
+        const resnew = await fetchCartByUseAPI(user._id);
+        if (resnew) {
+          localStorage.setItem(
+            "listCart",
+            JSON.stringify(resnew.data.listCart)
+          );
+          dispatch(displayCart(resnew.data.listCart));
+        }
+        return;
+      }
+      return;
+    } else {
+      console.log("chua dang nhap roi", product);
+    }
+  };
+
   return (
     <div className="item-cover">
       <div className="item">
@@ -30,7 +61,10 @@ function CardProduct(props) {
                   }).format(product.priceAfter)}
                 </p>
               </div>
-              <div className="item-infor-container-cart">
+              <div
+                className="item-infor-container-cart"
+                onClick={() => handleAddToCart(product)}
+              >
                 <AiOutlineShoppingCart />
               </div>
             </div>
@@ -58,7 +92,10 @@ function CardProduct(props) {
                   }).format(product.priceAfter)}
                 </p>
               </div>
-              <div className="item-infor-container-cart">
+              <div
+                className="item-infor-container-cart"
+                onClick={() => handleAddToCart(product)}
+              >
                 <AiOutlineShoppingCart />
               </div>
             </div>

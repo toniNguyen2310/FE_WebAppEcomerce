@@ -17,6 +17,7 @@ function CategoryProduct(props) {
     filterValue,
     params,
     setParams,
+    categoryLabel,
   } = props;
 
   const navigate = useNavigate();
@@ -45,8 +46,7 @@ function CategoryProduct(props) {
   return (
     <div className="category-product">
       <div className="category-product-title">
-        <h2> {filterValue.category} &nbsp; </h2> <p>({total} sản phẩm)</p>{" "}
-        &nbsp;
+        <h2> {categoryLabel} &nbsp; </h2> <p>({total} sản phẩm)</p> &nbsp;
       </div>
       <div className="category-product-container">
         {/* <div>alo</div> */}

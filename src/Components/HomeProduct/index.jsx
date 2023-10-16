@@ -3,11 +3,15 @@ import { Carousel } from "antd";
 import "./homeproduct.scss";
 import { BsArrowRightShort } from "react-icons/bs";
 import { AiOutlineShoppingCart } from "react-icons/ai";
-import { getProductByCategorySlice } from "../../services.js/api";
+import {
+  getListBrandByCategory,
+  getProductByCategorySlice,
+} from "../../services.js/api";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { convertSlug } from "../Homepage";
 import { dataBrand } from "../AdminControl/ManagerProducts";
+import CardProduct from "../CardProduct/CardProduct";
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -67,29 +71,16 @@ function HomeProduct(props) {
     navigate(`/product/${slug}?id=${product._id}`);
   };
 
-  //handle rederect categiry
-  // const handleRederectCategory = (category) => {
-  //   console.log("category>>> ", category);
-  //   // navigate(`/category/${category}`)
-  // };
-
-  //gt list products
-  const handleGetProductSlice = async () => {
-    let brands = [];
-    const res = await getProductByCategorySlice(categoryValue);
-    if (res && res.data) {
-      setListProduct(res.data);
-
-      //LIST BRAND
-      res.data.map((e, index) => {
-        brands.push(e.brand);
-      });
+  //create list brand
+  const renderListBrandHomePage = async (category) => {
+    const resBrand = await getListBrandByCategory(category);
+    if (resBrand && resBrand.data) {
       setListBrand(
         dataBrand.filter((e) => {
           return (
-            brands
-              ?.filter((item, index) => {
-                return brands.indexOf(item) === index;
+            resBrand.data.brand
+              .filter((item, index) => {
+                return resBrand.data.brand.indexOf(item) === index;
               })
               .indexOf(e.value) > -1
           );
@@ -97,6 +88,18 @@ function HomeProduct(props) {
       );
     }
   };
+
+  const handleGetProductSlice = async () => {
+    let brands = [];
+    const res = await getProductByCategorySlice(categoryValue);
+    await renderListBrandHomePage(categoryValue);
+    if (res && res.data) {
+      setListProduct(res.data);
+    }
+  };
+  useEffect(() => {
+    console.log("listBrand>>> ", listBrand);
+  }, [listBrand]);
 
   useEffect(() => {
     handleGetProductSlice();
@@ -118,13 +121,6 @@ function HomeProduct(props) {
               </a>
             );
           })}
-
-          {/* <a href="">
-            <h3>LÓT CHUỘT CỠ 90X40</h3>
-          </a>
-          <a href="">
-            <h3>LÓT CHUỘT CỠ 60X40</h3>
-          </a> */}
           <NavLink to={`/category/${categoryValue}`} className="btn-view-more">
             <h3>
               XEM THÊM <BsArrowRightShort />
@@ -149,68 +145,73 @@ function HomeProduct(props) {
         >
           {listProduct?.map((e) => {
             return (
-              <div key={e._id} className="item-cover">
-                <div className="item">
-                  <a className="item-img">
-                    <img loading="lazy" src={e.images[0]} alt="" />
-                  </a>
-                  {e.discount === "0" ? (
-                    <div className="item-infor">
-                      <p
-                        className="item-infor-name"
-                        onClick={() => handleRederectDetailProduct(e)}
-                      >
-                        {e.name}
-                      </p>
-                      <div className="item-infor-container">
-                        <div className="item-infor-container-price">
-                          <p className="main-price">
-                            {new Intl.NumberFormat("vi-VN", {
-                              style: "currency",
-                              currency: "VND",
-                            }).format(e.priceAfter)}
-                          </p>
-                          <p className="old-price" style={{ color: "#ffffff" }}>
-                            &nbsp;
-                          </p>
-                        </div>
-                        <a href="" className="item-infor-container-cart">
-                          <AiOutlineShoppingCart />
-                        </a>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="item-infor">
-                      <p
-                        onClick={() => handleRederectDetailProduct(e)}
-                        className="item-infor-name"
-                      >
-                        {e.name}
-                      </p>
-                      <div className="item-infor-container">
-                        <div className="item-infor-container-price">
-                          <p className="old-price">
-                            {new Intl.NumberFormat("vi-VN", {
-                              style: "currency",
-                              currency: "VND",
-                            }).format(e.price)}
-                          </p>
-                          <p className="main-price">
-                            {new Intl.NumberFormat("vi-VN", {
-                              style: "currency",
-                              currency: "VND",
-                            }).format(e.priceAfter)}
-                          </p>
-                        </div>
-                        <a href="" className="item-infor-container-cart">
-                          <AiOutlineShoppingCart />
-                        </a>
-                      </div>
-                      <div className="item-discount">{e.discount}%</div>
-                    </div>
-                  )}
-                </div>
-              </div>
+              // <div key={e._id} className="item-cover">
+              //   <div className="item">
+              //     <a className="item-img">
+              //       <img loading="lazy" src={e.images[0]} alt="" />
+              //     </a>
+              //     {e.discount === "0" ? (
+              //       <div className="item-infor">
+              //         <p
+              //           className="item-infor-name"
+              //           onClick={() => handleRederectDetailProduct(e)}
+              //         >
+              //           {e.name}
+              //         </p>
+              //         <div className="item-infor-container">
+              //           <div className="item-infor-container-price">
+              //             <p className="main-price">
+              //               {new Intl.NumberFormat("vi-VN", {
+              //                 style: "currency",
+              //                 currency: "VND",
+              //               }).format(e.priceAfter)}
+              //             </p>
+              //             <p className="old-price" style={{ color: "#ffffff" }}>
+              //               &nbsp;
+              //             </p>
+              //           </div>
+              //           <a href="" className="item-infor-container-cart">
+              //             <AiOutlineShoppingCart />
+              //           </a>
+              //         </div>
+              //       </div>
+              //     ) : (
+              //       <div className="item-infor">
+              //         <p
+              //           onClick={() => handleRederectDetailProduct(e)}
+              //           className="item-infor-name"
+              //         >
+              //           {e.name}
+              //         </p>
+              //         <div className="item-infor-container">
+              //           <div className="item-infor-container-price">
+              //             <p className="old-price">
+              //               {new Intl.NumberFormat("vi-VN", {
+              //                 style: "currency",
+              //                 currency: "VND",
+              //               }).format(e.price)}
+              //             </p>
+              //             <p className="main-price">
+              //               {new Intl.NumberFormat("vi-VN", {
+              //                 style: "currency",
+              //                 currency: "VND",
+              //               }).format(e.priceAfter)}
+              //             </p>
+              //           </div>
+              //           <a href="" className="item-infor-container-cart">
+              //             <AiOutlineShoppingCart />
+              //           </a>
+              //         </div>
+              //         <div className="item-discount">{e.discount}%</div>
+              //       </div>
+              //     )}
+              //   </div>
+              // </div>
+              <CardProduct
+                key={e._id}
+                handleRederectDetailProduct={handleRederectDetailProduct}
+                product={e}
+              />
             );
           })}
 

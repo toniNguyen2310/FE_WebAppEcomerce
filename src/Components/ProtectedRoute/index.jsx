@@ -22,17 +22,15 @@ function ProtectedRoute(props) {
   const isAdmin = useSelector((state) => state.account.user.isAdmin);
   console.log("isAuthenticated - PTR>>> ", isAuthenticated, isAdmin);
   return (
-    <div>
-      <>
-        {isAuthenticated && isAdmin ? (
-          <>
-            <RoleBaseRoute>{props.children}</RoleBaseRoute>
-          </>
-        ) : (
-          <Navigate to="/login" replace />
-        )}
-      </>
-    </div>
+    <>
+      {isAuthenticated && isAdmin ? (
+        <>
+          <RoleBaseRoute>{props.children}</RoleBaseRoute>
+        </>
+      ) : (
+        <Navigate to="/login" replace />
+      )}
+    </>
   );
 }
 

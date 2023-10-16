@@ -11,6 +11,7 @@ function DetailProduct(props) {
   let params = new URLSearchParams(location.search);
   console.log("params>>> ", location);
   const id = params?.get("id");
+
   const fetchDataPRoduct = async (id) => {
     const res = await getProductById(id);
     if (res && res.data) {
@@ -56,21 +57,6 @@ function DetailProduct(props) {
                   </div>
                 );
               })}
-              {/* <div className="carousel-image">
-                <a href="">
-                  <img loading="lazy" src={images[0]} alt="" />
-                </a>
-              </div> */}
-              {/* <div className="carousel-image">
-                <a href="">
-                  <img loading="lazy" src={images[1]} alt="" />
-                </a>
-              </div>
-              <div className="carousel-image">
-                <a href="">
-                  <img loading="lazy" src={images[2]} alt="" />
-                </a>
-              </div> */}
             </Carousel>
           </div>
           <div className="product-detail-info">

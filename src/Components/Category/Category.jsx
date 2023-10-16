@@ -11,7 +11,6 @@ function Category(props) {
   const navigate = useNavigate();
   const [listData, setListData] = useState([]);
   const [listBrand, setListBrand] = useState([]);
-  const [locationSearch, setLocationSearch] = useState("");
   const [params, setParams] = useState({ brand: "", price: "", sort: "" });
   //FILTER SORT
   const [checkSort, setCheckSort] = useState("");
@@ -19,6 +18,7 @@ function Category(props) {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(16);
   const [total, setTotal] = useState(0);
+  const [categoryLabel, setCategoryLabel] = useState("");
 
   //NEW-START
   const [filterValue, setFilterValue] = useState({
@@ -80,6 +80,7 @@ function Category(props) {
       console.log("resBrand>> ", resBrand.data);
       if (resBrand && resBrand.data) {
         console.log("TAO BRAND");
+        setCategoryLabel(resBrand.data.name);
         setListBrand(
           dataBrand.filter((e) => {
             return (
@@ -200,9 +201,7 @@ function Category(props) {
   return (
     <div className="page-category">
       <div className="category">
-        <nav className="category-header">
-          TRANG CHỦ / {filterValue.category}
-        </nav>
+        <nav className="category-header">TRANG CHỦ / {categoryLabel}</nav>
         <div className="category-container">
           <CategoryFilter
             setCheckSort={setCheckSort}
@@ -224,6 +223,7 @@ function Category(props) {
             total={total}
             handleOnchangeProductsFilter={handleOnchangeProductsFilter}
             filterValue={filterValue}
+            categoryLabel={categoryLabel}
           />
         </div>
       </div>

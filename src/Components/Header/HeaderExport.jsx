@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/jsx-no-target-blank */
 import {
   AiFillFacebook,
   AiFillYoutube,
@@ -17,6 +15,8 @@ import { TfiMenuAlt } from "react-icons/tfi";
 import MenuCategory from "../Menu";
 import { FiPhoneCall } from "react-icons/fi";
 import "./header.scss";
+import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 function HeaderExport(props) {
   const {
@@ -27,6 +27,9 @@ function HeaderExport(props) {
     openMenu,
     showSmallHeader,
   } = props;
+
+  const listCart = useSelector((state) => state.cart.listCart);
+
   return (
     <header
       className={`header-container ${
@@ -200,7 +203,9 @@ function HeaderExport(props) {
             <div className="header__main-cart">
               <NavLink to={`/cart`} className="header__main-cart-icon">
                 <AiOutlineShoppingCart />
-                <span className="header__main-cart-icon-amount">20</span>
+                <span className="header__main-cart-icon-amount">
+                  {listCart.length}
+                </span>
               </NavLink>
               <NavLink to={`/cart`} className="header__main-cart-title">
                 Giỏ hàng

@@ -4,11 +4,14 @@ import { Provider } from "react-redux";
 import store from "./redux/store.js";
 import App from "./App.jsx";
 import ScrollToTop from "./Components/ScrollToTop/index.jsx";
+import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
     {/* <React.StrictMode> */}
+
     <App />
+
     {/* </React.StrictMode> */}
   </Provider>
 );

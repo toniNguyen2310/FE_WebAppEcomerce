@@ -1,8 +1,10 @@
 import { useEffect } from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  useLocation,
+} from "react-router-dom";
 import { Outlet } from "react-router-dom";
-import ContentPage from "./pages/content";
-import LaptopPage from "./pages/laptop";
 import Footer from "./Components/Footer";
 import Header from "./Components/Header";
 import HomePage from "./Components/Homepage";
@@ -40,7 +42,7 @@ const Layout = () => {
       <Outlet />
       <Footer />
       <ToastContainer
-        position="top-center"
+        position="top-right"
         autoClose={2000}
         hideProgressBar={false}
         theme="light"
@@ -79,14 +81,7 @@ export default function App() {
           path: "/category/:slug",
           element: <Category />,
         },
-        {
-          path: "content",
-          element: <ContentPage />,
-        },
-        {
-          path: "laptop",
-          element: <LaptopPage />,
-        },
+
         {
           path: "/login",
           element: <LoginPage />,
@@ -121,7 +116,10 @@ export default function App() {
       ],
     },
   ]);
+
+  //FETCH ACCOUNT TO AUTHENTICATED
   useEffect(() => {
+    console.log("isLoadingEF>> ", isLoading);
     const getAccount = async () => {
       if (
         window.location.pathname === "/login" ||
@@ -144,6 +142,7 @@ export default function App() {
     };
     getAccount();
   }, []);
+
   return (
     <>
       {isLoading === false ||

@@ -204,7 +204,7 @@ function HeaderExport(props) {
               <NavLink to={`/cart`} className="header__main-cart-icon">
                 <AiOutlineShoppingCart />
                 <span className="header__main-cart-icon-amount">
-                  {listCart?.length}
+                  {listCart?.length ? listCart?.length : "0"}
                 </span>
               </NavLink>
               <NavLink to={`/cart`} className="header__main-cart-title">

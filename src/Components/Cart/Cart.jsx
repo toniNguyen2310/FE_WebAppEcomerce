@@ -18,26 +18,26 @@ function Cart(props) {
     setIsChangeAddress(!ischangeAddress);
   };
 
-  const totalCostCalculate = (array) => {
-    return array.reduce(
-      (total, item) =>
-        parseInt(item.productId.priceAfter) * parseInt(item.quantity) + total,
-      0
-    );
-  };
+  // const totalCostCalculate = (array) => {
+  //   return array.reduce(
+  //     (total, item) =>
+  //       parseInt(item.productId.priceAfter) * parseInt(item.quantity) + total,
+  //     0
+  //   );
+  // };
 
   const debouncelistCart = useDebounce(listCart, 300);
 
   //SAVE LIST DATA WHEN LISTCART CHANGE
-  useEffect(() => {
-    console.log("listcart>> ", listCart);
-    console.log("TOTAL>> ");
-    if (listCart.length === 0) {
-      setTotalCost(0);
-    } else {
-      setTotalCost(totalCostCalculate(listCart));
-    }
-  }, [debouncelistCart]);
+  // useEffect(() => {
+  //   console.log("listcart>> ", listCart);
+  //   console.log("TOTAL>> ");
+  //   if (listCart.length === 0) {
+  //     setTotalCost(0);
+  //   } else {
+  //     setTotalCost(totalCostCalculate(listCart));
+  //   }
+  // }, [debouncelistCart]);
 
   return (
     <>
@@ -45,8 +45,7 @@ function Cart(props) {
         <div style={{ height: "500px" }}>
           <Loading />
         </div>
-      ) : listCart?.length === 0 &&
-        JSON.parse(localStorage.getItem("listCart"))?.length === 0 ? (
+      ) : listCart?.length === 0 ? (
         <>
           <div>KO CO SAN PHAM TRONG GIO HANG</div>
         </>
@@ -63,7 +62,7 @@ function Cart(props) {
               </div>
               <div className="cart-container-list">
                 {listCart?.map((e) => {
-                  return <ProductCart key={e._id} cart={e} />;
+                  return <ProductCart key={e.productId._id} cart={e} />;
                 })}
               </div>
             </div>
@@ -89,10 +88,10 @@ function Cart(props) {
                 <div className="total-price-number">
                   <h2 className="text-price">Tổng tiền hàng </h2>
                   <p className="number-price">
-                    {new Intl.NumberFormat("vi-VN", {
+                    {/* {new Intl.NumberFormat("vi-VN", {
                       style: "currency",
                       currency: "VND",
-                    }).format(totalCost)}
+                    }).format(totalCost)} */}
                   </p>
                 </div>
                 <div className="total-price-button">

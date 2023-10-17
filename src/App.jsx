@@ -56,8 +56,6 @@ const Layout = () => {
 export default function App() {
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.account.isLoading);
-  const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
-  // console.log("isAuthenticated - App>> ", isAuthenticated);
 
   const router = createBrowserRouter([
     {
@@ -125,7 +123,6 @@ export default function App() {
 
   //FETCH ACCOUNT TO AUTHENTICATED
   useEffect(() => {
-    console.log("isLoadingEF>> ", isLoading);
     const getAccount = async () => {
       if (
         window.location.pathname === "/login" ||
@@ -140,7 +137,6 @@ export default function App() {
 
       if (res && res.data) {
         dispatch(doGetAccountAction(res.data));
-        dispatch(displayCart(res.data.user.listCart));
       } else {
         console.log("KO AUTHEN");
         dispatch(doGetAccountError());

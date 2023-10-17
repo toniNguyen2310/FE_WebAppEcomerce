@@ -30,7 +30,6 @@ export const accountSlice = createSlice({
     doGetAccountError: (state, action) => {
       state.isLoading = false;
       state.isAuthenticated = false;
-      state.user = action.payload;
     },
 
     doGetAccountAction: (state, action) => {

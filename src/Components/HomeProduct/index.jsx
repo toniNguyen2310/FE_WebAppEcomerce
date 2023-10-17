@@ -97,9 +97,6 @@ function HomeProduct(props) {
       setListProduct(res.data);
     }
   };
-  useEffect(() => {
-    console.log("listBrand>>> ", listBrand);
-  }, [listBrand]);
 
   useEffect(() => {
     handleGetProductSlice();

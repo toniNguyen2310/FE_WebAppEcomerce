@@ -39,7 +39,7 @@ function HeaderExport(props) {
       onClick={() => (isDisplayMenu ? closeMenu() : null)}
       style={
         fixedHeader
-          ? { position: `fixed`, top: showSmallHeader ? "0" : "-120px" }
+          ? { position: `fixed`, top: showSmallHeader ? "0" : "-900px" }
           : { position: "relative" }
       }
     >
@@ -204,7 +204,7 @@ function HeaderExport(props) {
               <NavLink to={`/cart`} className="header__main-cart-icon">
                 <AiOutlineShoppingCart />
                 <span className="header__main-cart-icon-amount">
-                  {listCart.length}
+                  {listCart?.length}
                 </span>
               </NavLink>
               <NavLink to={`/cart`} className="header__main-cart-title">

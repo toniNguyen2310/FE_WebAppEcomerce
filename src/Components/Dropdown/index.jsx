@@ -54,7 +54,7 @@ const DropdownComponent = () => {
       console.log("res logout>>> ", res);
       dispatch(doLogoutAction());
       dispatch(doLogoutCart());
-      localStorage.removeItem("listCart");
+
       toast.success("Đăng Xuất thành công");
       navigate("/");
     }

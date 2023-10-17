@@ -33,6 +33,7 @@ import DetailProduct from "./Components/DetailProduct";
 import Cart from "./Components/Cart/Cart";
 import Category from "./Components/Category/Category";
 import "./App.scss";
+import { displayCart } from "./redux/cart/cartSlice";
 
 //LAYOUT MAIN
 const Layout = () => {
@@ -42,7 +43,7 @@ const Layout = () => {
       <Outlet />
       <Footer />
       <ToastContainer
-        position="top-right"
+        position="top-center"
         autoClose={2000}
         hideProgressBar={false}
         theme="light"
@@ -131,10 +132,10 @@ export default function App() {
       const res = await callFetchAccount();
       console.log("res>>> ", res);
       dispatch(doGetAccountPending());
-      console.log("loading1>>> ", isLoading);
+
       if (res && res.data) {
         dispatch(doGetAccountAction(res.data));
-        console.log("loading2>>> ", isLoading);
+        dispatch(displayCart(res.data.user.listCart));
       } else {
         console.log("KO AUTHEN");
         dispatch(doGetAccountError());

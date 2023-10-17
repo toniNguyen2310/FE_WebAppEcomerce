@@ -2,8 +2,7 @@
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import "./CardProduct.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCartByUseAPI, handleAddToCartAPI } from "../../services.js/api";
-import { displayCart } from "../../redux/cart/cartSlice";
+import { displayCart, addToCartService } from "../../redux/cart/cartSlice";
 
 function CardProduct(props) {
   const { handleRederectDetailProduct, product } = props;
@@ -13,25 +12,58 @@ function CardProduct(props) {
 
   const handleAddToCart = async (product) => {
     if (isAuthenticated) {
-      const data = { idUser: user._id, idProduct: product._id };
+      //TRƯỜNG HỢP ĐÃ ĐĂNG NHẬP
+      const data = { idUser: user._id, product: product };
       console.log(">>", data);
-      const res = await handleAddToCartAPI(data);
-      if (res && res.data) {
-        console.log("data>> ", res);
-        // localStorage.setItem("listCart", JSON.stringify(res.data.listCart));
-        const resnew = await fetchCartByUseAPI(user._id);
-        if (resnew) {
-          localStorage.setItem(
-            "listCart",
-            JSON.stringify(resnew.data.listCart)
-          );
-          dispatch(displayCart(resnew.data.listCart));
+      dispatch(addToCartService(product));
+    } else {
+      //TRƯỜNG HỢP KO ĐĂNG NHẬP
+      dispatch(addToCartService(product));
+      return;
+      let array = JSON.parse(localStorage.getItem("listCart"));
+      let itemIndex = JSON.parse(localStorage.getItem("listCart")).findIndex(
+        (e) => {
+          return e.productId._id.toString() === product._id;
         }
-        return;
+      );
+      console.log("index>> ", itemIndex);
+      if (itemIndex > -1) {
+        array[itemIndex].quantity++;
+        localStorage.setItem("listCart", JSON.stringify(array));
+        dispatch(addToCartService(product));
+      } else {
+        array.push({
+          productId: product,
+          quantity: 1,
+        });
+        localStorage.setItem("listCart", JSON.stringify(array));
+        dispatch(displayCart(array));
       }
       return;
-    } else {
-      console.log("chua dang nhap roi", product);
+      if (!localStorage.getItem("listCart")) {
+        //LOCAL STORAGE RỖNG
+        localStorage.setItem(
+          "listCart",
+          JSON.stringify([
+            {
+              productId: product,
+              quantity: 1,
+            },
+          ])
+        );
+        dispatch(
+          displayCart([
+            {
+              productId: product,
+              quantity: 1,
+            },
+          ])
+        );
+      } else {
+        //ĐÃ CÓ LOCAL STORAGE LIST CART
+        let array = JSON.parse(localStorage.getItem("listCart"));
+        console.log("CO");
+      }
     }
   };
 
@@ -45,7 +77,7 @@ function CardProduct(props) {
           <div className="item-infor">
             <p
               className="item-infor-name"
-              onClick={() => handleRederectDetailProduct(product)}
+              // onClick={() => handleRederectDetailProduct(product)}
             >
               {product.name}
             </p>

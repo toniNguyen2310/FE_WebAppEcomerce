@@ -5,6 +5,7 @@ const initialState = {
   isLoadingCart: false,
   listCart: [],
   listCartFirst: [],
+  totalProduct: "",
 };
 
 export const cartSlice = createSlice({
@@ -12,6 +13,12 @@ export const cartSlice = createSlice({
   initialState,
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
+    displayCart: (state, action) => {
+      state.listCart = action.payload;
+      state.listCartFirst = action.payload;
+      state.isLoadingCart = false;
+      localStorage.setItem("listCart", JSON.stringify(action.payload));
+    },
     doFetchListCartPending: (state) => {
       state.isLoadingCart = true;
     },
@@ -20,16 +27,47 @@ export const cartSlice = createSlice({
       state.isLoadingCart = false;
     },
 
-    displayCart: (state, action) => {
-      state.listCart = action.payload;
-      state.listCartFirst = action.payload;
+    deleteProduct: (state, action) => {
+      const newCart = state.listCart.filter((item) => {
+        return item.productId._id !== action.payload;
+      });
+      state.listCart = newCart;
+      toast.success("Đã xóa sản phẩm khỏi giỏ hàng", { toastId: "success1" });
+      localStorage.setItem("listCart", JSON.stringify(newCart));
+    },
+
+    doLogoutCart: (state, action) => {
       state.isLoadingCart = false;
+      state.listCart = [];
+      state.listCartFirst = [];
+      localStorage.removeItem("listCart");
+    },
+
+    addToCartService: (state, action) => {
+      const itemIndex = state.listCart.findIndex(
+        (item) => item.productId._id === action.payload._id
+      );
+      if (itemIndex < 0) {
+        state.listCart.push({ productId: action.payload, quantity: 1 });
+        toast.success("Đã thêm sản phẩm vào giỏ hàng", { toastId: "success1" });
+        localStorage.setItem("listCart", JSON.stringify(state.listCart));
+        return;
+      } else {
+        toast.success("Sản phẩm đã có trong giỏ hàng", { toastId: "success1" });
+        // localStorage.setItem("listCart", JSON.stringify(state.listCart));
+        return;
+      }
     },
 
     increaseQuantity: (state, action) => {
       const itemIndex = state.listCart.findIndex(
         (item) => item.productId._id === action.payload
       );
+      if (state.listCart[itemIndex].quantity === 10) {
+        toast.success("Số lượng quá quy định", { toastId: "success1" });
+        return;
+      }
+
       state.listCart[itemIndex].quantity += 1;
 
       localStorage.setItem("listCart", JSON.stringify(state.listCart));
@@ -53,20 +91,7 @@ export const cartSlice = createSlice({
       localStorage.setItem("listCart", JSON.stringify(state.listCart));
     },
 
-    deleteProduct: (state, action) => {
-      const newCart = state.listCart.filter((item) => {
-        return item.productId._id !== action.payload;
-      });
-      state.listCart = newCart;
-      toast.success("Đã xóa sản phẩm khỏi giỏ hàng", { toastId: "success1" });
-      localStorage.setItem("listCart", JSON.stringify(state.listCart));
-    },
-
-    doLogoutCart: (state, action) => {
-      state.isLoadingCart = false;
-      state.listCart = [];
-      state.listCartFirst = [];
-    },
+    //CART FOR LOCAL STORAGE
   },
 
   // The `extraReducers` field lets the slice handle actions defined elsewhere,
@@ -80,9 +105,9 @@ export const {
   increaseQuantity,
   decreaseQuantity,
   deleteProduct,
-  doActionChange,
   doLogoutCart,
   doFetchListCartError,
+  addToCartService,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

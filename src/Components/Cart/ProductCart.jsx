@@ -1,6 +1,6 @@
 import React from "react";
 import { BsFillTrash3Fill } from "react-icons/bs";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   increaseQuantity,
   decreaseQuantity,
@@ -54,6 +54,7 @@ function ProductCart(props) {
       <div className="cart-detail-count">
         <div
           className="decrease-count count-box"
+          // onClick={() => handledecrease(cart.productId._id)}
           onClick={() => handledecrease(cart.productId._id)}
         >
           -
@@ -61,6 +62,7 @@ function ProductCart(props) {
         <div className="count count-box">{cart.quantity}</div>
         <div
           className="increase-count count-box"
+          // onClick={() => handleIncrease(cart.productId._id)}
           onClick={() => handleIncrease(cart.productId._id)}
         >
           +

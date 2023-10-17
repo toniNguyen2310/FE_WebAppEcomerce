@@ -2,16 +2,13 @@ import React, { useEffect, useState } from "react";
 import "./cartPage.scss";
 import ProductCart from "./ProductCart";
 import { useSelector } from "react-redux";
-import { fetchCartByUseAPI, handleSaveCart } from "../../services.js/api";
-import { useLocation } from "react-router-dom";
 import { useDebounce } from "../../utils/hook";
 import Loading from "../Loading";
 
 function Cart(props) {
   const [ischangeAddress, setIsChangeAddress] = useState(false);
   const listCart = useSelector((state) => state.cart.listCart);
-  const listCartFirst = useSelector((state) => state.cart.listCartFirst);
-  const user = useSelector((state) => state.account.user);
+
   const isLoadingCart = useSelector((state) => state.cart.isLoadingCart);
 
   let [totalCost, setTotalCost] = useState(0);
@@ -40,37 +37,16 @@ function Cart(props) {
     } else {
       setTotalCost(totalCostCalculate(listCart));
     }
-
-    if (JSON.stringify(listCart) !== JSON.stringify(listCartFirst)) {
-      let dataCart = listCart;
-      dataCart = dataCart.map((e) => {
-        return {
-          productId: e.productId._id,
-          quantity: e.quantity,
-          _id: e._id,
-        };
-      });
-      console.log("SAVE>>> ", { id: user._id, cart: dataCart });
-      handleSaveCart({ id: user._id, cart: dataCart });
-      console.log("KHAC1");
-    } else {
-      console.log("GIONG1");
-    }
-    // console.log("user>> ", { user: user, listCart: listCart });
   }, [debouncelistCart]);
 
-  useEffect(() => {
-    console.log("LS>> ", JSON.parse(localStorage.getItem("listCart")));
-  }, []);
   return (
     <>
       {isLoadingCart ? (
         <div style={{ height: "500px" }}>
           <Loading />
         </div>
-      ) : (listCart.length === 0 &&
-          JSON.parse(localStorage.getItem("listCart"))?.length === 0) ||
-        !localStorage.getItem("listCart") ? (
+      ) : listCart?.length === 0 &&
+        JSON.parse(localStorage.getItem("listCart"))?.length === 0 ? (
         <>
           <div>KO CO SAN PHAM TRONG GIO HANG</div>
         </>
@@ -82,7 +58,7 @@ function Cart(props) {
               <div className="cart-container-title">
                 <h2>Giỏ hàng của bạn</h2>
                 <p>
-                  Bạn đang có <b>{listCart.length} sản phẩm</b> trong giỏ hàng
+                  Bạn đang có <b>{listCart?.length} sản phẩm</b> trong giỏ hàng
                 </p>
               </div>
               <div className="cart-container-list">

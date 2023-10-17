@@ -56,17 +56,12 @@ export const getListBrandByCategory = (data) => {
   return axios.get(`/v1/api/category?value=${data}`);
 };
 
-//CART
-export const handleAddToCartAPI = (data) => {
-  return axios.post(`/v1/api/cart/increase?productId=${data.idProduct}`, {
-    userId: data.idUser,
-  });
+//GET LIST CART BY ID USER
+export const fetchListCartByUserId = (id) => {
+  return axios.get(`/v1/api/user/cart/${id}`);
 };
 
-export const fetchCartByUseAPI = (data) => {
-  return axios.get(`/v1/api/cart?userId=${data}`);
-};
-
-export const handleSaveCart = (data) => {
-  return axios.post(`/v1/api/cart/edit/${data.id}`, { listCart: data.cart });
+//EDIT CART
+export const adjustListCartByUserID = (data) => {
+  return axios.post(`/v1/api/user/add/${data.id}`, { listCart: data.cart });
 };

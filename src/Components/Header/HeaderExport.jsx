@@ -17,6 +17,8 @@ import { FiPhoneCall } from "react-icons/fi";
 import "./header.scss";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import { useDebounce } from "../../utils/hook";
+import { searchProductNavbarAPI } from "../../services.js/api";
 
 function HeaderExport(props) {
   const {
@@ -27,9 +29,27 @@ function HeaderExport(props) {
     openMenu,
     showSmallHeader,
   } = props;
-
+  const [searchProduct, setSearchProduct] = useState("");
+  const debounceSearchProduct = useDebounce(searchProduct, 1000);
   const listCart = useSelector((state) => state.cart.listCart);
 
+  const getListPRoductsWhenSearch = async (value) => {
+    const res = await searchProductNavbarAPI(value.trim());
+    if (res && res.data) {
+      console.log("DATA SEARCH>> ", res);
+    } else {
+      console.log("KO CO");
+    }
+  };
+
+  useEffect(() => {
+    console.log("searchProduct>> ", searchProduct);
+    if (!searchProduct) {
+      return;
+    } else {
+      getListPRoductsWhenSearch(searchProduct);
+    }
+  }, [debounceSearchProduct]);
   return (
     <header
       className={`header-container ${
@@ -185,7 +205,12 @@ function HeaderExport(props) {
               <button>
                 <BsSearch />
               </button>
-              <input type="text" placeholder="Bạn cần tìm gì?" />
+              <input
+                type="text"
+                placeholder="Bạn cần tìm gì?"
+                value={searchProduct}
+                onChange={(e) => setSearchProduct(e.target.value)}
+              />
             </div>
           </div>
           <div className="header__main__cover__right">

@@ -65,3 +65,8 @@ export const fetchListCartByUserId = (id) => {
 export const adjustListCartByUserID = (data) => {
   return axios.post(`/v1/api/user/add/${data.id}`, { listCart: data.cart });
 };
+
+//SEARCH PRODUCT NAVBAR
+export const searchProductNavbarAPI = (value) => {
+  return axios.get(`/v1/api/product/search/navbar?value=${value}`);
+};

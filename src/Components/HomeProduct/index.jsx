@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Carousel } from "antd";
+import { Carousel, Skeleton } from "antd";
 import "./homeproduct.scss";
 import { BsArrowRightShort } from "react-icons/bs";
 import { AiOutlineShoppingCart } from "react-icons/ai";
@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { convertSlug } from "../Homepage";
 import { dataBrand } from "../AdminControl/ManagerProducts";
 import CardProduct from "../CardProduct/CardProduct";
+import SkeletonProduct from "../Skeleton/SkeletonProduct";
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -25,8 +26,9 @@ function SamplePrevArrow(props) {
 
 function HomeProduct(props) {
   const { categoryValue, categoryLabel } = props;
-  const [listBrand, setListBrand] = useState();
+  const [listBrand, setListBrand] = useState([]);
   const [listProduct, setListProduct] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const responsiveCarousel = [
     {
@@ -92,8 +94,11 @@ function HomeProduct(props) {
   const handleGetProductSlice = async () => {
     let brands = [];
     const res = await getProductByCategorySlice(categoryValue);
+    setIsLoading(true);
     await renderListBrandHomePage(categoryValue);
+
     if (res && res.data) {
+      setIsLoading(false);
       setListProduct(res.data);
     }
   };
@@ -126,119 +131,34 @@ function HomeProduct(props) {
         </div>
       </div>
       <div className="box-product-group">
-        <Carousel
-          arrows
-          prevArrow={<SamplePrevArrow />}
-          nextArrow={<SampleNextArrow />}
-          swipeToSlide
-          draggable
-          autoplay
-          autoplaySpeed={2500}
-          slidesPerRow={1}
-          slidesToShow={5}
-          dots={false}
-          infinite={false}
-          responsive={responsiveCarousel}
-        >
-          {listProduct?.map((e) => {
-            return (
-              // <div key={e._id} className="item-cover">
-              //   <div className="item">
-              //     <a className="item-img">
-              //       <img loading="lazy" src={e.images[0]} alt="" />
-              //     </a>
-              //     {e.discount === "0" ? (
-              //       <div className="item-infor">
-              //         <p
-              //           className="item-infor-name"
-              //           onClick={() => handleRederectDetailProduct(e)}
-              //         >
-              //           {e.name}
-              //         </p>
-              //         <div className="item-infor-container">
-              //           <div className="item-infor-container-price">
-              //             <p className="main-price">
-              //               {new Intl.NumberFormat("vi-VN", {
-              //                 style: "currency",
-              //                 currency: "VND",
-              //               }).format(e.priceAfter)}
-              //             </p>
-              //             <p className="old-price" style={{ color: "#ffffff" }}>
-              //               &nbsp;
-              //             </p>
-              //           </div>
-              //           <a href="" className="item-infor-container-cart">
-              //             <AiOutlineShoppingCart />
-              //           </a>
-              //         </div>
-              //       </div>
-              //     ) : (
-              //       <div className="item-infor">
-              //         <p
-              //           onClick={() => handleRederectDetailProduct(e)}
-              //           className="item-infor-name"
-              //         >
-              //           {e.name}
-              //         </p>
-              //         <div className="item-infor-container">
-              //           <div className="item-infor-container-price">
-              //             <p className="old-price">
-              //               {new Intl.NumberFormat("vi-VN", {
-              //                 style: "currency",
-              //                 currency: "VND",
-              //               }).format(e.price)}
-              //             </p>
-              //             <p className="main-price">
-              //               {new Intl.NumberFormat("vi-VN", {
-              //                 style: "currency",
-              //                 currency: "VND",
-              //               }).format(e.priceAfter)}
-              //             </p>
-              //           </div>
-              //           <a href="" className="item-infor-container-cart">
-              //             <AiOutlineShoppingCart />
-              //           </a>
-              //         </div>
-              //         <div className="item-discount">{e.discount}%</div>
-              //       </div>
-              //     )}
-              //   </div>
-              // </div>
-              <CardProduct
-                key={e._id}
-                handleRederectDetailProduct={handleRederectDetailProduct}
-                product={e}
-              />
-            );
-          })}
-
-          {/* <div className="item-cover">
-            <div className="item">
-              <a href="" className="item-img">
-                <img loading="lazy"
-                  src="https://lacdau.com/media/product/250-745-592b78f027525d0a9ba8cdd4ef56efbc.jpg"
-                  alt=""
+        {isLoading ? (
+          <SkeletonProduct />
+        ) : (
+          <Carousel
+            arrows
+            prevArrow={<SamplePrevArrow />}
+            nextArrow={<SampleNextArrow />}
+            swipeToSlide
+            draggable
+            autoplay
+            autoplaySpeed={2500}
+            slidesPerRow={1}
+            slidesToShow={5}
+            dots={false}
+            infinite={false}
+            responsive={responsiveCarousel}
+          >
+            {listProduct?.map((e) => {
+              return (
+                <CardProduct
+                  key={e._id}
+                  handleRederectDetailProduct={handleRederectDetailProduct}
+                  product={e}
                 />
-              </a>
-
-              <div className="item-infor">
-                <a href="" className="item-infor-name">
-                  PAD 33 CÁ HEO WITH LOVE
-                </a>
-                <div className="item-infor-container">
-                  <div className="item-infor-container-price">
-                    <p className="main-price">
-                      60.000<u>đ</u>
-                    </p>
-                  </div>
-                  <a href="" className="item-infor-container-cart">
-                    <AiOutlineShoppingCart />
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div> */}
-        </Carousel>
+              );
+            })}
+          </Carousel>
+        )}
       </div>
     </div>
   );

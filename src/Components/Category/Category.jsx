@@ -7,10 +7,12 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { dataBrand, dataCategory } from "../AdminControl/ManagerProducts";
 import { getListBrandByCategory, getProducts } from "../../services.js/api";
 import { useDebounce } from "../../utils/hook";
+
 function Category(props) {
   const navigate = useNavigate();
   const [listData, setListData] = useState([]);
   const [listBrand, setListBrand] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [params, setParams] = useState({ brand: "", price: "", sort: "" });
   //FILTER SORT
   const [checkSort, setCheckSort] = useState("");
@@ -20,7 +22,7 @@ function Category(props) {
   const [total, setTotal] = useState(0);
   const [categoryLabel, setCategoryLabel] = useState("");
 
-  //NEW-START
+  //FILTET VALUE
   const [filterValue, setFilterValue] = useState({
     category: "",
     brand: "",
@@ -40,15 +42,20 @@ function Category(props) {
       return;
     }
     if (filterValue) {
+      setIsLoading(true);
       const query = `current=${currentPage}&pageSize=${pageSize}&category=${filterValue.category}&brand=${filterValue.brand}&priceAfter=${filterValue.sort}&filterPrice=${filterValue.price}`;
-      console.log("query>> ", query);
-      console.log("TESST DAYYYYY", filterValue.category, params);
+      // console.log("query>> ", query);
+      // console.log("TESST DAYYYYY", filterValue.category, params);
       //FETCT PRODUCT
       const res = await getProducts(query);
+
       if (res && res.data) {
         console.log("NEW res>> ", res);
         setListData(res.data.products);
         setTotal(res.data.count);
+        setIsLoading(false);
+      } else {
+        setIsLoading(false);
       }
     }
   };
@@ -65,10 +72,10 @@ function Category(props) {
     //   return;
     // }
     if (arrayParams.length === 0) {
-      console.log("KO CO PARAMS");
+      // console.log("KO CO PARAMS");
       navigate("");
     } else {
-      console.log("PARAMS>>> ", `?${arrayParams.join("&")}`);
+      // console.log("PARAMS>>> ", `?${arrayParams.join("&")}`);
       navigate(`?${arrayParams.join("&")}`);
     }
   };
@@ -77,9 +84,9 @@ function Category(props) {
   const renderListBrand = async (category) => {
     if (currentPage === 1) {
       const resBrand = await getListBrandByCategory(category);
-      console.log("resBrand>> ", resBrand.data);
+      // console.log("resBrand>> ", resBrand.data);
       if (resBrand && resBrand.data) {
-        console.log("TAO BRAND");
+        // console.log("TAO BRAND");
         setCategoryLabel(resBrand.data.name);
         setListBrand(
           dataBrand.filter((e) => {
@@ -100,20 +107,16 @@ function Category(props) {
   //NEW-END
 
   const handleOnchangeProductsFilter = (pagination) => {
-    console.log("pagination>>> ", pagination);
+    // console.log("pagination>>> ", pagination);
+    window.scrollTo(0, 0);
     if (pagination !== currentPage) {
       setCurrentPage(pagination);
     }
-    // if (pagination && pagination.pageSize != pageSize) {
-    //   console.log("onchange2");
-    //   setPageSize(pagination.pageSize);
-    //   setCurrentPage(1);
-    // }
   };
 
   //LOCATION
   useEffect(() => {
-    console.log("LOCATION>> ", location);
+    // console.log("LOCATION>> ", location);
     //CATEGORY
     const categoryLocation = location?.pathname.split("/")[2];
 
@@ -184,14 +187,14 @@ function Category(props) {
 
   //VALUE FILTER
   useEffect(() => {
-    console.log("filterValue>> ", filterValue);
+    // console.log("filterValue>> ", filterValue);
     setCurrentPage(1);
     fetchProduct();
   }, [debounceFilterValue]);
 
   //PARAMS
   useEffect(() => {
-    console.log("params Effect >>> ", params);
+    // console.log("params Effect >>> ", params);
     // if (!params.brand && !params.price && !params.sort) {
     //   console.log("params rong");
     //   return;
@@ -201,7 +204,12 @@ function Category(props) {
   return (
     <div className="page-category">
       <div className="category">
-        <nav className="category-header">TRANG CHỦ / {categoryLabel}</nav>
+        <nav className="category-header">
+          <span onClick={() => navigate("/")} style={{ cursor: "pointer" }}>
+            TRANG CHỦ
+          </span>
+          &nbsp;/&nbsp; {categoryLabel}
+        </nav>
         <div className="category-container">
           <CategoryFilter
             setCheckSort={setCheckSort}
@@ -212,6 +220,7 @@ function Category(props) {
             currentPage={currentPage}
             listBrand={listBrand}
           />
+
           <CategoryProduct
             setCheckSort={setCheckSort}
             checkSort={checkSort}
@@ -224,6 +233,7 @@ function Category(props) {
             handleOnchangeProductsFilter={handleOnchangeProductsFilter}
             filterValue={filterValue}
             categoryLabel={categoryLabel}
+            isLoading={isLoading}
           />
         </div>
       </div>

@@ -20,50 +20,6 @@ function CardProduct(props) {
       //TRƯỜNG HỢP KO ĐĂNG NHẬP
       dispatch(addToCartService(product));
       return;
-      let array = JSON.parse(localStorage.getItem("listCart"));
-      let itemIndex = JSON.parse(localStorage.getItem("listCart")).findIndex(
-        (e) => {
-          return e.productId._id.toString() === product._id;
-        }
-      );
-      console.log("index>> ", itemIndex);
-      if (itemIndex > -1) {
-        array[itemIndex].quantity++;
-        localStorage.setItem("listCart", JSON.stringify(array));
-        dispatch(addToCartService(product));
-      } else {
-        array.push({
-          productId: product,
-          quantity: 1,
-        });
-        localStorage.setItem("listCart", JSON.stringify(array));
-        dispatch(displayCart(array));
-      }
-      return;
-      if (!localStorage.getItem("listCart")) {
-        //LOCAL STORAGE RỖNG
-        localStorage.setItem(
-          "listCart",
-          JSON.stringify([
-            {
-              productId: product,
-              quantity: 1,
-            },
-          ])
-        );
-        dispatch(
-          displayCart([
-            {
-              productId: product,
-              quantity: 1,
-            },
-          ])
-        );
-      } else {
-        //ĐÃ CÓ LOCAL STORAGE LIST CART
-        let array = JSON.parse(localStorage.getItem("listCart"));
-        console.log("CO");
-      }
     }
   };
 
@@ -77,7 +33,7 @@ function CardProduct(props) {
           <div className="item-infor">
             <p
               className="item-infor-name"
-              // onClick={() => handleRederectDetailProduct(product)}
+              onClick={() => handleRederectDetailProduct(product)}
             >
               {product.name}
             </p>

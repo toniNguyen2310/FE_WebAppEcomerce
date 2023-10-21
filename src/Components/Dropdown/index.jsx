@@ -66,6 +66,8 @@ const DropdownComponent = () => {
     backgroundColor: token.colorBgElevated,
     borderRadius: token.borderRadiusLG,
     boxShadow: token.boxShadowSecondary,
+    marginLeft: "-25px",
+    marginTop: "8px",
   };
   const menuStyle = {
     boxShadow: "none",

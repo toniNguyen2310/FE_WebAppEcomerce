@@ -71,6 +71,13 @@ export const dataBrand = [
   { value: "viking", label: "VIKING" },
 ];
 
+export const dataPrice = [
+  { value: "op01", label: "Dưới 100 ngàn" },
+  { value: "op12", label: "100 - 200 ngàn" },
+  { value: "op25", label: "200 - 500 ngàn" },
+  { value: "op50", label: "Trên 500 ngàn" },
+];
+
 function ManagerProducts(props) {
   const [listProduct, setListProduct] = useState([]);
   const [pageSize, setPageSize] = useState(5);

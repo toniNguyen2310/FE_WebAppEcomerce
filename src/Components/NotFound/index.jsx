@@ -1,13 +1,25 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { Button, Result } from "antd";
 
 function NotFound(props) {
   const navigate = useNavigate();
   return (
-    <div>
-      404 Not Found == Trang không tồn tại (link)
-      <button onClick={() => navigate("/")}>Back to Homepage</button>
-    </div>
+    <Result
+      status="404"
+      title="404"
+      subTitle="Trang bạn đang tìm kiếm có thể đã bị xóa,
+         thay đổi link hoặc chưa bao giờ tồn tại."
+      extra={
+        <Button
+          style={{ background: "#29a07e" }}
+          type="primary"
+          onClick={() => navigate("/")}
+        >
+          Quay lại trang chủ
+        </Button>
+      }
+    />
   );
 }
 

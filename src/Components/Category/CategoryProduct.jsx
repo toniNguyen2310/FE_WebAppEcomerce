@@ -3,7 +3,13 @@ import { Pagination } from "antd";
 import { useNavigate } from "react-router-dom";
 import CardProduct from "../CardProduct/CardProduct";
 import { convertSlug } from "../Homepage";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import {
+  dataBrand,
+  dataCategory,
+  dataPrice,
+} from "../AdminControl/ManagerProducts";
+import SkeletonFilter from "../Skeleton/SkeletonFilter";
 
 function CategoryProduct(props) {
   const {
@@ -18,6 +24,7 @@ function CategoryProduct(props) {
     params,
     setParams,
     categoryLabel,
+    isLoading,
   } = props;
 
   const navigate = useNavigate();
@@ -43,79 +50,118 @@ function CategoryProduct(props) {
     }
   };
 
+  useEffect(
+    (e) => {
+      console.log("listData>> ", listData);
+    },
+    [listData]
+  );
+
   return (
-    <div className="category-product">
-      <div className="category-product-title">
-        <h2> {categoryLabel} &nbsp; </h2> <p>({total} sản phẩm)</p> &nbsp;
-      </div>
-      <div className="category-product-container">
-        {/* <div>alo</div> */}
-        <div className="category-product-container-filter">
-          <div className="infor-filter">
-            <p>
-              Hãng sản xuất(test):
-              <span style={{ color: "red" }}>{filterValue?.brand}</span>
+    <>
+      {isLoading ? (
+        <div className="category-product">
+          <SkeletonFilter />
+        </div>
+      ) : (
+        <div className="category-product">
+          <div className="category-product-title">
+            <h2> {categoryLabel} &nbsp; </h2> &nbsp;
+            <p style={{ fontWeight: "normal", fontSize: "14px" }}>
+              ({total} sản phẩm)
             </p>
             &nbsp;
-            <p>
-              Khoảng giá(test):
-              <span style={{ color: "red" }}>{filterValue?.price}</span>
-            </p>
           </div>
-          <div>
-            <a
-              className={`filter-sort ${
-                checkSort === "" ? "active-sort" : null
-              }`}
-              onClick={() => handleSortProduct("")}
-            >
-              Mới nhất
-            </a>
-            <a
-              className={`filter-sort ${
-                checkSort === "increase" ? "active-sort" : null
-              }`}
-              onClick={() => handleSortProduct("increase")}
-            >
-              Giá tăng dần
-            </a>
-            <a
-              className={`filter-sort ${
-                checkSort === "decrease" ? "active-sort" : null
-              }`}
-              onClick={() => handleSortProduct("decrease")}
-            >
-              Giá giảm dần
-            </a>
+          <div className="category-product-container">
+            <div className="category-product-container-filter">
+              <div className="infor-filter">
+                {filterValue.brand ? (
+                  <p className="infor-filter-title">
+                    Hãng sản xuất:
+                    <b>
+                      {
+                        dataBrand.filter((e) => {
+                          if (e.value === filterValue?.brand) {
+                            return e.label;
+                          }
+                        })[0].label
+                      }
+                    </b>
+                  </p>
+                ) : null}
+                &nbsp;
+                {filterValue.price ? (
+                  <p className="infor-filter-title">
+                    Khoảng giá:
+                    <b>
+                      {
+                        dataPrice.filter((e) => {
+                          if (e.value === filterValue?.price) {
+                            return e.label;
+                          }
+                        })[0].label
+                      }
+                    </b>
+                  </p>
+                ) : null}
+                <p className="infor-filter-title hide">a</p>
+              </div>
+              <div className="infor-filter">
+                <a
+                  className={`filter-sort ${
+                    checkSort === "" ? "active-sort" : null
+                  }`}
+                  onClick={() => handleSortProduct("")}
+                >
+                  Mới nhất
+                </a>
+                <a
+                  className={`filter-sort ${
+                    checkSort === "increase" ? "active-sort" : null
+                  }`}
+                  onClick={() => handleSortProduct("increase")}
+                >
+                  Giá tăng dần
+                </a>
+                <a
+                  className={`filter-sort ${
+                    checkSort === "decrease" ? "active-sort" : null
+                  }`}
+                  onClick={() => handleSortProduct("decrease")}
+                >
+                  Giá giảm dần
+                </a>
+              </div>
+            </div>
+            <div className="category-product-container-list">
+              {listData.length > 0 ? (
+                listData.map((product) => {
+                  return (
+                    <CardProduct
+                      key={product?.id || product?._id}
+                      product={product}
+                      handleRederectDetailProduct={handleRederectDetailProduct}
+                    />
+                  );
+                })
+              ) : (
+                <div>Không tìm thấy kết quả. Vui lòng thử lại!</div>
+              )}
+            </div>
+            <div className="pagination" style={{ clear: "both" }}>
+              <Pagination
+                current={currentPage}
+                pageSize={pageSize}
+                onChange={handleOnchangeProductsFilter}
+                total={total}
+                showSizeChanger={false}
+                hideOnSinglePage={true}
+              />
+            </div>
           </div>
         </div>
-        <div className="category-product-container-list">
-          {listData.length > 0 ? (
-            listData.map((product) => {
-              return (
-                <CardProduct
-                  key={product?.id || product?._id}
-                  product={product}
-                  handleRederectDetailProduct={handleRederectDetailProduct}
-                />
-              );
-            })
-          ) : (
-            <div>Không tìm thấy kết quả. Vui lòng thử lại!</div>
-          )}
-        </div>
-      </div>
-      <div className="pagination" style={{ clear: "both" }}>
-        <Pagination
-          current={currentPage}
-          pageSize={pageSize}
-          onChange={handleOnchangeProductsFilter}
-          total={total}
-          showSizeChanger={false}
-          hideOnSinglePage={true}
-        />
-      </div>
-    </div>
+      )}
+    </>
   );
 }
 

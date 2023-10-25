@@ -1,11 +1,13 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { editInforUSer } from "../../services.js/api";
+import { doEditAccount } from "../../redux/account/accountSlice";
 
 function Information(props) {
   const user = useSelector((state) => state.account.user);
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
+  const dispatch = useDispatch();
 
   const [userName, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -94,6 +96,7 @@ function Information(props) {
       const res = await editInforUSer(data);
       if (res && res.data) {
         toast.success("Cập nhật thành công");
+        dispatch(doEditAccount(data.user));
       }
     } else {
       return;
@@ -102,6 +105,8 @@ function Information(props) {
 
   useEffect(() => {
     setDefaultInfo();
+    console.log("run");
+    console.log("usr> ", user);
   }, [user]);
 
   return (

@@ -28,6 +28,11 @@ function ProductDetailLayout(props) {
     }
   };
 
+  const handleBuyNow = (product) => {
+    dispatch(addToCartService(product));
+    navigate("/cart");
+  };
+
   useEffect(() => {
     console.log("dataProduct>>> ", dataProduct);
     if (dataProduct && dataProduct.images) {
@@ -103,7 +108,7 @@ function ProductDetailLayout(props) {
                 </button>
 
                 <button
-                  onClick={() => navigate("/cart")}
+                  onClick={() => handleBuyNow(dataProduct)}
                   className="btn btn-danger go-to-cart"
                 >
                   Mua ngay

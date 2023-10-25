@@ -418,7 +418,7 @@ function HomeSales(props) {
         </Carousel>
       </div>
       <div className="box-sale-button">
-        <div className="button">
+        <div className="button" onClick={() => navigate("/category/lot-chuot")}>
           Xem tất cả <BsArrowRightCircle />
         </div>
       </div>

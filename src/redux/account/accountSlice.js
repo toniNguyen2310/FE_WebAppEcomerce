@@ -9,6 +9,8 @@ const initialState = {
     username: "",
     phone: "",
     isAdmin: false,
+    address: "",
+    birthday: "",
   },
 };
 
@@ -52,6 +54,13 @@ export const accountSlice = createSlice({
       };
     },
 
+    doEditAccount: (state, action) => {
+      state.user.username = action.payload.username;
+      state.user.phone = action.payload.phone;
+      state.user.address = action.payload.address;
+      state.user.birthday = action.payload.birthday;
+    },
+
     //NEW
   },
 
@@ -66,6 +75,7 @@ export const {
   doLogoutAction,
   doGetAccountPending,
   doGetAccountError,
+  doEditAccount,
 } = accountSlice.actions;
 
 export default accountSlice.reducer;

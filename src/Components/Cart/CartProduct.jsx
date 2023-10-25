@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./cartProduct.scss";
-import ReactImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/scss/image-gallery.scss";
-import { CreditCardOutlined } from "@ant-design/icons";
-import { Radio } from "antd";
 import { BsTrash } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { Empty } from "antd";

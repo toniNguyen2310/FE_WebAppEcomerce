@@ -68,21 +68,6 @@ function InforOrderCart(props) {
             onChange={(e) => setAddress(e.target.value)}
           />
         </div>
-        {/* <div className="full-size">
-          <Select
-            // type="text"
-            placeholder={"TP / Tỉnh"}
-            options={optionsProvince || noneOptions}
-            onChange={(e) => handleChooseProvince("PROVINCE", e)}
-            value={province}
-          />
-        </div>
-        <div className="full-size">
-          <Select type="text" placeholder="Huyện" />
-        </div>
-        <div className="full-size">
-          <Select type="text" placeholder="Xã" />
-        </div> */}
       </div>
       <div className="address-right">
         <div className="full-size">

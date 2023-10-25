@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./cartPage.scss";
-import ProductCart from "./ProductCart";
+
 import { useSelector } from "react-redux";
 import { useDebounce } from "../../utils/hook";
 import Loading from "../Loading";
@@ -12,10 +12,6 @@ function Cart(props) {
   const [dataCart, setDataCart] = useState([]);
   const [ischangeAddress, setIsChangeAddress] = useState(false);
   const listCart = useSelector((state) => state.cart.listCart);
-
-  const isLoadingCart = useSelector((state) => state.cart.isLoadingCart);
-
-  let [totalCost, setTotalCost] = useState(0);
 
   const changeAddress = (event) => {
     event.preventDefault();
@@ -35,7 +31,6 @@ function Cart(props) {
             </span>
             &nbsp;/&nbsp; THÔNG TIN GIỎ HÀNG
           </nav>
-
           <CartProduct dataCart={dataCart} />
         </div>
       </div>

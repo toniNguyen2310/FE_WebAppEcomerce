@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Checkbox } from "antd";
-import { dataBrand, dataCategory } from "../AdminControl/ManagerProducts";
+import {
+  dataBrand,
+  dataCategory,
+  dataPrice,
+} from "../AdminControl/ManagerProducts";
 import { useNavigate } from "react-router-dom";
 import { getListBrandByCategory } from "../../services.js/api";
 import {
@@ -47,9 +51,6 @@ function CategoryFilter(props) {
       })
     ),
   ];
-
-  //FILTER MENU BRAND
-  const itemsBrand = [];
 
   //Filter Category
   const onchangeCategory = (category) => {
@@ -98,6 +99,47 @@ function CategoryFilter(props) {
     }
   };
 
+  //FILTER MENU BRAND
+  const itemsBrand = [
+    getItem(
+      "Nhà cung cấp",
+      "Brand",
+      null,
+      listBrand.map((e) => {
+        return getItem(
+          <Checkbox
+            checked={e.value === filterValue.brand ? true : false}
+            value={e.value}
+            onChange={onChangeBrand}
+          >
+            {e.label}
+          </Checkbox>,
+          e.value
+        );
+      })
+    ),
+  ];
+
+  //FILTER PRICE SELECT
+  const itemsPrice = [
+    getItem(
+      "Khoảng giá",
+      "price",
+      null,
+      dataPrice.map((e) => {
+        return getItem(
+          <Checkbox
+            value={e.value}
+            checked={filterValue.price === e.value ? true : false}
+            onChange={onchangeFilterPrice}
+          >
+            {e.label}
+          </Checkbox>,
+          e.value
+        );
+      })
+    ),
+  ];
   return (
     <>
       <div className="category-filter">
@@ -116,166 +158,27 @@ function CategoryFilter(props) {
         </div>
         <div className="category-filter-brand category-filter-general">
           <Menu
-            mode="inline"
-            defaultOpenKeys={["brand"]}
+            style={{
+              width: 250,
+            }}
+            defaultOpenKeys={["Brand"]}
             selectedKeys={[filterValue?.brand]}
-          >
-            <SubMenu
-              key="brand"
-              title={
-                <span>
-                  <span className="title">Nhà cung cấp</span>
-                </span>
-              }
-            >
-              {listBrand?.map((e) => {
-                return (
-                  <Menu.Item key={e.value}>
-                    <Checkbox
-                      checked={e.value === filterValue.brand ? true : false}
-                      value={e.value}
-                      onChange={onChangeBrand}
-                    >
-                      {e.label}
-                    </Checkbox>
-                  </Menu.Item>
-                );
-              })}
-            </SubMenu>
-          </Menu>
+            mode="inline"
+            items={itemsBrand}
+          />
         </div>
         <div className="category-filter-price category-filter-general">
           <Menu
-            mode="inline"
+            style={{
+              width: 250,
+            }}
             defaultOpenKeys={["price"]}
             selectedKeys={[filterValue?.price]}
-          >
-            <SubMenu
-              key="price"
-              title={
-                <span>
-                  <span className="title">Khoảng giá</span>
-                </span>
-              }
-            >
-              <Menu.Item key={"op01"}>
-                <Checkbox
-                  checked={filterValue.price === "op01" ? true : false}
-                  // checked={checkFilterPrice === "op01" ? true : false}
-                  value={"op01"}
-                  onChange={onchangeFilterPrice}
-                >
-                  Dưới 100 ngàn
-                </Checkbox>
-              </Menu.Item>
-              <Menu.Item key={"op12"}>
-                <Checkbox
-                  value={"op12"}
-                  checked={filterValue.price === "op12" ? true : false}
-                  // checked={checkFilterPrice === "op12" ? true : false}
-                  onChange={onchangeFilterPrice}
-                >
-                  100 - 200 ngàn
-                </Checkbox>
-              </Menu.Item>
-              <Menu.Item key={"op25"}>
-                <Checkbox
-                  value={"op25"}
-                  checked={filterValue.price === "op25" ? true : false}
-                  onChange={onchangeFilterPrice}
-                >
-                  200 - 500 ngàn
-                </Checkbox>
-              </Menu.Item>
-              <Menu.Item key={"op50"}>
-                <Checkbox
-                  value={"op50"}
-                  checked={filterValue.price === "op50" ? true : false}
-                  onChange={onchangeFilterPrice}
-                >
-                  Trên 500 ngàn
-                </Checkbox>
-              </Menu.Item>
-            </SubMenu>
-          </Menu>
+            mode="inline"
+            items={itemsPrice}
+          />
         </div>
       </div>
-
-      {/* <>
-        <div className="category-filter">
-          <div className="category-filter-box">
-            <h3>DANH MỤC SẢN PHẨM</h3>
-
-            <div className="filter checkbox">
-              {dataCategory?.slice(1).map((e) => {
-                return (
-                  <div
-                    key={e.value}
-                    className={`box-category ${
-                      filterValue?.category === e.value ? "active" : null
-                    }`}
-                    onClick={() => onchangeCategory(e.value)}
-                  >
-                    <span>{e.label}</span>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-          <div className="category-filter-box">
-            <h3>HÃNG SẢN XUẤT</h3>
-            <div className="filter checkbox">
-              {listBrand?.map((e) => {
-                return (
-                  <Checkbox
-                    checked={e.value === filterValue.brand ? true : false}
-                    value={e.value}
-                    onChange={onChangeBrand}
-                    key={e.label}
-                  >
-                    {e.label}
-                  </Checkbox>
-                );
-              })}
-            </div>
-          </div>
-          <div className="category-filter-box">
-            <h3>KHOẢNG GIÁ</h3>
-            <div className="filter checkbox">
-              <Checkbox
-                checked={filterValue.price === "op01" ? true : false}
-                // checked={checkFilterPrice === "op01" ? true : false}
-                value={"op01"}
-                onChange={onchangeFilterPrice}
-              >
-                Dưới 100 ngàn
-              </Checkbox>
-              <Checkbox
-                value={"op12"}
-                checked={filterValue.price === "op12" ? true : false}
-                // checked={checkFilterPrice === "op12" ? true : false}
-                onChange={onchangeFilterPrice}
-              >
-                100 ngàn - 200 ngàn
-              </Checkbox>
-              <Checkbox
-                value={"op25"}
-                checked={filterValue.price === "op25" ? true : false}
-                onChange={onchangeFilterPrice}
-              >
-                200 ngàn - 500 ngàn
-              </Checkbox>
-              <Checkbox
-                value={"op50"}
-                checked={filterValue.price === "op50" ? true : false}
-                onChange={onchangeFilterPrice}
-              >
-                Trên 500 ngàn
-              </Checkbox>
-            </div>
-          </div>
-        </div>
-      </> */}
     </>
   );
 }

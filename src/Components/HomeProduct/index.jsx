@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Carousel, Skeleton } from "antd";
 import "./homeproduct.scss";
 import { BsArrowRightShort } from "react-icons/bs";
-import { AiOutlineShoppingCart } from "react-icons/ai";
 import {
   getListBrandByCategory,
   getProductByCategorySlice,

@@ -34,7 +34,8 @@ import Cart from "./Components/Cart/Cart";
 import Category from "./Components/Category/Category";
 import "./App.scss";
 import { displayCart } from "./redux/cart/cartSlice";
-import InformationPage from "./Components/Information";
+import ProfilePage from "./Components/Profile";
+import SearchOrder from "./Components/SearchOrder.jsx/SearchOrder";
 
 //LAYOUT MAIN
 const Layout = () => {
@@ -78,8 +79,12 @@ export default function App() {
           element: <Cart />,
         },
         {
-          path: "information",
-          element: <InformationPage />,
+          path: "profile",
+          element: <ProfilePage />,
+        },
+        {
+          path: "search-order",
+          element: <SearchOrder />,
         },
         {
           path: "/category/:slug",

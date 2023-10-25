@@ -80,21 +80,12 @@ function Header(props) {
     const fetchListCart = async () => {
       console.log("user3>>> ", user);
       //WHEN AUTHENTICATED
+      dispatch(doFetchListCartPending());
       if (user && user._id) {
         //RENDER LIST CART BY API
         const res = await fetchListCartByUserId(user._id);
-        dispatch(doFetchListCartPending());
-
         if (res && res.data) {
           console.log("CART>> ", res.data);
-
-          // if (JSON.stringify(listCart) === JSON.stringify(res.data)) {
-          //   console.log("GIONG NHAU");
-          //   dispatch(doFetchListCartError());
-          //   return;
-          // } else {
-          //   dispatch(displayCart(res.data));
-          // }
           dispatch(displayCart(res.data));
         } else {
           //STOP LOADING

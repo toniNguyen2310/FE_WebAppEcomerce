@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 
 const initialState = {
-  isLoadingCart: false,
+  isLoadingCart: true,
   listCart: [],
   listCartFirst: [],
   totalProduct: "",
@@ -91,6 +91,13 @@ export const cartSlice = createSlice({
       localStorage.setItem("listCart", JSON.stringify(state.listCart));
     },
 
+    deleteAllCart: (state, action) => {
+      state.listCart = [];
+      // state.listCartFirst = [];
+      state.isLoadingCart = false;
+      localStorage.setItem("listCart", JSON.stringify(state.listCart));
+    },
+
     //CART FOR LOCAL STORAGE
   },
 
@@ -108,6 +115,7 @@ export const {
   doLogoutCart,
   doFetchListCartError,
   addToCartService,
+  deleteAllCart,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

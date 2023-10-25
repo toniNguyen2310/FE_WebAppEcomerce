@@ -22,6 +22,10 @@ export const callLogout = () => {
   return axios.post("/v1/api/auth/logout");
 };
 
+export const editInforUSer = (data) => {
+  return axios.put(`/v1/api/user/${data.id}`, data.user);
+};
+
 //PRODUCT
 export const getProducts = (query) => {
   return axios.get(`/v1/api/product?${query}`);
@@ -69,4 +73,28 @@ export const adjustListCartByUserID = (data) => {
 //SEARCH PRODUCT NAVBAR
 export const searchProductNavbarAPI = (value) => {
   return axios.get(`/v1/api/product/search/navbar?value=${value}`);
+};
+
+//GET ADDRESS - PROVINCE - DISTRICT - WARD
+export const getProvince = () => {
+  return axios.get(`http://provinces.open-api.vn/api/?depth=1`);
+};
+export const getDistrict = (code) => {
+  return axios.get(`http://provinces.open-api.vn/api/p/${code}?depth=2`);
+};
+export const getWard = (code) => {
+  return axios.get(`http://provinces.open-api.vn/api/d/${code}?depth=2`);
+};
+
+//ORDER
+export const createOrder = (data) => {
+  return axios.post(`/v1/api/order`, data);
+};
+
+export const getListOrder = (userId) => {
+  return axios.get(`/v1/api/order/${userId}`);
+};
+
+export const calcelOrder = (idOrder) => {
+  return axios.put(`/v1/api/order/edit/${idOrder}`);
 };

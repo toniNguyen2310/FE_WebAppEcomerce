@@ -68,11 +68,10 @@ function RegisterPage(props) {
       });
       return;
     }
-    if (!validatePassword(password)) {
+    if (password.length < 6) {
       api.info({
         message: `Vui lòng nhập lại mật khẩu `,
-        description:
-          "Mật khẩu cần tối thiểu 8 ký tự bao gồm chữ viết thường, viết hoa, số và ký tự đặc biệt",
+        description: "Mật khẩu cần tối thiểu 6 ký tự ",
         topRight,
       });
       return;

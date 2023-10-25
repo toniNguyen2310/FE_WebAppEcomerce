@@ -16,9 +16,10 @@ import MenuCategory from "../Menu";
 import { FiPhoneCall } from "react-icons/fi";
 import "./header.scss";
 import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useDebounce } from "../../utils/hook";
 import { searchProductNavbarAPI } from "../../services.js/api";
+import ProductSearchBar from "./ProductSearchBar";
 
 function HeaderExport(props) {
   const {
@@ -29,27 +30,54 @@ function HeaderExport(props) {
     openMenu,
     showSmallHeader,
   } = props;
+  const [displaySearch, setDisPlaySearch] = useState(false);
+
   const [searchProduct, setSearchProduct] = useState("");
   const debounceSearchProduct = useDebounce(searchProduct, 1000);
   const listCart = useSelector((state) => state.cart.listCart);
+  const [listProductSearch, setListProductSearch] = useState([]);
 
   const getListPRoductsWhenSearch = async (value) => {
-    const res = await searchProductNavbarAPI(value.trim());
-    if (res && res.data) {
-      console.log("DATA SEARCH>> ", res);
-    } else {
-      console.log("KO CO");
+    console.log("value");
+    if (value) {
+      console.log("value1");
+
+      const res = await searchProductNavbarAPI(value.trim());
+      if (res && res.data) {
+        console.log("DATA SEARCH>> ", res);
+        setListProductSearch(res.data);
+      } else {
+        console.log("KO CO");
+        setListProductSearch([]);
+      }
+    } else if (!value) {
+      console.log("value2");
+
+      setListProductSearch([]);
     }
   };
 
   useEffect(() => {
     console.log("searchProduct>> ", searchProduct);
     if (!searchProduct) {
-      return;
+      console.log("ko");
+      getListPRoductsWhenSearch();
+      // return;
     } else {
+      console.log("co");
       getListPRoductsWhenSearch(searchProduct);
     }
   }, [debounceSearchProduct]);
+
+  window.addEventListener("click", function (event) {
+    // console.log("EVENT>>> ", event.target.closest("#Seachbar"));
+    if (!event.target.closest("#Seachbar")) {
+      setDisPlaySearch(false);
+    } else {
+      setDisPlaySearch(true);
+    }
+  });
+
   return (
     <header
       className={`header-container ${
@@ -210,6 +238,12 @@ function HeaderExport(props) {
                 placeholder="Bạn cần tìm gì?"
                 value={searchProduct}
                 onChange={(e) => setSearchProduct(e.target.value)}
+                id="Seachbar"
+              />
+              <ProductSearchBar
+                listProductSearch={listProductSearch}
+                setSearchProduct={setSearchProduct}
+                displaySearch={displaySearch}
               />
             </div>
           </div>

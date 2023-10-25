@@ -29,7 +29,7 @@ const DropdownComponent = () => {
     },
     {
       key: "2",
-      label: <a target="_blank">Thông tin tài khoản</a>,
+      label: <NavLink to={`/profile`}>Tài khoản</NavLink>,
     },
     {
       key: "3",

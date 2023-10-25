@@ -75,17 +75,6 @@ export const searchProductNavbarAPI = (value) => {
   return axios.get(`/v1/api/product/search/navbar?value=${value}`);
 };
 
-//GET ADDRESS - PROVINCE - DISTRICT - WARD
-export const getProvince = () => {
-  return axios.get(`http://provinces.open-api.vn/api/?depth=1`);
-};
-export const getDistrict = (code) => {
-  return axios.get(`http://provinces.open-api.vn/api/p/${code}?depth=2`);
-};
-export const getWard = (code) => {
-  return axios.get(`http://provinces.open-api.vn/api/d/${code}?depth=2`);
-};
-
 //ORDER
 export const createOrder = (data) => {
   return axios.post(`/v1/api/order`, data);

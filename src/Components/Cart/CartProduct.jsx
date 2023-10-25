@@ -275,7 +275,7 @@ function CartProduct(props) {
                     })}
                   </div>
                   <h2>Thông tin vận chuyển</h2>
-                  <InforOrderCart
+                  {/* <InforOrderCart
                     name={name}
                     setName={setName}
                     email={email}
@@ -286,7 +286,7 @@ function CartProduct(props) {
                     setAddress={setAddress}
                     note={note}
                     setNote={setNote}
-                  />
+                  /> */}
                 </div>
                 <div className="cart-container-content-right">
                   <div className="footer-detail">

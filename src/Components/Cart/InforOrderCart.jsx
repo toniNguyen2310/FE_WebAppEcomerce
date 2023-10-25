@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { getDistrict, getProvince, getWard } from "../../services.js/api";
-import Select from "react-select";
+
 function InforOrderCart(props) {
   const {
     name,

@@ -15,7 +15,7 @@ import {
 } from "../../redux/cart/cartSlice";
 import SkeletonCart from "../Skeleton/SkeletonCart";
 import { useNavigate } from "react-router-dom";
-import InforOrderCart from "./inforOrderCart";
+// import InforOrderCart from "./inforOrderCart";
 import { createOrder } from "../../services.js/api";
 
 function CartProduct(props) {

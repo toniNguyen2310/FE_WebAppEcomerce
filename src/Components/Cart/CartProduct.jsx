@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Empty } from "antd";
 import { convertSlug } from "../Homepage";
 import { toast } from "react-toastify";
-
 import {
   decreaseQuantity,
   deleteAllCart,
@@ -15,8 +14,8 @@ import {
 } from "../../redux/cart/cartSlice";
 import SkeletonCart from "../Skeleton/SkeletonCart";
 import { useNavigate } from "react-router-dom";
-// import InforOrderCart from "./inforOrderCart";
 import { createOrder } from "../../services.js/api";
+import InforCheckout from "./InforCheckout";
 
 function CartProduct(props) {
   const { dataCart } = props;
@@ -275,7 +274,7 @@ function CartProduct(props) {
                     })}
                   </div>
                   <h2>Thông tin vận chuyển</h2>
-                  {/* <InforOrderCart
+                  <InforCheckout
                     name={name}
                     setName={setName}
                     email={email}
@@ -286,7 +285,7 @@ function CartProduct(props) {
                     setAddress={setAddress}
                     note={note}
                     setNote={setNote}
-                  /> */}
+                  />
                 </div>
                 <div className="cart-container-content-right">
                   <div className="footer-detail">

@@ -47,6 +47,7 @@ const Layout = () => {
     const position = window.pageYOffset;
     setScrollPosition(position);
   };
+
   useEffect(() => {
     window.onscroll = function () {};
     window.addEventListener("scroll", handleScroll, { passive: true });

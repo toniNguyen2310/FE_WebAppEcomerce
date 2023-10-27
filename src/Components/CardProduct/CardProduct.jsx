@@ -3,9 +3,10 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import "./CardProduct.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { displayCart, addToCartService } from "../../redux/cart/cartSlice";
+import { Button, message, Space } from "antd";
 
 function CardProduct(props) {
-  const { handleRederectDetailProduct, product } = props;
+  const { handleRederectDetailProduct, product, messageSuccess } = props;
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
   const user = useSelector((state) => state.account.user);
@@ -16,9 +17,12 @@ function CardProduct(props) {
       const data = { idUser: user._id, product: product };
       console.log(">>", data);
       dispatch(addToCartService(product));
+      // message.success("Đã thêm sản phẩm vào giỏ hàng");
+      return;
     } else {
       //TRƯỜNG HỢP KO ĐĂNG NHẬP
       dispatch(addToCartService(product));
+      // message.success("Đã thêm sản phẩm vào giỏ hàng");
       return;
     }
   };

@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Empty } from "antd";
 import { convertSlug } from "../Homepage";
 import { toast } from "react-toastify";
+import { Button, message, Space, Popconfirm } from "antd";
+
 import {
   decreaseQuantity,
   deleteAllCart,
@@ -28,6 +30,14 @@ function CartProduct(props) {
   const user = useSelector((state) => state.account.user);
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
   const listCart = useSelector((state) => state.cart.listCart);
+
+  const [messageApi, contextHolder] = message.useMessage();
+  const success = () => {
+    messageApi.open({
+      type: "success",
+      content: "Bạn đã đặt hành thành công!",
+    });
+  };
 
   //CHECKOUT
   const [name, setName] = useState("");
@@ -57,6 +67,17 @@ function CartProduct(props) {
 
   const totalProductCalculate = (array) => {
     return array.reduce((total, item) => parseInt(item.quantity) + total, 0);
+  };
+
+  //CONFIRM DELETE
+  const confirm = (id) => {
+    console.log(id);
+    dispatch(deleteProduct(id));
+    message.success("Xóa sản phẩm Thành công");
+  };
+
+  const cancel = (e) => {
+    return;
   };
 
   //HANDLE DERECT PRODUCT
@@ -133,11 +154,13 @@ function CartProduct(props) {
         listCart: dataCart,
       };
       console.log("DATA>> ", data);
+
       const res = await createOrder(data);
       if (res && res.data) {
         console.log("res>> ", res.data);
-        toast.success("Đặt hàng thành công");
+        success();
         dispatch(deleteAllCart());
+        return;
       }
     } else {
       let data = {
@@ -152,8 +175,9 @@ function CartProduct(props) {
       const res = await createOrder(data);
       if (res && res.data) {
         console.log("res>> ", res.data);
-        toast.success("Đặt hàng thành công");
+        success();
         dispatch(deleteAllCart());
+        return;
       }
     }
   };
@@ -178,6 +202,7 @@ function CartProduct(props) {
   }, [isLoadingCart]);
   return (
     <>
+      {contextHolder}
       {isLoading ? (
         <div className="cart-container container">
           <div className="cart-container-content">
@@ -201,7 +226,8 @@ function CartProduct(props) {
                 <div className="cart-container-content-left">
                   <p className="left-title">Giỏ hàng của bạn</p>
                   <p className="left-total">
-                    Bạn đang có <b>{totalProduct}</b> sản phẩm trong giỏ hàng
+                    Bạn đang có <b>{totalProduct} sản phẩm</b> sản phẩm trong
+                    giỏ hàng
                   </p>
                   <div className="list-product">
                     {dataCart?.map((e) => {
@@ -261,13 +287,26 @@ function CartProduct(props) {
                               </div>
                             </div>
                             <div className="delete">
-                              <p
+                              {/* <p
                                 onClick={() =>
                                   dispatch(deleteProduct(e.productId._id))
                                 }
                               >
                                 <BsTrash />
-                              </p>
+                              </p> */}
+
+                              <Popconfirm
+                                title="Bạn chắc chắn muốn bỏ sản phẩm này ra khỏi giỏ hàng?"
+                                // description="Bạn chắc chắn muốn bỏ sản phẩm này ra khỏi giỏ hàng?"
+                                onConfirm={() => confirm(e.productId._id)}
+                                onCancel={() => cancel(e.productId._id)}
+                                okText="Yes"
+                                cancelText="No"
+                              >
+                                <p>
+                                  <BsTrash />
+                                </p>
+                              </Popconfirm>
                             </div>
                           </div>
                         </div>

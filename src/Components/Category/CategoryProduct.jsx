@@ -77,8 +77,8 @@ function CategoryProduct(props) {
               <div className="infor-filter">
                 {filterValue.brand ? (
                   <p className="infor-filter-title">
-                    Hãng sản xuất:
-                    <b>
+                    Nhà cung cấp:&nbsp;
+                    <b className="title-red">
                       {
                         dataBrand.filter((e) => {
                           if (e.value === filterValue?.brand) {
@@ -92,8 +92,8 @@ function CategoryProduct(props) {
                 &nbsp;
                 {filterValue.price ? (
                   <p className="infor-filter-title">
-                    Khoảng giá:
-                    <b>
+                    Khoảng giá:&nbsp;
+                    <b className="title-red">
                       {
                         dataPrice.filter((e) => {
                           if (e.value === filterValue?.price) {

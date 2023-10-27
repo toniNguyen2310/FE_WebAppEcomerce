@@ -76,7 +76,7 @@ function HomeProduct(props) {
   const renderListBrandHomePage = async (category) => {
     const resBrand = await getListBrandByCategory(category);
     if (resBrand && resBrand.data) {
-      setListBrand(
+      if (
         dataBrand.filter((e) => {
           return (
             resBrand.data.brand
@@ -85,8 +85,34 @@ function HomeProduct(props) {
               })
               .indexOf(e.value) > -1
           );
-        })
-      );
+        }).length > 4
+      ) {
+        setListBrand(
+          dataBrand
+            .filter((e) => {
+              return (
+                resBrand.data.brand
+                  .filter((item, index) => {
+                    return resBrand.data.brand.indexOf(item) === index;
+                  })
+                  .indexOf(e.value) > -1
+              );
+            })
+            .slice(0, 4)
+        );
+      } else {
+        setListBrand(
+          dataBrand.filter((e) => {
+            return (
+              resBrand.data.brand
+                .filter((item, index) => {
+                  return resBrand.data.brand.indexOf(item) === index;
+                })
+                .indexOf(e.value) > -1
+            );
+          })
+        );
+      }
     }
   };
 

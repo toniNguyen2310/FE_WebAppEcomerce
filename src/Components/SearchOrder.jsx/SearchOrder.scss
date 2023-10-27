@@ -27,8 +27,8 @@
         margin-bottom: 20px;
 
         &-title {
-          font-weight: 600;
-          font-size: 22px;
+          font-weight: 700;
+          font-size: 25px;
           margin: auto;
           margin-bottom: 20px;
         }
@@ -43,6 +43,7 @@
           font-size: 17px;
         }
         input:focus {
+          box-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
           outline: none;
         }
 
@@ -61,12 +62,13 @@
         }
       }
       .search-list-order {
-        background-color: #ffffff;
         font-size: 17px;
         border-radius: 11px;
         .user-order-container {
-          border: 1px solid #d7d7d7;
-          border-radius: 11px;
+          background-color: #ffffff;
+          border: 2px solid #29a07e;
+          border-radius: 12px;
+          margin-bottom: 20px;
           .user-order-header {
             background-color: #29a07e;
             border-radius: 10px 10px 0 0;
@@ -76,6 +78,7 @@
             justify-content: space-between;
             align-items: center;
             color: #ffffff;
+            font-size: 15px;
             font-weight: 600;
             .order-header-right {
               margin-bottom: 5px;
@@ -87,7 +90,7 @@
               box-sizing: border-box;
               background-color: #ffffff;
               color: red;
-              border: 1px solid red;
+              // border: 1px solid red;
               border-radius: 10px;
               padding: 5px 10px;
             }
@@ -111,7 +114,7 @@
                 img {
                   height: 80%;
                   border-radius: 10px;
-                  width: 80px;
+                  width: 120px;
                 }
               }
 
@@ -122,13 +125,23 @@
                 display: flex;
                 flex-direction: column;
                 gap: 10px;
+                font-weight: 600;
+                font-size: 15px;
               }
 
               .button-rate1 {
                 display: flex;
-                align-items: flex-start;
+                align-items: center;
+                flex-direction: column;
                 width: 110px;
-                justify-content: right;
+                font-size: 15px;
+                font-weight: 500;
+              }
+              .price-sale {
+                color: #9b9b9b;
+                font-weight: 600;
+                font-size: 13px;
+                text-decoration: line-through;
               }
             }
           }

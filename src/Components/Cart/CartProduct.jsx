@@ -74,6 +74,7 @@ function CartProduct(props) {
     let isValid = regexPhone.test(value);
     return isValid;
   };
+
   const regexEmail = (email) => {
     const regexEmailCheck = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
 

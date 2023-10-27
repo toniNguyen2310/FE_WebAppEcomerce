@@ -43,7 +43,7 @@ function Order(props) {
               <div key={e._id} className="user-order-container mt-3">
                 <div className="user-order-header">
                   <div>
-                    <div className="order-header-right">#{e._id}</div>
+                    <div className="order-header-right">#{e._id.slice(14)}</div>
                     <div className="order-header-right-500">
                       {new Date(e.createdAt).toLocaleString("en-GB", {
                         year: "numeric",

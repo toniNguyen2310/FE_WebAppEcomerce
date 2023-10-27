@@ -395,6 +395,7 @@
         .header__main-cart {
           // margin-left: 40px;
           // margin-right: 20px;
+          position: relative;
           line-height: 42px;
           width: 150px;
           display: flex;
@@ -444,6 +445,11 @@
           }
           &-detail {
             display: none;
+          }
+        }
+        .header__main-cart:hover {
+          .div-cover {
+            display: block;
           }
         }
       }

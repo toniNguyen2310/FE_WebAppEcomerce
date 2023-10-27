@@ -31,14 +31,9 @@ const DropdownComponent = () => {
       key: "2",
       label: <NavLink to={`/profile`}>Tài khoản</NavLink>,
     },
-    {
-      key: "3",
-      label: <a target="_blank">Danh sách đơn hàng</a>,
-      disabled: true,
-    },
     isAdmin
       ? {
-          key: "4",
+          key: "3",
           label: <NavLink to={`/admin`}>Quản trị</NavLink>,
         }
       : null,
@@ -54,7 +49,6 @@ const DropdownComponent = () => {
       console.log("res logout>>> ", res);
       dispatch(doLogoutAction());
       dispatch(doLogoutCart());
-
       toast.success("Đăng Xuất thành công");
       navigate("/");
     }

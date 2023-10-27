@@ -1,8 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   createBrowserRouter,
   RouterProvider,
   useLocation,
+  useNavigate,
 } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import Footer from "./Components/Footer";
@@ -26,7 +27,6 @@ import AdminPage from "./Components/AdminControl/AdminPage";
 import ProtectedRoute from "./Components/ProtectedRoute";
 import LayoutAdmin from "./Components/AdminControl/LayoutAdmin";
 // import ManagerProducts from "./Components/admin/ManagerProducts";
-import CreateProduct from "./Components/AdminControl/CreateProduct";
 import ManagerProducts from "./Components/AdminControl/ManagerProducts";
 import ScrollToTop from "./Components/ScrollToTop";
 import DetailProduct from "./Components/DetailProduct";
@@ -36,17 +36,45 @@ import "./App.scss";
 import { displayCart } from "./redux/cart/cartSlice";
 import ProfilePage from "./Components/Profile";
 import SearchOrder from "./Components/SearchOrder.jsx/SearchOrder";
+import { BsFillArrowUpCircleFill } from "react-icons/bs";
+import { HiOutlineSearch } from "react-icons/hi";
 
 //LAYOUT MAIN
 const Layout = () => {
+  const navigate = useNavigate();
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const handleScroll = () => {
+    const position = window.pageYOffset;
+    setScrollPosition(position);
+  };
+  useEffect(() => {
+    window.onscroll = function () {};
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [scrollPosition]);
   return (
-    <div>
+    <div className="layout">
+      <div
+        className={`scroll-to-top  ${scrollPosition > 400 ? "show" : "hidden"}`}
+      >
+        <BsFillArrowUpCircleFill
+          className="to-top"
+          onClick={() => {
+            window.scrollTo(0, 0);
+          }}
+        />
+        <HiOutlineSearch
+          className="search-order"
+          onClick={() => navigate("/search-order")}
+        />
+      </div>
       <Header />
       <Outlet />
       <Footer />
       <ToastContainer
         position="top-center"
-        autoClose={2000}
         hideProgressBar={false}
         theme="light"
       />
@@ -82,6 +110,7 @@ export default function App() {
           path: "profile",
           element: <ProfilePage />,
         },
+
         {
           path: "search-order",
           element: <SearchOrder />,

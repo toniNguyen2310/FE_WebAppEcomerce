@@ -84,6 +84,10 @@ export const getListOrder = (userId) => {
   return axios.get(`/v1/api/order/${userId}`);
 };
 
+export const getListOrderByPhone = (number) => {
+  return axios.get(`/v1/api/order/phone/${number}`);
+};
+
 export const calcelOrder = (idOrder) => {
   return axios.put(`/v1/api/order/edit/${idOrder}`);
 };

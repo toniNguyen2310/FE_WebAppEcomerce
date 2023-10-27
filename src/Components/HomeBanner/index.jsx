@@ -6,6 +6,13 @@ import MenuCategory from "../Menu";
 import { useNavigate } from "react-router-dom";
 function HomeBanner(props) {
   const navigate = useNavigate();
+  const test = (event) => {
+    console.log("event>> ", event);
+  };
+
+  const onSwipefunc = (event) => {
+    console.log("event>> ", event);
+  };
   return (
     <div className="home-banner-group">
       <MenuCategory
@@ -20,8 +27,14 @@ function HomeBanner(props) {
       </div> */}
 
       <div className="home-center">
-        <Carousel swipeToSlide draggable autoplay accessibility={true}>
-          <div onClick={() => navigate("/category/lot-chuot")}>
+        <Carousel
+          swipeToSlide
+          draggable
+          autoplay
+          accessibility={true}
+          // afterChange={onSwipefunc}
+        >
+          <div onClick={test}>
             <a>
               <img
                 loading="lazy"
@@ -30,7 +43,7 @@ function HomeBanner(props) {
               />
             </a>
           </div>
-          <div onClick={() => navigate("/category/chuot-gaming")}>
+          <div onClick={test}>
             <a>
               <img
                 loading="lazy"
@@ -39,30 +52,6 @@ function HomeBanner(props) {
               />
             </a>
           </div>
-          {/* <div>
-            <a href="">
-              <img loading="lazy"
-                src="https://lacdau.com/media/banner/04_Jula2b2fecb48c5967badfe4d137f8508ec.png"
-                alt=""
-              />
-            </a>
-          </div>
-          <div>
-            <a href="">
-              <img loading="lazy"
-                src="https://lacdau.com/media/banner/04_Jul476c025120f6806e9d46a90f17cebbdf.png"
-                alt=""
-              />
-            </a>
-          </div>
-          <div>
-            <a href="">
-              <img loading="lazy"
-                src="https://lacdau.com/media/banner/04_Jul6bacdcd6a63d8b6a4e46c8337fc12342.png"
-                alt=""
-              />
-            </a>
-          </div> */}
         </Carousel>
       </div>
       <div className="home-right">

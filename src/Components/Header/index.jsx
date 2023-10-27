@@ -54,8 +54,8 @@ function Header(props) {
 
   //SAVE WHEN LIST DATA CHANGE
   useEffect(() => {
-    console.log("HEADER when listcart change>> ", listCart);
-    console.log("user2>>> ", user);
+    // console.log("HEADER when listcart change>> ", listCart);
+    // console.log("user2>>> ", user);
     if (isAuthenticated) {
       if (JSON.stringify(listCart) !== JSON.stringify(listCartFirst)) {
         let dataCart = listCart;
@@ -65,12 +65,12 @@ function Header(props) {
             quantity: e.quantity,
           };
         });
-        console.log("SAVE1>>> ", { id: user._id, cart: dataCart });
+        // console.log("SAVE1>>> ", { id: user._id, cart: dataCart });
         // if(user &&dataCart)
         adjustListCartByUserID({ id: user._id, cart: dataCart });
-        console.log("KHAC1");
+        // console.log("KHAC1");
       } else {
-        console.log("GIONG1", listCart);
+        // console.log("GIONG1", listCart);
       }
     }
   }, [debouncelistCart]);
@@ -78,14 +78,14 @@ function Header(props) {
   useEffect(() => {
     //FETCH DATA CART WHEN CHANGE LOCATION / FECTH USER
     const fetchListCart = async () => {
-      console.log("user3>>> ", user);
+      // console.log("user3>>> ", user);
       //WHEN AUTHENTICATED
       dispatch(doFetchListCartPending());
       if (user && user._id) {
         //RENDER LIST CART BY API
         const res = await fetchListCartByUserId(user._id);
         if (res && res.data) {
-          console.log("CART>> ", res.data);
+          // console.log("CART>> ", res.data);
           dispatch(displayCart(res.data));
         } else {
           //STOP LOADING
@@ -107,11 +107,11 @@ function Header(props) {
         // }
         //WHEN NOT AUTHENTICATED
         if (!listCartLS) {
-          console.log("LS RONG");
+          // console.log("LS RONG");
           localStorage.setItem("listCart", JSON.stringify([]));
           return;
         } else {
-          console.log("CO LS");
+          // console.log("CO LS");
           dispatch(displayCart(listCartLS));
         }
       }

@@ -20,6 +20,7 @@ import { useEffect, useState, useRef } from "react";
 import { useDebounce } from "../../utils/hook";
 import { searchProductNavbarAPI } from "../../services.js/api";
 import ProductSearchBar from "./ProductSearchBar";
+import CartHoverHeader from "../CartHoverHeader/CartHoverHeader";
 
 function HeaderExport(props) {
   const {
@@ -31,40 +32,37 @@ function HeaderExport(props) {
     showSmallHeader,
   } = props;
   const [displaySearch, setDisPlaySearch] = useState(false);
-
   const [searchProduct, setSearchProduct] = useState("");
   const debounceSearchProduct = useDebounce(searchProduct, 1000);
   const listCart = useSelector((state) => state.cart.listCart);
   const [listProductSearch, setListProductSearch] = useState([]);
 
   const getListPRoductsWhenSearch = async (value) => {
-    console.log("value");
+    // console.log("value");
     if (value) {
-      console.log("value1");
-
+      // console.log("value1");
       const res = await searchProductNavbarAPI(value.trim());
       if (res && res.data) {
-        console.log("DATA SEARCH>> ", res);
+        // console.log("DATA SEARCH>> ", res);
         setListProductSearch(res.data);
       } else {
-        console.log("KO CO");
+        // console.log("KO CO");
         setListProductSearch([]);
       }
     } else if (!value) {
-      console.log("value2");
-
+      // console.log("value2");
       setListProductSearch([]);
     }
   };
 
   useEffect(() => {
-    console.log("searchProduct>> ", searchProduct);
+    // console.log("searchProduct>> ", searchProduct);
     if (!searchProduct) {
-      console.log("ko");
+      // console.log("ko");
       getListPRoductsWhenSearch();
       // return;
     } else {
-      console.log("co");
+      // console.log("co");
       getListPRoductsWhenSearch(searchProduct);
     }
   }, [debounceSearchProduct]);
@@ -269,7 +267,7 @@ function HeaderExport(props) {
               <NavLink to={`/cart`} className="header__main-cart-title">
                 Giỏ hàng
               </NavLink>
-              <div className="header__main-cart-detail">aa</div>
+              <CartHoverHeader />
             </div>
           </div>
         </nav>

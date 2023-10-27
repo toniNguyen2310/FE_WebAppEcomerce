@@ -51,11 +51,11 @@ export const cartSlice = createSlice({
         state.listCart.push({ productId: action.payload, quantity: 1 });
         toast.success("Đã thêm sản phẩm vào giỏ hàng", { toastId: "success1" });
         localStorage.setItem("listCart", JSON.stringify(state.listCart));
-        return;
+        // return;
       } else {
         toast.success("Sản phẩm đã có trong giỏ hàng", { toastId: "success1" });
         // localStorage.setItem("listCart", JSON.stringify(state.listCart));
-        return;
+        // return;
       }
     },
 

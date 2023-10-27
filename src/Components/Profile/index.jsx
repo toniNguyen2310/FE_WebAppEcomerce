@@ -19,7 +19,7 @@ function ProfilePage(props) {
         <span onClick={() => navigate("/")} style={{ cursor: "pointer" }}>
           TRANG CHỦ
         </span>
-        &nbsp;/&nbsp;{" "}
+        &nbsp;/&nbsp;
         {selected === 1 ? "THÔNG TIN CÁ NHÂN" : "DANH SÁCH ĐƠN HÀNG"}
       </nav>
       <div className="profile-cover-2">
@@ -42,20 +42,6 @@ function ProfilePage(props) {
             onClick={() => setSelected(2)}
           >
             <FaListAlt /> Danh sách đơn hàng
-          </button>
-          <button
-            // disabled={isLoading}
-            className="btn btn-white text-left"
-            // onClick={() => handleLogOut()}
-          >
-            <BiLogOut /> Đăng Xuất
-            <div
-              className="spinner-border spinner-border-sm mx-2"
-              role="status"
-              // hidden={!isLoading}
-            >
-              {/* <span className="visually-hidden">Loading...</span> */}
-            </div>
           </button>
         </div>
         <div className="colum-detail">

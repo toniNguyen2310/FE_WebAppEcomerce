@@ -100,11 +100,21 @@ export const dataBrand = [
     label: "PLAYSTATION",
     logo: "data:image/png;base64,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",
   },
+  {
+    value: "boshan",
+    label: "BOSHAN",
+    logo: "https://lacdau.com/static/assets/default/images/logo.png",
+  },
 
   {
     value: "tranformer",
     label: "TRANFORMER",
     logo: "https://lacdau.com/media/category/cat_big_44_1662354279.jpg",
+  },
+  {
+    value: "cidoo",
+    label: "CIDOO",
+    logo: "https://cidootech.com/cdn/shop/files/cidoo-header-logo_185x_2x_c8873b0d-f491-49a6-8e20-43bf82382728.png?v=1671006311&width=300",
   },
   {
     value: "khac",

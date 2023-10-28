@@ -155,7 +155,7 @@ export const phuKien = [
   {
     value: "dongho",
     label: "ĐỒNG HỒ",
-    logo: "https://lacdau.com/media/category/cat_big_48_1660291354.jpg",
+    logo: "https://lacdau.com/media/category/cat_big_51_1660207176.jpg",
   },
   {
     value: "decor",

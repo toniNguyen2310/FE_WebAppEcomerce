@@ -10,9 +10,11 @@ import { getProductByDiscountSlice } from "../../services.js/api";
 import { useNavigate } from "react-router-dom";
 import { convertSlug } from "../Homepage";
 import CardProduct from "../CardProduct/CardProduct";
+import SkeletonProduct from "../Skeleton/SkeletonProduct";
 
 function HomeSales(props) {
   const [listProductSales, setListProductSales] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const responsiveCarousel = [
     {
@@ -81,6 +83,7 @@ function HomeSales(props) {
   const handleGetDataSale = async () => {
     const res = await getProductByDiscountSlice();
     if (res && res.data) {
+      setIsLoading(false);
       setListProductSales(res.data);
     }
   };
@@ -155,267 +158,36 @@ function HomeSales(props) {
         </div>
       </div>
       <div className="box-sale-list">
-        <Carousel
-          arrows
-          prevArrow={<NextArrow />}
-          nextArrow={<PrevArrow />}
-          swipeToSlide
-          draggable
-          // autoplay
-          // autoplaySpeed={5000}
-          emulateTouch={true}
-          slidesPerRow={1}
-          slidesToShow={5}
-          slidesToScroll={1}
-          dots={false}
-          infinite={false}
-          responsive={responsiveCarousel}
-        >
-          {listProductSales?.map((product) => {
-            return (
-              <CardProduct
-                key={product?.id || product?._id}
-                product={product}
-                handleRederectDetailProduct={handleRederectDetailProduct}
-              />
-            );
-          })}
-
-          {/* <div className="item-cover">
-            <div className="item">
-              <div className="item-img">
-                <img loading="lazy"
-                  src="https://lacdau.com/media/product/250-745-592b78f027525d0a9ba8cdd4ef56efbc.jpg"
-                  alt=""
+        {isLoading ? (
+          <SkeletonProduct />
+        ) : (
+          <Carousel
+            arrows
+            prevArrow={<NextArrow />}
+            nextArrow={<PrevArrow />}
+            swipeToSlide
+            draggable
+            // autoplay
+            // autoplaySpeed={5000}
+            emulateTouch={true}
+            slidesPerRow={1}
+            slidesToShow={5}
+            slidesToScroll={1}
+            dots={false}
+            infinite={false}
+            responsive={responsiveCarousel}
+          >
+            {listProductSales?.map((product) => {
+              return (
+                <CardProduct
+                  key={product?.id || product?._id}
+                  product={product}
+                  handleRederectDetailProduct={handleRederectDetailProduct}
                 />
-              </div>
-
-              <div className="item-infor">
-                <div className="item-infor-name">
-                  PAD 33 CÁ HEO WITH LOVE
-                </div>
-                <div className="item-infor-container">
-                  <div className="item-infor-container-price">
-                    <p className="main-price">
-                      60.000<u>đ</u>
-                    </p>
-                  </div>
-                  <div className="item-infor-container-cart">
-                    <AiOutlineShoppingCart />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="item-cover">
-            <div className="item">
-              <div className="item-img">
-                <img loading="lazy"
-                  src="https://lacdau.com/media/product/250-745-592b78f027525d0a9ba8cdd4ef56efbc.jpg"
-                  alt=""
-                />
-              </div>
-
-              <div className="item-infor">
-                <div className="item-infor-name">
-                  PAD 33 CÁ HEO WITH LOVE
-                </div>
-                <div className="item-infor-container">
-                  <div className="item-infor-container-price">
-                    <p className="main-price">
-                      60.000<u>đ</u>
-                    </p>
-                  </div>
-                  <div className="item-infor-container-cart">
-                    <AiOutlineShoppingCart />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="item-cover">
-            <div className="item">
-              <div className="item-img">
-                <img loading="lazy"
-                  src="https://lacdau.com/media/product/250-745-592b78f027525d0a9ba8cdd4ef56efbc.jpg"
-                  alt=""
-                />
-              </div>
-
-              <div className="item-infor">
-                <div className="item-infor-name">
-                  PAD 33 CÁ HEO WITH LOVE
-                </div>
-                <div className="item-infor-container">
-                  <div className="item-infor-container-price">
-                    <p className="main-price">
-                      60.000<u>đ</u>
-                    </p>
-                  </div>
-                  <div className="item-infor-container-cart">
-                    <AiOutlineShoppingCart />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="item-cover">
-            <div className="item">
-              <div className="item-img">
-                <img loading="lazy"
-                  src="https://lacdau.com/media/product/250-745-592b78f027525d0a9ba8cdd4ef56efbc.jpg"
-                  alt=""
-                />
-              </div>
-
-              <div className="item-infor">
-                <div className="item-infor-name">
-                  PAD 33 CÁ HEO WITH LOVE
-                </div>
-                <div className="item-infor-container">
-                  <div className="item-infor-container-price">
-                    <p className="main-price">
-                      60.000<u>đ</u>
-                    </p>
-                  </div>
-                  <div className="item-infor-container-cart">
-                    <AiOutlineShoppingCart />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="item-cover">
-            <div className="item">
-              <div className="item-img">
-                <img loading="lazy"
-                  src="https://lacdau.com/media/product/250-745-592b78f027525d0a9ba8cdd4ef56efbc.jpg"
-                  alt=""
-                />
-              </div>
-
-              <div className="item-infor">
-                <div className="item-infor-name">
-                  PAD 33 CÁ HEO WITH LOVE
-                </div>
-                <div className="item-infor-container">
-                  <div className="item-infor-container-price">
-                    <p className="main-price">
-                      60.000<u>đ</u>
-                    </p>
-                  </div>
-                  <div className="item-infor-container-cart">
-                    <AiOutlineShoppingCart />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="item-cover">
-            <div className="item">
-              <div className="item-img">
-                <img loading="lazy"
-                  src="https://lacdau.com/media/product/250-745-592b78f027525d0a9ba8cdd4ef56efbc.jpg"
-                  alt=""
-                />
-              </div>
-
-              <div className="item-infor">
-                <div className="item-infor-name">
-                  PAD 33 CÁ HEO WITH LOVE
-                </div>
-                <div className="item-infor-container">
-                  <div className="item-infor-container-price">
-                    <p className="main-price">
-                      60.000<u>đ</u>
-                    </p>
-                  </div>
-                  <div className="item-infor-container-cart">
-                    <AiOutlineShoppingCart />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="item-cover">
-            <div className="item">
-              <div className="item-img">
-                <img loading="lazy"
-                  src="https://lacdau.com/media/product/250-745-592b78f027525d0a9ba8cdd4ef56efbc.jpg"
-                  alt=""
-                />
-              </div>
-
-              <div className="item-infor">
-                <div className="item-infor-name">
-                  PAD 33 CÁ HEO WITH LOVE
-                </div>
-                <div className="item-infor-container">
-                  <div className="item-infor-container-price">
-                    <p className="main-price">
-                      60.000<u>đ</u>
-                    </p>
-                  </div>
-                  <div className="item-infor-container-cart">
-                    <AiOutlineShoppingCart />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="item-cover">
-            <div className="item">
-              <div className="item-img">
-                <img loading="lazy"
-                  src="https://lacdau.com/media/product/250-745-592b78f027525d0a9ba8cdd4ef56efbc.jpg"
-                  alt=""
-                />
-              </div>
-
-              <div className="item-infor">
-                <div className="item-infor-name">
-                  PAD 33 CÁ HEO WITH LOVE
-                </div>
-                <div className="item-infor-container">
-                  <div className="item-infor-container-price">
-                    <p className="main-price">
-                      60.000<u>đ</u>
-                    </p>
-                  </div>
-                  <div className="item-infor-container-cart">
-                    <AiOutlineShoppingCart />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="item-cover">
-            <div className="item">
-              <div className="item-img">
-                <img loading="lazy"
-                  src="https://lacdau.com/media/product/250-745-592b78f027525d0a9ba8cdd4ef56efbc.jpg"
-                  alt=""
-                />
-              </div>
-
-              <div className="item-infor">
-                <div className="item-infor-name">
-                  PAD 33 CÁ HEO WITH LOVE
-                </div>
-                <div className="item-infor-container">
-                  <div className="item-infor-container-price">
-                    <p className="main-price">
-                      60.000<u>đ</u>
-                    </p>
-                  </div>
-                  <div className="item-infor-container-cart">
-                    <AiOutlineShoppingCart />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> */}
-        </Carousel>
+              );
+            })}
+          </Carousel>
+        )}
       </div>
       <div className="box-sale-button">
         <div className="button" onClick={() => navigate("/category/lot-chuot")}>

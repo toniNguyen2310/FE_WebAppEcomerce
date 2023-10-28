@@ -27,7 +27,7 @@ function HomeProduct(props) {
   const { categoryValue, categoryLabel } = props;
   const [listBrand, setListBrand] = useState([]);
   const [listProduct, setListProduct] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const responsiveCarousel = [
     {

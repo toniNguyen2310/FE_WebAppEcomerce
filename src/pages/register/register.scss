@@ -119,9 +119,11 @@
         font-weight: bold;
         font-size: 18px;
         transition: 0.6s all;
+        margin-bottom: 10px;
       }
       &-btn:hover {
         background-color: #0f684e;
+        color: #ffffff !important;
       }
       p {
         a {
@@ -131,4 +133,9 @@
       }
     }
   }
+}
+
+.loading {
+  color: #ffffff;
+  margin-left: 10px;
 }

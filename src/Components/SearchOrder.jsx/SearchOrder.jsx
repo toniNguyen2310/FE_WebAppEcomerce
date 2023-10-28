@@ -2,8 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./SearchOrder.scss";
 import OrderProduct from "./OrderProduct";
-import { toast } from "react-toastify";
+
 import { getListOrderByPhone } from "../../services.js/api";
+import { message } from "antd";
 
 function SearchOrder(props) {
   const navigate = useNavigate();
@@ -28,15 +29,18 @@ function SearchOrder(props) {
 
   const searchButton = async () => {
     if (!number) {
-      toast.error("SĐT Không được để trống!");
+      message.info("SĐT Không được để trống");
       return;
     }
     if (!validatePhone(number)) {
-      toast.error("SĐT sai định dạng");
+      message.error("SĐT Không được để trống");
       return;
     }
     const res = await getListOrderByPhone(number.trim());
     if (res && res.data) {
+      if (res?.data.length > 0) {
+        message.success("Đã tìm thấy đơn hàng");
+      }
       console.log("DATA>> ", res);
       setListData(res.data);
     }

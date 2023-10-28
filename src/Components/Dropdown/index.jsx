@@ -1,22 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { DownOutlined } from "@ant-design/icons";
-import { Dropdown, Space, Divider, Button, theme } from "antd";
+import { Dropdown, Space, Divider, Button, theme, message } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   doLogoutAction,
   doGetAccountPending,
 } from "../../redux/account/accountSlice";
-import { toast } from "react-toastify";
+
 import { callLogout } from "../../services.js/api";
 import { NavLink } from "react-router-dom";
 import { doLogoutCart } from "../../redux/cart/cartSlice";
+import LoadingButton from "../Export/ExportVarible";
+
 const { useToken } = theme;
 
 const DropdownComponent = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const isLoading = useSelector((state) => state.account.isLoading);
+  const [isLoading, setIsLoading] = useState(true);
   const user = useSelector((state) => state.account.user);
   const isAdmin = useSelector((state) => state.account.user.isAdmin);
 
@@ -43,14 +45,15 @@ const DropdownComponent = () => {
   //HANDLE LOGOUT
   const handleLogout = async () => {
     const res = await callLogout();
-    dispatch(doGetAccountPending());
-    console.log("Loading>>> ", isLoading);
+    setIsLoading(true);
     if (res && res.data) {
+      setIsLoading(false);
       console.log("res logout>>> ", res);
       dispatch(doLogoutAction());
       dispatch(doLogoutCart());
-      toast.success("Đăng Xuất thành công");
+      message.success("Đăng Xuất thành công");
       navigate("/");
+      return;
     }
   };
 
@@ -60,10 +63,11 @@ const DropdownComponent = () => {
     backgroundColor: token.colorBgElevated,
     borderRadius: token.borderRadiusLG,
     boxShadow: token.boxShadowSecondary,
-    marginLeft: "-25px",
+    // marginLeft: "-20px",
     marginTop: "8px",
   };
   const menuStyle = {
+    textAlign: "center",
     boxShadow: "none",
   };
   return (
@@ -86,22 +90,15 @@ const DropdownComponent = () => {
               padding: 8,
             }}
           >
-            <Button
-              type="primary"
-              style={{ background: "#29a07e", borderColor: "#29a07e" }}
-              onClick={() => handleLogout()}
-            >
-              Đăng Xuất
-            </Button>
+            <button className="button-dropdown" onClick={() => handleLogout()}>
+              Đăng xuất
+            </button>
           </Space>
         </div>
       )}
     >
       <a onClick={(e) => e.preventDefault()}>
-        <Space>
-          Xin chào, {nameAccount}
-          {/* <DownOutlined /> */}
-        </Space>
+        <Space>Xin chào, {nameAccount}</Space>
       </a>
     </Dropdown>
   );

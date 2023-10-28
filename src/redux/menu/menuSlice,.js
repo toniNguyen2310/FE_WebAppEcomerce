@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isDisplayMenu: false,
+  loading: true,
 };
 
 export const menuSlice = createSlice({
@@ -15,6 +16,12 @@ export const menuSlice = createSlice({
     notDisplayMenu: (state, action) => {
       state.isDisplayMenu = false;
     },
+    statusLoading: (state, action) => {
+      state.loading = true;
+    },
+    statusNotLoading: (state, action) => {
+      state.loading = false;
+    },
   },
 
   // The `extraReducers` field lets the slice handle actions defined elsewhere,
@@ -22,6 +29,7 @@ export const menuSlice = createSlice({
   extraReducers: (builder) => {},
 });
 
-export const { displayMenu, notDisplayMenu } = menuSlice.actions;
+export const { displayMenu, notDisplayMenu, statusLoading, statusNotLoading } =
+  menuSlice.actions;
 
 export default menuSlice.reducer;

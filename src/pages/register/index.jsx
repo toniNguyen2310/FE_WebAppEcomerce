@@ -3,13 +3,16 @@ import { useNavigate } from "react-router-dom";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import { NavLink } from "react-router-dom";
 import { callRegister } from "../../services.js/api";
-import { toast } from "react-toastify";
 import "./register.scss";
-import "react-toastify/dist/ReactToastify.css";
 import { notification } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { message } from "antd";
+import { PropagateLoader } from "react-spinners";
+import LoadingButton from "../../Components/Export/ExportVarible";
 
 function RegisterPage(props) {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const refInput = useRef(null);
   const [email, setEmail] = useState("");
   const [username, setUserName] = useState("");
@@ -17,6 +20,7 @@ function RegisterPage(props) {
   const [phone, setPhone] = useState("");
   const [isShowPass, setIsShowPass] = useState(false);
   const [api, contextHolder] = notification.useNotification();
+
   const topRight = "topRight";
   //Enter để nộp
   const handleKeyPress = (e) => {
@@ -47,8 +51,10 @@ function RegisterPage(props) {
   };
 
   //HANDLE REGISTER
+  let isDuplicate = false;
   const handleRegister = async (e) => {
     e.preventDefault();
+
     if (!email || !username || !password) {
       api.info({
         message: `Vui lòng nhập thông tin `,
@@ -91,12 +97,15 @@ function RegisterPage(props) {
       password,
       phone
     );
-    if (res?.data?._id) {
-      toast.success("Đăng ký thành công");
-      console.log("Đăng ký thành công");
+    setIsLoading(true);
+    if (res?.data?._id && !isDuplicate) {
+      setIsLoading(false);
+      message.success("Đăng ký tài khoản thành công");
       navigate("/login");
+      isDuplicate = true;
     } else {
-      toast.error("Email đã tồn tại");
+      setIsLoading(false);
+      message.error("Email đã tồn tại hãy thử lại");
       return;
     }
     refInput.current.focus();
@@ -194,10 +203,14 @@ function RegisterPage(props) {
             className="register-page-form-footer-btn"
             onClick={handleRegister}
           >
-            Đăng ký
+            Đăng ký{" "}
+            {isLoading && (
+              <LoadingButton color={"#29a07e"} secondaryColor={"#ffffff"} />
+            )}
           </a>
+
           <p>
-            Bạn đã có tài khoản{" "}
+            Bạn đã có tài khoản&nbsp;
             <NavLink to={`/login`}>Đăng nhập ngay!!</NavLink>
           </p>
         </div>

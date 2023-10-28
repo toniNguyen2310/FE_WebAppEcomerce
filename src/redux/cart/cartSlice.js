@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { toast } from "react-toastify";
-import { Button, message, Space } from "antd";
+import {  message } from "antd";
 
 const initialState = {
   isLoadingCart: true,
@@ -33,7 +32,6 @@ export const cartSlice = createSlice({
         return item.productId._id !== action.payload;
       });
       state.listCart = newCart;
-      // toast.success("Đã xóa sản phẩm khỏi giỏ hàng", { toastId: "success1" });
       localStorage.setItem("listCart", JSON.stringify(newCart));
     },
 
@@ -51,14 +49,12 @@ export const cartSlice = createSlice({
       if (itemIndex < 0) {
         state.listCart.push({ productId: action.payload, quantity: 1 });
         message.success("Đã thêm sản phẩm vào giỏ hàng");
-        // toast.success("Đã thêm sản phẩm vào giỏ hàng", { toastId: "success1" });
+
         localStorage.setItem("listCart", JSON.stringify(state.listCart));
         // return;
       } else {
         message.info("Sản phẩm đã có trong giỏ hàng");
-        // toast.success("Sản phẩm đã có trong giỏ hàng", { toastId: "success1" });
-        // localStorage.setItem("listCart", JSON.stringify(state.listCart));
-        // return;
+        return;
       }
     },
 
@@ -66,8 +62,8 @@ export const cartSlice = createSlice({
       const itemIndex = state.listCart.findIndex(
         (item) => item.productId._id === action.payload
       );
-      if (state.listCart[itemIndex].quantity === 10) {
-        toast.success("Số lượng quá quy định", { toastId: "success1" });
+      if (state.listCart[itemIndex].quantity === 20) {
+        message.error("Quá số lượng cho phép");
         return;
       }
 

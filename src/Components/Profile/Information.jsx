@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
 import { editInforUSer } from "../../services.js/api";
 import { doEditAccount } from "../../redux/account/accountSlice";
+import { message } from "antd";
 
 function Information(props) {
   const user = useSelector((state) => state.account.user);
@@ -56,30 +56,31 @@ function Information(props) {
       address === user.address &&
       birthday === user.birthday
     ) {
-      toast.error("Bạn cần thay đổi thông tin");
+      message.info("Thông tin chưa được thay đổi");
       return;
     }
     if (!userName || !email || !phone || !address) {
       if (!userName) {
-        toast.error("Tên không được để trống!");
+        message.info("Bạn cần thay đổi thông tin");
         nameRef.current.focus();
         return;
       }
 
       if (!phone) {
-        toast.error("SĐT không được để trống!");
+        message.info("SĐT không được để trống");
         phoneRef.current.focus();
         return;
       }
-      if (!regexPhoneNumber(phone)) {
-        toast.error("SĐT không đúng định dạng!");
-        phoneRef.current.focus();
-        return;
-      }
+
       if (!address) {
-        toast.error("Địa chỉ không được để trống");
+        message.error("Địa chỉ không được để trống");
         return;
       }
+    }
+    if (!regexPhoneNumber(phone)) {
+      message.error("SĐT không đúng định dạng");
+      phoneRef.current.focus();
+      return;
     }
 
     if (user._id) {
@@ -95,7 +96,7 @@ function Information(props) {
       console.log("data>> ", data);
       const res = await editInforUSer(data);
       if (res && res.data) {
-        toast.success("Cập nhật thành công");
+        message.success("Cập nhật thành công");
         dispatch(doEditAccount(data.user));
       }
     } else {

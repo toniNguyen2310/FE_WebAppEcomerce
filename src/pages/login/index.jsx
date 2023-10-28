@@ -2,15 +2,17 @@ import React, { useState } from "react";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import { NavLink } from "react-router-dom";
 import "./login.scss";
-import "react-toastify/dist/ReactToastify.css";
-import { toast } from "react-toastify";
+
+import { message } from "antd";
 import { callLogin } from "../../services.js/api";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { doLoginAction } from "../../redux/account/accountSlice";
 import { notification } from "antd";
+import LoadingButton from "../../Components/Export/ExportVarible";
 function LoginPage(props) {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isShowPass, setIsShowPass] = useState(false);
@@ -25,6 +27,7 @@ function LoginPage(props) {
     }
   };
   //HANDLE LOGIN
+  let isDuplicate = false;
   const handleLogin = async (e) => {
     e.preventDefault();
     //VALIDATE VALUE
@@ -35,22 +38,23 @@ function LoginPage(props) {
       });
       return;
     }
+    console.log("isDuplicate>> ", isDuplicate);
     const res = await callLogin(email, password);
-    if (res?.data?.userWP) {
+    setIsLoading(true);
+    if (res?.data?.userWP && !isDuplicate) {
       localStorage.setItem("access_token", res.data.accessToken);
       localStorage.setItem("refresh_token", res.data.refreshToken);
       dispatch(doLoginAction(res.data.userWP));
-      toast.success("Đăng nhập thành công", { toastId: "success1" });
+      isDuplicate = true;
+      message.success("Đăng nhập thành công");
       navigate("/");
-      console.log("res.data of Login >>> ", res.data);
+      setIsLoading(false);
     } else {
-      api.info({
-        message: res.data,
-        // description: res.data,
-        topRight,
-      });
+      setIsLoading(false);
+      message.error("Thông tin đăng nhập không đúng");
       return;
     }
+
     setEmail("");
     setPassword("");
     setIsShowPass("");
@@ -96,18 +100,21 @@ function LoginPage(props) {
           </div>
         </div>
         <div className="login-page-form-footer">
-          <a href="" className="login-page-form-footer-misspass">
+          {/* <a href="" className="login-page-form-footer-misspass">
             Quên mật khẩu
-          </a>
+          </a> */}
           <a
             href=""
             className="login-page-form-footer-btn"
             onClick={handleLogin}
           >
-            Đăng nhập
+            Đăng nhập{" "}
+            {isLoading && (
+              <LoadingButton color={"#29a07e"} secondaryColor={"#ffffff"} />
+            )}
           </a>
           <p>
-            Bạn chưa có tài khoản?{" "}
+            Bạn chưa có tài khoản?
             <NavLink to={`/register`}>Đăng ký ngay</NavLink>
           </p>
         </div>

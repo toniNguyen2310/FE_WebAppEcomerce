@@ -5,7 +5,7 @@ import { BsTrash } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { Empty } from "antd";
 import { convertSlug } from "../Homepage";
-import { toast } from "react-toastify";
+
 import { Button, message, Space, Popconfirm } from "antd";
 
 import {
@@ -18,6 +18,7 @@ import SkeletonCart from "../Skeleton/SkeletonCart";
 import { useNavigate } from "react-router-dom";
 import { createOrder } from "../../services.js/api";
 import InforCheckout from "./InforCheckout";
+import LoadingButton from "../Export/ExportVarible";
 
 function CartProduct(props) {
   const { dataCart } = props;
@@ -30,6 +31,7 @@ function CartProduct(props) {
   const user = useSelector((state) => state.account.user);
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
   const listCart = useSelector((state) => state.cart.listCart);
+  const [loadingCheckout, setLoadingCheckout] = useState(false);
 
   const [messageApi, contextHolder] = message.useMessage();
   const success = () => {
@@ -106,31 +108,32 @@ function CartProduct(props) {
   const submitCheckout = async () => {
     if (!name || !email || !phone || !address) {
       if (!email) {
-        toast.error("Email không được để trống!");
+        message.info("Email không được để trống");
+
         return;
       }
       if (!name) {
-        toast.error("Tên không được để trống!");
+        message.info("Tên không được để trống");
         return;
       }
       if (!phone) {
-        toast.error("SĐT không được để trống!");
+        message.info("SĐT không được để trống");
 
         return;
       }
 
       if (!address) {
-        toast.error("Địa chỉ không được để trống");
+        message.info("Địa chỉ không được để trống");
         return;
       }
     }
     if (!regexEmail(email)) {
-      toast.error("Email không đúng định dạng!");
+      message.error("Email không đúng định dạng");
       return;
     }
     console.log("phone>> ", phone);
     if (!validatePhone(phone)) {
-      toast.error("SĐT không đúng");
+      message.error("SĐT không đúng định dạng");
       return;
     }
 
@@ -156,11 +159,15 @@ function CartProduct(props) {
       console.log("DATA>> ", data);
 
       const res = await createOrder(data);
+      setLoadingCheckout(true);
       if (res && res.data) {
+        setLoadingCheckout(false);
         console.log("res>> ", res.data);
         success();
         dispatch(deleteAllCart());
         return;
+      } else {
+        setLoadingCheckout(false);
       }
     } else {
       let data = {
@@ -173,11 +180,15 @@ function CartProduct(props) {
       };
       console.log("DATA>> ", data);
       const res = await createOrder(data);
+      setLoadingCheckout(true);
       if (res && res.data) {
+        setLoadingCheckout(false);
         console.log("res>> ", res.data);
         success();
         dispatch(deleteAllCart());
         return;
+      } else {
+        setLoadingCheckout(false);
       }
     }
   };
@@ -363,7 +374,15 @@ function CartProduct(props) {
                     <p className="freeship">
                       <b>FREESHIP</b> &nbsp; đã được áp dụng
                     </p>
-                    <button onClick={submitCheckout}>THANH TOÁN</button>
+                    <button onClick={submitCheckout}>
+                      THANH TOÁN
+                      {loadingCheckout && (
+                        <LoadingButton
+                          color={"#ff0000"}
+                          secondaryColor={"#ffffff"}
+                        />
+                      )}
+                    </button>
                   </div>
                 </div>
               </div>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./CartHoverHeader.scss";
+import "./cartHoverHeader.scss";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { convertSlug } from "../Homepage";

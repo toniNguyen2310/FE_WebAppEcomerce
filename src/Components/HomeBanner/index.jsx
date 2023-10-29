@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Carousel } from "antd";
 
 import "./homeBanner.scss";
@@ -6,13 +6,23 @@ import MenuCategory from "../Menu";
 import { useNavigate } from "react-router-dom";
 function HomeBanner(props) {
   const navigate = useNavigate();
-  const test = (event) => {
-    console.log("event>> ", event);
+
+  const pointer = useRef({ x: 0, y: 0 });
+  const onMouseDown = (e) => {
+    pointer.current = { x: e.clientX, y: e.clientY };
+  };
+  const onMouseUp = (e, sub) => {
+    const { x, y } = pointer.current;
+    if (Math.abs(e.clientX - x) < 10 && Math.abs(e.clientY - y) < 10) {
+      console.log("CLICK");
+      if (sub === "lotchuot") {
+        navigate("/category/lot-chuot");
+      } else if (sub === "banphim") {
+        navigate("/category/ban-phim-gaming");
+      }
+    }
   };
 
-  const onSwipefunc = (event) => {
-    console.log("event>> ", event);
-  };
   return (
     <div className="home-banner-group">
       <MenuCategory
@@ -34,7 +44,10 @@ function HomeBanner(props) {
           accessibility={true}
           // afterChange={onSwipefunc}
         >
-          <div onClick={test}>
+          <div
+            onMouseDown={onMouseDown}
+            onMouseUp={(e) => onMouseUp(e, "lotchuot")}
+          >
             <a>
               <img
                 loading="lazy"
@@ -43,7 +56,10 @@ function HomeBanner(props) {
               />
             </a>
           </div>
-          <div onClick={test}>
+          <div
+            onMouseDown={onMouseDown}
+            onMouseUp={(e) => onMouseUp(e, "banphim")}
+          >
             <a>
               <img
                 loading="lazy"

@@ -48,6 +48,9 @@
         }
 
         &-button {
+          display: flex;
+          justify-content: center;
+          align-items: center;
           cursor: pointer;
           height: 36px;
           width: 100%;
@@ -56,12 +59,15 @@
           font-size: 17px;
           color: #ffffff;
           transition: 0.3s all;
+          border: none;
+          opacity: 1;
         }
         &-button:hover {
-          background-color: #444;
+          opacity: 0.8;
         }
       }
       .search-list-order {
+        margin-top: 20px;
         font-size: 17px;
         border-radius: 11px;
         .user-order-container {

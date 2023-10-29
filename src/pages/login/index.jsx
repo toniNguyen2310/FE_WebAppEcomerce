@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import { NavLink } from "react-router-dom";
 import "./login.scss";
@@ -12,6 +12,7 @@ import { notification } from "antd";
 import LoadingButton from "../../Components/Export/ExportVarible";
 function LoginPage(props) {
   const navigate = useNavigate();
+  const refInput = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,17 +31,18 @@ function LoginPage(props) {
   let isDuplicate = false;
   const handleLogin = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     //VALIDATE VALUE
     if (!email || !password) {
       api.info({
         message: `Vui lòng nhập thông tin `,
         topRight,
       });
+      setIsLoading(false);
       return;
     }
-    console.log("isDuplicate>> ", isDuplicate);
-    const res = await callLogin(email, password);
-    setIsLoading(true);
+
+    const res = await callLogin(email.trim(), password.trim());
     if (res?.data?.userWP && !isDuplicate) {
       localStorage.setItem("access_token", res.data.accessToken);
       localStorage.setItem("refresh_token", res.data.refreshToken);
@@ -54,11 +56,14 @@ function LoginPage(props) {
       message.error("Thông tin đăng nhập không đúng");
       return;
     }
-
     setEmail("");
     setPassword("");
     setIsShowPass("");
   };
+
+  useEffect(() => {
+    refInput.current.focus();
+  }, []);
 
   return (
     <div className="login-page">
@@ -76,6 +81,7 @@ function LoginPage(props) {
             <input
               type="text"
               id="email"
+              ref={refInput}
               placeholder="Vui lòng nhập email của bạn"
               value={email}
               onKeyUp={(e) => handleKeyPress(e)}
@@ -108,7 +114,7 @@ function LoginPage(props) {
             className="login-page-form-footer-btn"
             onClick={handleLogin}
           >
-            Đăng nhập{" "}
+            Đăng nhập
             {isLoading && (
               <LoadingButton color={"#29a07e"} secondaryColor={"#ffffff"} />
             )}

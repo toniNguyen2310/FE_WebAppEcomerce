@@ -11,7 +11,7 @@ function CartHoverHeader(props) {
 
   //HANDLE DERECT PRODUCT DETAIL
   const handleRederectDetailProductSearch = (product) => {
-    console.log("product>> ", product);
+    // console.log("product>> ", product);
     // return;
     const slug = convertSlug(product.name);
     // console.log("slug>> ", slug);
@@ -20,7 +20,6 @@ function CartHoverHeader(props) {
 
   useEffect(() => {
     setListData(listCart);
-    console.log(listCart);
   }, [listCart]);
   return (
     <>

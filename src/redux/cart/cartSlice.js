@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {  message } from "antd";
+import { message } from "antd";
 
 const initialState = {
   isLoadingCart: true,

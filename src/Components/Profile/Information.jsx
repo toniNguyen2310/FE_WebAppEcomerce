@@ -3,12 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { editInforUSer } from "../../services.js/api";
 import { doEditAccount } from "../../redux/account/accountSlice";
 import { message } from "antd";
+import LoadingButton from "../Export/ExportVarible";
 
 function Information(props) {
   const user = useSelector((state) => state.account.user);
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
   const dispatch = useDispatch();
-
+  const [isLoading, setIsLoading] = useState(false);
   const [userName, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -38,16 +39,12 @@ function Information(props) {
     return phone.match(regexPhoneNumber) ? true : false;
   };
 
-  //REGEX NAME
-  const regexName = (name) => {
-    const regexNameMAtch = /[a-zA-Z]+(?: [a-zA-Z]+)+/gm;
-    return name.match(regexNameMAtch) ? true : false;
-  };
-
   //HANDLE UPDATE INFOR
   const handleUpdateInfoUser = async () => {
+    setIsLoading(true);
     console.log("infor>>> ", userName, email, phone, address, birthday);
     if (!isAuthenticated) {
+      setIsLoading(false);
       return;
     }
     if (
@@ -57,28 +54,33 @@ function Information(props) {
       birthday === user.birthday
     ) {
       message.info("Thông tin chưa được thay đổi");
+      setIsLoading(false);
       return;
     }
     if (!userName || !email || !phone || !address) {
       if (!userName) {
         message.info("Bạn cần thay đổi thông tin");
+        setIsLoading(false);
         nameRef.current.focus();
         return;
       }
 
       if (!phone) {
         message.info("SĐT không được để trống");
+        setIsLoading(false);
         phoneRef.current.focus();
         return;
       }
 
       if (!address) {
         message.error("Địa chỉ không được để trống");
+        setIsLoading(false);
         return;
       }
     }
     if (!regexPhoneNumber(phone)) {
       message.error("SĐT không đúng định dạng");
+      setIsLoading(false);
       phoneRef.current.focus();
       return;
     }
@@ -93,13 +95,15 @@ function Information(props) {
           address: address.trim(),
         },
       };
-      console.log("data>> ", data);
+      // console.log("data>> ", data);
       const res = await editInforUSer(data);
       if (res && res.data) {
         message.success("Cập nhật thành công");
         dispatch(doEditAccount(data.user));
+        setIsLoading(false);
       }
     } else {
+      setIsLoading(false);
       return;
     }
   };
@@ -178,23 +182,11 @@ function Information(props) {
             type="button"
             className="btn btn-success me-2 mb-2 "
             onClick={handleUpdateInfoUser}
-            //   disabled={isLoading}
           >
-            {/* {isLoading && (
-            <span
-              className="spinner-grow spinner-grow-sm ms-1"
-              style={{ color: "#ffffff00" }}
-              role="status"
-            ></span>
-          )}
-  
-          {isLoading && (
-            <span
-              className="spinner-border spinner-border-sm ms-1"
-              role="status"
-            ></span>
-          )} */}
             Cập nhật
+            {isLoading && (
+              <LoadingButton color={"#29a07e"} secondaryColor={"#ffffff"} />
+            )}
           </button>
           <button
             type="button"

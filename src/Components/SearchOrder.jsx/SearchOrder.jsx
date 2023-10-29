@@ -5,12 +5,14 @@ import OrderProduct from "./OrderProduct";
 
 import { getListOrderByPhone } from "../../services.js/api";
 import { message } from "antd";
+import LoadingButton from "../Export/ExportVarible";
 
 function SearchOrder(props) {
   const navigate = useNavigate();
   const refInput = useRef(null);
   const [number, setNumber] = useState("");
   const [listData, setListData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   //
   const handleKeyPress = (e) => {
@@ -28,12 +30,15 @@ function SearchOrder(props) {
   };
 
   const searchButton = async () => {
+    setIsLoading(true);
     if (!number) {
       message.info("SĐT Không được để trống");
+      setIsLoading(false);
       return;
     }
     if (!validatePhone(number)) {
       message.error("SĐT Không được để trống");
+      setIsLoading(false);
       return;
     }
     const res = await getListOrderByPhone(number.trim());
@@ -41,14 +46,15 @@ function SearchOrder(props) {
       if (res?.data.length > 0) {
         message.success("Đã tìm thấy đơn hàng");
       }
-      console.log("DATA>> ", res);
+      setIsLoading(false);
       setListData(res.data);
+    } else {
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
     refInput.current.focus();
-    console.log("number>>> "), number;
   }, []);
 
   return (
@@ -65,6 +71,7 @@ function SearchOrder(props) {
             <p className="search-content-search-title">TRA CỨU ĐƠN HÀNG</p>
             <input
               type="number"
+              onWheel={(event) => event.currentTarget.blur()}
               placeholder="Tìm kiếm đơn hàng theo số điện thoại của bạn!!!"
               value={number}
               onChange={(e) => setNumber(e.target.value)}
@@ -76,6 +83,9 @@ function SearchOrder(props) {
               onClick={searchButton}
             >
               Tìm đơn hàng
+              {isLoading && (
+                <LoadingButton color={"#333"} secondaryColor={"#ffffff"} />
+              )}
             </button>
           </div>
           <div className="search-list-order">

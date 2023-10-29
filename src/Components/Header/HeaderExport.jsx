@@ -36,7 +36,7 @@ function HeaderExport(props) {
   const debounceSearchProduct = useDebounce(searchProduct, 1000);
   const listCart = useSelector((state) => state.cart.listCart);
   const [listProductSearch, setListProductSearch] = useState([]);
-
+  const nameAccount = useSelector((state) => state.account.user.username);
   const getListPRoductsWhenSearch = async (value) => {
     // console.log("value");
     if (value) {
@@ -166,26 +166,41 @@ function HeaderExport(props) {
             </a>
 
             <span className="header__top__right-title margin-left__40px">
-              <NavLink className="avatar" to={`/register`}>
-                <FaUserCircle />
-              </NavLink>
               {isAuthenticated ? (
-                <DropdownComponent />
+                // <DropdownComponent />
+                <>
+                  <a className="avatar">
+                    <FaUserCircle />
+                  </a>
+                  <div className="loginester">
+                    <NavLink
+                      to={`/profile`}
+                      className="header__top__right-title-user"
+                    >
+                      &nbsp; Xin chào, {nameAccount}
+                    </NavLink>
+                  </div>
+                </>
               ) : (
-                <div className="loginester">
-                  <NavLink
-                    to={`/register`}
-                    className="header__top__right-title-user"
-                  >
-                    &nbsp; Đăng ký&nbsp;/&nbsp;
+                <>
+                  <NavLink className="avatar" to={`/register`}>
+                    <FaUserCircle />
                   </NavLink>
-                  <NavLink
-                    to={`/login`}
-                    className="header__top__right-title-user"
-                  >
-                    Đăng nhập
-                  </NavLink>
-                </div>
+                  <div className="loginester">
+                    <NavLink
+                      to={`/register`}
+                      className="header__top__right-title-user"
+                    >
+                      &nbsp; Đăng ký&nbsp;/&nbsp;
+                    </NavLink>
+                    <NavLink
+                      to={`/login`}
+                      className="header__top__right-title-user"
+                    >
+                      Đăng nhập
+                    </NavLink>
+                  </div>
+                </>
               )}
             </span>
           </div>
@@ -198,12 +213,13 @@ function HeaderExport(props) {
         <nav className="header__main__cover">
           <div
             className="header__main__cover__left"
-            style={fixedHeader ? { width: "50%" } : null}
+            // style={fixedHeader ? { width: "50%" } : null}
           >
             <NavLink
               to={`/`}
               onClick={() => window.scrollTo(0, 0)}
               className="header__main__cover__left-logo margin-left__30px"
+              style={fixedHeader ? { width: "15%" } : null}
             >
               <img
                 className="header__main__cover__left-logo-img"

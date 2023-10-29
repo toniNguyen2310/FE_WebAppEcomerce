@@ -202,9 +202,6 @@ function Category(props) {
     navigateParams();
   }, [params]);
 
-  useEffect(() => {
-    console.log("listBrand>>> ", listBrand);
-  }, [listBrand]);
   return (
     <div className="page-category">
       <div className="category">

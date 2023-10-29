@@ -69,11 +69,8 @@ function DetailProduct(props) {
           </span>
           &nbsp;/&nbsp; {dataProduct.name}
         </nav>
-        {isLoading ? (
-          <SkeletonProductLayout />
-        ) : (
-          <ProductDetailLayout dataProduct={dataProduct} />
-        )}
+
+        <ProductDetailLayout isLoading={isLoading} dataProduct={dataProduct} />
       </div>
     </div>
   );

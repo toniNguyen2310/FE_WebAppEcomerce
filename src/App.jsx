@@ -38,6 +38,7 @@ import ProfilePage from "./Components/Profile";
 import SearchOrder from "./Components/SearchOrder.jsx/SearchOrder";
 import { BsFillArrowUpCircleFill } from "react-icons/bs";
 import { HiOutlineSearch } from "react-icons/hi";
+import { TbTruckDelivery } from "react-icons/tb";
 
 //LAYOUT MAIN
 const Layout = () => {
@@ -66,11 +67,14 @@ const Layout = () => {
             window.scrollTo(0, 0);
           }}
         />
-        <HiOutlineSearch
+      </div>
+      <div className="scroll-to-top" style={{ bottom: "40px" }}>
+        <TbTruckDelivery
           className="search-order"
           onClick={() => navigate("/search-order")}
         />
       </div>
+
       <Header />
       <Outlet />
       <Footer />
@@ -173,7 +177,7 @@ export default function App() {
       if (res && res.data) {
         dispatch(doGetAccountAction(res.data));
       } else {
-        console.log("KO AUTHEN");
+        // console.log("KO AUTHEN");
         dispatch(doGetAccountError());
       }
     };

@@ -3,9 +3,6 @@ import React, { useEffect } from "react";
 function OrderProduct(props) {
   const { item } = props;
 
-  useEffect(() => {
-    console.log(item);
-  }, []);
   return (
     <div className="user-order-container mt-3">
       <div className="user-order-header">

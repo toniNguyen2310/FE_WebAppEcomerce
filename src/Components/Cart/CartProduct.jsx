@@ -37,7 +37,7 @@ function CartProduct(props) {
   const success = () => {
     messageApi.open({
       type: "success",
-      content: "Bạn đã đặt hành thành công!",
+      content: "Bạn đã đặt hàng thành công!",
     });
   };
 
@@ -106,34 +106,39 @@ function CartProduct(props) {
 
   //HANDLE CHECKOUT SUBMIT
   const submitCheckout = async () => {
+    setLoadingCheckout(true);
     if (!name || !email || !phone || !address) {
       if (!email) {
         message.info("Email không được để trống");
-
+        setLoadingCheckout(false);
         return;
       }
       if (!name) {
         message.info("Tên không được để trống");
+        setLoadingCheckout(false);
         return;
       }
       if (!phone) {
         message.info("SĐT không được để trống");
-
+        setLoadingCheckout(false);
         return;
       }
 
       if (!address) {
         message.info("Địa chỉ không được để trống");
+        setLoadingCheckout(false);
         return;
       }
     }
     if (!regexEmail(email)) {
       message.error("Email không đúng định dạng");
+      setLoadingCheckout(false);
       return;
     }
     console.log("phone>> ", phone);
     if (!validatePhone(phone)) {
       message.error("SĐT không đúng định dạng");
+      setLoadingCheckout(false);
       return;
     }
 
@@ -144,7 +149,7 @@ function CartProduct(props) {
         quantity: e.quantity,
       };
     });
-    console.log("SAVE1>>> ", { id: user._id, cart: dataCart });
+    // console.log("SAVE1>>> ", { id: user._id, cart: dataCart });
 
     if (isAuthenticated) {
       let data = {
@@ -159,7 +164,6 @@ function CartProduct(props) {
       console.log("DATA>> ", data);
 
       const res = await createOrder(data);
-      setLoadingCheckout(true);
       if (res && res.data) {
         setLoadingCheckout(false);
         console.log("res>> ", res.data);
@@ -178,12 +182,11 @@ function CartProduct(props) {
         address: address.trim(),
         listCart: dataCart,
       };
-      console.log("DATA>> ", data);
+      // console.log("DATA>> ", data);
       const res = await createOrder(data);
-      setLoadingCheckout(true);
       if (res && res.data) {
         setLoadingCheckout(false);
-        console.log("res>> ", res.data);
+        // console.log("res>> ", res.data);
         success();
         dispatch(deleteAllCart());
         return;

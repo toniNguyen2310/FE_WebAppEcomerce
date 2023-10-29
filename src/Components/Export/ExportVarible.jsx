@@ -62,11 +62,6 @@ export const chuotGaming = [
 
 export const banPhimGaming = [
   {
-    value: "boshan",
-    label: "BOSHAN",
-    logo: "https://lacdau.com/static/assets/default/images/logo.png",
-  },
-  {
     value: "cidoo",
     label: "CIDOO",
     logo: "https://cidootech.com/cdn/shop/files/cidoo-header-logo_185x_2x_c8873b0d-f491-49a6-8e20-43bf82382728.png?v=1671006311&width=300",
@@ -90,6 +85,11 @@ export const banPhimGaming = [
     value: "mofii",
     label: "MOFII",
     logo: "https://lacdau.com/media/category/cat_big_82_1660289001.jpg",
+  },
+  {
+    value: "boshan",
+    label: "BOSHAN",
+    logo: "https://lacdau.com/static/assets/default/images/logo.png",
   },
 ];
 

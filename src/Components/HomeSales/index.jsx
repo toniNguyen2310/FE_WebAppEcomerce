@@ -11,10 +11,13 @@ import { useNavigate } from "react-router-dom";
 import { convertSlug } from "../Homepage";
 import CardProduct from "../CardProduct/CardProduct";
 import SkeletonProduct from "../Skeleton/SkeletonProduct";
+import CardProductSkl from "../CardProduct/CardProductSkl";
 
 function HomeSales(props) {
   const [listProductSales, setListProductSales] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [listProductFake, setListFake] = useState([...Array(10).keys()]);
+
   const navigate = useNavigate();
   const responsiveCarousel = [
     {
@@ -158,36 +161,36 @@ function HomeSales(props) {
         </div>
       </div>
       <div className="box-sale-list">
-        {isLoading ? (
-          <SkeletonProduct />
-        ) : (
-          <Carousel
-            arrows
-            prevArrow={<NextArrow />}
-            nextArrow={<PrevArrow />}
-            swipeToSlide
-            draggable
-            // autoplay
-            // autoplaySpeed={5000}
-            emulateTouch={true}
-            slidesPerRow={1}
-            slidesToShow={5}
-            slidesToScroll={1}
-            dots={false}
-            infinite={false}
-            responsive={responsiveCarousel}
-          >
-            {listProductSales?.map((product) => {
-              return (
-                <CardProduct
-                  key={product?.id || product?._id}
-                  product={product}
-                  handleRederectDetailProduct={handleRederectDetailProduct}
-                />
-              );
-            })}
-          </Carousel>
-        )}
+        <Carousel
+          arrows
+          prevArrow={<NextArrow />}
+          nextArrow={<PrevArrow />}
+          swipeToSlide
+          draggable
+          // autoplay
+          // autoplaySpeed={5000}
+          emulateTouch={true}
+          slidesPerRow={1}
+          slidesToShow={5}
+          slidesToScroll={1}
+          dots={false}
+          infinite={false}
+          responsive={responsiveCarousel}
+        >
+          {isLoading
+            ? listProductFake.map((e) => {
+                return <CardProductSkl key={e} />;
+              })
+            : listProductSales.map((product) => {
+                return (
+                  <CardProduct
+                    key={product?.id || product?._id}
+                    product={product}
+                    handleRederectDetailProduct={handleRederectDetailProduct}
+                  />
+                );
+              })}
+        </Carousel>
       </div>
       <div className="box-sale-button">
         <div className="button" onClick={() => navigate("/category/lot-chuot")}>

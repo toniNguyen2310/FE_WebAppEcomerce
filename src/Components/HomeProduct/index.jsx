@@ -12,6 +12,20 @@ import { convertSlug } from "../Homepage";
 import { dataBrand } from "../AdminControl/ManagerProducts";
 import CardProduct from "../CardProduct/CardProduct";
 import SkeletonProduct from "../Skeleton/SkeletonProduct";
+import {
+  banGaming,
+  banPhimGaming,
+  chuotGaming,
+  gheGaming,
+  loaIcon,
+  lotChuot,
+  moHinh,
+  phuKien,
+  taiNghe,
+  tayCamGaming,
+} from "../Export/ExportVarible";
+import CardProductSkl from "../CardProduct/CardProductSkl";
+import SkeletonText from "../Skeleton/SkeletonText";
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -28,6 +42,9 @@ function HomeProduct(props) {
   const [listBrand, setListBrand] = useState([]);
   const [listProduct, setListProduct] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [listProductFake, setListFake] = useState([...Array(10).keys()]);
+  const [listBrandFake, setListBrandFake] = useState([...Array(4).keys()]);
+
   const navigate = useNavigate();
   const responsiveCarousel = [
     {
@@ -74,45 +91,38 @@ function HomeProduct(props) {
 
   //create list brand
   const renderListBrandHomePage = async (category) => {
-    const resBrand = await getListBrandByCategory(category);
-    if (resBrand && resBrand.data) {
-      if (
-        dataBrand.filter((e) => {
-          return (
-            resBrand.data.brand
-              .filter((item, index) => {
-                return resBrand.data.brand.indexOf(item) === index;
-              })
-              .indexOf(e.value) > -1
-          );
-        }).length > 4
-      ) {
-        setListBrand(
-          dataBrand
-            .filter((e) => {
-              return (
-                resBrand.data.brand
-                  .filter((item, index) => {
-                    return resBrand.data.brand.indexOf(item) === index;
-                  })
-                  .indexOf(e.value) > -1
-              );
-            })
-            .slice(0, 4)
-        );
-      } else {
-        setListBrand(
-          dataBrand.filter((e) => {
-            return (
-              resBrand.data.brand
-                .filter((item, index) => {
-                  return resBrand.data.brand.indexOf(item) === index;
-                })
-                .indexOf(e.value) > -1
-            );
-          })
-        );
-      }
+    switch (category) {
+      case "lot-chuot":
+        // console.log("ok");
+        setListBrand(lotChuot);
+        break;
+      case "chuot-gaming":
+        setListBrand(chuotGaming);
+        break;
+      case "ban-phim-gaming":
+        setListBrand(banPhimGaming.slice(0, 4));
+        break;
+      case "tai-nghe":
+        setListBrand(taiNghe.slice(0, 4));
+        break;
+      case "tay-cam-gaming":
+        setListBrand(tayCamGaming.slice(0, 4));
+        break;
+      case "loa":
+        setListBrand(loaIcon.slice(0, 4));
+        break;
+      case "mo-hinh":
+        setListBrand(moHinh.slice(0, 4));
+        break;
+      case "phu-kien":
+        setListBrand(phuKien.slice(0, 4));
+        break;
+      case "ghe-gaming":
+        setListBrand(gheGaming.slice(0, 4));
+        break;
+      case "ban-gaming":
+        setListBrand(banGaming.slice(0, 4));
+        break;
     }
   };
 
@@ -120,7 +130,7 @@ function HomeProduct(props) {
     let brands = [];
     const res = await getProductByCategorySlice(categoryValue);
     setIsLoading(true);
-    await renderListBrandHomePage(categoryValue);
+    renderListBrandHomePage(categoryValue);
 
     if (res && res.data) {
       setIsLoading(false);
@@ -134,20 +144,39 @@ function HomeProduct(props) {
   return (
     <div className="home-category-product">
       <div className="box-title-group">
-        <h2 className="title">{categoryLabel}</h2>
+        <h2 className="title">
+          {isLoading ? (
+            <>
+              <SkeletonText width={"150px"} height={"30px"} />
+            </>
+          ) : (
+            <>{categoryLabel}</>
+          )}
+        </h2>
         <div className="box-title-group-search">
-          {listBrand?.map((e) => {
-            return (
-              <a
-                onClick={() =>
-                  navigate(`/category/${categoryValue}?brand=${e.value}`)
-                }
-                key={e.value}
-              >
-                <h3>{e.label}</h3>
-              </a>
-            );
-          })}
+          {isLoading
+            ? listBrandFake?.map((e) => {
+                return (
+                  <a key={e}>
+                    <h3>
+                      <SkeletonText width={"60px"} height={"20px"} />
+                    </h3>
+                  </a>
+                );
+              })
+            : listBrand.map((e) => {
+                return (
+                  <a
+                    onClick={() =>
+                      navigate(`/category/${categoryValue}?brand=${e.value}`)
+                    }
+                    key={e.value}
+                  >
+                    <h3>{e.label}</h3>
+                  </a>
+                );
+              })}
+
           <NavLink to={`/category/${categoryValue}`} className="btn-view-more">
             <h3>
               XEM THÊM <BsArrowRightShort />
@@ -156,34 +185,34 @@ function HomeProduct(props) {
         </div>
       </div>
       <div className="box-product-group">
-        {isLoading ? (
-          <SkeletonProduct />
-        ) : (
-          <Carousel
-            arrows
-            prevArrow={<SamplePrevArrow />}
-            nextArrow={<SampleNextArrow />}
-            swipeToSlide
-            draggable
-            autoplay
-            autoplaySpeed={2500}
-            slidesPerRow={1}
-            slidesToShow={5}
-            dots={false}
-            infinite={false}
-            responsive={responsiveCarousel}
-          >
-            {listProduct?.map((e) => {
-              return (
-                <CardProduct
-                  key={e._id}
-                  handleRederectDetailProduct={handleRederectDetailProduct}
-                  product={e}
-                />
-              );
-            })}
-          </Carousel>
-        )}
+        <Carousel
+          arrows
+          prevArrow={<SamplePrevArrow />}
+          nextArrow={<SampleNextArrow />}
+          swipeToSlide
+          draggable
+          autoplay
+          autoplaySpeed={3000}
+          slidesPerRow={1}
+          slidesToShow={5}
+          dots={false}
+          infinite={false}
+          responsive={responsiveCarousel}
+        >
+          {isLoading
+            ? listProductFake.map((e) => {
+                return <CardProductSkl key={e} />;
+              })
+            : listProduct.map((e) => {
+                return (
+                  <CardProduct
+                    key={e._id}
+                    handleRederectDetailProduct={handleRederectDetailProduct}
+                    product={e}
+                  />
+                );
+              })}
+        </Carousel>
       </div>
     </div>
   );

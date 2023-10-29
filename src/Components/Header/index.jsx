@@ -130,6 +130,7 @@ function Header(props) {
         positionFixed={false}
         showSmallHeader={false}
         fixedHeader={false}
+        idUnique={"1"}
       />
 
       <HeaderExport
@@ -139,6 +140,7 @@ function Header(props) {
         openMenu={openMenu}
         showSmallHeader={isScroll}
         fixedHeader={true}
+        idUnique={"2"}
       />
 
       <div

@@ -14,7 +14,7 @@ function HomeBanner(props) {
   const onMouseUp = (e, sub) => {
     const { x, y } = pointer.current;
     if (Math.abs(e.clientX - x) < 10 && Math.abs(e.clientY - y) < 10) {
-      console.log("CLICK");
+      // console.log("CLICK");
       if (sub === "lotchuot") {
         navigate("/category/lot-chuot");
       } else if (sub === "banphim") {

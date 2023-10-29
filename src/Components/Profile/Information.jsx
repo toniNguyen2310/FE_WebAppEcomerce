@@ -42,7 +42,7 @@ function Information(props) {
   //HANDLE UPDATE INFOR
   const handleUpdateInfoUser = async () => {
     setIsLoading(true);
-    console.log("infor>>> ", userName, email, phone, address, birthday);
+    // console.log("infor>>> ", userName, email, phone, address, birthday);
     if (!isAuthenticated) {
       setIsLoading(false);
       return;
@@ -110,8 +110,8 @@ function Information(props) {
 
   useEffect(() => {
     setDefaultInfo();
-    console.log("run");
-    console.log("usr> ", user);
+    // console.log("run");
+    // console.log("usr> ", user);
   }, [user]);
 
   return (

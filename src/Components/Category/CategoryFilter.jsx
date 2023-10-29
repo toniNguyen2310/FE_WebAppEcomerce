@@ -57,7 +57,7 @@ function CategoryFilter(props) {
     if (category === filterValue.category) {
       return;
     }
-    console.log("TESTDAY", category, filterValue.category);
+    // console.log("TESTDAY", category, filterValue.category);
     setCheckBrand("");
     setCheckSort("");
     setCheckFilterPrice("");
@@ -69,16 +69,16 @@ function CategoryFilter(props) {
   //Filter Brand
   const onChangeBrand = (e) => {
     let paramsBrand = `brand=${e.target.value}`;
-    console.log(`checked `, e);
+    // console.log(`checked `, e);
     if (e.target.checked) {
       setParams({ ...params, brand: paramsBrand });
-      console.log("chon");
+      // console.log("chon");
       setCheckBrand(e.target.value);
       // navigate(`?${paramsBrand}`);
       return;
     }
     if (e.target.checked === false) {
-      console.log("ko chon");
+      // console.log("ko chon");
       setCheckBrand("");
       setParams({ ...params, brand: "" });
       // navigate(``);
@@ -88,7 +88,7 @@ function CategoryFilter(props) {
 
   //Filter Option Price
   const onchangeFilterPrice = (e) => {
-    console.log("change price>>> ", e);
+    // console.log("change price>>> ", e);
     let paramsPrice = `price=${e.target.value}`;
     if (e.target.checked) {
       setCheckFilterPrice(e.target.value);

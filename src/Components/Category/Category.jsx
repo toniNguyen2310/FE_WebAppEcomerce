@@ -7,6 +7,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { dataBrand, dataCategory } from "../AdminControl/ManagerProducts";
 import { getListBrandByCategory, getProducts } from "../../services.js/api";
 import { useDebounce } from "../../utils/hook";
+import SkeletonText from "../Skeleton/SkeletonText";
 
 function Category(props) {
   const navigate = useNavigate();
@@ -50,7 +51,7 @@ function Category(props) {
       const res = await getProducts(query);
 
       if (res && res.data) {
-        console.log("NEW res>> ", res);
+        // console.log("NEW res>> ", res);
         setListData(res.data.products);
         setTotal(res.data.count);
         setIsLoading(false);
@@ -136,13 +137,13 @@ function Category(props) {
       : "";
 
     //HANDLE
-    console.log(
-      "data location>>> ",
-      categoryLocation,
-      brandLocation,
-      priceLocation,
-      sortLocation
-    );
+    // console.log(
+    //   "data location>>> ",
+    //   categoryLocation,
+    //   brandLocation,
+    //   priceLocation,
+    //   sortLocation
+    // );
 
     if (
       params.brand.includes(brandLocation) &&
@@ -209,7 +210,14 @@ function Category(props) {
           <span onClick={() => navigate("/")} style={{ cursor: "pointer" }}>
             TRANG CHỦ
           </span>
-          &nbsp;/&nbsp; {categoryLabel}
+          &nbsp;/&nbsp;
+          {isLoading ? (
+            <SkeletonText width={"150px"} height={"12px"} />
+          ) : (
+            <>
+              <span>{categoryLabel}</span>
+            </>
+          )}
         </nav>
         <div className="category-container">
           <CategoryFilter

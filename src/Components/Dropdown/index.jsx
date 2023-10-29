@@ -48,7 +48,7 @@ const DropdownComponent = () => {
     setIsLoading(true);
     if (res && res.data) {
       setIsLoading(false);
-      console.log("res logout>>> ", res);
+      // console.log("res logout>>> ", res);
       dispatch(doLogoutAction());
       dispatch(doLogoutCart());
       message.success("Đăng Xuất thành công");

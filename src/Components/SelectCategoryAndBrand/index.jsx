@@ -5,7 +5,7 @@ function SelectCategory(props) {
   const { dataCategory, dataBrand, setSearchCategory, setSearchBrand } = props;
 
   const handleChange = (value) => {
-    console.log(`selected ${value}`);
+    // console.log(`selected ${value}`);
     dataCategory ? setSearchCategory(value) : setSearchBrand(value);
   };
 

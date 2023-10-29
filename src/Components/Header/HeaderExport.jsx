@@ -21,6 +21,7 @@ import { useDebounce } from "../../utils/hook";
 import { searchProductNavbarAPI } from "../../services.js/api";
 import ProductSearchBar from "./ProductSearchBar";
 import CartHoverHeader from "../CartHoverHeader/CartHoverHeader";
+import { SpinnerDotted } from "spinners-react";
 
 function HeaderExport(props) {
   const {
@@ -30,6 +31,7 @@ function HeaderExport(props) {
     isAuthenticated,
     openMenu,
     showSmallHeader,
+    idUnique,
   } = props;
   const [displaySearch, setDisPlaySearch] = useState(false);
   const [searchProduct, setSearchProduct] = useState("");
@@ -37,15 +39,21 @@ function HeaderExport(props) {
   const listCart = useSelector((state) => state.cart.listCart);
   const [listProductSearch, setListProductSearch] = useState([]);
   const nameAccount = useSelector((state) => state.account.user.username);
+  const [isLoadingSearch, setIsLoadingSearch] = useState(false);
+
+  //SEARCH PRODUCT
   const getListPRoductsWhenSearch = async (value) => {
     // console.log("value");
     if (value) {
+      setIsLoadingSearch(true);
       // console.log("value1");
       const res = await searchProductNavbarAPI(value.trim());
       if (res && res.data) {
+        setIsLoadingSearch(false);
         // console.log("DATA SEARCH>> ", res);
         setListProductSearch(res.data);
       } else {
+        setIsLoadingSearch(false);
         // console.log("KO CO");
         setListProductSearch([]);
       }
@@ -69,7 +77,7 @@ function HeaderExport(props) {
 
   window.addEventListener("click", function (event) {
     // console.log("EVENT>>> ", event.target.closest("#Seachbar"));
-    if (!event.target.closest("#Seachbar")) {
+    if (!event.target.closest(`#Seachbar${idUnique}`)) {
       setDisPlaySearch(false);
     } else {
       setDisPlaySearch(true);
@@ -245,14 +253,23 @@ function HeaderExport(props) {
             </div>
             <div className="header__main__cover__left-search margin-left__10px">
               <button>
-                <BsSearch />
+                {isLoadingSearch ? (
+                  <SpinnerDotted
+                    size={25}
+                    thickness={180}
+                    speed={164}
+                    color="#29a07e"
+                  />
+                ) : (
+                  <BsSearch />
+                )}
               </button>
               <input
                 type="text"
                 placeholder="Bạn cần tìm gì?"
                 value={searchProduct}
                 onChange={(e) => setSearchProduct(e.target.value)}
-                id="Seachbar"
+                id={`Seachbar${idUnique}`}
               />
               <ProductSearchBar
                 listProductSearch={listProductSearch}

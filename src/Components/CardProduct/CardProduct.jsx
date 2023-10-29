@@ -15,7 +15,7 @@ function CardProduct(props) {
     if (isAuthenticated) {
       //TRƯỜNG HỢP ĐÃ ĐĂNG NHẬP
       const data = { idUser: user._id, product: product };
-      console.log(">>", data);
+      // console.log(">>", data);
       dispatch(addToCartService(product));
       // message.success("Đã thêm sản phẩm vào giỏ hàng");
       return;
@@ -30,7 +30,10 @@ function CardProduct(props) {
   return (
     <div className="item-cover">
       <div className="item">
-        <div className="item-img">
+        <div
+          className="item-img"
+          onClick={() => handleRederectDetailProduct(product)}
+        >
           <img loading="lazy" src={product.images[0]} alt="" />
         </div>
         {product.discount === "0" ? (

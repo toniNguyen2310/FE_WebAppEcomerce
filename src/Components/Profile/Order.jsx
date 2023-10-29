@@ -16,7 +16,7 @@ function Order(props) {
     const res = await getListOrder(id);
     if (res && res.data) {
       setIsLoading(false);
-      console.log("ress", res.data);
+      // console.log("ress", res.data);
       setListOrder(res.data);
     } else {
       setIsLoading(false);

@@ -42,12 +42,12 @@ function CategoryProduct(props) {
   //HANDLE SORT PRODUCT
   const handleSortProduct = (option) => {
     setCheckSort(option);
-    console.log("option>>> ", option);
+    // console.log("option>>> ", option);
     if (option === "") {
-      console.log("vo1");
+      // console.log("vo1");
       setParams({ ...params, sort: "" });
     } else {
-      console.log("vo2");
+      // console.log("vo2");
       setParams({ ...params, sort: `sort=${option}` });
     }
   };

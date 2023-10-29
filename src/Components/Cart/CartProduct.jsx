@@ -51,7 +51,7 @@ function CartProduct(props) {
 
   //INCREASE QUANTITY
   const handleIncrease = (id) => {
-    console.log("id product>>> ", id);
+    // console.log("id product>>> ", id);
     dispatch(increaseQuantity(id));
   };
 
@@ -74,7 +74,7 @@ function CartProduct(props) {
 
   //CONFIRM DELETE
   const confirm = (id) => {
-    console.log(id);
+    // console.log(id);
     dispatch(deleteProduct(id));
     message.success("Xóa sản phẩm Thành công");
   };
@@ -85,7 +85,7 @@ function CartProduct(props) {
 
   //HANDLE DERECT PRODUCT
   const handleRederectDetailProductSearch = (product) => {
-    console.log("product>> ", product);
+    // console.log("product>> ", product);
     // return;
     const slug = convertSlug(product.name);
     // console.log("slug>> ", slug);
@@ -176,12 +176,12 @@ function CartProduct(props) {
         address: address.trim(),
         listCart: dataCart,
       };
-      console.log("DATA>> ", data);
+      // console.log("DATA>> ", data);
 
       const res = await createOrder(data);
       if (res && res.data) {
         setLoadingCheckout(false);
-        console.log("res>> ", res.data);
+        // console.log("res>> ", res.data);
         success();
         dispatch(deleteAllCart());
         return;
@@ -212,7 +212,7 @@ function CartProduct(props) {
   };
 
   useEffect(() => {
-    console.log("listCart>> ", dataCart);
+    // console.log("listCart>> ", dataCart);
     if (dataCart?.length === 0) {
       setTotalCost(0);
       setTotalProduct(0);

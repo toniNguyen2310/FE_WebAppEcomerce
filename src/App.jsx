@@ -171,7 +171,7 @@ export default function App() {
       }
 
       const res = await callFetchAccount();
-      console.log("res>>> ", res);
+      // console.log("res>>> ", res);
       dispatch(doGetAccountPending());
 
       if (res && res.data) {

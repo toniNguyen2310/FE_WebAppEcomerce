@@ -5,6 +5,7 @@ import { getProductById } from "../../services.js/api";
 import { dataCategory } from "../AdminControl/ManagerProducts";
 import ProductDetailLayout from "./ProductDetailLayout";
 import SkeletonProductLayout from "../Skeleton/SkeletonProductLayout";
+import SkeletonText from "../Skeleton/SkeletonText";
 
 function stringToSlug(str) {
   // remove accents
@@ -48,7 +49,7 @@ function DetailProduct(props) {
   }, [id]);
 
   useEffect(() => {
-    console.log(dataProduct?.category);
+    // console.log(dataProduct?.category);
     const found = dataCategory.find((e) => e.value === dataProduct?.category);
     setCategoryName(found?.label);
   }, [dataProduct]);
@@ -61,13 +62,21 @@ function DetailProduct(props) {
             TRANG CHỦ
           </span>
           &nbsp;/&nbsp;
-          <span
-            onClick={() => navigate(`/category/${stringToSlug(categoryName)}`)}
-            style={{ cursor: "pointer" }}
-          >
-            {categoryName}
-          </span>
-          &nbsp;/&nbsp; {dataProduct.name}
+          {isLoading ? (
+            <SkeletonText width={"150px"} height={"12px"} />
+          ) : (
+            <>
+              <span
+                onClick={() =>
+                  navigate(`/category/${stringToSlug(categoryName)}`)
+                }
+                style={{ cursor: "pointer" }}
+              >
+                {categoryName}
+              </span>
+              &nbsp;/&nbsp; <span>{dataProduct.name}</span>
+            </>
+          )}
         </nav>
 
         <ProductDetailLayout isLoading={isLoading} dataProduct={dataProduct} />

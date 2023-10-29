@@ -13,14 +13,13 @@ function ProductDetailLayout(props) {
   const [imagesProduct, setImagesProduct] = useState([]);
   const user = useSelector((state) => state.account.user);
   const dispatch = useDispatch();
-
   const navigate = useNavigate();
 
   const handleAddToCart = async (product) => {
     if (isAuthenticated) {
       //TRƯỜNG HỢP ĐÃ ĐĂNG NHẬP
       const data = { idUser: user._id, product: product };
-      console.log(">>", data);
+      // console.log(">>", data);
       dispatch(addToCartService(product));
     } else {
       //TRƯỜNG HỢP KO ĐĂNG NHẬP
@@ -35,7 +34,7 @@ function ProductDetailLayout(props) {
   };
 
   useEffect(() => {
-    console.log("dataProduct>>> ", dataProduct);
+    // console.log("dataProduct>>> ", dataProduct);
     if (dataProduct && dataProduct.images) {
       setImagesProduct([
         {

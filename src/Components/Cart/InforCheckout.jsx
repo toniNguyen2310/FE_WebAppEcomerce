@@ -12,8 +12,10 @@ function InforCheckout(props) {
     setAddress,
     note,
     setNote,
+    refInput,
+    refname,
   } = props;
-  const refInput = useRef(null);
+
   const user = useSelector((state) => state.account.user);
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
 
@@ -32,9 +34,6 @@ function InforCheckout(props) {
     setDefaultInfoCa();
   }, [user]);
 
-  useEffect(() => {
-    refInput.current.focus();
-  }, []);
   return (
     <div className="address">
       <div className="address-left">
@@ -53,6 +52,7 @@ function InforCheckout(props) {
             type="text"
             placeholder="Họ và tên"
             value={name}
+            ref={refname}
             onChange={(e) => setName(e.target.value)}
           />
         </div>

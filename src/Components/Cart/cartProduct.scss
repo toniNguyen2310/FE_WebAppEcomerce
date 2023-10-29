@@ -152,10 +152,11 @@
         flex-direction: row;
         box-sizing: border-box;
         gap: 10px;
-        textarea:focus,
-        input:focus {
-          outline: none;
-        }
+
+        // textarea:focus,
+        // input:focus {
+        //   outline: none;
+        // }
         &-left {
           display: flex;
           flex-direction: column;
@@ -176,9 +177,15 @@
           height: 40px;
           border-radius: 5px;
           border: 1px solid #e2e2e2;
-          background: #fafafa;
-
+          background: #ededed;
+          // background: #fafafa;
           font-size: 15px;
+        }
+        textarea:focus,
+        input:focus {
+          background-color: #fafafa;
+          border: 2px solid #29a07e;
+          outline: 0;
         }
         textarea {
           color: #000;
@@ -189,8 +196,7 @@
           border-radius: 5px;
           padding: 10px 16px;
           border: 1px solid #e2e2e2;
-          background: #fafafa;
-
+          background: #ededed;
           height: 190px;
         }
         .full-size {

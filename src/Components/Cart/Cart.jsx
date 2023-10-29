@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./cartPage.scss";
 
 import { useSelector } from "react-redux";
@@ -9,6 +9,7 @@ import CartProduct from "./CartProduct";
 
 function Cart(props) {
   const navigate = useNavigate();
+
   const [dataCart, setDataCart] = useState([]);
   const [ischangeAddress, setIsChangeAddress] = useState(false);
   const listCart = useSelector((state) => state.cart.listCart);

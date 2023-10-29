@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./cartProduct.scss";
 import "react-image-gallery/styles/scss/image-gallery.scss";
 import { BsTrash } from "react-icons/bs";
@@ -32,7 +32,8 @@ function CartProduct(props) {
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
   const listCart = useSelector((state) => state.cart.listCart);
   const [loadingCheckout, setLoadingCheckout] = useState(false);
-
+  const refInput = useRef(null);
+  const refname = useRef(null);
   const [messageApi, contextHolder] = message.useMessage();
   const success = () => {
     messageApi.open({
@@ -103,6 +104,12 @@ function CartProduct(props) {
 
     return email.match(regexEmailCheck) ? true : false;
   };
+  const regexName = (name) => {
+    const regexEmailCheck =
+      /^([a-zA-Z]{2,}\s[a-zA-Z]{1,}'?-?[a-zA-Z]{2,}\s?([a-zA-Z]{1,})?)/g;
+
+    return name.match(regexEmailCheck) ? true : false;
+  };
 
   //HANDLE CHECKOUT SUBMIT
   const submitCheckout = async () => {
@@ -110,6 +117,8 @@ function CartProduct(props) {
     if (!name || !email || !phone || !address) {
       if (!email) {
         message.info("Email không được để trống");
+        refInput.current.focus();
+        refInput.current.scrollIntoView();
         setLoadingCheckout(false);
         return;
       }
@@ -135,7 +144,13 @@ function CartProduct(props) {
       setLoadingCheckout(false);
       return;
     }
-    console.log("phone>> ", phone);
+    if (!regexName(name)) {
+      message.error("Tên phải ít nhất 2 từ");
+      refname.current.focus();
+      refname.current.scrollIntoView();
+      setLoadingCheckout(false);
+      return;
+    }
     if (!validatePhone(phone)) {
       message.error("SĐT không đúng định dạng");
       setLoadingCheckout(false);
@@ -339,6 +354,8 @@ function CartProduct(props) {
                     setAddress={setAddress}
                     note={note}
                     setNote={setNote}
+                    refInput={refInput}
+                    refname={refname}
                   />
                 </div>
                 <div className="cart-container-content-right">

@@ -64,7 +64,10 @@ function CartHoverHeader(props) {
                           {new Intl.NumberFormat("vi-VN", {
                             style: "currency",
                             currency: "VND",
-                          }).format(e.productId.priceAfter)}
+                          }).format(
+                            parseInt(e.productId.priceAfter) *
+                              parseInt(e.quantity)
+                          )}
                         </span>
                         <span className="price-top-hide">3</span>
                       </div>

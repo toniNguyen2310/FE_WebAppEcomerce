@@ -7,8 +7,11 @@ function OrderProduct(props) {
     <div className="user-order-container mt-3">
       <div className="user-order-header">
         <div>
-          <div className="order-header-right">#{item._id.slice(14)}</div>
+          <div className="order-header-right">
+            Đơn hàng: #{item._id.slice(14)}
+          </div>
           <div className="order-header-right-500">
+            Ngày đặt hàng: &nbsp;
             {new Date(item.createdAt).toLocaleString("en-GB", {
               year: "numeric",
               month: "2-digit",

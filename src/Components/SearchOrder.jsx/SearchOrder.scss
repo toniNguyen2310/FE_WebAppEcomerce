@@ -2,10 +2,9 @@
   margin: 0 auto;
   max-width: 1220px;
   .page-cover {
+    min-height: calc(100vh - 350px) !important;
     margin: 0 auto;
     max-width: 100%;
-    height: auto;
-    margin-bottom: 110px;
     .search-header {
       background-color: #ededed;
       line-height: 50px;
@@ -16,8 +15,7 @@
       font-family: "Mulish", sans-serif;
     }
     .search-content {
-      //   align-items: center;
-      //   background-color: #ffffff;%;
+      padding-top: 50px;
       width: 60%;
       margin: 0 auto;
       &-search {
@@ -76,7 +74,7 @@
           border-radius: 12px;
           margin-bottom: 20px;
           .user-order-header {
-            background-color: #29a07e;
+            background-color: #414846;
             border-radius: 10px 10px 0 0;
             padding: 10px;
             display: flex;

@@ -372,7 +372,7 @@ function CartProduct(props) {
       ) : (
         <>
           {dataCart?.length === 0 ? (
-            <div style={{ height: "220px", width: "100%" }}>
+            <div style={{ width: "100%", paddingTop: "50px" }}>
               <Empty description={"GIỎ HÀNG CỦA BẠN ĐANG TRỐNG"} />
             </div>
           ) : (

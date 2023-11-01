@@ -15,7 +15,6 @@ import LoadingButton from "../Export/ExportVarible";
 import SkeletonText from "../Skeleton/SkeletonText";
 
 function ProfilePage(props) {
-  O;
   const dispatch = useDispatch();
   const [selected, setSelected] = useState(1);
   const isAdmin = useSelector((state) => state.account.user.isAdmin);

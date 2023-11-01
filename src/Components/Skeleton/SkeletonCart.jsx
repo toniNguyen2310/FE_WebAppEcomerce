@@ -9,6 +9,5 @@ function SkeletonCart(props) {
     </ContentLoader>
   );
 }
-O;
 
 export default SkeletonCart;

@@ -77,6 +77,7 @@ function InforCheckout(props) {
       <div className="address-right">
         <div className="full-size">
           <textarea
+            style={{ resize: "none" }}
             type="text"
             placeholder="Ghi chú"
             value={note}

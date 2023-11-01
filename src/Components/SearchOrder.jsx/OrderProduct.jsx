@@ -5,7 +5,7 @@ import { convertSlug } from "../Homepage";
 function OrderProduct(props) {
   const { item } = props;
   const navigate = useNavigate();
-  const handleRederectDetailProductSearch = (product) => {
+  const handleRedirectDetailProductSearch = (product) => {
     const slug = convertSlug(product.name);
     navigate(`/product/${slug}?id=${product._id}`);
   };
@@ -47,7 +47,7 @@ function OrderProduct(props) {
               <div
                 className="image-detail-order"
                 style={{ cursor: "pointer" }}
-                onClick={() => handleRederectDetailProductSearch(e.productId)}
+                onClick={() => handleRedirectDetailProductSearch(e.productId)}
               >
                 <img
                   loading="lazy"
@@ -59,7 +59,7 @@ function OrderProduct(props) {
                 <span
                   className="nameProduct414"
                   style={{ cursor: "pointer" }}
-                  onClick={() => handleRederectDetailProductSearch(e.productId)}
+                  onClick={() => handleRedirectDetailProductSearch(e.productId)}
                 >
                   {e.productId.name}
                 </span>

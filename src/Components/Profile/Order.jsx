@@ -34,7 +34,7 @@ function Order(props) {
     }
   };
 
-  const handleRederectDetailProductSearch = (product) => {
+  const handleRedirectDetailProductSearch = (product) => {
     // console.log("product>> ", product);
     // return;
     const slug = convertSlug(product.name);
@@ -101,7 +101,7 @@ function Order(props) {
                               className="image-detail-order"
                               style={{ cursor: "pointer" }}
                               onClick={() =>
-                                handleRederectDetailProductSearch(
+                                handleRedirectDetailProductSearch(
                                   item.productId
                                 )
                               }
@@ -117,7 +117,7 @@ function Order(props) {
                                 className="nameProduct414"
                                 style={{ cursor: "pointer" }}
                                 onClick={() =>
-                                  handleRederectDetailProductSearch(
+                                  handleRedirectDetailProductSearch(
                                     item.productId
                                   )
                                 }

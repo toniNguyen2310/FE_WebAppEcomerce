@@ -30,6 +30,11 @@ function CategoryProduct(props) {
 
   const navigate = useNavigate();
   const [listFake, setListFake] = useState([...Array(16).keys()]);
+  //HANDLE PRODUCT DETAIL
+  const handleRedirectDetailProduct = (product) => {
+    const slug = convertSlug(product.name);
+    navigate(`/product/${slug}?id=${product._id}`);
+  };
 
   //HANDLE SORT PRODUCT
   const handleSortProduct = (option) => {
@@ -169,8 +174,8 @@ function CategoryProduct(props) {
                       <CardProduct
                         key={product?.id || product?._id}
                         product={product}
-                        handleRederectDetailProduct={
-                          handleRederectDetailProduct
+                        handleRedirectDetailProduct={
+                          handleRedirectDetailProduct
                         }
                       />
                     );

@@ -70,7 +70,7 @@ function HomeSales(props) {
   };
 
   //Handle rederect product
-  const handleRederectDetailProduct = (product) => {
+  const handleRedirectDetailProduct = (product) => {
     const slug = convertSlug(product.name);
     navigate(`/product/${slug}?id=${product._id}`);
   };
@@ -109,7 +109,7 @@ function HomeSales(props) {
                   <CardProduct
                     key={product?.id || product?._id}
                     product={product}
-                    handleRederectDetailProduct={handleRederectDetailProduct}
+                    handleRedirectDetailProduct={handleRedirectDetailProduct}
                   />
                 );
               })}

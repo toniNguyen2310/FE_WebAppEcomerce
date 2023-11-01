@@ -34,9 +34,9 @@ function Category(props) {
 
   //Debounce
   let location = useLocation();
-  const debounceLocation = useDebounce(location, 100);
-  const debounceCurrentPage = useDebounce(currentPage, 300);
-  const debounceFilterValue = useDebounce(filterValue, 300);
+  const debounceLocation = useDebounce(location, 50);
+  const debounceCurrentPage = useDebounce(currentPage, 50);
+  const debounceFilterValue = useDebounce(filterValue, 50);
 
   //FETCH PRODUCT
   const fetchProduct = async () => {

@@ -80,7 +80,7 @@ function CartProduct(props) {
   };
 
   //HANDLE DERECT PRODUCT
-  const handleRederectDetailProductSearch = (product) => {
+  const handleRedirectDetailProductSearch = (product) => {
     // console.log("product>> ", product);
     // return;
     const slug = convertSlug(product.name);
@@ -399,7 +399,7 @@ function CartProduct(props) {
                               <p
                                 className="header-product-checkout-name"
                                 onClick={() =>
-                                  handleRederectDetailProductSearch(e.productId)
+                                  handleRedirectDetailProductSearch(e.productId)
                                 }
                               >
                                 {e.productId.name}

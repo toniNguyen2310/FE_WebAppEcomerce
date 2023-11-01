@@ -79,7 +79,7 @@ function HomeProduct(props) {
   ];
 
   //handle rederect product
-  const handleRederectDetailProduct = (product) => {
+  const handleRedirectDetailProduct = (product) => {
     // console.log("product>> ", product);
     const slug = convertSlug(product.name);
     // console.log("slug>> ", slug);
@@ -204,7 +204,7 @@ function HomeProduct(props) {
                 return (
                   <CardProduct
                     key={e._id}
-                    handleRederectDetailProduct={handleRederectDetailProduct}
+                    handleRedirectDetailProduct={handleRedirectDetailProduct}
                     product={e}
                   />
                 );

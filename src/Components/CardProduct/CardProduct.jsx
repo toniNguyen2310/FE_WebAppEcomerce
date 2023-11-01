@@ -5,7 +5,7 @@ import { addToCartService } from "../../redux/cart/cartSlice";
 import "./CardProduct.scss";
 
 function CardProduct(props) {
-  const { handleRederectDetailProduct, product, messageSuccess } = props;
+  const { handleRedirectDetailProduct, product, messageSuccess } = props;
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
   const user = useSelector((state) => state.account.user);
@@ -28,7 +28,7 @@ function CardProduct(props) {
       <div className="item">
         <div
           className="item-img"
-          onClick={() => handleRederectDetailProduct(product)}
+          onClick={() => handleRedirectDetailProduct(product)}
         >
           <img loading="lazy" src={product.images[0]} alt="" />
         </div>
@@ -36,7 +36,7 @@ function CardProduct(props) {
           <div className="item-infor">
             <p
               className="item-infor-name"
-              onClick={() => handleRederectDetailProduct(product)}
+              onClick={() => handleRedirectDetailProduct(product)}
             >
               {product.name}
             </p>
@@ -63,7 +63,7 @@ function CardProduct(props) {
         ) : (
           <div className="item-infor">
             <p
-              onClick={() => handleRederectDetailProduct(product)}
+              onClick={() => handleRedirectDetailProduct(product)}
               className="item-infor-name"
             >
               {product.name}

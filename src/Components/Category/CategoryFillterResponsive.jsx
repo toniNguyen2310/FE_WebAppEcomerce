@@ -15,7 +15,6 @@ function getItem(label, key, icon, children, type) {
 function CategoryFillterResponsive(props) {
   const {
     filterValue,
-
     listBrand,
     setCheckSort,
     setParams,

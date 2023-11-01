@@ -1,12 +1,21 @@
 import React, { useEffect } from "react";
+import { convertSlug } from "../Homepage";
+import { useNavigate } from "react-router-dom";
 
 function OrderProduct(props) {
   const { item } = props;
-
+  const navigate = useNavigate();
+  const handleRederectDetailProductSearch = (product) => {
+    // console.log("product>> ", product);
+    // return;
+    const slug = convertSlug(product.name);
+    // console.log("slug>> ", slug);
+    navigate(`/product/${slug}?id=${product._id}`);
+  };
   return (
     <div className="user-order-container mt-3">
       <div className="user-order-header">
-        <div>
+        <div className="user-order-header-left">
           <div className="order-header-right">
             Đơn hàng: #{item._id.slice(14)}
           </div>
@@ -38,7 +47,11 @@ function OrderProduct(props) {
         {item.listCart.map((e) => {
           return (
             <div key={e.productId._id} className="top  p-3">
-              <div className="image-detail-order">
+              <div
+                className="image-detail-order"
+                style={{ cursor: "pointer" }}
+                onClick={() => handleRederectDetailProductSearch(e.productId)}
+              >
                 <img
                   loading="lazy"
                   className="image-detail"
@@ -46,8 +59,20 @@ function OrderProduct(props) {
                 />
               </div>
               <div className="detail-order">
-                <span>{e.productId.name}</span>
+                <span
+                  className="nameProduct414"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => handleRederectDetailProductSearch(e.productId)}
+                >
+                  {e.productId.name}
+                </span>
                 <span>x{e.quantity}</span>
+                <span className="price414">
+                  {new Intl.NumberFormat("vi-VN", {
+                    style: "currency",
+                    currency: "VND",
+                  }).format(e.productId.priceAfter)}
+                </span>
               </div>
               <div className="button-rate1">
                 <div className="button-rate1">

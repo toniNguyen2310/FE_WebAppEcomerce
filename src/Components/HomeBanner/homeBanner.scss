@@ -207,20 +207,30 @@
     }
   }
 }
-
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 768px) {
   .home-banner-group {
     padding: 0 5px;
-    height: 220px;
-    margin-bottom: 10px;
-    // margin: auto 10px;
-    // background-color: red;
-    .header-menu {
-      display: none !important;
-    }
+    // background-color: #ededed !important;
     .home-center {
       width: 100%;
       height: 100%;
+      // margin-right: 0px;
     }
+    .home-right {
+      display: none;
+    }
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  .home-banner-group {
+    // height: 220px;
+    // margin-bottom: 10px;
+    // margin: auto 10px;
+    // background-color: red;
+
+    // .home-center {
+    //   width: 100%;
+    // }
   }
 }

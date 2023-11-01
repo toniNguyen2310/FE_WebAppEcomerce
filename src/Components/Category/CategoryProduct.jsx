@@ -9,13 +9,17 @@ import {
   dataCategory,
   dataPrice,
 } from "../AdminControl/ManagerProducts";
+import { FiFilter } from "react-icons/fi";
+
 import SkeletonFilter from "../Skeleton/SkeletonFilter";
 import CardProductSkl from "../CardProduct/CardProductSkl";
 import SkeletonText from "../Skeleton/SkeletonText";
 
 function CategoryProduct(props) {
   const {
+    filterRes,
     setCheckSort,
+    setFilterRes,
     checkSort,
     listData,
     currentPage,
@@ -54,25 +58,37 @@ function CategoryProduct(props) {
 
   return (
     <>
-      <div className="category-product">
+      <div
+        className="category-product"
+        style={{ display: filterRes ? "none" : "block" }}
+      >
         <div className="category-product-title">
-          <h2>
-            {isLoading ? (
-              <SkeletonText width={"200px"} height={"25px"} />
-            ) : (
-              <> {categoryLabel}</>
-            )}
-            &nbsp;
-          </h2>
-          &nbsp;
-          <p style={{ fontWeight: "normal", fontSize: "14px" }}>
-            {isLoading ? (
-              <SkeletonText width={"90px"} height={"16px"} />
-            ) : (
-              <>({total} sản phẩm)</>
-            )}
-          </p>
-          &nbsp;
+          <div className="category-product-title-left">
+            <h2>
+              {isLoading ? (
+                <SkeletonText width={"200px"} height={"25px"} />
+              ) : (
+                <> {categoryLabel}</>
+              )}
+              &nbsp;
+            </h2>
+
+            <p style={{ fontWeight: "normal", fontSize: "14px" }}>
+              {isLoading ? (
+                <SkeletonText width={"90px"} height={"16px"} />
+              ) : (
+                <>
+                  (<b>{total}</b> sản phẩm)
+                </>
+              )}
+            </p>
+          </div>
+          <div
+            className="category-product-title-right"
+            onClick={() => setFilterRes(true)}
+          >
+            Bộ lọc&nbsp; <FiFilter style={{ fontWeight: "600" }} />
+          </div>
         </div>
         <div className="category-product-container">
           <div className="category-product-container-filter">

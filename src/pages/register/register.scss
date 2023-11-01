@@ -139,3 +139,25 @@
   color: #ffffff;
   margin-left: 10px;
 }
+
+@media only screen and (max-width: 500px) {
+  .register-page {
+    &-form {
+      width: 100%;
+    }
+  }
+}
+@media only screen and (max-width: 416px) {
+  .register-page {
+    background-color: #ffffff;
+    height: 100vh;
+    padding: 0;
+    border-radius: 0px;
+    &-form {
+      box-shadow: none;
+      border-radius: 0px;
+      padding: 10px;
+      border: none;
+    }
+  }
+}

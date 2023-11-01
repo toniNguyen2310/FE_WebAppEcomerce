@@ -17,8 +17,7 @@ function getItem(label, key, icon, children, type) {
     type,
   };
 }
-
-function CategoryFilter(props) {
+function CategoryFillterResponsive(props) {
   const {
     filterValue,
     listData,
@@ -27,9 +26,11 @@ function CategoryFilter(props) {
     setCheckSort,
     setParams,
     params,
+    filterRes,
+    setFilterRes,
   } = props;
-  // const [checkBrand, setCheckBrand] = useState("");
-
+  const [checkBrand, setCheckBrand] = useState("");
+  const [checkFilterPrice, setCheckFilterPrice] = useState("");
   const navigate = useNavigate();
 
   //FILTER MENU CATEGORY
@@ -50,9 +51,9 @@ function CategoryFilter(props) {
       return;
     }
     // console.log("TESTDAY", category, filterValue.category);
-
+    setCheckBrand("");
     setCheckSort("");
-
+    setCheckFilterPrice("");
     setParams({ brand: "", price: "", sort: "" });
     navigate(`/category/${category}`);
     // renderListBrand(category);
@@ -65,13 +66,13 @@ function CategoryFilter(props) {
     if (e.target.checked) {
       setParams({ ...params, brand: paramsBrand });
       // console.log("chon");
-
+      setCheckBrand(e.target.value);
       // navigate(`?${paramsBrand}`);
       return;
     }
     if (e.target.checked === false) {
       // console.log("ko chon");
-
+      setCheckBrand("");
       setParams({ ...params, brand: "" });
       // navigate(``);
       return;
@@ -83,8 +84,10 @@ function CategoryFilter(props) {
     // console.log("change price>>> ", e);
     let paramsPrice = `price=${e.target.value}`;
     if (e.target.checked) {
+      setCheckFilterPrice(e.target.value);
       setParams({ ...params, price: paramsPrice });
     } else {
+      setCheckFilterPrice("");
       setParams({ ...params, price: "" });
     }
   };
@@ -130,9 +133,19 @@ function CategoryFilter(props) {
       })
     ),
   ];
+
+  //CANCEL FILTER
+  const setCalcelFilter = () => {
+    setFilterRes(false);
+    setParams({ brand: "", price: "", sort: "" });
+  };
+
   return (
     <>
-      <div className="category-filter">
+      <div
+        style={{ display: filterRes ? "block" : "none" }}
+        className={`category-filter  filterResponsive `}
+      >
         <div className="category-filter-category category-filter-general">
           <Menu
             onClick={(e) => onchangeCategory(e.key)}
@@ -168,9 +181,23 @@ function CategoryFilter(props) {
             items={itemsPrice}
           />
         </div>
+        <div className="filter-responsive-button">
+          <button
+            className="respon-filter-btn calcel"
+            onClick={setCalcelFilter}
+          >
+            HỦY
+          </button>
+          <button
+            className="respon-filter-btn apply"
+            onClick={() => setFilterRes(false)}
+          >
+            ÁP DỤNG
+          </button>
+        </div>
       </div>
     </>
   );
 }
 
-export default CategoryFilter;
+export default CategoryFillterResponsive;

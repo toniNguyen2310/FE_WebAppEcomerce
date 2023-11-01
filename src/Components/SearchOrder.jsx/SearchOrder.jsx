@@ -4,7 +4,7 @@ import "./SearchOrder.scss";
 import OrderProduct from "./OrderProduct";
 
 import { getListOrderByPhone } from "../../services.js/api";
-import { message } from "antd";
+import { Empty, message } from "antd";
 import LoadingButton from "../Export/ExportVarible";
 
 function SearchOrder(props) {
@@ -91,7 +91,10 @@ function SearchOrder(props) {
           <div className="search-list-order">
             {number ? (
               listData.length === 0 ? (
-                <p>Không tìm thấy đơn hàng</p>
+                <div className="empty-order">
+                  {/* <p>Không tìm thấy đơn hàng</p> */}
+                  <Empty description={"GIỎ HÀNG CỦA BẠN ĐANG TRỐNG"} />
+                </div>
               ) : (
                 <>
                   {listData.map((e) => {

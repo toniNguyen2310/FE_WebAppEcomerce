@@ -40,7 +40,7 @@ function HomeTrend(props) {
           </p>
         </a>
         <a
-          onClick={() => navigate("/category/tai-nghe-gaming")}
+          onClick={() => navigate("/category/tai-nghe ")}
           className="home-trend-category-item"
         >
           <img

@@ -33,8 +33,28 @@ function ProductDetailLayout(props) {
     navigate("/cart");
   };
 
+  const listImageFake = [
+    {
+      original:
+        "https://media.istockphoto.com/id/1302436594/video/loading-circle-icon-animation-on-white-background-4k-video-loopable-preloader.jpg?s=640x640&k=20&c=JQzv8UsXNfUnqQSULYW8B858UOM2O5CoXRgG9a0hRFk=",
+      thumbnail:
+        "https://media.istockphoto.com/id/1302436594/video/loading-circle-icon-animation-on-white-background-4k-video-loopable-preloader.jpg?s=640x640&k=20&c=JQzv8UsXNfUnqQSULYW8B858UOM2O5CoXRgG9a0hRFk=",
+    },
+    {
+      original:
+        "https://media.istockphoto.com/id/1302436594/video/loading-circle-icon-animation-on-white-background-4k-video-loopable-preloader.jpg?s=640x640&k=20&c=JQzv8UsXNfUnqQSULYW8B858UOM2O5CoXRgG9a0hRFk=",
+      thumbnail:
+        "https://media.istockphoto.com/id/1302436594/video/loading-circle-icon-animation-on-white-background-4k-video-loopable-preloader.jpg?s=640x640&k=20&c=JQzv8UsXNfUnqQSULYW8B858UOM2O5CoXRgG9a0hRFk=",
+    },
+    {
+      original:
+        "https://media.istockphoto.com/id/1302436594/video/loading-circle-icon-animation-on-white-background-4k-video-loopable-preloader.jpg?s=640x640&k=20&c=JQzv8UsXNfUnqQSULYW8B858UOM2O5CoXRgG9a0hRFk=",
+      thumbnail:
+        "https://media.istockphoto.com/id/1302436594/video/loading-circle-icon-animation-on-white-background-4k-video-loopable-preloader.jpg?s=640x640&k=20&c=JQzv8UsXNfUnqQSULYW8B858UOM2O5CoXRgG9a0hRFk=",
+    },
+  ];
+
   useEffect(() => {
-    // console.log("dataProduct>>> ", dataProduct);
     if (dataProduct && dataProduct.images) {
       setImagesProduct([
         {
@@ -58,41 +78,42 @@ function ProductDetailLayout(props) {
         <div className="detail-product container">
           <div className="detail-product-content">
             <div className="img-detail">
-              {/* <ReactImageGallery className="image" items={imagesProduct} /> */}
-              <SkeletonText width={"500px"} height={"500px"} />
+              <ReactImageGallery className="image" items={listImageFake} />
+              {/* <SkeletonText width={"500px"} height={"500px"} /> */}
             </div>
             <div className="content-detail">
               <div className="footer-detail ">
                 {/* <h2>{dataProduct?.name} </h2> */}
                 <h2>
-                  <SkeletonText width={"400px"} height={"20px"} />
+                  <SkeletonText width={"200px"} height={"20px"} />
                 </h2>
                 <div className="product-description">
                   <p className="product-description-title">Thông số sản phẩm</p>
                   <p className="product-description-feature">
-                    {/* {dataProduct?.description} */}
-                    <SkeletonText width={"600px"} height={"20px"} />
-                    <SkeletonText width={"600px"} height={"20px"} />
+                    <SkeletonText width={"220px"} height={"20px"} />
+                  </p>
+                  <p className="product-description-feature">
+                    <SkeletonText width={"250px"} height={"20px"} />
                   </p>
                 </div>
                 <div className="price mt-4">
                   <span className="price-title">Giá:</span>
                   <span className="price-product">
                     <span>
-                      <SkeletonText width={"300px"} height={"25px"} />
+                      <SkeletonText width={"150px"} height={"25px"} />
                     </span>
                   </span>
                 </div>
                 <div className="button-footer">
                   <button
-                    onClick={() => handleAddToCart(dataProduct)}
+                    // onClick={() => handleAddToCart(dataProduct)}
                     className="btn btn-danger add-to-cart"
                   >
                     Thêm vào giỏ
                   </button>
 
                   <button
-                    onClick={() => handleBuyNow(dataProduct)}
+                    // onClick={() => handleBuyNow(dataProduct)}
                     className="btn btn-danger go-to-cart"
                   >
                     Mua ngay
@@ -153,7 +174,7 @@ function ProductDetailLayout(props) {
               <ReactImageGallery className="image" items={imagesProduct} />
             </div>
             <div className="content-detail">
-              <div className="footer-detail ">
+              <div className="footer-detail">
                 <h2>{dataProduct?.name} </h2>
                 {/* <h2>
                 <SkeletonText width={"600px"} height={"20px"} />

@@ -12,7 +12,7 @@
   // overflow: auto;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
   // border: 2px solid #29a07e;
-  // position: relative;
+  position: relative;
 
   &-item:first-child {
     border-radius: 20px 20px 0 0;
@@ -99,12 +99,36 @@
   box-sizing: border-box;
 }
 
+@media only screen and (max-width: 1220px) {
+  .header-menu {
+    &-item {
+      .submenu {
+        width: 995px;
+      }
+    }
+  }
+}
+
 @media only screen and (max-width: 1024px) {
   .header-menu {
     &-item {
       .submenu {
-        width: 785px;
+        width: 800px;
       }
     }
+  }
+}
+@media only screen and (max-width: 915px) {
+  .header-menu {
+    &-item {
+      .submenu {
+        width: 670px;
+      }
+    }
+  }
+}
+@media only screen and (max-width: 768px) {
+  .header-menu {
+    display: none !important;
   }
 }

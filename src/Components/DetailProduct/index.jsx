@@ -4,7 +4,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { getProductById } from "../../services.js/api";
 import { dataCategory } from "../AdminControl/ManagerProducts";
 import ProductDetailLayout from "./ProductDetailLayout";
-import SkeletonProductLayout from "../Skeleton/SkeletonProductLayout";
 import SkeletonText from "../Skeleton/SkeletonText";
 
 function stringToSlug(str) {

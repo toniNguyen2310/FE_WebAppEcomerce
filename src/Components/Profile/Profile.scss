@@ -252,6 +252,9 @@
                 gap: 10px;
                 font-weight: 600;
                 font-size: 13px;
+                .price414 {
+                  display: none;
+                }
               }
 
               .button-rate1 {
@@ -271,7 +274,6 @@
             }
           }
           .user-order-footer {
-            // background-color: #1e8769;
             display: flex;
             flex-direction: row;
             justify-content: space-between;
@@ -321,4 +323,82 @@
 .loading-order-profile {
   display: flex;
   justify-content: center;
+}
+
+//RESPONSIVE
+@media only screen and (max-width: 860px) {
+  .profile-page {
+    .cart-header {
+    }
+    .profile-cover-2 {
+      flex-direction: column;
+      .colum-info {
+        width: 100%;
+      }
+      .colum-detail {
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  .profile-page {
+    .cart-header {
+      line-height: 30px;
+    }
+    .profile-cover-2 {
+      flex-direction: column;
+      padding: 0px;
+      .colum-info {
+        box-sizing: border-box;
+        padding: 10px;
+      }
+      .colum-detail {
+        box-sizing: border-box;
+        h2 {
+          padding: 0 10px;
+        }
+        .listOrder {
+          border-radius: 0;
+          // padding: 5px;
+          .user-order-container {
+            border-radius: 0;
+            .user-order-header {
+              border-radius: 0;
+              .user-order-header-left {
+                font-size: 13px;
+              }
+              .state-order {
+                .order-cancel {
+                  font-size: 11px;
+                }
+              }
+            }
+            .user-order-content {
+              .top {
+                .detail-order {
+                  .nameProduct414 {
+                    font-size: 12px;
+                  }
+                  .price414 {
+                    display: block;
+                  }
+                }
+              }
+            }
+            .button-rate1 {
+              display: none !important;
+            }
+          }
+        }
+        .cover-information {
+          padding: 6px;
+          box-sizing: border-box;
+        }
+      }
+    }
+  }
+}
+@media only screen and (max-width: 360px) {
 }

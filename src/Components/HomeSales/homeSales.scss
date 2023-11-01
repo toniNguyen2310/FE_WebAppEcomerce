@@ -69,6 +69,7 @@
 
   .box-sale-list {
     max-width: 100%;
+    box-sizing: border-box;
     // background-color: red;
     padding: 10px;
     .slick-slide {
@@ -334,44 +335,190 @@
   box-sizing: border-box;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 730px) {
   .home-sale {
-    width: 100%;
-    margin-bottom: 10px;
-    border-radius: 0 !important;
+    // margin-bottom: 10px !important;
     .box-sale-title {
-      padding: 10px !important;
-      .title-sale {
-        font-size: 16px;
-        svg {
-          font-size: 35px;
-        }
-      }
+      // padding: 10px 20px 5px;
+
+      // font-size: 22px;
       .box-countdown {
         .text-countdow {
+          display: none !important;
+        }
+      }
+
+      &-search {
+        a {
           display: none;
         }
+        .btn-view-more {
+          display: block;
+          font-size: 11px;
+        }
+      }
+    }
+    .box-sale-list {
+      max-width: 100%;
+      // background-color: red;
+      padding: 10px;
+      .slick-slide {
+        background-color: #d0021b;
+      }
+
+      .item-cover {
+        width: 210px;
+        // margin-right: 12px;
+
+        .item {
+          padding: 10px;
+          // margin-right: 0px !important;
+        }
+      }
+      // .item-cover:last-child {
+      //   margin-left: 0px !important;
+      // }
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .home-sale {
+    // margin-bottom: 10px !important;
+    .box-sale-title {
+      h2 {
+        font-size: 20px !important;
+      }
+    }
+    .box-sale-list {
+      max-width: 100%;
+      // background-color: red;
+      padding: 10px;
+      box-sizing: border-box;
+      .item-cover {
+        box-sizing: border-box;
+        width: 230px;
+
+        .item {
+          padding: 30px 20px 20px;
+
+          // margin-right: 0px !important;
+        }
+      }
+    }
+  }
+}
+@media only screen and (max-width: 460px) {
+  .home-sale {
+    .box-sale-title {
+      padding: 15px 10px;
+      h2 {
+        font-size: 18px !important;
+      }
+      .box-countdown {
         .box-time {
           margin-right: 5px;
         }
       }
     }
     .box-sale-list {
-      padding: 5px !important;
+      max-width: 100%;
+      // background-color: red;
+      padding: 10px;
+      margin-right: 1px !important;
+      .slick-slide {
+        background-color: #d0021b;
+      }
+
       .item-cover {
+        width: 195px !important;
+
         .item {
-          margin-right: 6px !important;
-          padding: 10px;
+          padding: 30px 10px 20px;
+          margin-right: 10px !important;
+        }
+        .item:last-child {
+          // margin-right: 5px !important;
+        }
+        .item-discount {
+          left: -8px !important;
         }
       }
-      .item-cover:last-child {
-        margin-left: 3px !important;
+    }
+  }
+}
+@media only screen and (max-width: 420px) {
+  .home-sale {
+    .box-sale-list {
+      .item-cover {
+        width: 185px !important;
+        .item {
+          &-infor {
+            &-container {
+              &-price {
+                p {
+                  font-size: 16px;
+                }
+              }
+              &-cart {
+                width: 30px;
+                height: 30px;
+                svg {
+                  font-size: 20px;
+                }
+              }
+            }
+          }
+        }
       }
     }
+  }
+}
+@media only screen and (max-width: 380px) {
+  .home-sale {
+    .box-sale-title {
+      padding: 15px 10px;
+      .title-sale {
+        svg {
+          font-size: 30px;
+          color: #ffe501;
+        }
+      }
+      h2 {
+        font-size: 15px !important;
+      }
+      .box-countdown {
+        .box-time {
+          margin-right: 5px;
+          padding: 2px;
+        }
+      }
+    }
+    .box-sale-list {
+      max-width: 100%;
+      // background-color: red;
+      padding: 5px !important;
 
-    .box-sale-button {
-      // padding: 5px !important;
-      margin-bottom: 0px !important;
+      // margin-right: 2px !important;
+      .item-cover {
+        width: 170px !important;
+        // margin-right: 50px !important;
+        .item {
+          box-sizing: border-box;
+        }
+      }
+      // .item-cover:nth-last-child(2n) {
+      //   margin-left: 0px !important;
+      // }
+    }
+  }
+}
+@media only screen and (max-width: 360px) {
+  .home-sale {
+    .box-sale-list {
+      .item-cover {
+        width: 165px !important;
+      }
     }
   }
 }

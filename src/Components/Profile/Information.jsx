@@ -115,7 +115,7 @@ function Information(props) {
   }, [user]);
 
   return (
-    <div className="user-profile">
+    <div className="user-profile cover-information">
       <h2 className="mg-20px title">Thông tin cá nhân</h2>
       <form>
         <div className="form-group pb-3 mg-20px">

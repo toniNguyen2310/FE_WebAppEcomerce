@@ -3,8 +3,11 @@ import { calcelOrder, getListOrder } from "../../services.js/api";
 import { useSelector } from "react-redux";
 import LoadingButton from "../Export/ExportVarible";
 import { SpinnerDotted } from "spinners-react";
+import { convertSlug } from "../Homepage";
+import { useNavigate } from "react-router-dom";
 
 function Order(props) {
+  const navigate = useNavigate();
   const user = useSelector((state) => state.account.user);
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
   const [listOrder, setListOrder] = useState([]);
@@ -31,6 +34,14 @@ function Order(props) {
     }
   };
 
+  const handleRederectDetailProductSearch = (product) => {
+    // console.log("product>> ", product);
+    // return;
+    const slug = convertSlug(product.name);
+    // console.log("slug>> ", slug);
+    navigate(`/product/${slug}?id=${product._id}`);
+  };
+
   useEffect(() => {
     if (isAuthenticated) {
       fetchListOrder(user._id);
@@ -52,7 +63,7 @@ function Order(props) {
                 return (
                   <div key={e._id} className="user-order-container mt-3">
                     <div className="user-order-header">
-                      <div>
+                      <div className="user-order-header-left">
                         <div className="order-header-right">
                           Đơn hàng: #{e._id.slice(14)}
                         </div>
@@ -86,7 +97,15 @@ function Order(props) {
                       {e.listCart.map((item) => {
                         return (
                           <div key={item.productId._id} className="top  p-3">
-                            <div className="image-detail-order">
+                            <div
+                              className="image-detail-order"
+                              style={{ cursor: "pointer" }}
+                              onClick={() =>
+                                handleRederectDetailProductSearch(
+                                  item.productId
+                                )
+                              }
+                            >
                               <img
                                 loading="lazy"
                                 className="image-detail"
@@ -94,8 +113,24 @@ function Order(props) {
                               />
                             </div>
                             <div className="detail-order">
-                              <span>{item.productId.name}</span>
+                              <span
+                                className="nameProduct414"
+                                style={{ cursor: "pointer" }}
+                                onClick={() =>
+                                  handleRederectDetailProductSearch(
+                                    item.productId
+                                  )
+                                }
+                              >
+                                {item.productId.name}
+                              </span>
                               <span>x{item.quantity}</span>
+                              <span className="price414">
+                                {new Intl.NumberFormat("vi-VN", {
+                                  style: "currency",
+                                  currency: "VND",
+                                }).format(item.productId.priceAfter)}
+                              </span>
                             </div>
                             <div className="button-rate1">
                               <span>

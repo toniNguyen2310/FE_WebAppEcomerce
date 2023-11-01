@@ -3,8 +3,13 @@ import "./ProductCart.scss";
 import { useNavigate } from "react-router-dom";
 import { convertSlug } from "../Homepage";
 function ProductSearchBar(props) {
-  const { listProductSearch, isFocused, setSearchProduct, displaySearch } =
-    props;
+  const {
+    listProductSearch,
+    isFocused,
+    setSearchProduct,
+    displaySearch,
+    className,
+  } = props;
   const navigate = useNavigate();
   const [listData, setListData] = useState([]);
 
@@ -26,7 +31,11 @@ function ProductSearchBar(props) {
     }
   }, [listProductSearch]);
   return (
-    <div className={`listProductBar ${displaySearch ? null : "none"} `}>
+    <div
+      className={`listProductBar ${
+        displaySearch ? null : "none"
+      } ${className} `}
+    >
       {listData.map((e) => {
         return (
           <div

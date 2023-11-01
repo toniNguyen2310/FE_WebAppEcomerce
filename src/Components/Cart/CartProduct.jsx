@@ -19,6 +19,7 @@ import { useNavigate } from "react-router-dom";
 import { createOrder } from "../../services.js/api";
 import InforCheckout from "./InforCheckout";
 import LoadingButton from "../Export/ExportVarible";
+import SkeletonText from "../Skeleton/SkeletonText";
 
 function CartProduct(props) {
   const { dataCart } = props;
@@ -233,16 +234,152 @@ function CartProduct(props) {
     <>
       {contextHolder}
       {isLoading ? (
-        <div className="cart-container container">
-          <div className="cart-container-content">
-            <div className="cart-container-content-left height-skeleton">
-              <SkeletonCart height={500} width={840} />
-            </div>
-            <div className="cart-container-content-right height-skeleton">
-              <SkeletonCart height={500} width={310} />
+        <>
+          <div className="cart-container container cartfull">
+            <div className="cart-container-content">
+              <div className="cart-container-content-left ">
+                <p className="left-title">Giỏ hàng của bạn</p>
+                <p className="left-total">
+                  Bạn đang có{" "}
+                  <b>
+                    <SkeletonText height={15} width={20} /> sản phẩm
+                  </b>{" "}
+                  sản phẩm trong giỏ hàng
+                </p>
+                <div className="list-product">
+                  {[...Array(3).keys()]?.map((e) => {
+                    return (
+                      <div key={e} className="content-checkout pt-3 pb-3">
+                        <div className="image-product-checkout">
+                          {/* <img
+                            loading="lazy"
+                            src="https://lacdau.com/media/product/250-1389-cee443f13b710b757de6b494265fc813.jpg"
+                          /> */}
+                          <SkeletonText height={80} width={100} />
+                        </div>
+                        <div className="content-product-checkout">
+                          <div className="header-product-checkout">
+                            <p className="header-product-checkout-name">
+                              {" "}
+                              <SkeletonText height={15} width={100} />
+                            </p>
+                            <p className="header-product-checkout-price">
+                              {" "}
+                              <SkeletonText height={15} width={50} />
+                            </p>
+                            <p className="footer-product-checkout-after price414">
+                              <SkeletonText height={15} width={50} />
+                            </p>
+                          </div>
+                          <div className="footer-product-checkout">
+                            <p className="footer-product-checkout-after">
+                              {" "}
+                              <SkeletonText height={15} width={50} />
+                            </p>
+                            <div className="quantity">
+                              <span className="minus">-</span>
+                              <span>
+                                {" "}
+                                <SkeletonText height={15} width={15} />
+                              </span>
+                              <span className="plus">+</span>
+                            </div>
+                          </div>
+                          <div className="delete">
+                            <Popconfirm
+                              title="Bạn muốn xóa sản phẩm này?"
+                              // description="Bạn chắc chắn muốn bỏ sản phẩm này ra khỏi giỏ hàng?"
+                              // onConfirm={() => confirm(e.productId._id)}
+                              // onCancel={() => cancel(e.productId._id)}
+                              okText="Yes"
+                              cancelText="No"
+                            >
+                              <p>
+                                <BsTrash />
+                              </p>
+                            </Popconfirm>
+                            <div className="quantity quantity414">
+                              <span
+                                className="minus"
+                                // onClick={() => handledecrease(e.productId._id)}
+                              >
+                                -
+                              </span>
+                              <span>
+                                {" "}
+                                <SkeletonText height={15} width={15} />
+                              </span>
+                              <span
+                                className="plus"
+                                // onClick={() => handleIncrease(e.productId._id)}
+                              >
+                                +
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+              <div className="cart-container-content-right">
+                <div className="footer-detail">
+                  <h3>Thông tin đơn hàng</h3>
+                  <div className="shipping">
+                    <h5>Hình thức thanh toán</h5>
+
+                    <p>
+                      <input
+                        type="radio"
+                        defaultChecked
+                        // checked={true}
+                        style={{ cursor: "pointer" }}
+                      />
+                      Thanh toán khi nhận hàng
+                    </p>
+                    <p>
+                      <input
+                        type="radio"
+                        disabled={true}
+                        style={{ cursor: "no-drop" }}
+                      />
+                      Thanh toán qua chuyển khoản
+                    </p>
+                  </div>
+                  <div className="price">
+                    <p className="price-title">Tổng tiền:</p>
+                    <p className="price-number">
+                      <SkeletonText height={25} width={100} />
+                    </p>
+                  </div>
+                  <p className="freeship">
+                    <b>FREESHIP</b> &nbsp; đã được áp dụng
+                  </p>
+                  <button>
+                    THANH TOÁN
+                    {/* {loadingCheckout && (
+                      <LoadingButton
+                        color={"#ff0000"}
+                        secondaryColor={"#ffffff"}
+                      />
+                    )} */}
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+          {/* <div className="cart-container container cartfull">
+            <div className="cart-container-content">
+              <div className="cart-container-content-left height-skeleton">
+                <SkeletonCart height={500} width={840} />
+              </div>
+              <div className="cart-container-content-right height-skeleton">
+                <SkeletonCart height={500} width={310} />
+              </div>
+            </div>
+          </div> */}
+        </>
       ) : (
         <>
           {dataCart?.length === 0 ? (
@@ -283,6 +420,15 @@ function CartProduct(props) {
                                   style: "currency",
                                   currency: "VND",
                                 }).format(e.productId.priceAfter)}
+                              </p>
+                              <p className="footer-product-checkout-after price414">
+                                {new Intl.NumberFormat("vi-VN", {
+                                  style: "currency",
+                                  currency: "VND",
+                                }).format(
+                                  parseInt(e.productId.priceAfter) *
+                                    parseInt(e.quantity)
+                                )}
                               </p>
                             </div>
                             <div className="footer-product-checkout">
@@ -325,7 +471,7 @@ function CartProduct(props) {
                               </p> */}
 
                               <Popconfirm
-                                title="Bạn chắc chắn muốn bỏ sản phẩm này ra khỏi giỏ hàng?"
+                                title="Bạn muốn xóa sản phẩm này?"
                                 // description="Bạn chắc chắn muốn bỏ sản phẩm này ra khỏi giỏ hàng?"
                                 onConfirm={() => confirm(e.productId._id)}
                                 onCancel={() => cancel(e.productId._id)}
@@ -336,6 +482,25 @@ function CartProduct(props) {
                                   <BsTrash />
                                 </p>
                               </Popconfirm>
+                              <div className="quantity quantity414">
+                                <span
+                                  className="minus"
+                                  onClick={() =>
+                                    handledecrease(e.productId._id)
+                                  }
+                                >
+                                  -
+                                </span>
+                                <span>{e.quantity}</span>
+                                <span
+                                  className="plus"
+                                  onClick={() =>
+                                    handleIncrease(e.productId._id)
+                                  }
+                                >
+                                  +
+                                </span>
+                              </div>
                             </div>
                           </div>
                         </div>

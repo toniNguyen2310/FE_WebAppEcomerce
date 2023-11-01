@@ -2,42 +2,25 @@ import React from "react";
 import "./footer.scss";
 import { MdLocationOn } from "react-icons/md";
 import { BiLogoGmail, BiSolidPhoneCall } from "react-icons/bi";
+
 function Footer(props) {
   return (
     <div className="footer">
       <div className="footer-cover">
-        <div className="box-footer">
-          <p className="box-footer-title">VỀ LẮC ĐẦU</p>
-          <div>
-            <p>Giới thiệu</p>
-            <p>Tuyển dụng</p>
-          </div>
-          <div className="infor"></div>
-        </div>
-        <div className="box-footer">
-          <p className="box-footer-title">HỖ TRỢ KHÁCH HÀNG</p>
-          <div>
-            <p>Hướng dẫn mua hàng trực tuyến</p>
-            <p>Hướng dẫn thanh toán</p>
-            <p>Gửi yêu cầu bảo hành</p>
-            <p>Góp ý, Khiếu Nại</p>
+        <div className="box-img-res">
+          <div className="box-img-res-image">
+            <img
+              src="https://lacdau.com/static/assets/default/images/logo.png"
+              alt=""
+            />
           </div>
         </div>
-        <div className="box-footer">
-          <p className="box-footer-title">CHÍNH SÁCH CHUNG</p>
-          <div>
-            <p>Chính sách, quy định chung</p>
-            <p>Chính sách vận chuyển</p>
-            <p>Chính sách bảo hành</p>
-            <p>Chính sách đổi trả và hoàn tiền</p>
-          </div>
-        </div>
-        <div className="box-footer">
+        <div className="box-footer box-4">
           <p className="box-footer-title">LIÊN HỆ</p>
-          <div>
+          <div className="box-footer-box">
             <p>
               <MdLocationOn />
-              Nam Từ Liêm, Hà Nội
+              Trung Liệt, Đống Đa
             </p>
             <p>
               <BiLogoGmail /> lacdau@gmail.com
@@ -46,6 +29,29 @@ function Footer(props) {
               <BiSolidPhoneCall />
               0349.xxx.461
             </p>
+          </div>
+        </div>
+        <div className="box-footer box-res">
+          <p className="box-footer-title">VỀ LẮC ĐẦU</p>
+          <div className="box-footer-box">
+            <p>Giới thiệu</p>
+            <p>Tuyển dụng</p>
+          </div>
+        </div>
+        <div className="box-footer box-res">
+          <p className="box-footer-title">HỖ TRỢ KHÁCH HÀNG</p>
+          <div className="box-footer-box">
+            <p>Hướng dẫn mua hàng trực tuyến</p>
+            <p>Hướng dẫn thanh toán</p>
+            <p>Yêu cầu bảo hành</p>
+          </div>
+        </div>
+        <div className="box-footer box-res">
+          <p className="box-footer-title">CHÍNH SÁCH CHUNG</p>
+          <div className="box-footer-box">
+            <p>Chính sách đổi trả và hoàn tiền</p>
+            <p>Chính sách, quy định chung</p>
+            <p>Chính sách vận chuyển</p>
           </div>
         </div>
       </div>

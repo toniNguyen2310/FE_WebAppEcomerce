@@ -2,10 +2,12 @@
   position: absolute;
   top: 105%;
   right: 0;
-
+  border-radius: 5px;
+  background-color: #ffffff;
   width: 520px;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
   .content-checkout {
+    border-radius: 5px;
     background-color: #ffffff;
     display: flex;
     gap: 15px;
@@ -49,6 +51,15 @@
   }
 }
 
-.none {
+.min600 {
   display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  width: 100%;
+}
+
+.none {
+  display: none !important;
 }

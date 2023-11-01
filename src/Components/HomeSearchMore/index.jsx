@@ -37,6 +37,7 @@ function HomeSearchMore(props) {
       },
     },
   ];
+
   const dataSearchMore = [
     {
       value: "lot-chuot",
@@ -100,24 +101,18 @@ function HomeSearchMore(props) {
         <Carousel
           swipeToSlide
           draggable
-          autoplay
-          autoplaySpeed={2500}
+          // autoplay
+          // autoplaySpeed={2500}
           slidesPerRow={1}
           slidesToShow={10}
           dots={false}
           infinite={false}
           responsive={responsiveCarousel}
         >
-          {dataSearchMore?.map((e) => {
-            return <SearchMoreCard key={e.label} e={e} />;
+          {dataSearchMore?.map((item) => {
+            return <SearchMoreCard key={item.label} item={item} />;
           })}
         </Carousel>
-
-        {/* <div className="home-category-list">
-          {dataSearchMore?.map((e) => {
-            return <SearchMoreCard key={e.label} e={e} />;
-          })}
-        </div> */}
       </div>
     </div>
   );

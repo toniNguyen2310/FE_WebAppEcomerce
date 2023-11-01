@@ -39,6 +39,7 @@ import SearchOrder from "./Components/SearchOrder.jsx/SearchOrder";
 import { BsFillArrowUpCircleFill } from "react-icons/bs";
 import { HiOutlineSearch } from "react-icons/hi";
 import { TbTruckDelivery } from "react-icons/tb";
+import MenuResponsive from "./Components/Menu/MenuResponsive";
 
 //LAYOUT MAIN
 const Layout = () => {
@@ -83,6 +84,7 @@ const Layout = () => {
         hideProgressBar={false}
         theme="light"
       />
+      <MenuResponsive />
     </div>
   );
 };

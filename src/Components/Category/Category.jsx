@@ -8,6 +8,7 @@ import { dataBrand, dataCategory } from "../AdminControl/ManagerProducts";
 import { getListBrandByCategory, getProducts } from "../../services.js/api";
 import { useDebounce } from "../../utils/hook";
 import SkeletonText from "../Skeleton/SkeletonText";
+import CategoryFillterResponsive from "./CategoryFillterResponsive";
 
 function Category(props) {
   const navigate = useNavigate();
@@ -22,7 +23,8 @@ function Category(props) {
   const [pageSize, setPageSize] = useState(16);
   const [total, setTotal] = useState(0);
   const [categoryLabel, setCategoryLabel] = useState("");
-
+  //RESPONSIVE
+  const [filterRes, setFilterRes] = useState(false);
   //FILTET VALUE
   const [filterValue, setFilterValue] = useState({
     category: "",
@@ -231,6 +233,8 @@ function Category(props) {
           />
 
           <CategoryProduct
+            filterRes={filterRes}
+            setFilterRes={setFilterRes}
             setCheckSort={setCheckSort}
             checkSort={checkSort}
             params={params}
@@ -245,6 +249,17 @@ function Category(props) {
             isLoading={isLoading}
           />
         </div>
+        <CategoryFillterResponsive
+          setFilterRes={setFilterRes}
+          filterRes={filterRes}
+          setCheckSort={setCheckSort}
+          params={params}
+          setParams={setParams}
+          filterValue={filterValue}
+          listData={listData}
+          currentPage={currentPage}
+          listBrand={listBrand}
+        />
       </div>
     </div>
   );

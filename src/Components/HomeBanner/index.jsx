@@ -18,7 +18,7 @@ function HomeBanner(props) {
       if (sub === "lotchuot") {
         navigate("/category/lot-chuot");
       } else if (sub === "banphim") {
-        navigate("/category/ban-phim-gaming");
+        navigate("/category/chuot-gaming");
       }
     }
   };

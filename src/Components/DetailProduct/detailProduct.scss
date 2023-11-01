@@ -1,6 +1,7 @@
 .page-cover {
   margin: 0 auto;
   max-width: 1220px;
+  min-height: 100vh;
   .product {
     margin: 0 auto;
     max-width: 100%;
@@ -64,6 +65,14 @@
         .detail-product-content {
           .img-detail {
             padding: 10px;
+            .skeleton-img {
+              width: 100%;
+              height: 200px;
+              .skeleton-img-rect {
+                width: 100%;
+                height: 100%;
+              }
+            }
           }
           .content-detail {
             padding: 0px;

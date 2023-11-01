@@ -1,5 +1,5 @@
 .footer {
-  display: none;
+  // display: none;
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
@@ -7,13 +7,17 @@
   justify-content: center;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
 
+  width: 100%;
   &-cover {
     display: flex;
     padding: 20px auto;
-    width: 80%;
+    width: 75%;
+    background-color: reds;
     margin-top: 20px;
     flex-direction: row;
     justify-content: flex-start;
+    box-sizing: border-box;
+    // background-color: red;
 
     .box-footer {
       width: 25%;
@@ -38,6 +42,12 @@
             color: #29a07e;
           }
         }
+        .box-footer-box-res {
+          display: none;
+        }
+      }
+      .box-footer-icon-social {
+        display: none;
       }
     }
     .box-footer::after ::before {
@@ -83,8 +93,10 @@
 
 @media only screen and (max-width: 1024px) {
   .footer {
+    width: 100%;
     &-cover {
       width: 100%;
+      padding: 5px;
       .box-footer {
         width: 100%;
       }
@@ -104,7 +116,7 @@
         width: 100%;
         // background-color: red;
         display: flex;
-        justify-content: center;
+        // justify-content: center;
 
         &-image {
           width: 20%;
@@ -119,25 +131,58 @@
         .box-footer-title {
           display: none;
         }
-      }
-      .box-footer {
-        width: 100%;
-        // background-color: #29a07e;
-        justify-content: center;
-        align-items: center;
         .box-footer-box {
-          display: flex;
-          flex-direction: column;
-
-          p {
-            margin: 10px 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+          .box-footer-box-normal {
+            display: none;
+          }
+          .box-footer-box-res {
+            display: block;
+          }
+        }
+        .box-footer-icon-social {
+          display: block;
+          a {
+            margin-right: 10px;
+            svg {
+              font-size: 28px;
+            }
+            .facebook {
+              color: #0866ff;
+            }
+            .insta {
+              color: #e5413e;
+            }
+            .tiktok {
+              color: #000000;
+            }
+            .call {
+              color: #29a07e;
+            }
+            .youtube {
+              color: red;
+            }
           }
         }
       }
+      // .box-footer {
+      //   width: 100%;
+      //   // background-color: #29a07e;
+      //   justify-content: center;
+      //   align-items: center;
+      //   .box-footer-box {
+      //     display: flex;
+      //     flex-direction: column;
+
+      //     p {
+      //       margin: 10px 0;
+      //       display: flex;
+      //       align-items: center;
+      //       justify-content: center;
+      //     }
+      //   }
+      // }
       .box-res {
+        display: none;
         color: #6c757d;
         .box-footer-title {
           margin-bottom: 10px;

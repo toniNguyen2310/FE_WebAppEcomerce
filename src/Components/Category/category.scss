@@ -1,6 +1,7 @@
 .page-category {
   margin: 0 auto;
   max-width: 1220px;
+  min-height: 100vh;
   .category {
     position: relative;
     max-width: 100%;
@@ -623,4 +624,9 @@
       }
     }
   }
+}
+
+.item-img {
+  border-radius: 5px;
+  box-sizing: border-box;
 }

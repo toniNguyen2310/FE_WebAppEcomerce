@@ -20,7 +20,6 @@ function CardProductSkl(props) {
                 &nbsp;
               </p>
               <p className="main-price">
-                {" "}
                 <SkeletonText width={"90px"} height={"16px"} />
               </p>
             </div>

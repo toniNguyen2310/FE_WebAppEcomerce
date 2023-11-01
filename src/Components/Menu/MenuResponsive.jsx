@@ -37,13 +37,15 @@ function MenuResponsive(props) {
         Danh mục
       </div>
       {isAuthenticated ? (
-        <div
+        <a
+          href="tel:0965607272"
+          title="0965.60.7272"
           className="menu-responsive-box"
-          onClick={() => message.info("TÍnh năng sẽ ra mắt trong tuần tới!!!")}
+          // onClick={() => message.info("TÍnh năng sẽ ra mắt trong tuần tới!!!")}
         >
           <BiPhoneCall />
           Hotline
-        </div>
+        </a>
       ) : (
         <div
           className="menu-responsive-box"

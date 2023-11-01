@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { addToCartService } from "../../redux/cart/cartSlice";
 import SkeletonText from "../Skeleton/SkeletonText";
 import "./CardProductest.scss";
+import ContentLoader from "react-content-loader";
 
 function ProductDetailLayout(props) {
   const { dataProduct, isLoading } = props;
@@ -78,6 +79,17 @@ function ProductDetailLayout(props) {
           <div className="detail-product-content">
             <div className="img-detail">
               <ReactImageGallery className="image" items={listImageFake} />
+              {/* <ReactImageGallery className="image" items={listImageFake} /> */}
+              {/* <SkeletonText width={"500px"} height={"500px"} /> */}
+
+              <ContentLoader
+                className="skeleton-img"
+                backgroundColor="#f0f0f0"
+                foregroundColor="#dedede"
+                {...props}
+              >
+                <rect className="skeleton-img-rect" width={"300xpx"} />
+              </ContentLoader>
             </div>
             <div className="content-detail">
               <div className="footer-detail ">

@@ -53,7 +53,7 @@ function Category(props) {
       if (res && res.data) {
         setListData(res.data.products);
         setTotal(res.data.count);
-        setIsLoading(false);
+        // setIsLoading(false);
       } else {
         setIsLoading(false);
       }

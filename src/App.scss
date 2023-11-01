@@ -43,6 +43,9 @@
 
 .layout {
   position: relative;
+
+  box-sizing: border-box;
+
   .scroll-to-top {
     position: fixed !important;
     display: flex;
@@ -108,6 +111,8 @@
       box-shadow: 0 1px 6px #29a07e;
       width: 100%;
       .menu-responsive-box {
+        color: #000;
+        text-decoration: none;
         width: 25%;
         box-sizing: border-box;
         padding: 5px;
@@ -134,3 +139,13 @@
     }
   }
 }
+
+// html,
+// body,
+// #root {
+//   height: 100%;
+// }
+// #root {
+//   display: flex;
+//   flex-direction: column;
+// }

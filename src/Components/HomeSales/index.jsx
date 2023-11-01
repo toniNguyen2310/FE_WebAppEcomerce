@@ -1,17 +1,13 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from "react";
 import { Carousel } from "antd";
+import React, { useEffect, useState } from "react";
 import { BsArrowRightCircle } from "react-icons/bs";
-import { AiOutlineShoppingCart } from "react-icons/ai";
 import { IoIosFlash } from "react-icons/io";
-import "./homeSales.scss";
-import { getProductByDiscountSlice } from "../../services.js/api";
 import { useNavigate } from "react-router-dom";
-import { convertSlug } from "../Homepage";
+import { getProductByDiscountSlice } from "../../services.js/api";
 import CardProduct from "../CardProduct/CardProduct";
-import SkeletonProduct from "../Skeleton/SkeletonProduct";
 import CardProductSkl from "../CardProduct/CardProductSkl";
+import { convertSlug } from "../Homepage";
+import "./homeSales.scss";
 
 function HomeSales(props) {
   const [listProductSales, setListProductSales] = useState([]);
@@ -121,9 +117,7 @@ function HomeSales(props) {
 
   //Handle rederect product
   const handleRederectDetailProduct = (product) => {
-    // console.log("product>> ", product);
     const slug = convertSlug(product.name);
-    // console.log("slug>> ", slug);
     navigate(`/product/${slug}?id=${product._id}`);
   };
 

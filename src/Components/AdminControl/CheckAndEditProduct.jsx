@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
 import {
   Button,
   Col,
   Drawer,
   Form,
+  Image,
   Input,
   Row,
-  Space,
-  Image,
   Select,
+  Space,
 } from "antd";
-import { dataBrand, dataCategory } from "./ManagerProducts";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { putProduct } from "../../services.js/api";
+import { dataBrand, dataCategory } from "./ManagerProducts";
 
 function CheckAndEditProduct(props) {
   const {
@@ -163,7 +163,6 @@ function CheckAndEditProduct(props) {
                   style={{
                     width: 250,
                   }}
-                  // onChange={(value) => setCategory(value)}
                   options={dataCategory.map((category) => {
                     return {
                       value: category.value,
@@ -188,11 +187,9 @@ function CheckAndEditProduct(props) {
                   disabled={isEdit ? false : true}
                   name="brand"
                   initialvalues="Brand"
-                  // defaultValue="All"
                   style={{
                     width: 250,
                   }}
-                  // onChange={(value) => setBrand(value)}
                   options={dataBrand.map((brand) => {
                     return {
                       value: brand.value,

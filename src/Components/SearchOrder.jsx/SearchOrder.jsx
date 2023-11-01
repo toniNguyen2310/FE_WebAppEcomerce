@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./SearchOrder.scss";
 import OrderProduct from "./OrderProduct";
+import "./SearchOrder.scss";
 
-import { getListOrderByPhone } from "../../services.js/api";
 import { Empty, message } from "antd";
+import { getListOrderByPhone } from "../../services.js/api";
 import LoadingButton from "../Export/ExportVarible";
 
 function SearchOrder(props) {
@@ -14,7 +14,6 @@ function SearchOrder(props) {
   const [listData, setListData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  //
   const handleKeyPress = (e) => {
     let key = e.keyCode || e.which;
     if (key === 13) {

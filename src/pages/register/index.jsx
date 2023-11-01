@@ -1,14 +1,10 @@
-import React, { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
-import { NavLink } from "react-router-dom";
+import { message, notification } from "antd";
+import React, { useEffect, useRef, useState } from "react";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { NavLink, useNavigate } from "react-router-dom";
+import LoadingButton from "../../Components/Export/ExportVarible";
 import { callRegister } from "../../services.js/api";
 import "./register.scss";
-import { notification } from "antd";
-import { useDispatch, useSelector } from "react-redux";
-import { message } from "antd";
-import { PropagateLoader } from "react-spinners";
-import LoadingButton from "../../Components/Export/ExportVarible";
 
 function RegisterPage(props) {
   const navigate = useNavigate();

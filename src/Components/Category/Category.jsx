@@ -1,14 +1,13 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-import CategoryFilter from "./CategoryFilter";
-import "./category.scss";
-import CategoryProduct from "./CategoryProduct";
 import { useLocation, useNavigate } from "react-router-dom";
-import { dataBrand, dataCategory } from "../AdminControl/ManagerProducts";
 import { getListBrandByCategory, getProducts } from "../../services.js/api";
 import { useDebounce } from "../../utils/hook";
+import { dataBrand } from "../AdminControl/ManagerProducts";
 import SkeletonText from "../Skeleton/SkeletonText";
 import CategoryFillterResponsive from "./CategoryFillterResponsive";
+import CategoryFilter from "./CategoryFilter";
+import CategoryProduct from "./CategoryProduct";
+import "./category.scss";
 
 function Category(props) {
   const navigate = useNavigate();
@@ -25,7 +24,7 @@ function Category(props) {
   const [categoryLabel, setCategoryLabel] = useState("");
   //RESPONSIVE
   const [filterRes, setFilterRes] = useState(false);
-  //FILTET VALUE
+  //FILTER VALUE
   const [filterValue, setFilterValue] = useState({
     category: "",
     brand: "",
@@ -33,7 +32,7 @@ function Category(props) {
     sort: "",
   });
 
-  //Deboune
+  //Debounce
   let location = useLocation();
   const debounceLocation = useDebounce(location, 100);
   const debounceCurrentPage = useDebounce(currentPage, 300);
@@ -47,13 +46,11 @@ function Category(props) {
     if (filterValue) {
       setIsLoading(true);
       const query = `current=${currentPage}&pageSize=${pageSize}&category=${filterValue.category}&brand=${filterValue.brand}&priceAfter=${filterValue.sort}&filterPrice=${filterValue.price}`;
-      // console.log("query>> ", query);
-      // console.log("TESST DAYYYYY", filterValue.category, params);
-      //FETCT PRODUCT
+
+      //FETCH PRODUCT
       const res = await getProducts(query);
 
       if (res && res.data) {
-        // console.log("NEW res>> ", res);
         setListData(res.data.products);
         setTotal(res.data.count);
         setIsLoading(false);
@@ -70,26 +67,19 @@ function Category(props) {
       params.sort ? params.sort : null,
     ];
     arrayParams = arrayParams.filter((e) => e != null);
-    // if (!params.brand && !params.price && !params.sort) {
-    //   console.log("params rong");
-    //   return;
-    // }
+
     if (arrayParams.length === 0) {
-      // console.log("KO CO PARAMS");
       navigate("");
     } else {
-      // console.log("PARAMS>>> ", `?${arrayParams.join("&")}`);
       navigate(`?${arrayParams.join("&")}`);
     }
   };
 
-  //HANDLE LISTBRAND
+  //HANDLE LIST BRAND
   const renderListBrand = async (category) => {
     if (currentPage === 1) {
       const resBrand = await getListBrandByCategory(category);
-      // console.log("resBrand>> ", resBrand.data);
       if (resBrand && resBrand.data) {
-        // console.log("TAO BRAND");
         setCategoryLabel(resBrand.data.name);
         setListBrand(
           dataBrand.filter((e) => {
@@ -108,9 +98,7 @@ function Category(props) {
   };
 
   //NEW-END
-
   const handleOnchangeProductsFilter = (pagination) => {
-    // console.log("pagination>>> ", pagination);
     window.scrollTo(0, 0);
     if (pagination !== currentPage) {
       setCurrentPage(pagination);
@@ -119,7 +107,6 @@ function Category(props) {
 
   //LOCATION
   useEffect(() => {
-    // console.log("LOCATION>> ", location);
     //CATEGORY
     const categoryLocation = location?.pathname.split("/")[2];
 
@@ -137,15 +124,6 @@ function Category(props) {
     const sortLocation = new URLSearchParams(location.search).get("sort")
       ? new URLSearchParams(location.search).get("sort")
       : "";
-
-    //HANDLE
-    // console.log(
-    //   "data location>>> ",
-    //   categoryLocation,
-    //   brandLocation,
-    //   priceLocation,
-    //   sortLocation
-    // );
 
     if (
       params.brand.includes(brandLocation) &&
@@ -190,18 +168,12 @@ function Category(props) {
 
   //VALUE FILTER
   useEffect(() => {
-    // console.log("filterValue>> ", filterValue);
     setCurrentPage(1);
     fetchProduct();
   }, [debounceFilterValue]);
 
   //PARAMS
   useEffect(() => {
-    // console.log("params Effect >>> ", params);
-    // if (!params.brand && !params.price && !params.sort) {
-    //   console.log("params rong");
-    //   return;
-    // }
     navigateParams();
   }, [params]);
 

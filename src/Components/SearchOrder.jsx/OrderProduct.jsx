@@ -1,15 +1,12 @@
-import React, { useEffect } from "react";
-import { convertSlug } from "../Homepage";
+import React from "react";
 import { useNavigate } from "react-router-dom";
+import { convertSlug } from "../Homepage";
 
 function OrderProduct(props) {
   const { item } = props;
   const navigate = useNavigate();
   const handleRederectDetailProductSearch = (product) => {
-    // console.log("product>> ", product);
-    // return;
     const slug = convertSlug(product.name);
-    // console.log("slug>> ", slug);
     navigate(`/product/${slug}?id=${product._id}`);
   };
   return (
@@ -98,7 +95,6 @@ function OrderProduct(props) {
       </div>
       <div className="user-order-footer d-flex justify-content-between">
         <div>
-          {/* <span className="delete-order">Huỷ đơn</span> */}
           <span className="btn-hide">Huỷ đơn</span>
         </div>
         <div className="total-price">

@@ -1,20 +1,17 @@
 import React, { useEffect, useState } from "react";
-import "./cartHoverHeader.scss";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { convertSlug } from "../Homepage";
+import "./cartHoverHeader.scss";
 
 function CartHoverHeader(props) {
   const [listData, setListData] = useState([]);
   const listCart = useSelector((state) => state.cart.listCart);
   const navigate = useNavigate();
 
-  //HANDLE DERECT PRODUCT DETAIL
-  const handleRederectDetailProductSearch = (product) => {
-    // console.log("product>> ", product);
-    // return;
+  //HANDLE DIRECT PRODUCT DETAIL
+  const handleRedirectDetailProductSearch = (product) => {
     const slug = convertSlug(product.name);
-    // console.log("slug>> ", slug);
     navigate(`/product/${slug}?id=${product._id}`);
   };
 
@@ -40,7 +37,7 @@ function CartHoverHeader(props) {
                     <div className="image-detail-order">
                       <img
                         onClick={() =>
-                          handleRederectDetailProductSearch(e.productId)
+                          handleRedirectDetailProductSearch(e.productId)
                         }
                         loading="lazy"
                         className="image-detail"
@@ -51,7 +48,7 @@ function CartHoverHeader(props) {
                       <span
                         className="detail-order-title"
                         onClick={() =>
-                          handleRederectDetailProductSearch(e.productId)
+                          handleRedirectDetailProductSearch(e.productId)
                         }
                       >
                         {e.productId.name}

@@ -1,7 +1,7 @@
-import React from "react";
-import "./homeSearchMore.scss";
-import SearchMoreCard from "./SearchMoreCard";
 import { Carousel } from "antd";
+import React from "react";
+import SearchMoreCard from "./SearchMoreCard";
+import "./homeSearchMore.scss";
 function HomeSearchMore(props) {
   const responsiveCarousel = [
     {

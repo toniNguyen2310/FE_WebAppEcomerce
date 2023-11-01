@@ -5,10 +5,10 @@ function SkeletonCart(props) {
   const { height, width } = props;
   return (
     <ContentLoader height={height} width={width}>
-      {/* <rect width={width} height={height} /> */}
       <rect x="10" y="10" rx="2" ry="2" width={width} height={height} />
     </ContentLoader>
   );
 }
+O;
 
 export default SkeletonCart;

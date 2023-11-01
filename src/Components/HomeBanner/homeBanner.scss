@@ -2,8 +2,6 @@
   width: 100%;
   height: auto;
   display: flex;
-  // flex-direction: row;
-  // margin: auto 0 20px auto;
   margin-bottom: 20px;
   flex-wrap: wrap;
   box-sizing: border-box;
@@ -210,11 +208,9 @@
 @media only screen and (max-width: 768px) {
   .home-banner-group {
     padding: 0 5px;
-    // background-color: #ededed !important;
     .home-center {
       width: 100%;
       height: 100%;
-      // margin-right: 0px;
     }
     .home-right {
       display: none;

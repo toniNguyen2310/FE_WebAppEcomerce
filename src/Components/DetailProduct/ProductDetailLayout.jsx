@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import "./CardProductest.scss";
 import ReactImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/scss/image-gallery.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { displayCart, addToCartService } from "../../redux/cart/cartSlice";
 import { useNavigate } from "react-router-dom";
+import { addToCartService } from "../../redux/cart/cartSlice";
 import SkeletonText from "../Skeleton/SkeletonText";
+import "./CardProductest.scss";
 
 function ProductDetailLayout(props) {
   const { dataProduct, isLoading } = props;
@@ -19,7 +19,6 @@ function ProductDetailLayout(props) {
     if (isAuthenticated) {
       //TRƯỜNG HỢP ĐÃ ĐĂNG NHẬP
       const data = { idUser: user._id, product: product };
-      // console.log(">>", data);
       dispatch(addToCartService(product));
     } else {
       //TRƯỜNG HỢP KO ĐĂNG NHẬP
@@ -79,11 +78,9 @@ function ProductDetailLayout(props) {
           <div className="detail-product-content">
             <div className="img-detail">
               <ReactImageGallery className="image" items={listImageFake} />
-              {/* <SkeletonText width={"500px"} height={"500px"} /> */}
             </div>
             <div className="content-detail">
               <div className="footer-detail ">
-                {/* <h2>{dataProduct?.name} </h2> */}
                 <h2>
                   <SkeletonText width={"200px"} height={"20px"} />
                 </h2>
@@ -105,19 +102,13 @@ function ProductDetailLayout(props) {
                   </span>
                 </div>
                 <div className="button-footer">
-                  <button
-                    // onClick={() => handleAddToCart(dataProduct)}
-                    className="btn btn-danger add-to-cart"
-                  >
+                  <button className="btn btn-danger add-to-cart">
                     Thêm vào giỏ
                   </button>
 
-                  <button
-                    // onClick={() => handleBuyNow(dataProduct)}
-                    className="btn btn-danger go-to-cart"
-                  >
+                  <buttons className="btn btn-danger go-to-cart">
                     Mua ngay
-                  </button>
+                  </buttons>
                 </div>
                 <div className="detail-product-sale ">
                   <div className="icon-sale">
@@ -176,9 +167,7 @@ function ProductDetailLayout(props) {
             <div className="content-detail">
               <div className="footer-detail">
                 <h2>{dataProduct?.name} </h2>
-                {/* <h2>
-                <SkeletonText width={"600px"} height={"20px"} />
-              </h2> */}
+
                 <div className="product-description">
                   <p className="product-description-title">Thông số sản phẩm</p>
                   <p className="product-description-feature">

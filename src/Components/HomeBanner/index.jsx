@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
 import { Carousel } from "antd";
+import React, { useRef } from "react";
 
-import "./homeBanner.scss";
-import MenuCategory from "../Menu";
 import { useNavigate } from "react-router-dom";
+import MenuCategory from "../Menu";
+import "./homeBanner.scss";
 function HomeBanner(props) {
   const navigate = useNavigate();
 
@@ -14,7 +14,6 @@ function HomeBanner(props) {
   const onMouseUp = (e, sub) => {
     const { x, y } = pointer.current;
     if (Math.abs(e.clientX - x) < 10 && Math.abs(e.clientY - y) < 10) {
-      // console.log("CLICK");
       if (sub === "lotchuot") {
         navigate("/category/lot-chuot");
       } else if (sub === "banphim") {
@@ -32,18 +31,8 @@ function HomeBanner(props) {
         zindex={4}
       />
 
-      {/* <div className="modal-menu">
-        <MenuCategory position={"absolute"} background={"red"} />
-      </div> */}
-
       <div className="home-center">
-        <Carousel
-          swipeToSlide
-          draggable
-          autoplay
-          accessibility={true}
-          // afterChange={onSwipefunc}
-        >
+        <Carousel swipeToSlide draggable autoplay accessibility={true}>
           <div
             onMouseDown={onMouseDown}
             onMouseUp={(e) => onMouseUp(e, "lotchuot")}

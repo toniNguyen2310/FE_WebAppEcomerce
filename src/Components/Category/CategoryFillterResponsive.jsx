@@ -1,12 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { Checkbox } from "antd";
-import {
-  dataBrand,
-  dataCategory,
-  dataPrice,
-} from "../AdminControl/ManagerProducts";
+import { Checkbox, Menu } from "antd";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Menu } from "antd";
+import { dataCategory, dataPrice } from "../AdminControl/ManagerProducts";
 
 function getItem(label, key, icon, children, type) {
   return {
@@ -20,8 +15,7 @@ function getItem(label, key, icon, children, type) {
 function CategoryFillterResponsive(props) {
   const {
     filterValue,
-    listData,
-    currentPage,
+
     listBrand,
     setCheckSort,
     setParams,
@@ -29,8 +23,7 @@ function CategoryFillterResponsive(props) {
     filterRes,
     setFilterRes,
   } = props;
-  const [checkBrand, setCheckBrand] = useState("");
-  const [checkFilterPrice, setCheckFilterPrice] = useState("");
+
   const navigate = useNavigate();
 
   //FILTER MENU CATEGORY
@@ -50,31 +43,24 @@ function CategoryFillterResponsive(props) {
     if (category === filterValue.category) {
       return;
     }
-    // console.log("TESTDAY", category, filterValue.category);
     setCheckBrand("");
     setCheckSort("");
     setCheckFilterPrice("");
     setParams({ brand: "", price: "", sort: "" });
     navigate(`/category/${category}`);
-    // renderListBrand(category);
   };
 
   //Filter Brand
   const onChangeBrand = (e) => {
     let paramsBrand = `brand=${e.target.value}`;
-    // console.log(`checked `, e);
     if (e.target.checked) {
       setParams({ ...params, brand: paramsBrand });
-      // console.log("chon");
       setCheckBrand(e.target.value);
-      // navigate(`?${paramsBrand}`);
       return;
     }
     if (e.target.checked === false) {
-      // console.log("ko chon");
       setCheckBrand("");
       setParams({ ...params, brand: "" });
-      // navigate(``);
       return;
     }
   };
@@ -152,7 +138,6 @@ function CategoryFillterResponsive(props) {
             style={{
               width: 250,
             }}
-            // defaultSelectedKeys={[filterValue?.category]}
             defaultOpenKeys={["category"]}
             selectedKeys={[filterValue?.category]}
             mode="inline"

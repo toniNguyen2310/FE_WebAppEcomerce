@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 function InforCheckout(props) {
   const {
@@ -19,7 +19,7 @@ function InforCheckout(props) {
   const user = useSelector((state) => state.account.user);
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
 
-  //INFOR USER DEFAULT WHEN AUTHENTICATED
+  //INFO USER DEFAULT WHEN AUTHENTICATED
   const setDefaultInfoCa = () => {
     if (!isAuthenticated) {
       return;

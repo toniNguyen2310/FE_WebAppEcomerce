@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   AiFillFacebook,
   AiFillYoutube,
@@ -6,22 +7,20 @@ import {
 import { BiLogoGmail, BiSolidPhoneCall } from "react-icons/bi";
 import { BsFillBagCheckFill, BsInstagram, BsSearch } from "react-icons/bs";
 import { FaTiktok, FaUserCircle } from "react-icons/fa";
+import { FiPhoneCall } from "react-icons/fi";
 import { GrLocation } from "react-icons/gr";
 import { MdLocationOn } from "react-icons/md";
 import { PiSpeakerSimpleHighBold } from "react-icons/pi";
-import { NavLink } from "react-router-dom";
-import DropdownComponent from "../Dropdown";
 import { TfiMenuAlt } from "react-icons/tfi";
-import MenuCategory from "../Menu";
-import { FiPhoneCall } from "react-icons/fi";
-import "./header.scss";
 import { useSelector } from "react-redux";
-import { useEffect, useState, useRef } from "react";
-import { useDebounce } from "../../utils/hook";
-import { searchProductNavbarAPI } from "../../services.js/api";
-import ProductSearchBar from "./ProductSearchBar";
-import CartHoverHeader from "../CartHoverHeader/CartHoverHeader";
+import { NavLink } from "react-router-dom";
 import { SpinnerDotted } from "spinners-react";
+import { searchProductNavbarAPI } from "../../services.js/api";
+import { useDebounce } from "../../utils/hook";
+import CartHoverHeader from "../CartHoverHeader/CartHoverHeader";
+import MenuCategory from "../Menu";
+import ProductSearchBar from "./ProductSearchBar";
+import "./header.scss";
 
 function HeaderExport(props) {
   const {
@@ -43,40 +42,30 @@ function HeaderExport(props) {
 
   //SEARCH PRODUCT
   const getListPRoductsWhenSearch = async (value) => {
-    // console.log("value");
     if (value) {
       setIsLoadingSearch(true);
-      // console.log("value1");
       const res = await searchProductNavbarAPI(value.trim());
       if (res && res.data) {
         setIsLoadingSearch(false);
-        // console.log("DATA SEARCH>> ", res);
         setListProductSearch(res.data);
       } else {
         setIsLoadingSearch(false);
-        // console.log("KO CO");
         setListProductSearch([]);
       }
     } else if (!value) {
-      // console.log("value2");
       setListProductSearch([]);
     }
   };
 
   useEffect(() => {
-    // console.log("searchProduct>> ", searchProduct);
     if (!searchProduct) {
-      // console.log("ko");
       getListPRoductsWhenSearch();
-      // return;
     } else {
-      // console.log("co");
       getListPRoductsWhenSearch(searchProduct);
     }
   }, [debounceSearchProduct]);
 
   window.addEventListener("click", function (event) {
-    // console.log("EVENT>>> ", event.target.closest("#Seachbar"));
     if (!event.target.closest(`#Seachbar${idUnique}`)) {
       setDisPlaySearch(false);
     } else {
@@ -231,16 +220,15 @@ function HeaderExport(props) {
                 style={fixedHeader ? { width: "15%" } : null}
               >
                 <img
+                  loading="lazy"
                   className="header__main__cover__left-logo-img"
                   src="https://lacdau.com/static/assets/default/images/logo.png"
-                  // src="https://e7.pngegg.com/pngimages/775/938/png-clipart-body-jewellery-font-baymax-baymax-body-jewellery.png"
                   alt=""
                 />
               </NavLink>
               <div className="header__main__cover__left-menu margin-left__30px">
                 <p
                   className="header__main__cover__left-menu-title"
-                  // onClick={() => setIsDisplayMenu(!isDisplayMenu)}
                   onClick={() => (isDisplayMenu ? closeMenu() : openMenu())}
                 >
                   <TfiMenuAlt /> &nbsp; DANH MỤC

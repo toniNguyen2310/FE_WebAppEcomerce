@@ -1,11 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
-import "./cartPage.scss";
-
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useDebounce } from "../../utils/hook";
-import Loading from "../Loading";
 import { useNavigate } from "react-router-dom";
 import CartProduct from "./CartProduct";
+import "./cartPage.scss";
 
 function Cart(props) {
   const navigate = useNavigate();

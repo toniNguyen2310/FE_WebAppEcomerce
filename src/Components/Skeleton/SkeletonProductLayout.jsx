@@ -7,7 +7,6 @@ function SkeletonProductLayout(props) {
       <ContentLoader
         width={600}
         height={500}
-        //   viewBox="0 0 450 400"
         backgroundColor="#f0f0f0"
         foregroundColor="#dedede"
         {...props}
@@ -18,7 +17,6 @@ function SkeletonProductLayout(props) {
       <ContentLoader
         width={600}
         height={500}
-        //   viewBox="0 0 450 400"
         backgroundColor="#f0f0f0"
         foregroundColor="#dedede"
         {...props}

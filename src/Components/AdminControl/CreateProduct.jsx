@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
 import {
   Button,
   Col,
   Drawer,
   Form,
+  Image,
   Input,
   Row,
-  Space,
-  Image,
   Select,
+  Space,
 } from "antd";
-import { dataBrand, dataCategory } from "./ManagerProducts";
-import { callCreateProduct } from "../../services.js/api";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
+import { callCreateProduct } from "../../services.js/api";
+import { dataBrand, dataCategory } from "./ManagerProducts";
 
 function CreateProduct(props) {
   const { setOpenModalCreate, openModalCreate, fetchProduct } = props;
@@ -137,11 +137,9 @@ function CreateProduct(props) {
                 <Select
                   name="brand"
                   initialvalues="Brand"
-                  // defaultValue="All"
                   style={{
                     width: 200,
                   }}
-                  // onChange={(value) => setBrand(value)}
                   options={dataBrand.map((brand) => {
                     return {
                       value: brand.value,

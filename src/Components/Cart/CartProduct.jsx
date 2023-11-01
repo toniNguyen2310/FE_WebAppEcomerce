@@ -1,25 +1,21 @@
+import { Empty, Popconfirm, message } from "antd";
 import React, { useEffect, useRef, useState } from "react";
-import "./cartProduct.scss";
-import "react-image-gallery/styles/scss/image-gallery.scss";
 import { BsTrash } from "react-icons/bs";
+import "react-image-gallery/styles/scss/image-gallery.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { Empty } from "antd";
-import { convertSlug } from "../Homepage";
-
-import { Button, message, Space, Popconfirm } from "antd";
-
+import { useNavigate } from "react-router-dom";
 import {
   decreaseQuantity,
   deleteAllCart,
   deleteProduct,
   increaseQuantity,
 } from "../../redux/cart/cartSlice";
-import SkeletonCart from "../Skeleton/SkeletonCart";
-import { useNavigate } from "react-router-dom";
 import { createOrder } from "../../services.js/api";
-import InforCheckout from "./InforCheckout";
 import LoadingButton from "../Export/ExportVarible";
+import { convertSlug } from "../Homepage";
 import SkeletonText from "../Skeleton/SkeletonText";
+import InforCheckout from "./InforCheckout";
+import "./cartProduct.scss";
 
 function CartProduct(props) {
   const { dataCart } = props;
@@ -52,12 +48,11 @@ function CartProduct(props) {
 
   //INCREASE QUANTITY
   const handleIncrease = (id) => {
-    // console.log("id product>>> ", id);
     dispatch(increaseQuantity(id));
   };
 
   //DECREASE QUANTITY
-  const handledecrease = (id) => {
+  const handleDecrease = (id) => {
     dispatch(decreaseQuantity(id));
   };
 
@@ -165,7 +160,6 @@ function CartProduct(props) {
         quantity: e.quantity,
       };
     });
-    // console.log("SAVE1>>> ", { id: user._id, cart: dataCart });
 
     if (isAuthenticated) {
       let data = {
@@ -177,12 +171,10 @@ function CartProduct(props) {
         address: address.trim(),
         listCart: dataCart,
       };
-      // console.log("DATA>> ", data);
 
       const res = await createOrder(data);
       if (res && res.data) {
         setLoadingCheckout(false);
-        // console.log("res>> ", res.data);
         success();
         dispatch(deleteAllCart());
         return;
@@ -198,11 +190,9 @@ function CartProduct(props) {
         address: address.trim(),
         listCart: dataCart,
       };
-      // console.log("DATA>> ", data);
       const res = await createOrder(data);
       if (res && res.data) {
         setLoadingCheckout(false);
-        // console.log("res>> ", res.data);
         success();
         dispatch(deleteAllCart());
         return;
@@ -213,7 +203,6 @@ function CartProduct(props) {
   };
 
   useEffect(() => {
-    // console.log("listCart>> ", dataCart);
     if (dataCart?.length === 0) {
       setTotalCost(0);
       setTotalProduct(0);
@@ -301,7 +290,7 @@ function CartProduct(props) {
                             <div className="quantity quantity414">
                               <span
                                 className="minus"
-                                // onClick={() => handledecrease(e.productId._id)}
+                                // onClick={() => handleDecrease(e.productId._id)}
                               >
                                 -
                               </span>
@@ -445,7 +434,7 @@ function CartProduct(props) {
                                 <span
                                   className="minus"
                                   onClick={() =>
-                                    handledecrease(e.productId._id)
+                                    handleDecrease(e.productId._id)
                                   }
                                 >
                                   -
@@ -486,7 +475,7 @@ function CartProduct(props) {
                                 <span
                                   className="minus"
                                   onClick={() =>
-                                    handledecrease(e.productId._id)
+                                    handleDecrease(e.productId._id)
                                   }
                                 >
                                   -

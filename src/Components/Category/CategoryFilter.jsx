@@ -1,12 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { Checkbox } from "antd";
-import {
-  dataBrand,
-  dataCategory,
-  dataPrice,
-} from "../AdminControl/ManagerProducts";
+import { Checkbox, Menu } from "antd";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Menu } from "antd";
+import { dataCategory, dataPrice } from "../AdminControl/ManagerProducts";
 
 function getItem(label, key, icon, children, type) {
   return {
@@ -19,16 +14,7 @@ function getItem(label, key, icon, children, type) {
 }
 
 function CategoryFilter(props) {
-  const {
-    filterValue,
-    listData,
-    currentPage,
-    listBrand,
-    setCheckSort,
-    setParams,
-    params,
-  } = props;
-  // const [checkBrand, setCheckBrand] = useState("");
+  const { filterValue, listBrand, setCheckSort, setParams, params } = props;
 
   const navigate = useNavigate();
 
@@ -49,38 +35,26 @@ function CategoryFilter(props) {
     if (category === filterValue.category) {
       return;
     }
-    // console.log("TESTDAY", category, filterValue.category);
-
     setCheckSort("");
-
     setParams({ brand: "", price: "", sort: "" });
     navigate(`/category/${category}`);
-    // renderListBrand(category);
   };
 
   //Filter Brand
   const onChangeBrand = (e) => {
     let paramsBrand = `brand=${e.target.value}`;
-    // console.log(`checked `, e);
     if (e.target.checked) {
       setParams({ ...params, brand: paramsBrand });
-      // console.log("chon");
-
-      // navigate(`?${paramsBrand}`);
       return;
     }
     if (e.target.checked === false) {
-      // console.log("ko chon");
-
       setParams({ ...params, brand: "" });
-      // navigate(``);
       return;
     }
   };
 
   //Filter Option Price
   const onchangeFilterPrice = (e) => {
-    // console.log("change price>>> ", e);
     let paramsPrice = `price=${e.target.value}`;
     if (e.target.checked) {
       setParams({ ...params, price: paramsPrice });
@@ -139,7 +113,6 @@ function CategoryFilter(props) {
             style={{
               width: 250,
             }}
-            // defaultSelectedKeys={[filterValue?.category]}
             defaultOpenKeys={["category"]}
             selectedKeys={[filterValue?.category]}
             mode="inline"

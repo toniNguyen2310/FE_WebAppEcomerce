@@ -1,12 +1,12 @@
+import { Button, Input, Popconfirm, Space, Table } from "antd";
 import React, { useEffect, useState } from "react";
-import { Space, Table, Input, Button, Popconfirm } from "antd";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import {
-  EyeOutlined,
-  EditOutlined,
   DeleteOutlined,
+  EditOutlined,
+  EyeOutlined,
   PlusOutlined,
 } from "@ant-design/icons";
 import {
@@ -15,8 +15,8 @@ import {
   getProducts,
 } from "../../services.js/api";
 import SelectCategory from "../SelectCategoryAndBrand";
-import CreateProduct from "./CreateProduct";
 import CheckAndEditProduct from "./CheckAndEditProduct";
+import CreateProduct from "./CreateProduct";
 
 const columsSearch = [
   {

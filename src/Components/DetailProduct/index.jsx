@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import "./detailProduct.scss";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getProductById } from "../../services.js/api";
 import { dataCategory } from "../AdminControl/ManagerProducts";
-import ProductDetailLayout from "./ProductDetailLayout";
 import SkeletonText from "../Skeleton/SkeletonText";
+import ProductDetailLayout from "./ProductDetailLayout";
+import "./detailProduct.scss";
 
 function stringToSlug(str) {
   // remove accents
@@ -48,7 +48,6 @@ function DetailProduct(props) {
   }, [id]);
 
   useEffect(() => {
-    // console.log(dataProduct?.category);
     const found = dataCategory.find((e) => e.value === dataProduct?.category);
     setCategoryName(found?.label);
   }, [dataProduct]);

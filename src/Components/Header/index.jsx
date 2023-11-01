@@ -1,20 +1,20 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { displayMenu, notDisplayMenu } from "../../redux/menu/menuSlice,";
-import HeaderExport from "./HeaderExport";
-import "./header.scss";
-import { useDebounce } from "../../utils/hook";
 import { useLocation } from "react-router-dom";
-import {
-  adjustListCartByUserID,
-  fetchListCartByUserId,
-} from "../../services.js/api";
 import {
   displayCart,
   doFetchListCartError,
   doFetchListCartPending,
 } from "../../redux/cart/cartSlice";
+import { displayMenu, notDisplayMenu } from "../../redux/menu/menuSlice,";
+import {
+  adjustListCartByUserID,
+  fetchListCartByUserId,
+} from "../../services.js/api";
+import { useDebounce } from "../../utils/hook";
+import HeaderExport from "./HeaderExport";
+import "./header.scss";
 function Header(props) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.account.user);
@@ -26,7 +26,7 @@ function Header(props) {
   const [offset, setOffset] = useState(0);
   const [isScroll, setIsScroll] = useState(false);
   const debounceOffset = useDebounce(offset, 10);
-  const debouncelistCart = useDebounce(listCart, 300);
+  const debounceListCart = useDebounce(listCart, 300);
   const debounceLocation = useDebounce(location, 100);
 
   //SCROLL
@@ -54,8 +54,6 @@ function Header(props) {
 
   //SAVE WHEN LIST DATA CHANGE
   useEffect(() => {
-    // console.log("HEADER when listcart change>> ", listCart);
-    // console.log("user2>>> ", user);
     if (isAuthenticated) {
       if (JSON.stringify(listCart) !== JSON.stringify(listCartFirst)) {
         let dataCart = listCart;
@@ -65,27 +63,21 @@ function Header(props) {
             quantity: e.quantity,
           };
         });
-        // console.log("SAVE1>>> ", { id: user._id, cart: dataCart });
-        // if(user &&dataCart)
+
         adjustListCartByUserID({ id: user._id, cart: dataCart });
-        // console.log("KHAC1");
-      } else {
-        // console.log("GIONG1", listCart);
       }
     }
-  }, [debouncelistCart]);
+  }, [debounceListCart]);
 
   useEffect(() => {
     //FETCH DATA CART WHEN CHANGE LOCATION / FECTH USER
     const fetchListCart = async () => {
-      // console.log("user3>>> ", user);
       //WHEN AUTHENTICATED
       dispatch(doFetchListCartPending());
       if (user && user._id) {
         //RENDER LIST CART BY API
         const res = await fetchListCartByUserId(user._id);
         if (res && res.data) {
-          // console.log("CART>> ", res.data);
           dispatch(displayCart(res.data));
         } else {
           //STOP LOADING
@@ -93,25 +85,11 @@ function Header(props) {
         }
       } else {
         let listCartLS = JSON.parse(localStorage.getItem("listCart"));
-        // if (
-        //   localStorage.getItem("listCart") &&
-        //   localStorage.getItem("listCart") !== "undefined"
-        // ) {
-        //   console.log("CO", JSON.parse(localStorage.getItem("listCart")));
-        //   localStorage.setItem("listCart", JSON.stringify([]));
-        //   return;
-        // } else {
-        //   console.log("KO CO");
-        //   localStorage.setItem("listCart", JSON.stringify([]));
-        //   return;
-        // }
         //WHEN NOT AUTHENTICATED
         if (!listCartLS) {
-          // console.log("LS RONG");
           localStorage.setItem("listCart", JSON.stringify([]));
           return;
         } else {
-          // console.log("CO LS");
           dispatch(displayCart(listCartLS));
         }
       }

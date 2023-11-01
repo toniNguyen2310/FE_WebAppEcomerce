@@ -1,13 +1,12 @@
-import React, { useState } from "react";
-import { ShopOutlined, UserOutlined, HomeOutlined } from "@ant-design/icons";
+import { HomeOutlined, ShopOutlined, UserOutlined } from "@ant-design/icons";
 import { Breadcrumb, Layout, Menu, theme } from "antd";
-import { Outlet } from "react-router-dom";
-const { Header, Content, Footer, Sider } = Layout;
-import { NavLink } from "react-router-dom";
-import DropdownComponent from "../Dropdown";
+import React, { useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { useSelector } from "react-redux";
+import { NavLink, Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import DropdownComponent from "../Dropdown";
+const { Header, Content, Footer, Sider } = Layout;
 const items = [
   {
     label: <NavLink to={`/admin`}>DASHBOARD</NavLink>,

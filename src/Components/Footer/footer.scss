@@ -14,11 +14,9 @@
     margin-top: 20px;
     flex-direction: row;
     justify-content: flex-start;
-    // box-sizing: border-box;
 
     .box-footer {
       width: 25%;
-      // box-sizing: border-box;
       display: flex;
       flex-direction: column;
       margin-right: 100px;
@@ -28,7 +26,6 @@
         font-size: 14px;
         line-height: 18px;
         margin-bottom: 17px;
-        // box-sizing: border-box;
       }
       .box-footer-box {
         p {
@@ -84,16 +81,6 @@
   box-sizing: border-box;
 }
 
-@media only screen and (max-width: 1166px) {
-  .footer {
-    &-cover {
-      // display: flex;
-      // justify-content: flex-start;
-      .box-footer {
-      }
-    }
-  }
-}
 @media only screen and (max-width: 1024px) {
   .footer {
     &-cover {

@@ -9,7 +9,6 @@ function SkeletonText(props) {
       height={height}
       backgroundColor="#f0f0f0"
       foregroundColor="#dedede"
-      // {...props}
     >
       <rect width={width} height={height} />
     </ContentLoader>

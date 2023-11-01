@@ -1,17 +1,12 @@
+import { Divider, Dropdown, Space, message, theme } from "antd";
 import React, { useState } from "react";
-import { DownOutlined } from "@ant-design/icons";
-import { Dropdown, Space, Divider, Button, theme, message } from "antd";
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  doLogoutAction,
-  doGetAccountPending,
-} from "../../redux/account/accountSlice";
+import { useNavigate } from "react-router-dom";
+import { doLogoutAction } from "../../redux/account/accountSlice";
 
-import { callLogout } from "../../services.js/api";
 import { NavLink } from "react-router-dom";
 import { doLogoutCart } from "../../redux/cart/cartSlice";
-import LoadingButton from "../Export/ExportVarible";
+import { callLogout } from "../../services.js/api";
 
 const { useToken } = theme;
 
@@ -40,7 +35,6 @@ const DropdownComponent = () => {
         }
       : null,
   ];
-  //BUG đăng xuất với ADMIN => khi đăng xuất chuyển về trang Login chứ ko phải trang hompage
 
   //HANDLE LOGOUT
   const handleLogout = async () => {
@@ -48,7 +42,6 @@ const DropdownComponent = () => {
     setIsLoading(true);
     if (res && res.data) {
       setIsLoading(false);
-      // console.log("res logout>>> ", res);
       dispatch(doLogoutAction());
       dispatch(doLogoutCart());
       message.success("Đăng Xuất thành công");
@@ -63,7 +56,6 @@ const DropdownComponent = () => {
     backgroundColor: token.colorBgElevated,
     borderRadius: token.borderRadiusLG,
     boxShadow: token.boxShadowSecondary,
-    // marginLeft: "-20px",
     marginTop: "8px",
   };
   const menuStyle = {

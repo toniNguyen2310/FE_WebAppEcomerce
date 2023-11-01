@@ -10,8 +10,6 @@ function SearchMoreCard(props) {
   const onMouseUp = (e, item) => {
     const { x, y } = pointer.current;
     if (Math.abs(e.clientX - x) < 10 && Math.abs(e.clientY - y) < 10) {
-      // console.log("CLICK");
-
       navigate(`/category/${item}`);
     }
   };
@@ -20,9 +18,6 @@ function SearchMoreCard(props) {
   return (
     <div
       className="home-category-list-item"
-      // onClick={() => {
-      //   navigate(`/category/${e.value}`);
-      // }}
       onMouseDown={onMouseDown}
       onMouseUp={(e) => onMouseUp(e, item.value)}
     >

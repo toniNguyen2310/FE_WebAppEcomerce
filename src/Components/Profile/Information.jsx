@@ -1,8 +1,8 @@
-import React, { useEffect, useState, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { editInforUSer } from "../../services.js/api";
-import { doEditAccount } from "../../redux/account/accountSlice";
 import { message } from "antd";
+import React, { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { doEditAccount } from "../../redux/account/accountSlice";
+import { editInforUSer } from "../../services.js/api";
 import LoadingButton from "../Export/ExportVarible";
 
 function Information(props) {

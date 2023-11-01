@@ -15,6 +15,7 @@ function HomeTrend(props) {
         >
           <img
             loading="lazy"
+            O
             src="https://lacdau.com/media/lib/26-07-2022/1.png"
             alt=""
           />

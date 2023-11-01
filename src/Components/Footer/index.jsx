@@ -1,7 +1,7 @@
 import React from "react";
-import "./footer.scss";
-import { MdLocationOn } from "react-icons/md";
 import { BiLogoGmail, BiSolidPhoneCall } from "react-icons/bi";
+import { MdLocationOn } from "react-icons/md";
+import "./footer.scss";
 
 function Footer(props) {
   return (

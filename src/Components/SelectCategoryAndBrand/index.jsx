@@ -1,11 +1,10 @@
-import React, { useState } from "react";
 import { Select, Space } from "antd";
+import React from "react";
 
 function SelectCategory(props) {
   const { dataCategory, dataBrand, setSearchCategory, setSearchBrand } = props;
 
   const handleChange = (value) => {
-    // console.log(`selected ${value}`);
     dataCategory ? setSearchCategory(value) : setSearchBrand(value);
   };
 

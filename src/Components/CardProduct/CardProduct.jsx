@@ -1,9 +1,8 @@
 /* eslint-disable react/prop-types */
 import { AiOutlineShoppingCart } from "react-icons/ai";
-import "./CardProduct.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { displayCart, addToCartService } from "../../redux/cart/cartSlice";
-import { Button, message, Space } from "antd";
+import { addToCartService } from "../../redux/cart/cartSlice";
+import "./CardProduct.scss";
 
 function CardProduct(props) {
   const { handleRederectDetailProduct, product, messageSuccess } = props;
@@ -15,14 +14,11 @@ function CardProduct(props) {
     if (isAuthenticated) {
       //TRƯỜNG HỢP ĐÃ ĐĂNG NHẬP
       const data = { idUser: user._id, product: product };
-      // console.log(">>", data);
       dispatch(addToCartService(product));
-      // message.success("Đã thêm sản phẩm vào giỏ hàng");
       return;
     } else {
       //TRƯỜNG HỢP KO ĐĂNG NHẬP
       dispatch(addToCartService(product));
-      // message.success("Đã thêm sản phẩm vào giỏ hàng");
       return;
     }
   };

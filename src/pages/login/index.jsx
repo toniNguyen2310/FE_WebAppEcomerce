@@ -1,15 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
-import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { NavLink } from "react-router-dom";
 import "./login.scss";
-
-import { message } from "antd";
-import { callLogin } from "../../services.js/api";
-import { useNavigate } from "react-router-dom";
+import { message, notification } from "antd";
 import { useDispatch } from "react-redux";
-import { doLoginAction } from "../../redux/account/accountSlice";
-import { notification } from "antd";
+import { useNavigate } from "react-router-dom";
 import LoadingButton from "../../Components/Export/ExportVarible";
+import { doLoginAction } from "../../redux/account/accountSlice";
+import { callLogin } from "../../services.js/api";
 function LoginPage(props) {
   const navigate = useNavigate();
   const refInput = useRef(null);
@@ -106,9 +104,6 @@ function LoginPage(props) {
           </div>
         </div>
         <div className="login-page-form-footer">
-          {/* <a href="" className="login-page-form-footer-misspass">
-            Quên mật khẩu
-          </a> */}
           <a
             href=""
             className="login-page-form-footer-btn"

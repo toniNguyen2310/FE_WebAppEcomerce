@@ -1,17 +1,10 @@
+import { Carousel } from "antd";
 import React, { useEffect, useState } from "react";
-import { Carousel, Skeleton } from "antd";
-import "./homeproduct.scss";
 import { BsArrowRightShort } from "react-icons/bs";
-import {
-  getListBrandByCategory,
-  getProductByCategorySlice,
-} from "../../services.js/api";
-import { NavLink } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { convertSlug } from "../Homepage";
-import { dataBrand } from "../AdminControl/ManagerProducts";
+import { NavLink, useNavigate } from "react-router-dom";
+import { getProductByCategorySlice } from "../../services.js/api";
 import CardProduct from "../CardProduct/CardProduct";
-import SkeletonProduct from "../Skeleton/SkeletonProduct";
+import CardProductSkl from "../CardProduct/CardProductSkl";
 import {
   banGaming,
   banPhimGaming,
@@ -24,8 +17,9 @@ import {
   taiNghe,
   tayCamGaming,
 } from "../Export/ExportVarible";
-import CardProductSkl from "../CardProduct/CardProductSkl";
+import { convertSlug } from "../Homepage";
 import SkeletonText from "../Skeleton/SkeletonText";
+import "./homeproduct.scss";
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;

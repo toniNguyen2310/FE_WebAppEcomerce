@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import "./ProductCart.scss";
 import { useNavigate } from "react-router-dom";
 import { convertSlug } from "../Homepage";
+import "./ProductCart.scss";
 function ProductSearchBar(props) {
   const {
     listProductSearch,
@@ -13,12 +13,9 @@ function ProductSearchBar(props) {
   const navigate = useNavigate();
   const [listData, setListData] = useState([]);
 
-  //handle rederect product
-  const handleRederectDetailProductSearch = (product) => {
-    console.log("product>> ", product);
-    // return;
+  //handle redirect product
+  const handleRedirectDetailProductSearch = (product) => {
     const slug = convertSlug(product.name);
-    // console.log("slug>> ", slug);
     navigate(`/product/${slug}?id=${product._id}`);
   };
 
@@ -41,7 +38,7 @@ function ProductSearchBar(props) {
           <div
             key={e._id}
             className="content-checkout"
-            onClick={() => handleRederectDetailProductSearch(e)}
+            onClick={() => handleRedirectDetailProductSearch(e)}
           >
             <div className="image-product-checkout">
               <img loading="lazy" src={e.images[0]} />

@@ -1,17 +1,12 @@
 /* eslint-disable react/prop-types */
 import { Pagination } from "antd";
+import { useState } from "react";
+import { FiFilter } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
+import { dataBrand, dataPrice } from "../AdminControl/ManagerProducts";
 import CardProduct from "../CardProduct/CardProduct";
 import { convertSlug } from "../Homepage";
-import { useEffect, useState } from "react";
-import {
-  dataBrand,
-  dataCategory,
-  dataPrice,
-} from "../AdminControl/ManagerProducts";
-import { FiFilter } from "react-icons/fi";
 
-import SkeletonFilter from "../Skeleton/SkeletonFilter";
 import CardProductSkl from "../CardProduct/CardProductSkl";
 import SkeletonText from "../Skeleton/SkeletonText";
 
@@ -35,23 +30,13 @@ function CategoryProduct(props) {
 
   const navigate = useNavigate();
   const [listFake, setListFake] = useState([...Array(16).keys()]);
-  //HANDLE PRODUCT DETAIL
-  const handleRederectDetailProduct = (product) => {
-    // console.log("product>> ", product);
-    const slug = convertSlug(product.name);
-    // console.log("slug>> ", slug);
-    navigate(`/product/${slug}?id=${product._id}`);
-  };
 
   //HANDLE SORT PRODUCT
   const handleSortProduct = (option) => {
     setCheckSort(option);
-    // console.log("option>>> ", option);
     if (option === "") {
-      // console.log("vo1");
       setParams({ ...params, sort: "" });
     } else {
-      // console.log("vo2");
       setParams({ ...params, sort: `sort=${option}` });
     }
   };
@@ -188,7 +173,6 @@ function CategoryProduct(props) {
                           handleRederectDetailProduct
                         }
                       />
-                      // <CardProductSkl />
                     );
                   })
                 ) : (

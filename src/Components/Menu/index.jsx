@@ -1,11 +1,10 @@
 import React from "react";
+import { BiBandAid, BiCubeAlt, BiJoystick } from "react-icons/bi";
+import { BsMouse2, BsSpeaker } from "react-icons/bs";
 import { LuKeyboard, LuLampDesk } from "react-icons/lu";
-import { SlEarphones } from "react-icons/sl";
-import { BsSpeaker, BsMouse2 } from "react-icons/bs";
-import { PiOfficeChair } from "react-icons/pi";
 import { MdDesk } from "react-icons/md";
-import { BiCubeAlt, BiJoystick, BiBandAid } from "react-icons/bi";
-import "./menu.scss";
+import { PiOfficeChair } from "react-icons/pi";
+import { SlEarphones } from "react-icons/sl";
 import { useNavigate } from "react-router-dom";
 import {
   banGaming,
@@ -19,6 +18,7 @@ import {
   taiNghe,
   tayCamGaming,
 } from "../Export/ExportVarible";
+import "./menu.scss";
 
 function MenuCategory(props) {
   const { position, background, display, zindex } = props;

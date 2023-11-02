@@ -2,8 +2,9 @@ import { Checkbox, Menu } from "antd";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { dataCategory, dataPrice } from "../AdminControl/ManagerProducts";
-import { getStyle } from "antd/es/checkbox/style";
-import ScrollToTop from "../ScrollToTop";
+
+import { FiFilter } from "react-icons/fi";
+import { AiOutlineClose } from "react-icons/ai";
 
 function getItem(label, key, icon, children, type) {
   return {
@@ -50,7 +51,10 @@ function CategoryFillterResponsive(props) {
     if (category === filterValue.category) {
       return;
     }
+
+    setCheckBrand("");
     setCheckSort("");
+    setCheckPrice("");
     setParams({ brand: "", price: "", sort: "" });
     navigate(`/category/${category}`);
   };
@@ -154,8 +158,21 @@ function CategoryFillterResponsive(props) {
         id="modal-filter-category"
       >
         <div className="content-modal-filter" id="totopMenuFilter">
+          <div className="filter-title">
+            <p>
+              <FiFilter />
+              BỘ LỌC
+            </p>
+            <p>
+              <AiOutlineClose
+                className="close-menu-res"
+                onClick={() => setFilterRes(false)}
+              />
+            </p>
+          </div>
           <div className="category-filter-category category-filter-general">
             <Menu
+              className="top-menu"
               onClick={(e) => onchangeCategory(e.key)}
               style={{
                 width: 250,
@@ -168,6 +185,7 @@ function CategoryFillterResponsive(props) {
           </div>
           <div className="category-filter-brand category-filter-general">
             <Menu
+              className="center-menu"
               style={{
                 width: 250,
               }}
@@ -179,6 +197,7 @@ function CategoryFillterResponsive(props) {
           </div>
           <div className="category-filter-price category-filter-general">
             <Menu
+              className="bottom-menu"
               style={{
                 width: 250,
               }}

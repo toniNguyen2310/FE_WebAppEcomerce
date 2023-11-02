@@ -47,6 +47,8 @@ function CategoryFilter(props) {
     if (category === filterValue.category) {
       return;
     }
+    setCheckBrand("");
+    setCheckPrice("");
     setCheckSort("");
     setParams({ brand: "", price: "", sort: "" });
     navigate(`/category/${category}`);
@@ -91,25 +93,6 @@ function CategoryFilter(props) {
       null,
       listBrand.map((e) => {
         return getItem(
-          // <>
-          //   {firstLoad ? (
-          //     <Checkbox
-          //       checked={e.value === filterValue.brand ? true : false}
-          //       value={e.value}
-          //       onChange={onChangeBrand}
-          //     >
-          //       {e.label}
-          //     </Checkbox>
-          //   ) : (
-          //     <Checkbox
-          //       checked={e.value === checkBrand ? true : false}
-          //       value={e.value}
-          //       onChange={onChangeBrand}
-          //     >
-          //       {e.label}
-          //     </Checkbox>
-          //   )}
-          // </>,
           <Checkbox
             checked={e.value === checkBrand ? true : false}
             value={e.value}

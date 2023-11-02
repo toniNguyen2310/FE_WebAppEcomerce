@@ -335,24 +335,57 @@
       background-color: rgb(0, 0, 0); /* Fallback color */
       background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
       position: fixed;
-      overflow-y: auto;
-      // top: -100vh;
-      // top: -100vh;
+      // padding: 5px;
+      background-color: #ffffff;
       top: 0;
       z-index: 53;
+      overflow-y: scroll;
 
       .content-modal-filter {
         border-radius: 10px;
 
         position: relative;
         margin: 50px auto;
-        width: 70%;
+        width: 100%;
+
         -webkit-animation-name: animatetop;
         -webkit-animation-duration: 0.5s;
         animation-name: animatetop;
         animation-duration: 0.5s;
+        .filter-title {
+          width: 100%;
+          background-color: #1877f2;
+          color: #ffffff;
+          height: 40px;
+          // padding: 10px 0 20px 20px;
+          box-sizing: border-box;
+          // border-radius: 10px 10px 0 0;
+          font-weight: 600;
+          display: flex;
+          align-items: center;
+          padding-left: 20px;
+          padding-right: 10px;
+          font-size: 15px;
+          justify-content: space-between;
+          svg {
+            margin-right: 5px;
+            font-size: 20px;
+          }
+          .close-menu-res {
+            cursor: pointer;
+          }
+        }
         ul {
           width: 100% !important;
+        }
+        .top-menu {
+          border-bottom: 1px solid #ededed;
+        }
+        .center-menu {
+          border-bottom: 1px solid #ededed;
+        }
+        .bottom-menu {
+          border-bottom: 1px solid #ededed;
         }
 
         .category-filter {
@@ -370,6 +403,7 @@
               font-weight: 600;
             }
           }
+
           &-brand {
             .ant-menu-submenu-selected > .ant-menu-submenu-title {
               color: #000;
@@ -392,6 +426,7 @@
           }
         }
         .filter-responsive-button {
+          border-radius: 0 0 10px 10px;
           position: sticky;
           bottom: 0;
           display: flex;
@@ -404,7 +439,8 @@
           gap: 2%;
           .respon-filter-btn {
             width: 49%;
-            height: 30px;
+            height: 35px;
+            border-radius: 5px;
             border: none;
             cursor: pointer;
           }
@@ -413,7 +449,7 @@
             background-color: #ededed;
           }
           .apply {
-            background-color: red;
+            background-color: #1877f2;
             color: #ffffff;
             font-weight: 600;
           }
@@ -604,8 +640,11 @@
       }
     }
   }
-  .content-modal-filter {
-    width: 100% !important;
+  .filterResponsive {
+    background-color: #fff !important;
+    .content-modal-filter {
+      width: 100% !important;
+    }
   }
 }
 

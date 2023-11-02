@@ -19,7 +19,6 @@ function Order(props) {
     const res = await getListOrder(id);
     if (res && res.data) {
       setIsLoading(false);
-      // console.log("ress", res.data);
       setListOrder(res.data);
     } else {
       setIsLoading(false);
@@ -35,10 +34,7 @@ function Order(props) {
   };
 
   const handleRedirectDetailProductSearch = (product) => {
-    // console.log("product>> ", product);
-    // return;
     const slug = convertSlug(product.name);
-    // console.log("slug>> ", slug);
     navigate(`/product/${slug}?id=${product._id}`);
   };
 

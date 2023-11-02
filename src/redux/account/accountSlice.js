@@ -55,6 +55,7 @@ export const accountSlice = createSlice({
     },
 
     doEditAccount: (state, action) => {
+      state.isLoading = false;
       state.user.username = action.payload.username;
       state.user.phone = action.payload.phone;
       state.user.address = action.payload.address;

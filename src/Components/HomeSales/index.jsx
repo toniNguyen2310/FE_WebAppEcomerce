@@ -74,7 +74,7 @@ function HomeSales(props) {
     if (localStorage.getItem("homeSale")) {
       setIsLoading(false);
       setListProductSales(JSON.parse(localStorage.getItem("homeSale")));
-      console.log("co Ls");
+
       return;
     }
     const res = await getProductByDiscountSlice();
@@ -82,7 +82,6 @@ function HomeSales(props) {
       setIsLoading(false);
       setListProductSales(res.data);
       localStorage.setItem(`homeSale`, JSON.stringify(res.data));
-      console.log("ko Ls");
     }
   };
 

@@ -32,7 +32,6 @@ function Header(props) {
   //SCROLL
   useEffect(() => {
     const onScroll = () => setOffset(window.pageYOffset);
-    // console.log(window.pageYOffset);
     if (window.pageYOffset > 400) {
       setIsScroll(true);
     } else if (window.pageYOffset < 450) {

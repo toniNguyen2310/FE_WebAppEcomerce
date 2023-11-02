@@ -191,7 +191,6 @@ export default function App() {
         </>
       ) : (
         <>
-          {console.log("RUN")}
           <Loading />
         </>
       )}

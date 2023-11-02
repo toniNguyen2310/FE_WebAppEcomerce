@@ -80,9 +80,7 @@ function HomeProduct(props) {
 
   //handle rederect product
   const handleRedirectDetailProduct = (product) => {
-    // console.log("product>> ", product);
     const slug = convertSlug(product.name);
-    // console.log("slug>> ", slug);
     navigate(`/product/${slug}?id=${product._id}`);
   };
 
@@ -90,7 +88,6 @@ function HomeProduct(props) {
   const renderListBrandHomePage = async (category) => {
     switch (category) {
       case "lot-chuot":
-        // console.log("ok");
         setListBrand(lotChuot);
         break;
       case "chuot-gaming":
@@ -135,7 +132,6 @@ function HomeProduct(props) {
     if (res && res.data) {
       setIsLoading(false);
       setListProduct(res.data);
-      // console.log("res.data", res.data, categoryValue, categoryLabel);
       localStorage.setItem(`${categoryValue}`, JSON.stringify(res.data));
     }
   };

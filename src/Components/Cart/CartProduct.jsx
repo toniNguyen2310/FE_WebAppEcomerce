@@ -70,7 +70,6 @@ function CartProduct(props) {
 
   //CONFIRM DELETE
   const confirm = (id) => {
-    // console.log(id);
     dispatch(deleteProduct(id));
     message.success("Xóa sản phẩm Thành công");
   };
@@ -81,10 +80,7 @@ function CartProduct(props) {
 
   //HANDLE DERECT PRODUCT
   const handleRedirectDetailProductSearch = (product) => {
-    // console.log("product>> ", product);
-    // return;
     const slug = convertSlug(product.name);
-    // console.log("slug>> ", slug);
     navigate(`/product/${slug}?id=${product._id}`);
   };
 

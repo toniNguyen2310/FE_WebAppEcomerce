@@ -30,7 +30,7 @@ function CheckAndEditProduct(props) {
   const [img3, setImg3] = useState("");
 
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    // console.log("Failed:", errorInfo);
   };
 
   const fillData = () => {

@@ -52,7 +52,7 @@ function CreateProduct(props) {
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    // console.log("Failed:", errorInfo);
   };
 
   return (

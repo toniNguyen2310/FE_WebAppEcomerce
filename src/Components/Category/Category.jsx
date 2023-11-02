@@ -188,7 +188,6 @@ function Category(props) {
       });
     } else {
       if (firstLoad) {
-        // console.log("first", brandLocation, priceLocation);
         brandLocation && setCheckBrand(brandLocation);
         priceLocation && setCheckPrice(priceLocation);
       }

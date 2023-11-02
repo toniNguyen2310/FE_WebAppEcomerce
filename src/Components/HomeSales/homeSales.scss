@@ -397,7 +397,7 @@
       box-sizing: border-box;
       .item-cover {
         box-sizing: border-box;
-        width: 230px;
+        width: 100%;
 
         .item {
           padding: 30px 20px 20px;
@@ -431,7 +431,7 @@
       }
 
       .item-cover {
-        width: 195px !important;
+        // width: 195px !important;
 
         .item {
           padding: 30px 10px 20px;
@@ -451,7 +451,7 @@
   .home-sale {
     .box-sale-list {
       .item-cover {
-        width: 185px !important;
+        // width: 185px !important;
         .item {
           &-infor {
             &-container {
@@ -501,7 +501,7 @@
 
       // margin-right: 2px !important;
       .item-cover {
-        width: 170px !important;
+        // width: 170px !important;
         // margin-right: 50px !important;
         .item {
           box-sizing: border-box;

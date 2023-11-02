@@ -41,6 +41,7 @@
         // background-color: red;
         justify-content: center;
         .detail-product-content {
+          display: grid;
           gap: 0;
           .img-detail {
             border-radius: 0;

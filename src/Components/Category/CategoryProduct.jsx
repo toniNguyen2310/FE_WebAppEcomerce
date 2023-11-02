@@ -13,6 +13,7 @@ import SkeletonText from "../Skeleton/SkeletonText";
 function CategoryProduct(props) {
   const {
     filterRes,
+
     setCheckSort,
     setFilterRes,
     checkSort,
@@ -48,10 +49,7 @@ function CategoryProduct(props) {
 
   return (
     <>
-      <div
-        className="category-product"
-        style={{ display: filterRes ? "none" : "block" }}
-      >
+      <div className="category-product">
         <div className="category-product-title">
           <div className="category-product-title-left">
             <h2>

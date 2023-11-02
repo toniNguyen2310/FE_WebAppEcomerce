@@ -194,7 +194,7 @@ function Order(props) {
               })}
             </div>
           ) : (
-            <div>Bạn hiện chưa có đơn hàng nào</div>
+            <div className="empty-order">Bạn hiện chưa có đơn hàng nào</div>
           )}
         </>
       )}

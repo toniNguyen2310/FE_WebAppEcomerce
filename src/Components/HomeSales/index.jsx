@@ -18,7 +18,7 @@ function HomeSales(props) {
   const navigate = useNavigate();
   const responsiveCarousel = [
     {
-      breakpoint: 1024,
+      breakpoint: 1150,
       settings: {
         slidesToShow: 4,
         slidesToScroll: 1,
@@ -26,6 +26,15 @@ function HomeSales(props) {
         dots: false,
       },
     },
+    // {
+    //   breakpoint: 1024,
+    //   settings: {
+    //     slidesToShow: 4,
+    //     slidesToScroll: 1,
+    //     infinite: false,
+    //     dots: false,
+    //   },
+    // },
     {
       breakpoint: 768,
       settings: {
@@ -62,10 +71,18 @@ function HomeSales(props) {
   }
 
   const handleGetDataSale = async () => {
+    if (localStorage.getItem("homeSale")) {
+      setIsLoading(false);
+      setListProductSales(JSON.parse(localStorage.getItem("homeSale")));
+      console.log("co Ls");
+      return;
+    }
     const res = await getProductByDiscountSlice();
     if (res && res.data) {
       setIsLoading(false);
       setListProductSales(res.data);
+      localStorage.setItem(`homeSale`, JSON.stringify(res.data));
+      console.log("ko Ls");
     }
   };
 

@@ -1,5 +1,5 @@
 import { Checkbox, Menu } from "antd";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { dataCategory, dataPrice } from "../AdminControl/ManagerProducts";
 
@@ -14,7 +14,19 @@ function getItem(label, key, icon, children, type) {
 }
 
 function CategoryFilter(props) {
-  const { filterValue, listBrand, setCheckSort, setParams, params } = props;
+  const {
+    filterValue,
+    listBrand,
+    setCheckSort,
+    setParams,
+    params,
+    firstLoad,
+    setFirstLoad,
+    checkBrand,
+    setCheckBrand,
+    checkPrice,
+    setCheckPrice,
+  } = props;
 
   const navigate = useNavigate();
 
@@ -42,12 +54,16 @@ function CategoryFilter(props) {
 
   //Filter Brand
   const onChangeBrand = (e) => {
+    setFirstLoad(false);
+    setCheckBrand(e.target.value);
     let paramsBrand = `brand=${e.target.value}`;
+
     if (e.target.checked) {
       setParams({ ...params, brand: paramsBrand });
       return;
     }
     if (e.target.checked === false) {
+      setCheckBrand("");
       setParams({ ...params, brand: "" });
       return;
     }
@@ -55,10 +71,14 @@ function CategoryFilter(props) {
 
   //Filter Option Price
   const onchangeFilterPrice = (e) => {
+    setFirstLoad(false);
+    setCheckPrice(e.target.value);
     let paramsPrice = `price=${e.target.value}`;
+
     if (e.target.checked) {
       setParams({ ...params, price: paramsPrice });
     } else {
+      setCheckPrice("");
       setParams({ ...params, price: "" });
     }
   };
@@ -71,8 +91,27 @@ function CategoryFilter(props) {
       null,
       listBrand.map((e) => {
         return getItem(
+          // <>
+          //   {firstLoad ? (
+          //     <Checkbox
+          //       checked={e.value === filterValue.brand ? true : false}
+          //       value={e.value}
+          //       onChange={onChangeBrand}
+          //     >
+          //       {e.label}
+          //     </Checkbox>
+          //   ) : (
+          //     <Checkbox
+          //       checked={e.value === checkBrand ? true : false}
+          //       value={e.value}
+          //       onChange={onChangeBrand}
+          //     >
+          //       {e.label}
+          //     </Checkbox>
+          //   )}
+          // </>,
           <Checkbox
-            checked={e.value === filterValue.brand ? true : false}
+            checked={e.value === checkBrand ? true : false}
             value={e.value}
             onChange={onChangeBrand}
           >
@@ -93,8 +132,8 @@ function CategoryFilter(props) {
       dataPrice.map((e) => {
         return getItem(
           <Checkbox
+            checked={e.value === checkPrice ? true : false}
             value={e.value}
-            checked={filterValue.price === e.value ? true : false}
             onChange={onchangeFilterPrice}
           >
             {e.label}
@@ -104,6 +143,7 @@ function CategoryFilter(props) {
       })
     ),
   ];
+
   return (
     <>
       <div className="category-filter">
@@ -125,7 +165,9 @@ function CategoryFilter(props) {
               width: 250,
             }}
             defaultOpenKeys={["Brand"]}
-            selectedKeys={[filterValue?.brand]}
+            // selectedKeys={[filterValue?.brand]}
+            // selectedKeys={[firstLoad ? filterValue?.brand : checkBrand]}
+            selectedKeys={[checkBrand]}
             mode="inline"
             items={itemsBrand}
           />
@@ -136,7 +178,9 @@ function CategoryFilter(props) {
               width: 250,
             }}
             defaultOpenKeys={["price"]}
-            selectedKeys={[filterValue?.price]}
+            // selectedKeys={[filterValue?.price]}
+            // selectedKeys={[firstLoad ? filterValue?.price : checkPrice]}
+            selectedKeys={[checkPrice]}
             mode="inline"
             items={itemsPrice}
           />

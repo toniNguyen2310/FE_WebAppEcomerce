@@ -5,6 +5,7 @@ import { dataCategory } from "../AdminControl/ManagerProducts";
 import SkeletonText from "../Skeleton/SkeletonText";
 import ProductDetailLayout from "./ProductDetailLayout";
 import "./detailProduct.scss";
+import "./CardProductLayout.scss";
 
 function stringToSlug(str) {
   // remove accents

@@ -1,7 +1,7 @@
 import { Carousel } from "antd";
 import React, { useEffect, useState } from "react";
 import { BsArrowRightShort } from "react-icons/bs";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, json, useNavigate } from "react-router-dom";
 import { getProductByCategorySlice } from "../../services.js/api";
 import CardProduct from "../CardProduct/CardProduct";
 import CardProductSkl from "../CardProduct/CardProductSkl";
@@ -124,14 +124,19 @@ function HomeProduct(props) {
   };
 
   const handleGetProductSlice = async () => {
-    let brands = [];
+    if (localStorage.getItem(categoryValue)) {
+      setIsLoading(false);
+      setListProduct(JSON.parse(localStorage.getItem(categoryValue)));
+      return;
+    }
     const res = await getProductByCategorySlice(categoryValue);
     setIsLoading(true);
     renderListBrandHomePage(categoryValue);
-
     if (res && res.data) {
       setIsLoading(false);
       setListProduct(res.data);
+      // console.log("res.data", res.data, categoryValue, categoryLabel);
+      localStorage.setItem(`${categoryValue}`, JSON.stringify(res.data));
     }
   };
 

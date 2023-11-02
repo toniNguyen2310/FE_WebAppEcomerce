@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addToCartService } from "../../redux/cart/cartSlice";
 import SkeletonText from "../Skeleton/SkeletonText";
+import ContentLoader from "react-content-loader";
 
 function ProductDetailLayout(props) {
   const { dataProduct, isLoading } = props;
@@ -31,27 +32,6 @@ function ProductDetailLayout(props) {
     navigate("/cart");
   };
 
-  const listImageFake = [
-    {
-      original:
-        "https://media.istockphoto.com/id/1302436594/video/loading-circle-icon-animation-on-white-background-4k-video-loopable-preloader.jpg?s=640x640&k=20&c=JQzv8UsXNfUnqQSULYW8B858UOM2O5CoXRgG9a0hRFk=",
-      thumbnail:
-        "https://media.istockphoto.com/id/1302436594/video/loading-circle-icon-animation-on-white-background-4k-video-loopable-preloader.jpg?s=640x640&k=20&c=JQzv8UsXNfUnqQSULYW8B858UOM2O5CoXRgG9a0hRFk=",
-    },
-    {
-      original:
-        "https://media.istockphoto.com/id/1302436594/video/loading-circle-icon-animation-on-white-background-4k-video-loopable-preloader.jpg?s=640x640&k=20&c=JQzv8UsXNfUnqQSULYW8B858UOM2O5CoXRgG9a0hRFk=",
-      thumbnail:
-        "https://media.istockphoto.com/id/1302436594/video/loading-circle-icon-animation-on-white-background-4k-video-loopable-preloader.jpg?s=640x640&k=20&c=JQzv8UsXNfUnqQSULYW8B858UOM2O5CoXRgG9a0hRFk=",
-    },
-    {
-      original:
-        "https://media.istockphoto.com/id/1302436594/video/loading-circle-icon-animation-on-white-background-4k-video-loopable-preloader.jpg?s=640x640&k=20&c=JQzv8UsXNfUnqQSULYW8B858UOM2O5CoXRgG9a0hRFk=",
-      thumbnail:
-        "https://media.istockphoto.com/id/1302436594/video/loading-circle-icon-animation-on-white-background-4k-video-loopable-preloader.jpg?s=640x640&k=20&c=JQzv8UsXNfUnqQSULYW8B858UOM2O5CoXRgG9a0hRFk=",
-    },
-  ];
-
   useEffect(() => {
     if (dataProduct && dataProduct.images) {
       setImagesProduct([
@@ -70,22 +50,20 @@ function ProductDetailLayout(props) {
       ]);
     }
   }, [dataProduct]);
+
   return (
     <>
       {isLoading ? (
         <div className="detail-product container">
           <div className="detail-product-content">
             <div className="img-detail">
-              <ReactImageGallery className="image" items={listImageFake} />
-              {/* <SkeletonText width={"500px"} height={"500px"} /> */}
-
               <ContentLoader
                 className="skeleton-img"
                 backgroundColor="#f0f0f0"
                 foregroundColor="#dedede"
                 {...props}
               >
-                <rect className="skeleton-img-rect" width={"300xpx"} />
+                <rect className="skeleton-img-rect" />
               </ContentLoader>
             </div>
             <div className="content-detail">
@@ -115,9 +93,9 @@ function ProductDetailLayout(props) {
                     Thêm vào giỏ
                   </button>
 
-                  <buttons className="btn btn-danger go-to-cart">
+                  <button className="btn btn-danger go-to-cart">
                     Mua ngay
-                  </buttons>
+                  </button>
                 </div>
                 <div className="detail-product-sale ">
                   <div className="icon-sale">

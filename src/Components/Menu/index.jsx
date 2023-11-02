@@ -43,7 +43,7 @@ function MenuCategory(props) {
               <div
                 key={e.label}
                 className="brand-container"
-                // onClick={() => navigate(`/category/lot-chuot?brand=${e.value}`)}
+                onClick={() => navigate(`/category/lot-chuot?brand=${e.value}`)}
               >
                 <div className="brand-container-img">
                   <img src={e.logo} alt="" />

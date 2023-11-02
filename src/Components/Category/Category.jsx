@@ -8,6 +8,18 @@ import CategoryFillterResponsive from "./CategoryFillterResponsive";
 import CategoryFilter from "./CategoryFilter";
 import CategoryProduct from "./CategoryProduct";
 import "./category.scss";
+import {
+  banGaming,
+  banPhimGaming,
+  chuotGaming,
+  gheGaming,
+  loaIcon,
+  lotChuot,
+  moHinh,
+  phuKien,
+  taiNghe,
+  tayCamGaming,
+} from "../Export/ExportVarible";
 
 function Category(props) {
   const navigate = useNavigate();
@@ -17,6 +29,10 @@ function Category(props) {
   const [params, setParams] = useState({ brand: "", price: "", sort: "" });
   //FILTER SORT
   const [checkSort, setCheckSort] = useState("");
+  //FIRST LOAD
+  const [firstLoad, setFirstLoad] = useState(true);
+  const [checkBrand, setCheckBrand] = useState("");
+  const [checkPrice, setCheckPrice] = useState("");
   //PAGINATION
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(16);
@@ -53,7 +69,7 @@ function Category(props) {
       if (res && res.data) {
         setListData(res.data.products);
         setTotal(res.data.count);
-        // setIsLoading(false);
+        setIsLoading(false);
       } else {
         setIsLoading(false);
       }
@@ -78,21 +94,47 @@ function Category(props) {
   //HANDLE LIST BRAND
   const renderListBrand = async (category) => {
     if (currentPage === 1) {
-      const resBrand = await getListBrandByCategory(category);
-      if (resBrand && resBrand.data) {
-        setCategoryLabel(resBrand.data.name);
-        setListBrand(
-          dataBrand.filter((e) => {
-            return (
-              resBrand.data.brand
-                .filter((item, index) => {
-                  return resBrand.data.brand.indexOf(item) === index;
-                })
-                .indexOf(e.value) > -1
-            );
-          })
-        );
-        return;
+      switch (category) {
+        case "lot-chuot":
+          setListBrand(lotChuot);
+          setCategoryLabel(lotChuot[0].category);
+          break;
+        case "chuot-gaming":
+          setListBrand(chuotGaming);
+          setCategoryLabel(chuotGaming[0].category);
+          break;
+        case "ban-phim-gaming":
+          setListBrand(banPhimGaming);
+          setCategoryLabel(banPhimGaming[0].category);
+          break;
+        case "tai-nghe":
+          setListBrand(taiNghe);
+          setCategoryLabel(taiNghe[0].category);
+          break;
+        case "tay-cam-gaming":
+          setListBrand(tayCamGaming);
+          setCategoryLabel(tayCamGaming[0].category);
+          break;
+        case "loa":
+          setListBrand(loaIcon);
+          setCategoryLabel(loaIcon[0].category);
+          break;
+        case "mo-hinh":
+          setListBrand(moHinh);
+          setCategoryLabel(moHinh[0].category);
+          break;
+        case "phu-kien":
+          setListBrand(phuKien);
+          setCategoryLabel(phuKien[0].category);
+          break;
+        case "ghe-gaming":
+          setListBrand(gheGaming);
+          setCategoryLabel(gheGaming[0].category);
+          break;
+        case "ban-gaming":
+          setListBrand(banGaming);
+          setCategoryLabel(banGaming[0].category);
+          break;
       }
     }
   };
@@ -145,6 +187,11 @@ function Category(props) {
             : sortLocation,
       });
     } else {
+      if (firstLoad) {
+        // console.log("first", brandLocation, priceLocation);
+        brandLocation && setCheckBrand(brandLocation);
+        priceLocation && setCheckPrice(priceLocation);
+      }
       setParams({
         ...params,
         brand: brandLocation ? `brand=${brandLocation}` : "",
@@ -156,6 +203,7 @@ function Category(props) {
         price: priceLocation ? priceLocation : "",
         sort: "",
       });
+
       renderListBrand(categoryLocation);
       return;
     }
@@ -178,7 +226,10 @@ function Category(props) {
   }, [params]);
 
   return (
-    <div className="page-category">
+    <div
+      className="page-category"
+      // style={filterRes ? { overflow: "hidden" } : { overflow: "scroll" }}
+    >
       <div className="category">
         <nav className="category-header">
           <span onClick={() => navigate("/")} style={{ cursor: "pointer" }}>
@@ -202,6 +253,12 @@ function Category(props) {
             listData={listData}
             currentPage={currentPage}
             listBrand={listBrand}
+            firstLoad={firstLoad}
+            setFirstLoad={setFirstLoad}
+            setCheckBrand={setCheckBrand}
+            checkBrand={checkBrand}
+            checkPrice={checkPrice}
+            setCheckPrice={setCheckPrice}
           />
 
           <CategoryProduct
@@ -231,6 +288,12 @@ function Category(props) {
           listData={listData}
           currentPage={currentPage}
           listBrand={listBrand}
+          firstLoad={firstLoad}
+          setFirstLoad={setFirstLoad}
+          setCheckBrand={setCheckBrand}
+          checkBrand={checkBrand}
+          checkPrice={checkPrice}
+          setCheckPrice={setCheckPrice}
         />
       </div>
     </div>

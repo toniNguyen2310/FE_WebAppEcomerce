@@ -43,7 +43,6 @@
 
 .layout {
   position: relative;
-
   box-sizing: border-box;
 
   .scroll-to-top {
@@ -96,11 +95,6 @@
 @import url("https://fonts.googleapis.com/css?family=Quicksand");
 
 @media only screen and (max-width: 1024px) {
-  .scroll-to-top {
-    display: none !important;
-  }
-}
-@media only screen and (max-width: 768px) {
   .layout {
     .menu-responsive-sticky {
       position: fixed;
@@ -129,6 +123,11 @@
       }
     }
   }
+  .scroll-to-top {
+    display: none !important;
+  }
+}
+@media only screen and (max-width: 768px) {
 }
 @media only screen and (max-width: 768px) {
   .layout {

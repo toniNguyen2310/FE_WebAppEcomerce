@@ -1,7 +1,9 @@
 import { Checkbox, Menu } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { dataCategory, dataPrice } from "../AdminControl/ManagerProducts";
+import { getStyle } from "antd/es/checkbox/style";
+import ScrollToTop from "../ScrollToTop";
 
 function getItem(label, key, icon, children, type) {
   return {
@@ -21,6 +23,12 @@ function CategoryFillterResponsive(props) {
     params,
     filterRes,
     setFilterRes,
+    firstLoad,
+    setFirstLoad,
+    checkBrand,
+    setCheckBrand,
+    checkPrice,
+    setCheckPrice,
   } = props;
 
   const navigate = useNavigate();
@@ -42,19 +50,18 @@ function CategoryFillterResponsive(props) {
     if (category === filterValue.category) {
       return;
     }
-    setCheckBrand("");
     setCheckSort("");
-    setCheckFilterPrice("");
     setParams({ brand: "", price: "", sort: "" });
     navigate(`/category/${category}`);
   };
 
   //Filter Brand
   const onChangeBrand = (e) => {
+    setFirstLoad(false);
+    setCheckBrand(e.target.value);
     let paramsBrand = `brand=${e.target.value}`;
     if (e.target.checked) {
       setParams({ ...params, brand: paramsBrand });
-      setCheckBrand(e.target.value);
       return;
     }
     if (e.target.checked === false) {
@@ -66,13 +73,13 @@ function CategoryFillterResponsive(props) {
 
   //Filter Option Price
   const onchangeFilterPrice = (e) => {
-    // console.log("change price>>> ", e);
+    setFirstLoad(false);
+    setCheckPrice(e.target.value);
     let paramsPrice = `price=${e.target.value}`;
     if (e.target.checked) {
-      setCheckFilterPrice(e.target.value);
       setParams({ ...params, price: paramsPrice });
     } else {
-      setCheckFilterPrice("");
+      setCheckPrice("");
       setParams({ ...params, price: "" });
     }
   };
@@ -86,7 +93,7 @@ function CategoryFillterResponsive(props) {
       listBrand.map((e) => {
         return getItem(
           <Checkbox
-            checked={e.value === filterValue.brand ? true : false}
+            checked={e.value === checkBrand ? true : false}
             value={e.value}
             onChange={onChangeBrand}
           >
@@ -107,8 +114,8 @@ function CategoryFillterResponsive(props) {
       dataPrice.map((e) => {
         return getItem(
           <Checkbox
+            checked={e.value === checkPrice ? true : false}
             value={e.value}
-            checked={filterValue.price === e.value ? true : false}
             onChange={onchangeFilterPrice}
           >
             {e.label}
@@ -122,62 +129,79 @@ function CategoryFillterResponsive(props) {
   //CANCEL FILTER
   const setCalcelFilter = () => {
     setFilterRes(false);
-    setParams({ brand: "", price: "", sort: "" });
+    // setParams({ brand: "", price: "", sort: "" });
+  };
+  useEffect(() => {
+    if (filterRes) {
+      document.body.style.overflowY = "hidden";
+      document.getElementById("modal-filter-category").scrollTo(0, 0);
+    } else {
+      document.body.style.overflowY = "auto";
+    }
+  }, [filterRes]);
+
+  window.onclick = function (event) {
+    if (event.target == document.getElementById("modal-filter-category")) {
+      setFilterRes(false);
+    }
   };
 
   return (
     <>
       <div
-        style={{ display: filterRes ? "block" : "none" }}
+        style={filterRes ? { display: "block" } : { display: "none" }}
         className={`category-filter  filterResponsive `}
+        id="modal-filter-category"
       >
-        <div className="category-filter-category category-filter-general">
-          <Menu
-            onClick={(e) => onchangeCategory(e.key)}
-            style={{
-              width: 250,
-            }}
-            defaultOpenKeys={["category"]}
-            selectedKeys={[filterValue?.category]}
-            mode="inline"
-            items={itemsCategory}
-          />
-        </div>
-        <div className="category-filter-brand category-filter-general">
-          <Menu
-            style={{
-              width: 250,
-            }}
-            defaultOpenKeys={["Brand"]}
-            selectedKeys={[filterValue?.brand]}
-            mode="inline"
-            items={itemsBrand}
-          />
-        </div>
-        <div className="category-filter-price category-filter-general">
-          <Menu
-            style={{
-              width: 250,
-            }}
-            defaultOpenKeys={["price"]}
-            selectedKeys={[filterValue?.price]}
-            mode="inline"
-            items={itemsPrice}
-          />
-        </div>
-        <div className="filter-responsive-button">
-          <button
-            className="respon-filter-btn calcel"
-            onClick={setCalcelFilter}
-          >
-            HỦY
-          </button>
-          <button
-            className="respon-filter-btn apply"
-            onClick={() => setFilterRes(false)}
-          >
-            ÁP DỤNG
-          </button>
+        <div className="content-modal-filter" id="totopMenuFilter">
+          <div className="category-filter-category category-filter-general">
+            <Menu
+              onClick={(e) => onchangeCategory(e.key)}
+              style={{
+                width: 250,
+              }}
+              defaultOpenKeys={["category"]}
+              selectedKeys={[filterValue?.category]}
+              mode="inline"
+              items={itemsCategory}
+            />
+          </div>
+          <div className="category-filter-brand category-filter-general">
+            <Menu
+              style={{
+                width: 250,
+              }}
+              defaultOpenKeys={["Brand"]}
+              selectedKeys={[checkBrand]}
+              mode="inline"
+              items={itemsBrand}
+            />
+          </div>
+          <div className="category-filter-price category-filter-general">
+            <Menu
+              style={{
+                width: 250,
+              }}
+              defaultOpenKeys={["price"]}
+              selectedKeys={[checkPrice]}
+              mode="inline"
+              items={itemsPrice}
+            />
+          </div>
+          <div className="filter-responsive-button">
+            <button
+              className="respon-filter-btn calcel"
+              onClick={setCalcelFilter}
+            >
+              HỦY
+            </button>
+            <button
+              className="respon-filter-btn apply"
+              onClick={() => setFilterRes(false)}
+            >
+              ÁP DỤNG
+            </button>
+          </div>
         </div>
       </div>
     </>

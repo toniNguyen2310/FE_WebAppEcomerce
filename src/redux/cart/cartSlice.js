@@ -51,17 +51,22 @@ export const cartSlice = createSlice({
         message.success("Đã thêm sản phẩm vào giỏ hàng");
 
         localStorage.setItem("listCart", JSON.stringify(state.listCart));
-        // return;
-      } else {
-        message.info("Sản phẩm đã có trong giỏ hàng");
         return;
       }
+      if (state.listCart[itemIndex].quantity === 20) {
+        message.error("Quá số lượng cho phép");
+        return;
+      }
+      state.listCart[itemIndex].quantity += 1;
+      localStorage.setItem("listCart", JSON.stringify(state.listCart));
+      message.success("Đã thêm sản phẩm vào giỏ hàng");
     },
 
     increaseQuantity: (state, action) => {
       const itemIndex = state.listCart.findIndex(
         (item) => item.productId._id === action.payload
       );
+
       if (state.listCart[itemIndex].quantity === 20) {
         message.error("Quá số lượng cho phép");
         return;
@@ -91,7 +96,6 @@ export const cartSlice = createSlice({
 
     deleteAllCart: (state, action) => {
       state.listCart = [];
-      // state.listCartFirst = [];
       state.isLoadingCart = false;
       localStorage.setItem("listCart", JSON.stringify(state.listCart));
     },

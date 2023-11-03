@@ -41,6 +41,7 @@ function HomeSales(props) {
       settings: {
         slidesToShow: 2,
         slidesToScroll: 2,
+        infinite: true,
         arrows: false,
       },
     },
@@ -49,6 +50,7 @@ function HomeSales(props) {
       settings: {
         slidesToShow: 2,
         slidesToScroll: 2,
+        infinite: true,
         arrows: false,
       },
     },

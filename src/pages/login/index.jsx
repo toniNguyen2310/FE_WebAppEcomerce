@@ -45,6 +45,12 @@ function LoginPage(props) {
       localStorage.setItem("access_token", res.data.accessToken);
       localStorage.setItem("refresh_token", res.data.refreshToken);
       dispatch(doLoginAction(res.data.userWP));
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          username: res.data.userWP.username,
+        })
+      );
       isDuplicate = true;
       message.success("Đăng nhập thành công");
       navigate("/");

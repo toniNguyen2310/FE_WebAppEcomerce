@@ -99,6 +99,10 @@ function Information(props) {
       if (res && res.data) {
         message.success("Cập nhật thành công");
         dispatch(doEditAccount(data.user));
+        localStorage.setItem(
+          "user",
+          JSON.stringify({ username: data.user.username })
+        );
         setIsLoading(false);
       }
     } else {

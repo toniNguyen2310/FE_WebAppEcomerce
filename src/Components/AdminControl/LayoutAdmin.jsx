@@ -30,7 +30,7 @@ const LayoutAdmin = () => {
   } = theme.useToken();
 
   const onClick = (e) => {
-    console.log("click ", e);
+    // console.log("click ", e);
   };
   return (
     <Layout

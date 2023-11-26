@@ -27,6 +27,7 @@ function ProfilePage(props) {
     setIsLoading(true);
     setSelected(4);
     const res = await callLogout();
+
     if (res && res.data) {
       setIsLoading(false);
       dispatch(doLogoutAction());

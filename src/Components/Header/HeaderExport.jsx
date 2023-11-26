@@ -39,6 +39,7 @@ function HeaderExport(props) {
   const [listProductSearch, setListProductSearch] = useState([]);
   const nameAccount = useSelector((state) => state.account.user.username);
   const [isLoadingSearch, setIsLoadingSearch] = useState(false);
+  const [userStart, setUserStart] = useState("");
 
   //SEARCH PRODUCT
   const getListPRoductsWhenSearch = async (value) => {
@@ -72,6 +73,22 @@ function HeaderExport(props) {
       setDisPlaySearch(true);
     }
   });
+
+  useEffect(() => {
+    if (localStorage.getItem("user")) {
+      let nameUser = JSON.parse(localStorage.getItem("user")).username;
+      setUserStart(nameUser);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (localStorage.getItem("user")) {
+      let nameUser = JSON.parse(localStorage.getItem("user")).username;
+      setUserStart(nameUser);
+    } else {
+      setUserStart("");
+    }
+  }, [nameAccount]);
 
   return (
     <>
@@ -164,7 +181,7 @@ function HeaderExport(props) {
               </a>
 
               <span className="header__top__right-title margin-left__40px">
-                {isAuthenticated ? (
+                {userStart ? (
                   // <DropdownComponent />
                   <>
                     <a className="avatar">
@@ -175,7 +192,7 @@ function HeaderExport(props) {
                         to={`/profile`}
                         className="header__top__right-title-user"
                       >
-                        &nbsp; Xin chào, {nameAccount}
+                        &nbsp; Xin chào, {userStart}
                       </NavLink>
                     </div>
                   </>

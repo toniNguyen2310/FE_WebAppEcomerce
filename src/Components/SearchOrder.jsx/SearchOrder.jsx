@@ -92,7 +92,7 @@ function SearchOrder(props) {
               listData.length === 0 ? (
                 <div className="empty-order" style={{ marginTop: "60px" }}>
                   {/* <p>Không tìm thấy đơn hàng</p> */}
-                  <Empty description={"GIỎ HÀNG CỦA BẠN ĐANG TRỐNG"} />
+                  <Empty description={"KHÔNG TÌM THẤY ĐƠN HÀNG"} />
                 </div>
               ) : (
                 <>

@@ -28,8 +28,8 @@ function ProductDetailLayout(props) {
   };
 
   const handleBuyNow = (product) => {
-    dispatch(addToCartService(product));
     navigate("/cart");
+    dispatch(addToCartService(product));
   };
 
   useEffect(() => {

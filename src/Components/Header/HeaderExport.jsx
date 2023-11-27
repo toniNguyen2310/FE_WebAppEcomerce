@@ -77,14 +77,7 @@ function HeaderExport(props) {
   useEffect(() => {
     if (localStorage.getItem("user")) {
       let nameUser = JSON.parse(localStorage.getItem("user")).username;
-      setUserStart(nameUser);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (localStorage.getItem("user")) {
-      let nameUser = JSON.parse(localStorage.getItem("user")).username;
-      setUserStart(nameUser);
+      setUserStart(nameUser.split(" ")[nameUser.split(" ").length - 1]);
     } else {
       setUserStart("");
     }

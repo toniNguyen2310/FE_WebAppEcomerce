@@ -58,8 +58,9 @@ export const cartSlice = createSlice({
         return;
       }
       state.listCart[itemIndex].quantity += 1;
-      localStorage.setItem("listCart", JSON.stringify(state.listCart));
       message.success("Đã thêm sản phẩm vào giỏ hàng");
+
+      localStorage.setItem("listCart", JSON.stringify(state.listCart));
     },
 
     increaseQuantity: (state, action) => {

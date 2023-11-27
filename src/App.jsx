@@ -173,6 +173,12 @@ export default function App() {
       dispatch(doGetAccountPending());
 
       if (res && res.data) {
+        localStorage.setItem(
+          "user",
+          JSON.stringify({
+            username: res.data.user.username,
+          })
+        );
         dispatch(doGetAccountAction(res.data));
       } else {
         dispatch(doGetAccountError());

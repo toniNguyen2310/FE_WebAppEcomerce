@@ -222,7 +222,7 @@ function Category(props) {
   //PARAMS
   useEffect(() => {
     navigateParams();
-    console.log("current page>>>", currentPage);
+    // console.log("current page>>>", currentPage);
   }, [params]);
 
   return (

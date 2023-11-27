@@ -44,8 +44,8 @@ function ProductDetailLayout(props) {
           thumbnail: dataProduct.images[1],
         },
         {
-          original: dataProduct.images[1],
-          thumbnail: dataProduct.images[1],
+          original: dataProduct.images[2],
+          thumbnail: dataProduct.images[2],
         },
       ]);
     }

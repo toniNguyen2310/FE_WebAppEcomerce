@@ -270,12 +270,12 @@ export const moHinh = [
     logo: "https://lacdau.com/media/category/cat_big_46_1660205427.jpg",
     category: "MÔ HÌNH",
   },
-  {
-    value: "marvel",
-    label: "MARVEL",
-    logo: "https://lacdau.com/media/category/cat_big_45_1662354391.jpeg",
-    category: "MÔ HÌNH",
-  },
+  // {
+  //   value: "marvel",
+  //   label: "MARVE",
+  //   logo: "https://lacdau.com/media/category/cat_big_45_1662354391.jpeg",
+  //   category: "MÔ HÌNH",
+  // },
   {
     value: "tranformer",
     label: "TRANFORMER",

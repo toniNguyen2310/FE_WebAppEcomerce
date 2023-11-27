@@ -26,6 +26,7 @@ function CategoryFilter(props) {
     setCheckBrand,
     checkPrice,
     setCheckPrice,
+    setCurrentPage,
   } = props;
 
   const navigate = useNavigate();
@@ -50,6 +51,7 @@ function CategoryFilter(props) {
     setCheckBrand("");
     setCheckPrice("");
     setCheckSort("");
+    setCurrentPage(1);
     setParams({ brand: "", price: "", sort: "" });
     navigate(`/category/${category}`);
   };

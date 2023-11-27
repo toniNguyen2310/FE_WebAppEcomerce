@@ -154,13 +154,10 @@ function CategoryProduct(props) {
           {isLoading ? (
             <>
               <div className="category-product-container-list">
-                {listFake.length > 0 ? (
-                  listFake.map((e) => {
+                {listFake.length > 0 &&
+                  listFake?.map((e) => {
                     return <CardProductSkl key={e} />;
-                  })
-                ) : (
-                  <div>Không tìm thấy kết quả. Vui lòng thử lại!</div>
-                )}
+                  })}
               </div>
             </>
           ) : (
@@ -179,7 +176,7 @@ function CategoryProduct(props) {
                     );
                   })
                 ) : (
-                  <div>Không tìm thấy kết quả. Vui lòng thử lại!</div>
+                  <div>Không tìm thấy sản phẩm </div>
                 )}
               </div>
               <div className="pagination" style={{ clear: "both" }}>

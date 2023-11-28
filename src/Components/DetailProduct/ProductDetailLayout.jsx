@@ -29,7 +29,7 @@ function ProductDetailLayout(props) {
 
   const handleBuyNow = (product) => {
     navigate("/cart");
-    dispatch(addToCartService(product));
+    // dispatch(addToCartService(product));
   };
 
   useEffect(() => {

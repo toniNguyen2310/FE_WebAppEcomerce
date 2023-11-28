@@ -204,7 +204,7 @@ function ProductDetailLayout(props) {
                     onClick={() => handleBuyNow(dataProduct)}
                     className="btn btn-danger go-to-cart"
                   >
-                    Mua ngay
+                    Đi tới giỏ hàng
                   </button>
                 </div>
                 <div className="detail-product-sale ">

@@ -38,6 +38,12 @@ export const accountSlice = createSlice({
       state.isAuthenticated = true;
       state.isLoading = false;
       state.user = action.payload.user;
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          username: action.payload.user.username,
+        })
+      );
     },
 
     doLogoutAction: (state, action) => {

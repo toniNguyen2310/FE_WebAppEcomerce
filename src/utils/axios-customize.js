@@ -134,6 +134,9 @@ instance.interceptors.response.use(
     ) {
       localStorage.removeItem("refresh_token");
       localStorage.removeItem("access_token");
+      localStorage.removeItem("user");
+      localStorage.removeItem("listCart");
+
       window.location.href = "/login";
     }
 

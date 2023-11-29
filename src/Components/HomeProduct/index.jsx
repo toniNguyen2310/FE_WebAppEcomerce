@@ -1,5 +1,5 @@
 import { Carousel } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { BsArrowRightShort } from "react-icons/bs";
 import { NavLink, json, useNavigate } from "react-router-dom";
 import { getProductByCategorySlice } from "../../services.js/api";
@@ -193,10 +193,10 @@ function HomeProduct(props) {
           draggable
           autoplay
           autoplaySpeed={3000}
-          slidesPerRow={1}
+          slidesToScroll={2}
           slidesToShow={5}
           dots={false}
-          infinite={false}
+          infinite={true}
           responsive={responsiveCarousel}
         >
           {isLoading

@@ -3,6 +3,7 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCartService } from "../../redux/cart/cartSlice";
 import "./CardProduct.scss";
+import { useRef } from "react";
 
 function CardProduct(props) {
   const { handleRedirectDetailProduct, product, messageSuccess } = props;
@@ -23,12 +24,29 @@ function CardProduct(props) {
     }
   };
 
+  const pointer = useRef({ x: 0, y: 0 });
+  const onMouseDown = (e) => {
+    pointer.current = { x: e.clientX, y: e.clientY };
+  };
+  const onMouseUp = (e, sub) => {
+    const { x, y } = pointer.current;
+    if (Math.abs(e.clientX - x) < 10 && Math.abs(e.clientY - y) < 10) {
+      console.log("click");
+    } else {
+      console.log("drag");
+    }
+  };
+
   return (
-    <div className="item-cover">
+    <div
+      className="item-cover"
+      onMouseDown={onMouseDown}
+      onMouseUp={(e) => onMouseUp(e, "lotchuot")}
+    >
       <div className="item">
         <div
           className="item-img"
-          onClick={() => handleRedirectDetailProduct(product)}
+          // onClick={() => handleRedirectDetailProduct(product)}
         >
           <img loading="lazy" src={product.images[0]} alt="" />
         </div>
@@ -36,7 +54,7 @@ function CardProduct(props) {
           <div className="item-infor">
             <p
               className="item-infor-name"
-              onClick={() => handleRedirectDetailProduct(product)}
+              // onClick={() => handleRedirectDetailProduct(product)}
             >
               {product.name}
             </p>

@@ -173,12 +173,6 @@ export default function App() {
       dispatch(doGetAccountPending());
 
       if (res && res.data) {
-        localStorage.setItem(
-          "user",
-          JSON.stringify({
-            username: res.data.user.username,
-          })
-        );
         dispatch(doGetAccountAction(res.data));
       } else {
         dispatch(doGetAccountError());
@@ -188,18 +182,21 @@ export default function App() {
   }, []);
 
   return (
+    // <>
+    //   {isLoading === false ||
+    //   window.location.pathname === "/login" ||
+    //   window.location.pathname === "/register" ? (
+    //     <>
+    //       <RouterProvider router={router} />
+    //     </>
+    //   ) : (
+    //     <>
+    //       <Loading />
+    //     </>
+    //   )}
+    // </>
     <>
-      {isLoading === false ||
-      window.location.pathname === "/login" ||
-      window.location.pathname === "/register" ? (
-        <>
-          <RouterProvider router={router} />
-        </>
-      ) : (
-        <>
-          <Loading />
-        </>
-      )}
+      <RouterProvider router={router} />
     </>
   );
 }

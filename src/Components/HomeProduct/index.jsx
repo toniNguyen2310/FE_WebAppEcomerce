@@ -73,7 +73,7 @@ function HomeProduct(props) {
       breakpoint: 480,
       settings: {
         slidesToShow: 2,
-        slidesToScroll: 2,
+        slidesToScroll: 1,
         infinite: true,
         arrows: false,
       },

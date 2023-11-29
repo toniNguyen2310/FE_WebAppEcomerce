@@ -103,9 +103,9 @@ function HomeSales(props) {
           // autoplay
           // autoplaySpeed={5000}
           emulateTouch={true}
-          slidesPerRow={1}
+          // slidesPerRow={1}
           slidesToShow={5}
-          slidesToScroll={1}
+          slidesToScroll={3}
           dots={false}
           infinite={false}
           responsive={responsiveCarousel}

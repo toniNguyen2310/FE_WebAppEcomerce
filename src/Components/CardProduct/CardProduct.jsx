@@ -31,9 +31,7 @@ function CardProduct(props) {
   const onMouseUp = (e, sub) => {
     const { x, y } = pointer.current;
     if (Math.abs(e.clientX - x) < 10 && Math.abs(e.clientY - y) < 10) {
-      console.log("click");
-    } else {
-      console.log("drag");
+      handleRedirectDetailProduct(product);
     }
   };
 

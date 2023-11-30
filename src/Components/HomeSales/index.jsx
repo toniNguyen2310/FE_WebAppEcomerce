@@ -105,9 +105,9 @@ function HomeSales(props) {
           emulateTouch={true}
           // slidesPerRow={1}
           slidesToShow={5}
-          slidesToScroll={3}
+          slidesToScroll={2}
           dots={false}
-          infinite={false}
+          infinite={true}
           responsive={responsiveCarousel}
         >
           {isLoading

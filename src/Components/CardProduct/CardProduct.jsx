@@ -31,7 +31,11 @@ function CardProduct(props) {
   const onMouseUp = (e, sub) => {
     const { x, y } = pointer.current;
     if (Math.abs(e.clientX - x) < 10 && Math.abs(e.clientY - y) < 10) {
-      handleRedirectDetailProduct(product);
+      if (e.target.closest(".item-infor-container-cart")) {
+        handleAddToCart(product);
+      } else {
+        handleRedirectDetailProduct(product);
+      }
     }
   };
 
@@ -39,7 +43,7 @@ function CardProduct(props) {
     <div
       className="item-cover"
       onMouseDown={onMouseDown}
-      onMouseUp={(e) => onMouseUp(e, "lotchuot")}
+      onMouseUp={(e) => onMouseUp(e)}
     >
       <div className="item">
         <div
@@ -70,7 +74,7 @@ function CardProduct(props) {
               </div>
               <div
                 className="item-infor-container-cart"
-                onClick={() => handleAddToCart(product)}
+                // onClick={() => handleAddToCart(product)}
               >
                 <AiOutlineShoppingCart />
               </div>
@@ -79,7 +83,7 @@ function CardProduct(props) {
         ) : (
           <div className="item-infor">
             <p
-              onClick={() => handleRedirectDetailProduct(product)}
+              // onClick={() => handleRedirectDetailProduct(product)}
               className="item-infor-name"
             >
               {product.name}
@@ -101,7 +105,7 @@ function CardProduct(props) {
               </div>
               <div
                 className="item-infor-container-cart"
-                onClick={() => handleAddToCart(product)}
+                // onClick={() => handleAddToCart(product)}
               >
                 <AiOutlineShoppingCart />
               </div>

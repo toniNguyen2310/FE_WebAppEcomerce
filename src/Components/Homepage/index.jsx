@@ -1,5 +1,5 @@
 import React from "react";
-import { dataCategory } from "../AdminControl/ManagerProducts";
+import {dataCategory } from "../../utils/constant";
 import HomeBanner from "../HomeBanner";
 import HomeProduct from "../HomeProduct";
 import HomeSales from "../HomeSales";

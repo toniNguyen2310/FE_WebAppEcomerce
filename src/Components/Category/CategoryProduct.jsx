@@ -3,7 +3,7 @@ import { Pagination } from "antd";
 import { useState } from "react";
 import { FiFilter } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
-import { dataBrand, dataPrice } from "../AdminControl/ManagerProducts";
+import {dataBrand,dataPrice } from "../../utils/constant";
 import CardProduct from "../CardProduct/CardProduct";
 import { convertSlug } from "../Homepage";
 
@@ -13,7 +13,6 @@ import SkeletonText from "../Skeleton/SkeletonText";
 function CategoryProduct(props) {
   const {
     filterRes,
-
     setCheckSort,
     setFilterRes,
     checkSort,

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getProductById } from "../../services.js/api";
-import { dataCategory } from "../AdminControl/ManagerProducts";
+import {dataCategory } from "../../utils/constant";
+
 import SkeletonText from "../Skeleton/SkeletonText";
 import ProductDetailLayout from "./ProductDetailLayout";
 import "./detailProduct.scss";
@@ -35,7 +36,7 @@ function DetailProduct(props) {
   let params = new URLSearchParams(location.search);
   const id = params?.get("id");
 
-  const fetchDataPRoduct = async (id) => {
+  const fetchDataProduct = async (id) => {
     const res = await getProductById(id);
     setIsLoading(true);
     if (res && res.data) {
@@ -45,7 +46,7 @@ function DetailProduct(props) {
   };
 
   useEffect(() => {
-    fetchDataPRoduct(id);
+    fetchDataProduct(id);
   }, [id]);
 
   useEffect(() => {

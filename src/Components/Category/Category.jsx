@@ -1,25 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getListBrandByCategory, getProducts } from "../../services.js/api";
-import { useDebounce } from "../../utils/hook";
-import { dataBrand } from "../AdminControl/ManagerProducts";
 import SkeletonText from "../Skeleton/SkeletonText";
 import CategoryFillterResponsive from "./CategoryFillterResponsive";
 import CategoryFilter from "./CategoryFilter";
 import CategoryProduct from "./CategoryProduct";
 import "./category.scss";
-import {
-  banGaming,
-  banPhimGaming,
-  chuotGaming,
-  gheGaming,
-  loaIcon,
-  lotChuot,
-  moHinh,
-  phuKien,
-  taiNghe,
-  tayCamGaming,
-} from "../Export/ExportVarible";
+import { useDebounce } from "../../utils/hooks/useDebounce";
+import useRenderListBrand from "../../utils/hooks/useRenderListBrand";
+import { useScrollToTop } from "../../utils/hooks/useScrollToTop";
 
 function Category(props) {
   const navigate = useNavigate();
@@ -91,57 +80,11 @@ function Category(props) {
     }
   };
 
-  //HANDLE LIST BRAND
-  const renderListBrand = async (category) => {
-    // if (currentPage === 1) {
-    switch (category) {
-      case "lot-chuot":
-        setListBrand(lotChuot);
-        setCategoryLabel(lotChuot[0].category);
-        break;
-      case "chuot-gaming":
-        setListBrand(chuotGaming);
-        setCategoryLabel(chuotGaming[0].category);
-        break;
-      case "ban-phim-gaming":
-        setListBrand(banPhimGaming);
-        setCategoryLabel(banPhimGaming[0].category);
-        break;
-      case "tai-nghe":
-        setListBrand(taiNghe);
-        setCategoryLabel(taiNghe[0].category);
-        break;
-      case "tay-cam-gaming":
-        setListBrand(tayCamGaming);
-        setCategoryLabel(tayCamGaming[0].category);
-        break;
-      case "loa":
-        setListBrand(loaIcon);
-        setCategoryLabel(loaIcon[0].category);
-        break;
-      case "mo-hinh":
-        setListBrand(moHinh);
-        setCategoryLabel(moHinh[0].category);
-        break;
-      case "phu-kien":
-        setListBrand(phuKien);
-        setCategoryLabel(phuKien[0].category);
-        break;
-      case "ghe-gaming":
-        setListBrand(gheGaming);
-        setCategoryLabel(gheGaming[0].category);
-        break;
-      case "ban-gaming":
-        setListBrand(banGaming);
-        setCategoryLabel(banGaming[0].category);
-        break;
-    }
-    // }
-  };
 
   //NEW-END
   const handleOnchangeProductsFilter = (pagination) => {
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
+    useScrollToTop()
     if (pagination !== currentPage) {
       setCurrentPage(pagination);
     }
@@ -173,7 +116,8 @@ function Category(props) {
       params.sort.includes(sortLocation)
     ) {
       if (categoryLocation != filterValue.category) {
-        renderListBrand(categoryLocation);
+        // renderListBrand(categoryLocation);
+        useRenderListBrand(categoryLocation, setListBrand , setCategoryLabel);
       }
       setFilterValue({
         category: categoryLocation,
@@ -203,7 +147,9 @@ function Category(props) {
         sort: "",
       });
 
-      renderListBrand(categoryLocation);
+      // renderListBrand(categoryLocation);
+      useRenderListBrand(categoryLocation, setListBrand , setCategoryLabel);
+
       return;
     }
   }, [debounceLocation]);

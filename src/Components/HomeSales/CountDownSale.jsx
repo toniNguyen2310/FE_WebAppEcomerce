@@ -6,7 +6,7 @@ import { IoIosFlash } from "react-icons/io";
 function CountDownSale(props) {
   //TIME COUNTER
   const [timeFlashSale, setTimeFlashSale] = useState(0);
-  const [displayTimeFlashSale, setdisplayTimeFlashSale] = useState({
+  const [displayTimeFlashSale, setDisplayTimeFlashSale] = useState({
     hour: 0,
     minute: 0,
     second: 0,
@@ -35,7 +35,7 @@ function CountDownSale(props) {
         .toString()
         .padStart(2, "0");
 
-    setdisplayTimeFlashSale({
+      setDisplayTimeFlashSale({
       hour: h,
       minute: m,
       second: s,
@@ -54,6 +54,8 @@ function CountDownSale(props) {
 
     setTimeFlashSale(timeOneDay - timeCurrent);
   };
+
+
 
   return (
     <div className="box-sale-title">

@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { convertSlug } from "../Homepage";
+import { useFormatNumberToMoney } from "../../utils/hooks/useFormatNumberToMoney";
 
 function OrderProduct(props) {
   const { item } = props;
@@ -65,26 +66,17 @@ function OrderProduct(props) {
                 </span>
                 <span>x{e.quantity}</span>
                 <span className="price414">
-                  {new Intl.NumberFormat("vi-VN", {
-                    style: "currency",
-                    currency: "VND",
-                  }).format(e.productId.priceAfter)}
+                {useFormatNumberToMoney(e.productId.priceAfter)} 
                 </span>
               </div>
               <div className="button-rate1">
                 <div className="button-rate1">
                   <span>
-                    {new Intl.NumberFormat("vi-VN", {
-                      style: "currency",
-                      currency: "VND",
-                    }).format(e.productId.priceAfter)}
+                  {useFormatNumberToMoney(e.productId.priceAfter)} 
                   </span>
                   {e.productId.discount === "0" ? null : (
                     <span className="price-sale">
-                      {new Intl.NumberFormat("vi-VN", {
-                        style: "currency",
-                        currency: "VND",
-                      }).format(e.productId.price)}
+                      {useFormatNumberToMoney(e.productId.price)} 
                     </span>
                   )}
                 </div>
@@ -100,17 +92,12 @@ function OrderProduct(props) {
         <div className="total-price">
           <span className="title-total">Tổng tiền</span>: &nbsp;
           <span style={{ fontWeight: 600 }}>
-            {new Intl.NumberFormat("vi-VN", {
-              style: "currency",
-              currency: "VND",
-            }).format(
-              item.listCart.reduce(
+          {useFormatNumberToMoney( item.listCart.reduce(
                 (total, e) =>
                   parseInt(e.productId.priceAfter) * parseInt(e.quantity) +
                   total,
                 0
-              )
-            )}
+              ))} 
           </span>
         </div>
       </div>

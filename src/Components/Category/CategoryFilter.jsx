@@ -1,7 +1,7 @@
 import { Checkbox, Menu } from "antd";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { dataCategory, dataPrice } from "../AdminControl/ManagerProducts";
+import {dataCategory,dataPrice } from "../../utils/constant";
 
 function getItem(label, key, icon, children, type) {
   return {

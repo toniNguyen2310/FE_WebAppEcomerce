@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { convertSlug } from "../Homepage";
 import "./cartHoverHeader.scss";
+import { useFormatNumberToMoney } from "../../utils/hooks/useFormatNumberToMoney";
 
 function CartHoverHeader(props) {
   const [listData, setListData] = useState([]);
@@ -58,13 +59,9 @@ function CartHoverHeader(props) {
                     <div className="button-rate1">
                       <div className="button-rate1">
                         <span className="price-bottom">
-                          {new Intl.NumberFormat("vi-VN", {
-                            style: "currency",
-                            currency: "VND",
-                          }).format(
-                            parseInt(e.productId.priceAfter) *
-                              parseInt(e.quantity)
-                          )}
+                        {useFormatNumberToMoney(parseInt(e.productId.priceAfter) *
+                              parseInt(e.quantity))}
+
                         </span>
                         <span className="price-top-hide">3</span>
                       </div>
@@ -85,18 +82,13 @@ function CartHoverHeader(props) {
               <div className="total-price">
                 <span className="total-price-title">Tổng tiền hàng:</span>
                 <span className="total-price-price">
-                  {new Intl.NumberFormat("vi-VN", {
-                    style: "currency",
-                    currency: "VND",
-                  }).format(
-                    listData.reduce(
+                  {useFormatNumberToMoney(listData.reduce(
                       (total, item) =>
                         parseInt(item.productId.priceAfter) *
                           parseInt(item.quantity) +
                         total,
                       0
-                    )
-                  )}
+                    ))}
                 </span>
               </div>
             </div>

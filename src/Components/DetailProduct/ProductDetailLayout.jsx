@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { addToCartService } from "../../redux/cart/cartSlice";
 import SkeletonText from "../Skeleton/SkeletonText";
 import ContentLoader from "react-content-loader";
+import { useFormatNumberToMoney } from "../../utils/hooks/useFormatNumberToMoney";
 
 function ProductDetailLayout(props) {
   const { dataProduct, isLoading } = props;
@@ -166,25 +167,16 @@ function ProductDetailLayout(props) {
                   {dataProduct.discount === "0" ? (
                     <span className="price-product">
                       <span>
-                        {new Intl.NumberFormat("vi-VN", {
-                          style: "currency",
-                          currency: "VND",
-                        }).format(dataProduct?.priceAfter)}
+                      {useFormatNumberToMoney(dataProduct?.priceAfter)}
                       </span>
                     </span>
                   ) : (
                     <span className="price-product">
                       <span>
-                        {new Intl.NumberFormat("vi-VN", {
-                          style: "currency",
-                          currency: "VND",
-                        }).format(dataProduct?.priceAfter)}
+                        {useFormatNumberToMoney(dataProduct?.priceAfter)}
                       </span>
                       <span className="price-product-sale">
-                        {new Intl.NumberFormat("vi-VN", {
-                          style: "currency",
-                          currency: "VND",
-                        }).format(dataProduct?.price)}
+                      {useFormatNumberToMoney(dataProduct?.price)}
                       </span>
                       <span className="price-product-discount">
                         (Tiết kiệm:{dataProduct?.discount}%)

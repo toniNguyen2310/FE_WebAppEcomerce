@@ -5,6 +5,7 @@ import LoadingButton from "../Export/ExportVarible";
 import { SpinnerDotted } from "spinners-react";
 import { convertSlug } from "../Homepage";
 import { useNavigate } from "react-router-dom";
+import { useFormatNumberToMoney } from "../../utils/hooks/useFormatNumberToMoney";
 
 function Order(props) {
   const navigate = useNavigate();
@@ -122,25 +123,16 @@ function Order(props) {
                               </span>
                               <span>x{item.quantity}</span>
                               <span className="price414">
-                                {new Intl.NumberFormat("vi-VN", {
-                                  style: "currency",
-                                  currency: "VND",
-                                }).format(item.productId.priceAfter)}
+                              {useFormatNumberToMoney(item.productId.priceAfter)}
                               </span>
                             </div>
                             <div className="button-rate1">
                               <span>
-                                {new Intl.NumberFormat("vi-VN", {
-                                  style: "currency",
-                                  currency: "VND",
-                                }).format(item.productId.priceAfter)}
+                              {useFormatNumberToMoney(item.productId.priceAfter)}
                               </span>
                               {item.productId.discount === "0" ? null : (
                                 <span className="price-sale">
-                                  {new Intl.NumberFormat("vi-VN", {
-                                    style: "currency",
-                                    currency: "VND",
-                                  }).format(item.productId.price)}
+                                 {useFormatNumberToMoney(item.productId.price)} 
                                 </span>
                               )}
                             </div>
@@ -170,18 +162,13 @@ function Order(props) {
                       <div className="total-price">
                         <span className="title-total">Tổng tiền</span>: &nbsp;
                         <span style={{ fontWeight: 600 }}>
-                          {new Intl.NumberFormat("vi-VN", {
-                            style: "currency",
-                            currency: "VND",
-                          }).format(
-                            e.listCart.reduce(
+                        {useFormatNumberToMoney( e.listCart.reduce(
                               (total, item) =>
                                 parseInt(item.productId.priceAfter) *
                                   parseInt(item.quantity) +
                                 total,
                               0
-                            )
-                          )}
+                            ))} 
                         </span>
                       </div>
                     </div>

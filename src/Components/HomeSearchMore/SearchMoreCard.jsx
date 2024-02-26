@@ -2,7 +2,8 @@ import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 function SearchMoreCard(props) {
-  const navigate = useNavigate(props);
+  const { item } = props;
+  const navigate = useNavigate();
   const pointer = useRef({ x: 0, y: 0 });
   const onMouseDown = (e) => {
     pointer.current = { x: e.clientX, y: e.clientY };
@@ -13,8 +14,6 @@ function SearchMoreCard(props) {
       navigate(`/category/${item}`);
     }
   };
-
-  const { item } = props;
   return (
     <div
       className="home-category-list-item"

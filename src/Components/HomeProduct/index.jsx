@@ -32,6 +32,7 @@ function SamplePrevArrow(props) {
 }
 
 function HomeProduct(props) {
+  const navigate = useNavigate();
   const { categoryValue, categoryLabel } = props;
   const [listBrand, setListBrand] = useState([]);
   const [listProduct, setListProduct] = useState([]);
@@ -39,7 +40,7 @@ function HomeProduct(props) {
   const [listProductFake, setListFake] = useState([...Array(10).keys()]);
   const [listBrandFake, setListBrandFake] = useState([...Array(4).keys()]);
 
-  const navigate = useNavigate();
+
   const responsiveCarousel = [
     {
       breakpoint: 1024,
@@ -80,7 +81,7 @@ function HomeProduct(props) {
     },
   ];
 
-  //handle rederect product
+  //handle redirect product
   const handleRedirectDetailProduct = (product) => {
     const slug = convertSlug(product.name);
     navigate(`/product/${slug}?id=${product._id}`);
@@ -121,10 +122,11 @@ function HomeProduct(props) {
         break;
     }
   };
-
+  
   const handleGetProductSlice = async () => {
     if (localStorage.getItem(categoryValue)) {
       setIsLoading(false);
+      renderListBrandHomePage(categoryValue);
       setListProduct(JSON.parse(localStorage.getItem(categoryValue)));
       return;
     }
@@ -141,6 +143,7 @@ function HomeProduct(props) {
   useEffect(() => {
     handleGetProductSlice();
   }, []);
+
   return (
     <div className="home-category-product">
       <div className="box-title-group">

@@ -1,4 +1,5 @@
 import React from "react";
+import { useFormatNumberToMoney } from "../../utils/hooks/useFormatNumberToMoney";
 
 function Test(props) {
   return (
@@ -35,10 +36,7 @@ function Test(props) {
                   Giá khuyến mại
                 </p>
                 <p className="price-detail-number price-discount">
-                  {new Intl.NumberFormat("vi-VN", {
-                    style: "currency",
-                    currency: "VND",
-                  }).format(dataProduct?.priceAfter)}
+                  {useFormatNumberToMoney(dataProduct?.priceAfter)}
                 </p>
               </div>
             </div>
@@ -47,10 +45,7 @@ function Test(props) {
               <div className="price-detail">
                 <p className="price-detail-title ">Giá bán</p>
                 <p className="price-detail-number price-intial">
-                  {new Intl.NumberFormat("vi-VN", {
-                    style: "currency",
-                    currency: "VND",
-                  }).format(dataProduct?.price)}
+                {useFormatNumberToMoney(dataProduct?.price)}
                 </p>
               </div>
               <div className="price-detail">
@@ -58,10 +53,7 @@ function Test(props) {
                   Giá khuyến mại
                 </p>
                 <p className="price-detail-number price-discount">
-                  {new Intl.NumberFormat("vi-VN", {
-                    style: "currency",
-                    currency: "VND",
-                  }).format(dataProduct?.priceAfter)}
+                {useFormatNumberToMoney(dataProduct?.priceAfter)}
                   &nbsp;
                   <small>(Tiết kiệm: {dataProduct?.discount}%)</small>
                 </p>

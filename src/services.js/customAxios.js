@@ -2,36 +2,9 @@ import axios from "axios";
 const baseURL = import.meta.env.VITE_BACKEND_URL;
 const baseURLDeployed = import.meta.env.VITE_BACKEND_URL_DEPLOYED;
 
-// const checkLocalHost = async () => {
-//   try {
-//     const resUrl = await fetch(baseURL);
-//     console.log(">>checl url", resUrl);
-
-//     if (resUrl) {
-//       return baseURL;
-//     }
-//   } catch (error) {
-//     const resUrlDeploy = await fetch(baseURLDeployed);
-//     console.log(">>checl url", resUrlDeploy);
-
-//     if (resUrlDeploy) {
-//       return baseURLDeployed;
-//     }
-//   }
-// };
-
-// checkLocalHost();
-
-// console.log(
-//   ">>>final url:",
-//   checkLocalHost().then((res) => res.json())
-// );
 
 const instance = axios.create({
   baseURL: baseURL,
-  // headers: { Authorization: `Bearer ${cookie_value}` },
-  // withCredentials: true,
-  // headers: { Authorization: `Bearer ${localStorage.getItem("access_token")}` },
 });
 
 //Gán access_token trong LS vào axios
@@ -42,10 +15,8 @@ instance.defaults.headers.common = {
 //Xử lý refresh Token
 const handleRefreshToken = async () => {
   const refreshLocal = localStorage.getItem("refresh_token");
-  // console.log("refreshLocal>> ", refreshLocal);
   const res = await instance.post("/v1/api/auth/refresh", { refreshLocal });
   if (res && res.data) {
-    // console.log("handleRefreshToken> res.data>>> ", res.data);
     return res.data;
   } else return;
 };

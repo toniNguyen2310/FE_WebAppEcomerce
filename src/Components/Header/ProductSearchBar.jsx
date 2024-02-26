@@ -2,11 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { convertSlug } from "../Homepage";
 import "./ProductCart.scss";
+import { useFormatNumberToMoney } from "../../utils/hooks/useFormatNumberToMoney";
 function ProductSearchBar(props) {
   const {
     listProductSearch,
-    isFocused,
-    setSearchProduct,
     displaySearch,
     className,
   } = props;
@@ -47,10 +46,7 @@ function ProductSearchBar(props) {
               <div className="header-product-checkout">
                 <p className="header-product-checkout-name">{e.name}</p>
                 <p className="header-product-checkout-price">
-                  {new Intl.NumberFormat("vi-VN", {
-                    style: "currency",
-                    currency: "VND",
-                  }).format(e.priceAfter)}
+                {useFormatNumberToMoney(e.priceAfter)}
                 </p>
               </div>
             </div>

@@ -16,6 +16,8 @@ import { convertSlug } from "../Homepage";
 import SkeletonText from "../Skeleton/SkeletonText";
 import InforCheckout from "./InforCheckout";
 import "./cartProduct.scss";
+import { regexEmail, regexName, validatePhone } from "../../utils/constant";
+import { useFormatNumberToMoney } from "../../utils/hooks/useFormatNumberToMoney";
 
 function CartProduct(props) {
   const { dataCart } = props;
@@ -84,24 +86,6 @@ function CartProduct(props) {
     navigate(`/product/${slug}?id=${product._id}`);
   };
 
-  //REGEX
-  const validatePhone = (value) => {
-    const regexPhone = /[0-9]{10}\b/g;
-    let isValid = regexPhone.test(value);
-    return isValid;
-  };
-
-  const regexEmail = (email) => {
-    const regexEmailCheck = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
-
-    return email.match(regexEmailCheck) ? true : false;
-  };
-  const regexName = (name) => {
-    const regexEmailCheck =
-      /^([a-zA-Z]{2,}\s[a-zA-Z]{1,}'?-?[a-zA-Z]{2,}\s?([a-zA-Z]{1,})?)/g;
-
-    return name.match(regexEmailCheck) ? true : false;
-  };
 
   //HANDLE CHECKOUT SUBMIT
   const submitCheckout = async () => {
@@ -228,7 +212,7 @@ function CartProduct(props) {
                   Bạn đang có{" "}
                   <b>
                     <SkeletonText height={15} width={20} /> sản phẩm
-                  </b>{" "}
+                  </b>
                   sản phẩm trong giỏ hàng
                 </p>
                 <div className="list-product">
@@ -236,10 +220,7 @@ function CartProduct(props) {
                     return (
                       <div key={e} className="content-checkout pt-3 pb-3">
                         <div className="image-product-checkout">
-                          {/* <img
-                            loading="lazy"
-                            src="https://lacdau.com/media/product/250-1389-cee443f13b710b757de6b494265fc813.jpg"
-                          /> */}
+                          
                           <SkeletonText height={80} width={100} />
                         </div>
                         <div className="content-product-checkout">
@@ -273,9 +254,6 @@ function CartProduct(props) {
                           <div className="delete">
                             <Popconfirm
                               title="Bạn muốn xóa sản phẩm này?"
-                              // description="Bạn chắc chắn muốn bỏ sản phẩm này ra khỏi giỏ hàng?"
-                              // onConfirm={() => confirm(e.productId._id)}
-                              // onCancel={() => cancel(e.productId._id)}
                               okText="Yes"
                               cancelText="No"
                             >
@@ -286,7 +264,6 @@ function CartProduct(props) {
                             <div className="quantity quantity414">
                               <span
                                 className="minus"
-                                // onClick={() => handleDecrease(e.productId._id)}
                               >
                                 -
                               </span>
@@ -296,7 +273,6 @@ function CartProduct(props) {
                               </span>
                               <span
                                 className="plus"
-                                // onClick={() => handleIncrease(e.productId._id)}
                               >
                                 +
                               </span>
@@ -343,27 +319,12 @@ function CartProduct(props) {
                   </p>
                   <button>
                     THANH TOÁN
-                    {/* {loadingCheckout && (
-                      <LoadingButton
-                        color={"#ff0000"}
-                        secondaryColor={"#ffffff"}
-                      />
-                    )} */}
                   </button>
                 </div>
               </div>
             </div>
           </div>
-          {/* <div className="cart-container container cartfull">
-            <div className="cart-container-content">
-              <div className="cart-container-content-left height-skeleton">
-                <SkeletonCart height={500} width={840} />
-              </div>
-              <div className="cart-container-content-right height-skeleton">
-                <SkeletonCart height={500} width={310} />
-              </div>
-            </div>
-          </div> */}
+
         </>
       ) : (
         <>
@@ -401,30 +362,17 @@ function CartProduct(props) {
                                 {e.productId.name}
                               </p>
                               <p className="header-product-checkout-price">
-                                {new Intl.NumberFormat("vi-VN", {
-                                  style: "currency",
-                                  currency: "VND",
-                                }).format(e.productId.priceAfter)}
+                                {useFormatNumberToMoney(e.productId.priceAfter)}
                               </p>
                               <p className="footer-product-checkout-after price414">
-                                {new Intl.NumberFormat("vi-VN", {
-                                  style: "currency",
-                                  currency: "VND",
-                                }).format(
-                                  parseInt(e.productId.priceAfter) *
-                                    parseInt(e.quantity)
-                                )}
+                                {useFormatNumberToMoney(parseInt(e.productId.priceAfter) *
+                                    parseInt(e.quantity))}
                               </p>
                             </div>
                             <div className="footer-product-checkout">
                               <p className="footer-product-checkout-after">
-                                {new Intl.NumberFormat("vi-VN", {
-                                  style: "currency",
-                                  currency: "VND",
-                                }).format(
-                                  parseInt(e.productId.priceAfter) *
-                                    parseInt(e.quantity)
-                                )}
+                              {useFormatNumberToMoney(parseInt(e.productId.priceAfter) *
+                                    parseInt(e.quantity))}
                               </p>
                               <div className="quantity">
                                 <span
@@ -535,10 +483,8 @@ function CartProduct(props) {
                     <div className="price">
                       <p className="price-title">Tổng tiền:</p>
                       <p className="price-number">
-                        {new Intl.NumberFormat("vi-VN", {
-                          style: "currency",
-                          currency: "VND",
-                        }).format(totalCost)}
+                      {useFormatNumberToMoney(totalCost)}
+
                       </p>
                     </div>
                     <p className="freeship">

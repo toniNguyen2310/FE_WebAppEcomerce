@@ -16,11 +16,12 @@ import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { SpinnerDotted } from "spinners-react";
 import { searchProductNavbarAPI } from "../../services.js/api";
-import { useDebounce } from "../../utils/hook";
 import CartHoverHeader from "../CartHoverHeader/CartHoverHeader";
 import MenuCategory from "../Menu";
 import ProductSearchBar from "./ProductSearchBar";
 import "./header.scss";
+import { useDebounce } from "../../utils/hooks/useDebounce";
+import { useScrollToTop } from "../../utils/hooks/useScrollToTop";
 
 function HeaderExport(props) {
   const {
@@ -225,7 +226,7 @@ function HeaderExport(props) {
             >
               <NavLink
                 to={`/`}
-                onClick={() => window.scrollTo(0, 0)}
+                onClick={() => useScrollToTop()}
                 className="header__main__cover__left-logo margin-left__30px"
                 style={fixedHeader ? { width: "15%" } : null}
               >

@@ -8,13 +8,9 @@ function Cart(props) {
   const navigate = useNavigate();
 
   const [dataCart, setDataCart] = useState([]);
-  const [ischangeAddress, setIsChangeAddress] = useState(false);
   const listCart = useSelector((state) => state.cart.listCart);
 
-  const changeAddress = (event) => {
-    event.preventDefault();
-    setIsChangeAddress(!ischangeAddress);
-  };
+ 
   useEffect(() => {
     setDataCart(listCart);
   }, [listCart]);

@@ -1,8 +1,7 @@
 import { Checkbox, Menu } from "antd";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { dataCategory, dataPrice } from "../AdminControl/ManagerProducts";
-
+import {dataCategory,dataPrice } from "../../utils/constant";
 import { FiFilter } from "react-icons/fi";
 import { AiOutlineClose } from "react-icons/ai";
 
@@ -130,11 +129,7 @@ function CategoryFillterResponsive(props) {
     ),
   ];
 
-  //CANCEL FILTER
-  const setCalcelFilter = () => {
-    setFilterRes(false);
-    // setParams({ brand: "", price: "", sort: "" });
-  };
+
   useEffect(() => {
     if (filterRes) {
       document.body.style.overflowY = "hidden";
@@ -210,7 +205,7 @@ function CategoryFillterResponsive(props) {
           <div className="filter-responsive-button">
             <button
               className="respon-filter-btn calcel"
-              onClick={setCalcelFilter}
+              onClick={() =>setFilterRes(false)}
             >
               HỦY
             </button>

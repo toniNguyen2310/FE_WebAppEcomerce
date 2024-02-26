@@ -9,6 +9,7 @@ import CardProductSkl from "../CardProduct/CardProductSkl";
 import { convertSlug } from "../Homepage";
 import "./homeSales.scss";
 import CountDownSale from "./CountDownSale";
+import { useScrollToTop } from "../../utils/hooks/useScrollToTop";
 
 function HomeSales(props) {
   const [listProductSales, setListProductSales] = useState([]);
@@ -87,7 +88,7 @@ function HomeSales(props) {
 
   useEffect(() => {
     handleGetDataSale();
-    window.scrollTo(0, 0);
+    useScrollToTop();
   }, []);
 
   return (

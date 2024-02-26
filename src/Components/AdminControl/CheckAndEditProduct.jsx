@@ -12,7 +12,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { putProduct } from "../../services.js/api";
-import { dataBrand, dataCategory } from "./ManagerProducts";
+import { dataBrand, dataCategory } from "../../utils/constant";
 
 function CheckAndEditProduct(props) {
   const {

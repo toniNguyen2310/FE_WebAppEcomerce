@@ -1,4 +1,4 @@
-import axios from "../utils/axios-customize";
+import axios from "../services.js/customAxios";
 
 //AUTH
 export const callRegister = (email, username, password, phone) => {

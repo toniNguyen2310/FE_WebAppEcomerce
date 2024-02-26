@@ -12,7 +12,8 @@ import {
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { callCreateProduct } from "../../services.js/api";
-import { dataBrand, dataCategory } from "./ManagerProducts";
+import { dataBrand, dataCategory } from "../../utils/constant";
+
 
 function CreateProduct(props) {
   const { setOpenModalCreate, openModalCreate, fetchProduct } = props;

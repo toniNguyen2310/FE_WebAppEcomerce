@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCartService } from "../../redux/cart/cartSlice";
 import "./CardProduct.scss";
 import { useRef } from "react";
+import { useFormatNumberToMoney } from "../../utils/hooks/useFormatNumberToMoney";
 
 function CardProduct(props) {
   const { handleRedirectDetailProduct, product, messageSuccess } = props;
@@ -63,10 +64,7 @@ function CardProduct(props) {
             <div className="item-infor-container">
               <div className="item-infor-container-price">
                 <p className="main-price">
-                  {new Intl.NumberFormat("vi-VN", {
-                    style: "currency",
-                    currency: "VND",
-                  }).format(product.priceAfter)}
+                  {useFormatNumberToMoney(product.priceAfter)}
                 </p>
                 <p className="old-price" style={{ color: "#ffffff" }}>
                   &nbsp;
@@ -91,16 +89,11 @@ function CardProduct(props) {
             <div className="item-infor-container">
               <div className="item-infor-container-price">
                 <p className="old-price">
-                  {new Intl.NumberFormat("vi-VN", {
-                    style: "currency",
-                    currency: "VND",
-                  }).format(product.price)}
+                  {useFormatNumberToMoney(product.price)}
+
                 </p>
                 <p className="main-price">
-                  {new Intl.NumberFormat("vi-VN", {
-                    style: "currency",
-                    currency: "VND",
-                  }).format(product.priceAfter)}
+                   {useFormatNumberToMoney(product.priceAfter)}
                 </p>
               </div>
               <div

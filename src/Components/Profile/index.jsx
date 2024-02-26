@@ -23,6 +23,7 @@ function ProfilePage(props) {
   const navigate = useNavigate();
   const user = useSelector((state) => state.account.user);
 
+  //Handle logout
   const handleLogout = async () => {
     setIsLoading(true);
     setSelected(4);
@@ -39,6 +40,7 @@ function ProfilePage(props) {
       setIsLoading(false);
     }
   };
+
   useEffect(() => {
     if (isAdmin) {
       setAdmin(true);

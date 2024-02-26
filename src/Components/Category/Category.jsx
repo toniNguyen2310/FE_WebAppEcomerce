@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getListBrandByCategory, getProducts } from "../../services.js/api";
 import SkeletonText from "../Skeleton/SkeletonText";
-import CategoryFillterResponsive from "./CategoryFillterResponsive";
-import CategoryFilter from "./CategoryFilter";
+import CategoryFilterResponsive from "./CategoryFilterResponsive";
+import CategoryFilter from "./CategoryFilterResponsive";
 import CategoryProduct from "./CategoryProduct";
 import "./category.scss";
 import { useDebounce } from "../../utils/hooks/useDebounce";
@@ -16,7 +16,7 @@ function Category(props) {
   const [listBrand, setListBrand] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [params, setParams] = useState({ brand: "", price: "", sort: "" });
-  //FILTER SORT
+  //SORT
   const [checkSort, setCheckSort] = useState("");
   //FIRST LOAD
   const [firstLoad, setFirstLoad] = useState(true);
@@ -24,7 +24,7 @@ function Category(props) {
   const [checkPrice, setCheckPrice] = useState("");
   //PAGINATION
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(16);
+  const [pageSize, setPageSize] = useState(8);
   const [total, setTotal] = useState(0);
   const [categoryLabel, setCategoryLabel] = useState("");
   //RESPONSIVE
@@ -52,7 +52,6 @@ function Category(props) {
       setIsLoading(true);
       const query = `current=${currentPage}&pageSize=${pageSize}&category=${filterValue.category}&brand=${filterValue.brand}&priceAfter=${filterValue.sort}&filterPrice=${filterValue.price}`;
 
-      //FETCH PRODUCT
       const res = await getProducts(query);
 
       if (res && res.data) {
@@ -81,7 +80,7 @@ function Category(props) {
   };
 
 
-  //NEW-END
+  //scroll to top when change category
   const handleOnchangeProductsFilter = (pagination) => {
     // window.scrollTo(0, 0);
     useScrollToTop()
@@ -90,22 +89,21 @@ function Category(props) {
     }
   };
 
-  //LOCATION
+  //Filter product by URL  
   useEffect(() => {
-    //CATEGORY
     const categoryLocation = location?.pathname.split("/")[2];
 
-    //BRAND
+    //Filter product by param
     const brandLocation = new URLSearchParams(location.search).get("brand")
       ? new URLSearchParams(location.search).get("brand")
       : "";
 
-    //FILTER OPTION PRICE
+    
     const priceLocation = new URLSearchParams(location.search).get("price")
       ? new URLSearchParams(location.search).get("price")
       : "";
 
-    //SORT PRICE
+    
     const sortLocation = new URLSearchParams(location.search).get("sort")
       ? new URLSearchParams(location.search).get("sort")
       : "";
@@ -116,7 +114,6 @@ function Category(props) {
       params.sort.includes(sortLocation)
     ) {
       if (categoryLocation != filterValue.category) {
-        // renderListBrand(categoryLocation);
         useRenderListBrand(categoryLocation, setListBrand , setCategoryLabel);
       }
       setFilterValue({
@@ -147,34 +144,31 @@ function Category(props) {
         sort: "",
       });
 
-      // renderListBrand(categoryLocation);
       useRenderListBrand(categoryLocation, setListBrand , setCategoryLabel);
 
       return;
     }
   }, [debounceLocation]);
 
-  //CURRENT PAGINATION
+  
   useEffect(() => {
     fetchProduct();
   }, [debounceCurrentPage]);
 
-  //VALUE FILTER
+  
   useEffect(() => {
     setCurrentPage(1);
     fetchProduct();
   }, [debounceFilterValue]);
 
-  //PARAMS
+  
   useEffect(() => {
     navigateParams();
-    // console.log("current page>>>", currentPage);
   }, [params]);
 
   return (
     <div
       className="page-category"
-      // style={filterRes ? { overflow: "hidden" } : { overflow: "scroll" }}
     >
       <div className="category">
         <nav className="category-header">
@@ -225,7 +219,7 @@ function Category(props) {
             isLoading={isLoading}
           />
         </div>
-        <CategoryFillterResponsive
+        <CategoryFilterResponsive
           setFilterRes={setFilterRes}
           filterRes={filterRes}
           setCheckSort={setCheckSort}

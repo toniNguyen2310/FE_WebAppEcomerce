@@ -12,7 +12,7 @@ import {
 } from "../../redux/cart/cartSlice";
 import { createOrder } from "../../services.js/api";
 import LoadingButton from "../Loading/LoadingButton";
-import { convertSlug } from "../Homepage";
+import { convertSlug } from "../../utils/constant";
 import SkeletonText from "../Skeleton/SkeletonText";
 import InforCheckout from "./InforCheckout";
 import "./cartProduct.scss";
@@ -33,27 +33,20 @@ function CartProduct(props) {
   const [loadingCheckout, setLoadingCheckout] = useState(false);
   const refInput = useRef(null);
   const refname = useRef(null);
-  const [messageApi, contextHolder] = message.useMessage();
-  const success = () => {
-    messageApi.open({
-      type: "success",
-      content: "Bạn đã đặt hàng thành công!",
-    });
-  };
 
-  //CHECKOUT
+  //Information checkout
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [note, setNote] = useState("");
 
-  //INCREASE QUANTITY
+  //Increase quantity
   const handleIncrease = (id) => {
     dispatch(increaseQuantity(id));
   };
 
-  //DECREASE QUANTITY
+  //Decrease quantity
   const handleDecrease = (id) => {
     dispatch(decreaseQuantity(id));
   };
@@ -70,7 +63,7 @@ function CartProduct(props) {
     return array.reduce((total, item) => parseInt(item.quantity) + total, 0);
   };
 
-  //CONFIRM DELETE
+  //Confirm delete product
   const confirm = (id) => {
     dispatch(deleteProduct(id));
     message.success("Xóa sản phẩm Thành công");
@@ -80,14 +73,14 @@ function CartProduct(props) {
     return;
   };
 
-  //HANDLE DERECT PRODUCT
+  //Handle redirect detail product
   const handleRedirectDetailProductSearch = (product) => {
     const slug = convertSlug(product.name);
     navigate(`/product/${slug}?id=${product._id}`);
   };
 
 
-  //HANDLE CHECKOUT SUBMIT
+  //Submit checkout
   const submitCheckout = async () => {
     setLoadingCheckout(true);
     if (!name || !email || !phone || !address) {
@@ -155,7 +148,7 @@ function CartProduct(props) {
       const res = await createOrder(data);
       if (res && res.data) {
         setLoadingCheckout(false);
-        success();
+        message.success("Bạn đã đặt hàng thành công!");
         dispatch(deleteAllCart());
         return;
       } else {
@@ -173,7 +166,7 @@ function CartProduct(props) {
       const res = await createOrder(data);
       if (res && res.data) {
         setLoadingCheckout(false);
-        success();
+        message.success("Bạn đã đặt hàng thành công!");
         dispatch(deleteAllCart());
         return;
       } else {
@@ -201,7 +194,6 @@ function CartProduct(props) {
   }, [isLoadingCart]);
   return (
     <>
-      {contextHolder}
       {isLoading ? (
         <>
           <div className="cart-container container cartfull">

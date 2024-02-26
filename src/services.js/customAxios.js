@@ -7,12 +7,12 @@ const instance = axios.create({
   baseURL: baseURL,
 });
 
-//Gán access_token trong LS vào axios
+//Assign access_token in LS to axios
 instance.defaults.headers.common = {
   Authorization: `Bearer ${localStorage.getItem("access_token")}`,
 };
 
-//Xử lý refresh Token
+//Handle refresh Token
 const handleRefreshToken = async () => {
   const refreshLocal = localStorage.getItem("refresh_token");
   const res = await instance.post("/v1/api/auth/refresh", { refreshLocal });
@@ -33,7 +33,7 @@ instance.interceptors.request.use(
   }
 );
 
-//Biến gán để tránh retry vô hạn
+//Variable assignment to avoid infinite retries
 const NO_RETRY_HEADER = "x-no-retry";
 
 // Add a response interceptor
@@ -83,7 +83,7 @@ instance.interceptors.response.use(
       error.config &&
       error.response &&
       +error.response.status === 401 &&
-      //Điều kiện tránh retry vô hạn
+      //Conditions to avoid infinite retries
       !error.config.headers[NO_RETRY_HEADER]
     ) {
       const data = await handleRefreshToken();

@@ -9,6 +9,7 @@ import {
   banGaming,
   banPhimGaming,
   chuotGaming,
+  dataProductSearchMore,
   gheGaming,
   loaIcon,
   lotChuot,
@@ -17,7 +18,7 @@ import {
   taiNghe,
   tayCamGaming,
 } from "../../utils/constant";
-import { convertSlug } from "../Homepage";
+import { convertSlug } from "../../utils/constant";
 import SkeletonText from "../Skeleton/SkeletonText";
 import "./homeproduct.scss";
 
@@ -81,46 +82,20 @@ function HomeProduct(props) {
     },
   ];
 
-  //handle redirect product
+  //Handle redirect detail product
   const handleRedirectDetailProduct = (product) => {
     const slug = convertSlug(product.name);
     navigate(`/product/${slug}?id=${product._id}`);
   };
 
-  //create list brand
-  const renderListBrandHomePage = async (category) => {
-    switch (category) {
-      case "lot-chuot":
-        setListBrand(lotChuot);
-        break;
-      case "chuot-gaming":
-        setListBrand(chuotGaming);
-        break;
-      case "ban-phim-gaming":
-        setListBrand(banPhimGaming.slice(0, 4));
-        break;
-      case "tai-nghe":
-        setListBrand(taiNghe.slice(0, 4));
-        break;
-      case "tay-cam-gaming":
-        setListBrand(tayCamGaming.slice(0, 4));
-        break;
-      case "loa":
-        setListBrand(loaIcon.slice(0, 4));
-        break;
-      case "mo-hinh":
-        setListBrand(moHinh.slice(0, 4));
-        break;
-      case "phu-kien":
-        setListBrand(phuKien.slice(0, 4));
-        break;
-      case "ghe-gaming":
-        setListBrand(gheGaming.slice(0, 4));
-        break;
-      case "ban-gaming":
-        setListBrand(banGaming.slice(0, 4));
-        break;
-    }
+  //Render list brand
+  const renderListBrandHomePage =  (category) => {
+    {dataProductSearchMore && dataProductSearchMore.forEach((e)=>{
+      if(e.value === category){
+        return setListBrand(e.brand.slice(0, 4))
+      }
+
+    })}
   };
   
   const handleGetProductSlice = async () => {

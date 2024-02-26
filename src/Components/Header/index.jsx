@@ -29,7 +29,7 @@ function Header(props) {
   const debounceListCart = useDebounce(listCart, 300);
   const debounceLocation = useDebounce(location, 100);
 
-  //SCROLL
+  //When scrolling below 400px, the small panel appears, hiding the large panel, and vice versa.
   useEffect(() => {
     const onScroll = () => setOffset(window.pageYOffset);
     if (window.pageYOffset > 400) {
@@ -51,7 +51,7 @@ function Header(props) {
     dispatch(notDisplayMenu());
   };
 
-  //SAVE WHEN LIST DATA CHANGE
+  //Save new cart when changed
   useEffect(() => {
     if (isAuthenticated) {
       if (JSON.stringify(listCart) !== JSON.stringify(listCartFirst)) {
@@ -69,9 +69,9 @@ function Header(props) {
   }, [debounceListCart]);
 
   useEffect(() => {
-    //FETCH DATA CART WHEN CHANGE LOCATION / FECTH USER
+    //Fetch product data every time the URL address changes
     const fetchListCart = async () => {
-      //WHEN AUTHENTICATED
+      //When authenticated, get data from the DB
       dispatch(doFetchListCartPending());
       if (user && user._id) {
         //RENDER LIST CART BY API
@@ -84,7 +84,7 @@ function Header(props) {
         }
       } else {
         let listCartLS = JSON.parse(localStorage.getItem("listCart"));
-        //WHEN NOT AUTHENTICATED
+        //When NOT authenticated, get data from the Local Storage
         if (!listCartLS) {
           localStorage.setItem("listCart", JSON.stringify([]));
           return;

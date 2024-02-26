@@ -9,13 +9,12 @@ import { useFormatNumberToMoney } from "../../utils/hooks/useFormatNumberToMoney
 function CardProduct(props) {
   const { handleRedirectDetailProduct, product } = props;
   const dispatch = useDispatch();
-  const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
-  const user = useSelector((state) => state.account.user);
 
   const handleAddToCart = async (product) => {
       dispatch(addToCartService(product));   
   };
 
+  //Check drag and click
   const pointer = useRef({ x: 0, y: 0 });
   const onMouseDown = (e) => {
     pointer.current = { x: e.clientX, y: e.clientY };

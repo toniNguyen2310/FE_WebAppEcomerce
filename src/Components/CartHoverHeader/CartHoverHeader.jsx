@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { convertSlug } from "../Homepage";
+import { convertSlug } from "../../utils/constant";
 import "./cartHoverHeader.scss";
 import { useFormatNumberToMoney } from "../../utils/hooks/useFormatNumberToMoney";
 
@@ -10,7 +10,7 @@ function CartHoverHeader(props) {
   const listCart = useSelector((state) => state.cart.listCart);
   const navigate = useNavigate();
 
-  //HANDLE DIRECT PRODUCT DETAIL
+  //Handle redirect detail product
   const handleRedirectDetailProductSearch = (product) => {
     const slug = convertSlug(product.name);
     navigate(`/product/${slug}?id=${product._id}`);

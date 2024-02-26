@@ -17,11 +17,11 @@ function Information(props) {
   const [birthday, setBirthday] = useState("");
   const [address, setAddress] = useState("");
 
-  //REF
+  //Ref name, phone
   const nameRef = useRef();
   const phoneRef = useRef();
 
-  //HANDLE DEFAULT INFO
+  //Get default information 
   const setDefaultInfo = () => {
     if (!isAuthenticated) {
       return;
@@ -35,7 +35,7 @@ function Information(props) {
 
 
 
-  //HANDLE UPDATE INFORMATION
+  //Handle update user information
   const handleUpdateInfoUser = async () => {
     setIsLoading(true);
     if (!isAuthenticated) {

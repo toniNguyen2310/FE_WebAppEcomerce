@@ -16,8 +16,6 @@ function SearchOrder(props) {
   const [listData, setListData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-
-
   const searchButton = async () => {
     setIsLoading(true);
     if (!number) {

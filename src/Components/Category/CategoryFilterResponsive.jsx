@@ -1,5 +1,5 @@
 import { Checkbox, Menu } from "antd";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import {dataCategory,dataPrice } from "../../utils/constant";
 
@@ -20,7 +20,6 @@ function CategoryFilter(props) {
     setCheckSort,
     setParams,
     params,
-    firstLoad,
     setFirstLoad,
     checkBrand,
     setCheckBrand,
@@ -31,7 +30,7 @@ function CategoryFilter(props) {
 
   const navigate = useNavigate();
 
-  //FILTER MENU CATEGORY
+  //Menu filter product by category
   const itemsCategory = [
     getItem(
       "Danh mục sản phẩm",
@@ -43,7 +42,7 @@ function CategoryFilter(props) {
     ),
   ];
 
-  //Filter Category
+  ////Handle filter product by category
   const onchangeCategory = (category) => {
     if (category === filterValue.category) {
       return;
@@ -56,7 +55,7 @@ function CategoryFilter(props) {
     navigate(`/category/${category}`);
   };
 
-  //Filter Brand
+  //Handle filter product by brand
   const onChangeBrand = (e) => {
     setFirstLoad(false);
     setCheckBrand(e.target.value);
@@ -73,7 +72,7 @@ function CategoryFilter(props) {
     }
   };
 
-  //Filter Option Price
+  //Handle filter product by price
   const onchangeFilterPrice = (e) => {
     setFirstLoad(false);
     setCheckPrice(e.target.value);
@@ -87,7 +86,7 @@ function CategoryFilter(props) {
     }
   };
 
-  //FILTER MENU BRAND
+  //Menu filter product by brand
   const itemsBrand = [
     getItem(
       "Nhà cung cấp",
@@ -108,7 +107,7 @@ function CategoryFilter(props) {
     ),
   ];
 
-  //FILTER PRICE SELECT
+  //Menu filter product by price
   const itemsPrice = [
     getItem(
       "Khoảng giá",
@@ -150,8 +149,6 @@ function CategoryFilter(props) {
               width: 250,
             }}
             defaultOpenKeys={["Brand"]}
-            // selectedKeys={[filterValue?.brand]}
-            // selectedKeys={[firstLoad ? filterValue?.brand : checkBrand]}
             selectedKeys={[checkBrand]}
             mode="inline"
             items={itemsBrand}
@@ -163,8 +160,6 @@ function CategoryFilter(props) {
               width: 250,
             }}
             defaultOpenKeys={["price"]}
-            // selectedKeys={[filterValue?.price]}
-            // selectedKeys={[firstLoad ? filterValue?.price : checkPrice]}
             selectedKeys={[checkPrice]}
             mode="inline"
             items={itemsPrice}

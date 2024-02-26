@@ -19,7 +19,7 @@ function InforCheckout(props) {
   const user = useSelector((state) => state.account.user);
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
 
-  //INFO USER DEFAULT WHEN AUTHENTICATED
+  //User information  when authenticated
   const setDefaultInfoCa = () => {
     if (!isAuthenticated) {
       return;

@@ -1,7 +1,6 @@
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import "./CardProduct.scss";
 import SkeletonText from "../Skeleton/SkeletonText";
-import ContentLoader from "react-content-loader";
 
 function CardProductSkl(props) {
   return (
@@ -17,9 +16,6 @@ function CardProductSkl(props) {
           </p>
           <div className="item-infor-container">
             <div className="item-infor-container-price">
-              {/* <p className="old-price" style={{ color: "#ffffff" }}>
-                &nbsp;
-              </p> */}
               <p className="main-price">
                 <SkeletonText width={"90px"} height={"16px"} />
               </p>

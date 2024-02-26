@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 function SearchMoreCard(props) {
   const { item } = props;
   const navigate = useNavigate();
+
+  //Check drag and click product
   const pointer = useRef({ x: 0, y: 0 });
   const onMouseDown = (e) => {
     pointer.current = { x: e.clientX, y: e.clientY };

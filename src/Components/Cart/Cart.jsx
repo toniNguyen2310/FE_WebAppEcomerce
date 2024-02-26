@@ -6,11 +6,9 @@ import "./cartPage.scss";
 
 function Cart(props) {
   const navigate = useNavigate();
-
   const [dataCart, setDataCart] = useState([]);
   const listCart = useSelector((state) => state.cart.listCart);
 
- 
   useEffect(() => {
     setDataCart(listCart);
   }, [listCart]);

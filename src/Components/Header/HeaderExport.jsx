@@ -42,8 +42,8 @@ function HeaderExport(props) {
   const [isLoadingSearch, setIsLoadingSearch] = useState(false);
   const [userStart, setUserStart] = useState("");
 
-  //SEARCH PRODUCT
-  const getListPRoductsWhenSearch = async (value) => {
+  //Handle search product
+  const getListProductsWhenSearch = async (value) => {
     if (value) {
       setIsLoadingSearch(true);
       const res = await searchProductNavbarAPI(value.trim());
@@ -61,12 +61,13 @@ function HeaderExport(props) {
 
   useEffect(() => {
     if (!searchProduct) {
-      getListPRoductsWhenSearch();
+      getListProductsWhenSearch();
     } else {
-      getListPRoductsWhenSearch(searchProduct);
+      getListProductsWhenSearch(searchProduct);
     }
   }, [debounceSearchProduct]);
 
+  //Hide product search
   window.addEventListener("click", function (event) {
     if (!event.target.closest(`#Seachbar${idUnique}`)) {
       setDisPlaySearch(false);

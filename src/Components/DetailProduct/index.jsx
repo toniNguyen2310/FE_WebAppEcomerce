@@ -36,6 +36,7 @@ function DetailProduct(props) {
   let params = new URLSearchParams(location.search);
   const id = params?.get("id");
 
+  //get data product by id on URL param 
   const fetchDataProduct = async (id) => {
     const res = await getProductById(id);
     setIsLoading(true);
@@ -49,6 +50,7 @@ function DetailProduct(props) {
     fetchDataProduct(id);
   }, [id]);
 
+  //Check product category
   useEffect(() => {
     const found = dataCategory.find((e) => e.value === dataProduct?.category);
     setCategoryName(found?.label);

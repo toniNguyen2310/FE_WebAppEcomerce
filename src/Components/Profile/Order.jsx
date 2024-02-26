@@ -3,7 +3,7 @@ import { cancelOrderApi, getListOrder } from "../../services.js/api";
 import { useSelector } from "react-redux";
 import LoadingButton from "../Loading/LoadingButton";
 import { SpinnerDotted } from "spinners-react";
-import { convertSlug } from "../Homepage";
+import { convertSlug } from "../../utils/constant";
 import { useNavigate } from "react-router-dom";
 import { useFormatNumberToMoney } from "../../utils/hooks/useFormatNumberToMoney";
 
@@ -14,7 +14,7 @@ function Order(props) {
   const [listOrder, setListOrder] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  //FETCH LIST ORDER
+  //Fetch list order
   const fetchListOrder = async (id) => {
     setIsLoading(true);
     const res = await getListOrder(id);
@@ -26,14 +26,15 @@ function Order(props) {
     }
   };
 
-  //CANCEL ORDER
+  //Cancel order
   const cancelOrder = async (id) => {
     const res = await cancelOrderApi(id);
     if (res) {
       fetchListOrder(user._id);
     }
   };
-
+  
+  //Handle redirect detail product
   const handleRedirectDetailProductSearch = (product) => {
     const slug = convertSlug(product.name);
     navigate(`/product/${slug}?id=${product._id}`);

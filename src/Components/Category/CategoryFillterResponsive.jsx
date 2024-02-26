@@ -14,7 +14,7 @@ function getItem(label, key, icon, children, type) {
     type,
   };
 }
-function CategoryFillterResponsive(props) {
+function CategoryFilterResponsive(props) {
   const {
     filterValue,
     listBrand,
@@ -23,7 +23,6 @@ function CategoryFillterResponsive(props) {
     params,
     filterRes,
     setFilterRes,
-    firstLoad,
     setFirstLoad,
     checkBrand,
     setCheckBrand,
@@ -222,4 +221,4 @@ function CategoryFillterResponsive(props) {
   );
 }
 
-export default CategoryFillterResponsive;
+export default CategoryFilterResponsive;

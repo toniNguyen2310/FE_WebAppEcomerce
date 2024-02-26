@@ -8,6 +8,7 @@ import { listProductBanner } from "../../utils/constant";
 function HomeBanner(props) {
   const navigate = useNavigate();
 
+  //Check drag and click product
   const pointer = useRef({ x: 0, y: 0 });
   const onMouseDown = (e) => {
     pointer.current = { x: e.clientX, y: e.clientY };

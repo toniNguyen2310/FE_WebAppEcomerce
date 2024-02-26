@@ -1,12 +1,13 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { convertSlug } from "../Homepage";
+import { convertSlug } from "../../utils/constant";
 import { useFormatNumberToMoney } from "../../utils/hooks/useFormatNumberToMoney";
 
 function OrderProduct(props) {
   const { item } = props;
   const navigate = useNavigate();
-
+  
+  //Handle redirect detail product
   const handleRedirectDetailProductSearch = (product) => {
     const slug = convertSlug(product.name);
     navigate(`/product/${slug}?id=${product._id}`);

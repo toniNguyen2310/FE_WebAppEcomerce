@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { getProductByDiscountSlice } from "../../services.js/api";
 import CardProduct from "../CardProduct/CardProduct";
 import CardProductSkl from "../CardProduct/CardProductSkl";
-import { convertSlug } from "../Homepage";
+import { convertSlug } from "../../utils/constant";
 import "./homeSales.scss";
 import CountDownSale from "./CountDownSale";
 import { useScrollToTop } from "../../utils/hooks/useScrollToTop";
@@ -80,7 +80,7 @@ function HomeSales(props) {
     }
   };
 
-  //Handle rederect product
+  //Handle redirect detail product
   const handleRedirectDetailProduct = (product) => {
     const slug = convertSlug(product.name);
     navigate(`/product/${slug}?id=${product._id}`);

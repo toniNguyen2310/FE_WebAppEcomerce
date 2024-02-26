@@ -14,7 +14,6 @@ function MenuResponsive(props) {
   const navigate = useNavigate();
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
 
-  //NAVIGATE BUTTON AVATAR
   const navigateAuthenticated = () => {
     if (isAuthenticated) {
       navigate("/profile");

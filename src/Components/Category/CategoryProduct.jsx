@@ -5,7 +5,7 @@ import { FiFilter } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import {dataBrand,dataPrice } from "../../utils/constant";
 import CardProduct from "../CardProduct/CardProduct";
-import { convertSlug } from "../Homepage";
+import { convertSlug } from "../../utils/constant";
 
 import CardProductSkl from "../CardProduct/CardProductSkl";
 import SkeletonText from "../Skeleton/SkeletonText";
@@ -30,13 +30,14 @@ function CategoryProduct(props) {
 
   const navigate = useNavigate();
   const [listFake, setListFake] = useState([...Array(16).keys()]);
-  //HANDLE PRODUCT DETAIL
+
+  //Handle redirect detail product
   const handleRedirectDetailProduct = (product) => {
     const slug = convertSlug(product.name);
     navigate(`/product/${slug}?id=${product._id}`);
   };
 
-  //HANDLE SORT PRODUCT
+  //Handle sort product by price
   const handleSortProduct = (option) => {
     setCheckSort(option);
     if (option === "") {

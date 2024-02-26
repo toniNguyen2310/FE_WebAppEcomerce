@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { convertSlug } from "../Homepage";
+import { convertSlug } from "../../utils/constant";
 import "./ProductCart.scss";
 import { useFormatNumberToMoney } from "../../utils/hooks/useFormatNumberToMoney";
 function ProductSearchBar(props) {
@@ -12,7 +12,7 @@ function ProductSearchBar(props) {
   const navigate = useNavigate();
   const [listData, setListData] = useState([]);
 
-  //handle redirect product
+  //Handle redirect detail product
   const handleRedirectDetailProductSearch = (product) => {
     const slug = convertSlug(product.name);
     navigate(`/product/${slug}?id=${product._id}`);

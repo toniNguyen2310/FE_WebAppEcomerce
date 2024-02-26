@@ -11,7 +11,7 @@ import { message } from "antd";
 import { doLogoutAction } from "../../redux/account/accountSlice";
 import { doLogoutCart } from "../../redux/cart/cartSlice";
 import { callLogout } from "../../services.js/api";
-import LoadingButton from "../Export/ExportVarible";
+import LoadingButton from "../Loading/LoadingButton";
 import SkeletonText from "../Skeleton/SkeletonText";
 
 function ProfilePage(props) {

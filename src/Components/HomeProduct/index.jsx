@@ -16,7 +16,7 @@ import {
   phuKien,
   taiNghe,
   tayCamGaming,
-} from "../Export/ExportVarible";
+} from "../../utils/constant";
 import { convertSlug } from "../Homepage";
 import SkeletonText from "../Skeleton/SkeletonText";
 import "./homeproduct.scss";

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { calcelOrder, getListOrder } from "../../services.js/api";
+import { cancelOrderApi, getListOrder } from "../../services.js/api";
 import { useSelector } from "react-redux";
-import LoadingButton from "../Export/ExportVarible";
+import LoadingButton from "../Loading/LoadingButton";
 import { SpinnerDotted } from "spinners-react";
 import { convertSlug } from "../Homepage";
 import { useNavigate } from "react-router-dom";
@@ -28,7 +28,7 @@ function Order(props) {
 
   //CANCEL ORDER
   const cancelOrder = async (id) => {
-    const res = await calcelOrder(id);
+    const res = await cancelOrderApi(id);
     if (res) {
       fetchListOrder(user._id);
     }

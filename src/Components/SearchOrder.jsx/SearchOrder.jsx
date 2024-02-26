@@ -5,7 +5,9 @@ import "./SearchOrder.scss";
 
 import { Empty, message } from "antd";
 import { getListOrderByPhone } from "../../services.js/api";
-import LoadingButton from "../Export/ExportVarible";
+import LoadingButton from "../Loading/LoadingButton";
+import { useEnterSubmit } from "../../utils/hooks/useEnterSubmit";
+import { validatePhone } from "../../utils/constant";
 
 function SearchOrder(props) {
   const navigate = useNavigate();
@@ -14,19 +16,7 @@ function SearchOrder(props) {
   const [listData, setListData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleKeyPress = (e) => {
-    let key = e.keyCode || e.which;
-    if (key === 13) {
-      searchButton(e);
-    }
-  };
 
-  //REGEX PHONE
-  const validatePhone = (value) => {
-    const regexPhone = /[0-9]{10}\b/g;
-    let isValid = regexPhone.test(value);
-    return isValid;
-  };
 
   const searchButton = async () => {
     setIsLoading(true);
@@ -74,7 +64,7 @@ function SearchOrder(props) {
               placeholder="Tìm kiếm đơn hàng theo số điện thoại của bạn!!!"
               value={number}
               onChange={(e) => setNumber(e.target.value)}
-              onKeyUp={(e) => handleKeyPress(e)}
+              onKeyUp={(e) => useEnterSubmit(e, searchButton)}
               ref={refInput}
             />
             <button
@@ -91,7 +81,6 @@ function SearchOrder(props) {
             {number ? (
               listData.length === 0 ? (
                 <div className="empty-order" style={{ marginTop: "60px" }}>
-                  {/* <p>Không tìm thấy đơn hàng</p> */}
                   <Empty description={"KHÔNG TÌM THẤY ĐƠN HÀNG"} />
                 </div>
               ) : (

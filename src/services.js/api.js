@@ -88,6 +88,6 @@ export const getListOrderByPhone = (number) => {
   return axios.get(`/v1/api/order/phone/${number}`);
 };
 
-export const calcelOrder = (idOrder) => {
+export const cancelOrderApi = (idOrder) => {
   return axios.put(`/v1/api/order/edit/${idOrder}`);
 };

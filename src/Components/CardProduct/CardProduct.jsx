@@ -7,22 +7,13 @@ import { useRef } from "react";
 import { useFormatNumberToMoney } from "../../utils/hooks/useFormatNumberToMoney";
 
 function CardProduct(props) {
-  const { handleRedirectDetailProduct, product, messageSuccess } = props;
+  const { handleRedirectDetailProduct, product } = props;
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
   const user = useSelector((state) => state.account.user);
 
   const handleAddToCart = async (product) => {
-    if (isAuthenticated) {
-      //TRƯỜNG HỢP ĐÃ ĐĂNG NHẬP
-      const data = { idUser: user._id, product: product };
-      dispatch(addToCartService(product));
-      return;
-    } else {
-      //TRƯỜNG HỢP KO ĐĂNG NHẬP
-      dispatch(addToCartService(product));
-      return;
-    }
+      dispatch(addToCartService(product));   
   };
 
   const pointer = useRef({ x: 0, y: 0 });
@@ -49,7 +40,6 @@ function CardProduct(props) {
       <div className="item">
         <div
           className="item-img"
-          // onClick={() => handleRedirectDetailProduct(product)}
         >
           <img loading="lazy" src={product.images[0]} alt="" />
         </div>
@@ -57,7 +47,6 @@ function CardProduct(props) {
           <div className="item-infor">
             <p
               className="item-infor-name"
-              // onClick={() => handleRedirectDetailProduct(product)}
             >
               {product.name}
             </p>
@@ -66,13 +55,9 @@ function CardProduct(props) {
                 <p className="main-price">
                   {useFormatNumberToMoney(product.priceAfter)}
                 </p>
-                <p className="old-price" style={{ color: "#ffffff" }}>
-                  &nbsp;
-                </p>
               </div>
               <div
                 className="item-infor-container-cart"
-                // onClick={() => handleAddToCart(product)}
               >
                 <AiOutlineShoppingCart />
               </div>
@@ -81,7 +66,6 @@ function CardProduct(props) {
         ) : (
           <div className="item-infor">
             <p
-              // onClick={() => handleRedirectDetailProduct(product)}
               className="item-infor-name"
             >
               {product.name}
@@ -98,7 +82,6 @@ function CardProduct(props) {
               </div>
               <div
                 className="item-infor-container-cart"
-                // onClick={() => handleAddToCart(product)}
               >
                 <AiOutlineShoppingCart />
               </div>

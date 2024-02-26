@@ -3,7 +3,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { doEditAccount } from "../../redux/account/accountSlice";
 import { editInforUSer } from "../../services.js/api";
-import LoadingButton from "../Export/ExportVarible";
+import LoadingButton from "../Loading/LoadingButton";
+import { regexPhoneNumber } from "../../utils/constant";
 
 function Information(props) {
   const user = useSelector((state) => state.account.user);
@@ -20,7 +21,7 @@ function Information(props) {
   const nameRef = useRef();
   const phoneRef = useRef();
 
-  //HANDLE DEFAUL INFOR
+  //HANDLE DEFAULT INFO
   const setDefaultInfo = () => {
     if (!isAuthenticated) {
       return;
@@ -32,14 +33,9 @@ function Information(props) {
     setAddress(user.address || "");
   };
 
-  //REGEX PHONE
-  const regexPhoneNumber = (phone) => {
-    const regexPhoneNumber = /(84|0[3|5|7|8|9])+([0-9]{8})\b/g;
 
-    return phone.match(regexPhoneNumber) ? true : false;
-  };
 
-  //HANDLE UPDATE INFOR
+  //HANDLE UPDATE INFORMATION
   const handleUpdateInfoUser = async () => {
     setIsLoading(true);
     if (!isAuthenticated) {

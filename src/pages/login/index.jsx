@@ -5,9 +5,10 @@ import "./login.scss";
 import { message, notification } from "antd";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import LoadingButton from "../../Components/Export/ExportVarible";
+import LoadingButton from "../../Components/Loading/LoadingButton";
 import { doLoginAction } from "../../redux/account/accountSlice";
 import { callLogin } from "../../services.js/api";
+import { useEnterSubmit } from "../../utils/hooks/useEnterSubmit";
 function LoginPage(props) {
   const navigate = useNavigate();
   const refInput = useRef(null);
@@ -18,13 +19,7 @@ function LoginPage(props) {
   const dispatch = useDispatch();
   const [api, contextHolder] = notification.useNotification();
   const topRight = "topRight";
-  //Enter để nộp
-  const handleKeyPress = (e) => {
-    let key = e.keyCode || e.which;
-    if (key === 13) {
-      handleLogin(e);
-    }
-  };
+
   //HANDLE LOGIN
   let isDuplicate = false;
   const handleLogin = async (e) => {
@@ -88,7 +83,7 @@ function LoginPage(props) {
               ref={refInput}
               placeholder="Vui lòng nhập email của bạn"
               value={email}
-              onKeyUp={(e) => handleKeyPress(e)}
+              onKeyUp={(e) => useEnterSubmit(e,handleLogin)}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
@@ -98,7 +93,7 @@ function LoginPage(props) {
               id="passwordLogin"
               type={isShowPass ? "text" : "password"}
               placeholder="Vui lòng nhập mật khẩu"
-              onKeyUp={(e) => handleKeyPress(e)}
+              onKeyUp={(e) => useEnterSubmit(e,handleLogin)}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />

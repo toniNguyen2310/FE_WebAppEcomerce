@@ -4,6 +4,7 @@ import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import MenuCategory from "../Menu";
 import "./homeBanner.scss";
+import { listProductBanner } from "../../utils/constant";
 function HomeBanner(props) {
   const navigate = useNavigate();
 
@@ -60,36 +61,21 @@ function HomeBanner(props) {
         </Carousel>
       </div>
       <div className="home-right">
-        <a
-          onClick={() => navigate("/category/mo-hinh")}
+        {listProductBanner && listProductBanner.map((e,index)=>{
+          return(
+            <a
+          key={index}
+          onClick={() => navigate(`/category/${e.slug}`)}
           className="animation-small"
         >
           <img
             loading="lazy"
-            src="https://lacdau.com/media/banner/04_Jul7f64f21fb6ba6d30b7932b6ad017b870.png"
-            alt=""
+            src={e.img}
+            alt={e.slug}
           />
         </a>
-        <a
-          onClick={() => navigate("/category/ban-phim-gaming")}
-          className="animation-small"
-        >
-          <img
-            loading="lazy"
-            src="https://lacdau.com/media/banner/04_Julbc98282e1bb9acf041f8c94b05ccdfcb.png"
-            alt=""
-          />
-        </a>
-        <a
-          onClick={() => navigate("/category/ghe-gaming")}
-          className="animation-small"
-        >
-          <img
-            loading="lazy"
-            src="https://lacdau.com/media/banner/04_Jul58a3f59ace6732aceb452a6e387c0c20.png"
-            alt=""
-          />
-        </a>
+          )
+        })}
       </div>
     </div>
   );

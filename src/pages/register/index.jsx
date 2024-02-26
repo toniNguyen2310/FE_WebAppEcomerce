@@ -2,9 +2,11 @@ import { message, notification } from "antd";
 import React, { useEffect, useRef, useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { NavLink, useNavigate } from "react-router-dom";
-import LoadingButton from "../../Components/Export/ExportVarible";
+import LoadingButton from "../../Components/Loading/LoadingButton"
 import { callRegister } from "../../services.js/api";
 import "./register.scss";
+import { useEnterSubmit } from "../../utils/hooks/useEnterSubmit";
+import { validateEmail, validatePhone } from "../../utils/constant";
 
 function RegisterPage(props) {
   const navigate = useNavigate();
@@ -18,33 +20,8 @@ function RegisterPage(props) {
   const [api, contextHolder] = notification.useNotification();
 
   const topRight = "topRight";
-  //Enter để nộp
-  const handleKeyPress = (e) => {
-    let key = e.keyCode || e.which;
-    if (key === 13) {
-      handleRegister(e);
-    }
-  };
 
-  //Validate email
-  const validateEmail = (value) => {
-    const regexEmail =
-      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    let isValid = regexEmail.test(value);
-    return isValid;
-  };
-  // //Validate Password
-  const validatePassword = (value) => {
-    const regexPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
-    let isValid = regexPassword.test(value);
-    return isValid;
-  };
-  //Validate phone
-  const validatePhone = (value) => {
-    const regexPhone = /[0-9]{10}\b/g;
-    let isValid = regexPhone.test(value);
-    return isValid;
-  };
+
 
   //HANDLE REGISTER
   let isDuplicate = false;
@@ -142,7 +119,7 @@ function RegisterPage(props) {
                 placeholder="Vui lòng nhập email của bạn"
                 ref={refInput}
                 value={email}
-                onKeyUp={(e) => handleKeyPress(e)}
+                onKeyUp={(e) => useEnterSubmit(e, handleRegister)}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
@@ -155,7 +132,7 @@ function RegisterPage(props) {
                 id="name"
                 placeholder="Họ và tên"
                 value={username}
-                onKeyUp={(e) => handleKeyPress(e)}
+                onKeyUp={(e) => useEnterSubmit(e, handleRegister)}
                 onChange={(e) => setUserName(e.target.value)}
               />
             </div>
@@ -168,7 +145,7 @@ function RegisterPage(props) {
                 type={isShowPass ? "text" : "password"}
                 placeholder="Vui lòng nhập mật khẩu"
                 value={password}
-                onKeyUp={(e) => handleKeyPress(e)}
+                onKeyUp={(e) => useEnterSubmit(e, handleRegister)}
                 onChange={(e) => setPassword(e.target.value)}
                 autoComplete="on"
               />
@@ -190,7 +167,7 @@ function RegisterPage(props) {
                 placeholder="Số điện thoại ...."
                 value={phone}
                 onWheel={(event) => event.currentTarget.blur()}
-                onKeyUp={(e) => handleKeyPress(e)}
+                onKeyUp={(e) => useEnterSubmit(e, handleRegister)}
                 onChange={(e) => setPhone(e.target.value)}
               />
             </div>

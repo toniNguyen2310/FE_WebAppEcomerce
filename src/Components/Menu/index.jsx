@@ -6,19 +6,8 @@ import { MdDesk } from "react-icons/md";
 import { PiOfficeChair } from "react-icons/pi";
 import { SlEarphones } from "react-icons/sl";
 import { useNavigate } from "react-router-dom";
-import {
-  banGaming,
-  banPhimGaming,
-  chuotGaming,
-  gheGaming,
-  loaIcon,
-  lotChuot,
-  moHinh,
-  phuKien,
-  taiNghe,
-  tayCamGaming,
-} from "../Export/ExportVarible";
 import "./menu.scss";
+import { banGaming, banPhimGaming, chuotGaming, dataProductSearchMore, gheGaming, loaIcon, lotChuot, moHinh, phuKien, taiNghe, tayCamGaming } from "../../utils/constant";
 
 function MenuCategory(props) {
   const { position, background, display, zindex } = props;

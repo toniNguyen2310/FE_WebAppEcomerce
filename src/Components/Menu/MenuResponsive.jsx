@@ -15,7 +15,7 @@ function MenuResponsive(props) {
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
 
   //NAVIGATE BUTTON AVATAR
-  const navigateAuthentica = () => {
+  const navigateAuthenticated = () => {
     if (isAuthenticated) {
       navigate("/profile");
     } else {
@@ -56,7 +56,7 @@ function MenuResponsive(props) {
         </div>
       )}
 
-      <div className="menu-responsive-box" onClick={navigateAuthentica}>
+      <div className="menu-responsive-box" onClick={navigateAuthenticated}>
         <RxAvatar />
         Tài khoản
       </div>

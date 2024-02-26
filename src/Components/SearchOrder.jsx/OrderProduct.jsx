@@ -6,10 +6,12 @@ import { useFormatNumberToMoney } from "../../utils/hooks/useFormatNumberToMoney
 function OrderProduct(props) {
   const { item } = props;
   const navigate = useNavigate();
+
   const handleRedirectDetailProductSearch = (product) => {
     const slug = convertSlug(product.name);
     navigate(`/product/${slug}?id=${product._id}`);
   };
+  
   return (
     <div className="user-order-container mt-3">
       <div className="user-order-header">

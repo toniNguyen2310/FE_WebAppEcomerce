@@ -1,5 +1,4 @@
-import React from 'react';
-import { banGaming, banPhimGaming, chuotGaming, gheGaming, loaIcon, lotChuot, moHinh, phuKien, taiNghe, tayCamGaming } from '../../Components/Export/ExportVarible';
+import { banGaming, banPhimGaming, chuotGaming, gheGaming, loaIcon, lotChuot, moHinh, phuKien, taiNghe, tayCamGaming } from '../constant';
 
 const useRenderListBrand = (category, setListBrand , setCategoryLabel) => {
         switch (category) {

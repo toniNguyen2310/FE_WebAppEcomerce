@@ -11,7 +11,7 @@ import {
   increaseQuantity,
 } from "../../redux/cart/cartSlice";
 import { createOrder } from "../../services.js/api";
-import LoadingButton from "../Export/ExportVarible";
+import LoadingButton from "../Loading/LoadingButton";
 import { convertSlug } from "../Homepage";
 import SkeletonText from "../Skeleton/SkeletonText";
 import InforCheckout from "./InforCheckout";

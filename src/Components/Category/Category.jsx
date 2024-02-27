@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { getListBrandByCategory, getProducts } from "../../services.js/api";
 import SkeletonText from "../Skeleton/SkeletonText";
 import CategoryFilterResponsive from "./CategoryFilterResponsive";
-import CategoryFilter from "./CategoryFilterResponsive";
+import CategoryFilter from "./CategoryFilter";
 import CategoryProduct from "./CategoryProduct";
 import "./category.scss";
 import { useDebounce } from "../../utils/hooks/useDebounce";
